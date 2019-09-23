@@ -1,10 +1,8 @@
 package org.yasn.domain.entities;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 
@@ -62,7 +60,7 @@ public class User extends BaseEntity implements UserDetails {
       )
   )
   @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
+  public Set<Role> getAuthorities() {
     return this.authorities;
   }
 
