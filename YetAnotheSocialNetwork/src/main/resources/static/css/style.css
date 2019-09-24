@@ -1,3 +1,13 @@
+.yasn-header {
+    background-color: #3b5998;
+}
+
+footer .yasn-footer-menu a {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #1b1e21;
+}
 
 .logout-button {
     background: transparent;
@@ -23,7 +33,7 @@ img.img-thumbnail {
 }
 
 .btn-width {
-    width: 120px;
+    width: 200px;
     margin: 5px;
 }
 
