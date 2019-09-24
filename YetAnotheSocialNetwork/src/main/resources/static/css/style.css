@@ -6,8 +6,8 @@
     position: relative;
 }
 
-.yasn-header {
-    background-color: #3b5998;
+#navbar-img-logo {
+    height: 6rem;
 }
 
 #navbar-login-btn {

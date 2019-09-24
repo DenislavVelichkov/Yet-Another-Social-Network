@@ -3,10 +3,10 @@
     <th:block sec:authorize="isAnonymous()">
         <div id="header-container" class="container-fluid">
             <div class="row">
-                <div class="col-sm-5">
-                    <img src="" class="img-fluid" alt="top-bar-image">
+                <div class="col">
+                    <img id="navbar-img-logo" src="https://cdn.pixabay.com/photo/2016/01/19/07/35/social-1148031_960_720.png" class="float-left" alt="top-bar-image">
                 </div>
-                <div class="col-sm-7">
+                <div class="col">
                     <form class="d-inline-flex" method="post" th:action="@{/login}"><input name="_csrf" type="hidden" value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
                         <div class="form-group p-1">
                             <label for="username"></label>
