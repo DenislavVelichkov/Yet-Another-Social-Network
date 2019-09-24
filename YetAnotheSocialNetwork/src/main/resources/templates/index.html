@@ -10,24 +10,25 @@
 <div class="yet-another-social-network">
     <div class="yasn-page-container">
         <header>
-                <th:block th:include="~{fragments/navbar}"/>
+            <th:block th:include="~{fragments/navbar}"/>
         </header>
-        <main class="mt-2">
+        <main class="mt-0">
             <div class="yasn-inner-page">
                 <div class="yasn-layout">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div id="main-left-content" class="col-sm-7">
+                        <div class="row jumbotron">
+                            <div id="main-left-content" class="col-sm-7 text-center">
                                 <div>
-                                    <p class="h2">
+                                    <p class="h2 text-left">
                                         Welcome to Yet Another Social Network!
                                     </p>
-                                    <p>
+                                    <p class="text-left">
                                         Log In or Sign Up if you don't have an account.
                                     </p>
                                 </div>
                                 <div>
-                                    <img src="https://www.supinfo.com/articles/resources/228470/5249/0.png" class="img-fluid" alt="yasn-logo"/>
+                                    <img src="https://www.supinfo.com/articles/resources/228470/5249/0.png"
+                                         class="img-fluid" alt="yasn-logo"/>
                                 </div>
                             </div>
                             <div id="main-right-content" class="col-sm-5 shadow p-3 mb-5 bg-white rounded">
@@ -39,13 +40,7 @@
             </div>
         </main>
         <footer class="mt-3">
-            <div class="col-md-12">
-                <div class="footer-content">
-                    <div class="yasn-footer-menu">
-                        <th:block th:include="~{fragments/footer}"/>
-                    </div>
-                </div>
-            </div>
+            <th:block th:include="~{fragments/footer}"/>
         </footer>
     </div>
 </div>
