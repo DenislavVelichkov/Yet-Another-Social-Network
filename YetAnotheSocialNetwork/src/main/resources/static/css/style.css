@@ -1,3 +1,36 @@
+#header-container {
+    background-color: #3b5998;
+    text-align: right;
+    color: #fff;
+    z-index: 1;
+    position: relative;
+}
+
+.btn-primary {
+    width: 110px;
+    font-size: 21px;
+    font-weight: bolder;
+}
+
+.btn-success {
+    font-size: 19px;
+    font-weight: bolder;
+}
+
+#navbar-login-btn {
+    margin: auto;
+    position: relative;
+    bottom: -4px;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+.yasn-page-container {
+    overflow: hidden;
+}
+
 .yasn-header {
     background-color: #3b5998;
 }
