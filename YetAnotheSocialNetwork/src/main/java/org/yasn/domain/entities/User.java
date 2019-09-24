@@ -64,6 +64,10 @@ public class User extends BaseEntity implements UserDetails {
     return this.authorities;
   }
 
+  public void setAuthorities(Set<Role> authorities) {
+    this.authorities = authorities;
+  }
+
   @Override
   @Transient
   public boolean isAccountNonExpired() {

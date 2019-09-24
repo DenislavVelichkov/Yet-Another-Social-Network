@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <meta charset="UTF-8">
-    <title>YASN</title>
+    <th:block th:include="~{fragments/head}"/>
 </head>
 <body>
+<div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+    <header>
+        <div></div>
+        <div class="container-fluid">
+            <th:block th:include="~{fragments/navbar}"/>
+        </div>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="jumbotron jumbotron-fluid">
+                <div>
+                    <p class="h2">Create a New Account</p>
+                </div>
+                <form th:action="@{/users/register}" th:method="post" th:object="${model}">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="username">Username</label>
+                        <input class="form-control" id="username" name="username" placeholder="Username..."
+                               th:value="*{username}"
+                               type="text">
+                        <th:block th:if="${#fields.hasErrors('username')}">
+                            <small class="error" th:errors="*{username}"></small>
+                        </th:block>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="password">Password</label>
+                        <input class="form-control" id="password" name="password" placeholder="Password..."
+                               th:value="*{password}"
+                               type="password" aria-describedby="passwordHelpInline">
+                        <small id="passwordHelpInline" class="text-muted">
+                            Must be 8-20 characters long.
+                        </small>
+                        <th:block th:if="${#fields.hasErrors('password')}">
+                            <small class="error" th:errors="*{password}"></small>
+                        </th:block>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="confirmPassword">Confirm Password</label>
+                        <input class="form-control" id="confirmPassword" name="confirmPassword"
+                               placeholder="Confirm Password..."
+                               th:value="*{confirmPassword}" type="password">
+                        <th:block th:if="${#fields.hasErrors('password')}">
+                            <small class="error" th:errors="*{password}"></small>
+                        </th:block>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="email">Email</label>
+                        <input class="form-control" id="email" name="email" placeholder="Email..." th:value="*{email}"
+                               type="email">
+                        <th:block th:if="${#fields.hasErrors('email')}">
+                            <small class="error" th:errors="*{email}"></small>
+                        </th:block>
+                    </div>
 
+                    <div class="button-holder rounded-lg">
+                        <button class="btn btn-success" type="submit" aria-label="bold">Sign Up!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <th:block th:include="~{fragments/footer}"/>
+        </div>
+    </footer>
+</div>
 </body>
 </html>

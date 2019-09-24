@@ -1,6 +1,6 @@
 package org.yasn.domain.models.service;
 
-public class RoleServiceModel extends BaseServiceModel{
+public class RoleServiceModel extends BaseServiceModel {
   private String authority;
 
   public RoleServiceModel() {

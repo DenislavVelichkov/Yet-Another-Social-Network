@@ -2,7 +2,7 @@ package org.yasn.domain.models.service;
 
 import java.util.Set;
 
-public class UserServiceModel extends BaseServiceModel{
+public class UserServiceModel extends BaseServiceModel {
   private String username;
   private String password;
   private String email;

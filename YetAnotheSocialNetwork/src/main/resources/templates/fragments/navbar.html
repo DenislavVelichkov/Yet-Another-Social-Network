@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <th:block sec:authorize="isAnonymous()">
+        <div></div>
+        <div class="float-right">
+            <form class="form-inline" method="post" th:action="@{/users/login}"><input name="_csrf"
+                                                                                       type="hidden" value="c95ccf2f-1bdf-32as-bf7b-c7c34527650b">
+                <div class="form-group p-2">
+                    <label for="username"></label>
+                    <input class="form-control" id="username" name="username" placeholder="Username..." type="text">
+                </div>
 
-</body>
-</html>
+                <div class="form-group p-2">
+                    <label for="password"></label>
+                    <input class="form-control" id="password" name="password" placeholder="Password..." type="password">
+                </div>
+
+                <div class="button-holder">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+            </form>
+            <th:block th:if="${param.error}">
+                <div class="text-center" style="color: red" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                    <!--Bad Credentials-->
+                </div>
+            </th:block>
+            <th:block th:if="${param.logout}">
+                <div class="text-center" style="color: greenyellow">
+                    Successful logout
+                </div>
+            </th:block>
+        </div>
+
+    </th:block>
+
+    <th:block sec:authorize="isAuthenticated()">
+<!--        TO DO -->
+    </th:block>
+
+</th:block>

@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<th:block xmlns:th="http://www.thymeleaf.org">
+        <meta charset="UTF-8">
+        <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+              name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <title th:text="${title}"></title>
+        <!--        <link rel="icon" th:href="${favicon}">-->
+        <link rel="stylesheet" th:href="@{/css/reset-css.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+        <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+</th:block>
