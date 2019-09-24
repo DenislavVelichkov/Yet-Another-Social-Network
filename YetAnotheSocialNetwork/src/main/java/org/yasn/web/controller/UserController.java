@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.yasn.common.annotations.PageTitle;
 import org.yasn.domain.models.binding.UserRegisterBindingModel;
 import org.yasn.domain.models.service.UserServiceModel;
 import org.yasn.service.interfaces.UserService;
@@ -16,7 +18,7 @@ import org.yasn.validation.user.UserEditValidator;
 import org.yasn.validation.user.UserRegisterValidator;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/")
 public class UserController extends BaseController {
 
   private final UserService userService;
@@ -35,7 +37,15 @@ public class UserController extends BaseController {
     this.userEditValidator = userEditValidator;
   }
 
-  @PostMapping("/register")
+  @GetMapping("/")
+  @PreAuthorize("isAnonymous()")
+  @PageTitle("Log In or Sign Up")
+  public ModelAndView index(ModelAndView modelAndView, @ModelAttribute(name = "model") UserRegisterBindingModel model) {
+    modelAndView.addObject("model", model);
+    return super.view("index");
+  }
+
+  @PostMapping("/")
   @PreAuthorize("isAnonymous()")
   public ModelAndView registerConfirm(ModelAndView modelAndView,
                                       @ModelAttribute(name = "model") UserRegisterBindingModel model,
@@ -47,12 +57,20 @@ public class UserController extends BaseController {
       model.setConfirmPassword(null);
       modelAndView.addObject("model", model);
 
-      return super.view("user/register", modelAndView);
+      return super.view("/", modelAndView);
     }
 
     UserServiceModel userServiceModel = this.modelMapper.map(model, UserServiceModel.class);
     this.userService.registerUser(userServiceModel);
 
-    return super.redirect("/home");
+    return super.redirect("/login");
   }
+
+  @GetMapping("/login")
+  @PreAuthorize("isAnonymous()")
+  @PageTitle("Login")
+  public ModelAndView login() {
+    return super.view("/user/login");
+  }
+
 }

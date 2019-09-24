@@ -4,17 +4,18 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.yasn.mappings.MappingsInitializer;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 
 @Configuration
 public class ApplicatonBeanConfiguration {
-
   static ModelMapper modelMapper;
 
   static {
     modelMapper = new ModelMapper();
+    MappingsInitializer.initMappings(modelMapper);
   }
 
   @Bean

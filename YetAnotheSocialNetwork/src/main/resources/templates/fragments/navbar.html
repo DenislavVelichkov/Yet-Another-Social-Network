@@ -1,13 +1,13 @@
 <th:block xmlns:th="http://www.thymeleaf.org"
           xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <th:block sec:authorize="isAnonymous()">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-5 float-left text-left">
-                    <p>LOGO</p>
+                <div class="col-md-5">
+
                 </div>
                 <div class="col-md-7 float-right">
-                    <form class="form-inline" method="post" th:action="@{/users/login}"><input name="_csrf" type="hidden" value="c95ccf2f-1bdf-32as-bf7b-c7c34527650b">
+                    <form class="form-inline d-inline-flex justify-content-center" method="post" th:action="@{/login}"><input name="_csrf" type="hidden" value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
                         <div class="form-group p-2">
                             <label for="username"></label>
                             <input class="form-control" id="username" name="username" placeholder="Username..."
@@ -24,25 +24,24 @@
                             <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </form>
+                    <th:block th:if="${param.error}">
+                        <div class="ml-2 align-text-bottom" style="color: red"
+                             th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                            <!--Bad Credentials-->
+
+                        </div>
+                        <div class="d-inline-block ml-1">
+                            <p>Go to Register Page and Create an Account.<a href="/">Here</a></p>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${param.logout}">
+                        <div class="align-text-bottom" style="color: greenyellow">
+                            Successful logout
+                        </div>
+                    </th:block>
                 </div>
-                <th:block th:if="${param.error}">
-                    <div class="text-center" style="color: red"
-                         th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
-                        <!--Bad Credentials-->
-                    </div>
-                </th:block>
-                <th:block th:if="${param.logout}">
-                    <div class="text-center" style="color: greenyellow">
-                        Successful logout
-                    </div>
-                </th:block>
         </div>
         </div>
 
     </th:block>
-
-    <th:block sec:authorize="isAuthenticated()">
-<!--        TO DO -->
-    </th:block>
-
 </th:block>
