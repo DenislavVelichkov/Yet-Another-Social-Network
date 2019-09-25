@@ -1,0 +1,31 @@
+#header-container {
+    background-color: #0b769c;
+    text-align: right;
+    color: #fff;
+    z-index: 1;
+    position: relative;
+}
+
+#navbar-img-logo {
+    height: 6rem;
+}
+
+#navbar-login-btn {
+    position: relative;
+    top: 17px;
+    background-color: #17a2b8!important;
+    border-color: #175167 !important;
+}
+
+#navbar-login-btn:hover {
+    position: relative;
+    top: 17px;
+    background-color: #18738a !important;
+    border-color: #175167 !important;
+}
+
+.navbar-login-form {
+    height: 49px;
+    position: relative;
+    bottom: 6px;
+}

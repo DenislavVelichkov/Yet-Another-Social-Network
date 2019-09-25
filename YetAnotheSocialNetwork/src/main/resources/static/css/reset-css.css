@@ -3,15 +3,6 @@
    License: none (public domain)
 */
 
-*{
-    padding: 0;
-    margin: 0;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -29,7 +20,6 @@ time, mark, audio, video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    box-sizing: border-box;
 }
 
 /* HTML5 display-role reset for older browsers */
