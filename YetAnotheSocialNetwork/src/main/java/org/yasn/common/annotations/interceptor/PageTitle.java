@@ -1,4 +1,4 @@
-package org.yasn.common.annotations;
+package org.yasn.common.annotations.interceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

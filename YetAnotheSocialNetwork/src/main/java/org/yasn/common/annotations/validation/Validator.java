@@ -1,4 +1,4 @@
-package org.yasn.common.annotations;
+package org.yasn.common.annotations.validation;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.yasn.common.annotations.PageTitle;
+import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.domain.models.binding.UserRegisterBindingModel;
 import org.yasn.domain.models.service.UserServiceModel;
 import org.yasn.service.interfaces.UserService;
