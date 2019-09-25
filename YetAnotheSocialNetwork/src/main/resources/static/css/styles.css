@@ -1,5 +1,5 @@
-@import "header.css";
-@import "footer.css";
+@import url("header.css");
+@import url("footer.css");
 
 * {
     padding: 0;
@@ -36,6 +36,6 @@ html {
 
 .error {
     color: red;
-    font-family: "Harlow Solid Italic";
+    font-family: "Monospaced";
 }
 

@@ -2,15 +2,15 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <th:block th:include="~{fragments/head}"/>
+    <th:block th:include="~{fragments/head.html}"/>
 </head>
 <body>
 <div class="yet-another-social-network">
     <div class="yasn-page-container">
         <header>
-            <th:block th:include="~{fragments/navbar}"/>
+            <th:block th:include="~{fragments/navbar.html}"/>
         </header>
         <main>
             <div class="yasn-inner-page">
@@ -32,7 +32,8 @@
                                 </div>
                             </div>
                             <div id="main-right-content" class="col-sm-5 shadow p-3 mb-5 bg-white rounded">
-                                <th:block th:include="~{user/register}"/>
+                                <th:block sec:authorize="isAnonymous()" th:include="~{user/register.html}"/>
+                                <th:block sec:authorize="isFullyAuthenticated()" th:include="~{user/login.html}"/>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ import org.yasn.validation.user.UserEditValidator;
 import org.yasn.validation.user.UserRegisterValidator;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
   private final UserService userService;
@@ -37,15 +37,16 @@ public class UserController extends BaseController {
     this.userEditValidator = userEditValidator;
   }
 
-  @GetMapping("/")
+  @GetMapping("/register")
   @PreAuthorize("isAnonymous()")
   @PageTitle("Log In or Sign Up")
-  public ModelAndView index(ModelAndView modelAndView, @ModelAttribute(name = "model") UserRegisterBindingModel model) {
+  public ModelAndView index(ModelAndView modelAndView,
+                            @ModelAttribute(name = "model") UserRegisterBindingModel model) {
     modelAndView.addObject("model", model);
     return super.view("index");
   }
 
-  @PostMapping("/")
+  @PostMapping("/register")
   @PreAuthorize("isAnonymous()")
   public ModelAndView registerConfirm(ModelAndView modelAndView,
                                       @ModelAttribute(name = "model") UserRegisterBindingModel model,
@@ -57,13 +58,13 @@ public class UserController extends BaseController {
       model.setConfirmPassword(null);
       modelAndView.addObject("model", model);
 
-      return super.view("/", modelAndView);
+      return super.view("index", modelAndView);
     }
 
     UserServiceModel userServiceModel = this.modelMapper.map(model, UserServiceModel.class);
     this.userService.registerUser(userServiceModel);
 
-    return super.redirect("/login");
+    return super.redirect("/user/login");
   }
 
   @GetMapping("/login")
@@ -72,5 +73,4 @@ public class UserController extends BaseController {
   public ModelAndView login() {
     return super.view("/user/login");
   }
-
 }

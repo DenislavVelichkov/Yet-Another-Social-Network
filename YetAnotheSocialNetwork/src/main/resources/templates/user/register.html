@@ -3,7 +3,7 @@
         <p class="h2">Create a New Account</p>
     </div>
     <div id="index-register-form-container">
-        <form th:action="@{/}" th:method="post" th:object="${model}">
+        <form th:action="@{/user/register}" th:method="post" th:object="${model}">
             <div class="form-group">
                 <label class="font-weight-bold" for="username">Username</label>
                 <input class="form-control" id="username" name="username"
@@ -47,8 +47,8 @@
             </div>
 
             <div class="button-holder d-flex justify-content-center rounded-lg">
-                <button id="index-register-form-btn" class="btn btn-success btn-lg" type="submit" aria-label="bold">Sign
-                    Up
+                <button id="index-register-form-btn" class="btn btn-success btn-lg" type="submit" aria-label="bold">
+                    Sign Up
                 </button>
             </div>
         </form>

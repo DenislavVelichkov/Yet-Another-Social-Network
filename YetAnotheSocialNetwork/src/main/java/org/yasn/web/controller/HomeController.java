@@ -9,11 +9,16 @@ import org.yasn.common.annotations.PageTitle;
 @Controller
 public class HomeController extends BaseController {
 
+  @GetMapping("/")
+  @PreAuthorize("isAnonymous()")
+  public ModelAndView index() {
+    return super.redirect("/user/register");
+  }
 
   @GetMapping("/home")
   @PreAuthorize("isAuthenticated()")
   @PageTitle("Home")
-  public ModelAndView home(ModelAndView modelAndView) {
-    return super.view("home", modelAndView);
+  public ModelAndView home() {
+    return super.view("home", new ModelAndView());
   }
 }
