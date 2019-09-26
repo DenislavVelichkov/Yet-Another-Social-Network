@@ -8,9 +8,8 @@
                 </div>
                 <div class="col">
                     <div class="navbar-login-form-container">
-                        <form class="d-inline-flex" method="post" th:action="@{/user/login}"><input name="_csrf"
-                                                                                                    type="hidden"
-                                                                                                    value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
+                        <form class="d-inline-flex" method="post" th:action="@{/user/login}">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                             <div class="form-group p-1">
                                 <label for="email"></label>
                                 <input class="form-control navbar-login-form" id="email" name="email"

@@ -53,7 +53,10 @@ public class MappingsInitializer {
       Method method = klass.getDeclaredMethod(methodName, ModelMapper.class);
       var obj = klass.getDeclaredConstructor().newInstance();
       method.invoke(obj, params);
-    } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
+    } catch (IllegalAccessException
+        | InvocationTargetException
+        | InstantiationException
+        | NoSuchMethodException e) {
       e.printStackTrace();
     }
   }

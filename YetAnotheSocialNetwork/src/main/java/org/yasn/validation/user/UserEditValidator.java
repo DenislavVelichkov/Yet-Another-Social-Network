@@ -16,7 +16,8 @@ public class UserEditValidator implements org.springframework.validation.Validat
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Autowired
-  public UserEditValidator(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+  public UserEditValidator(UserRepository userRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
     this.userRepository = userRepository;
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
