@@ -45,14 +45,17 @@ html {
     font-family: "Monospaced";
 }
 
-.radio-block-container .d-inline{
+.radio-block-container {
     padding-left: 21px;
-    margin-top: 15px;
+}
+
+.radio-block {
+    margin-left: 4px;
 }
 
 #radio-gender {
-    margin-left: 20px;
     margin-top: 15px;
+    margin-left: 4px;
 }
 
 #birthday-register-container {

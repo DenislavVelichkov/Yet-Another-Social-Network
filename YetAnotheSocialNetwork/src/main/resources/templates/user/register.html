@@ -1,8 +1,8 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div>
-            <div class="h1 d-block">Create a New Account
-            <small class="h5 text-muted d-flex">Dive in social networking!</small>
+            <div class="h1">Create a New Account
+            <small class="h5 text-muted d-block">Dive in social networking!</small>
             </div>
         </div>
         <div id="index-register-form-container">
@@ -84,34 +84,29 @@
                 </div>
 
                 <div class="row">
-                    <div class="radio-block-container text-muted col-6">
-                        <p id="radio-gender" class="text-muted d-block">Gender</p>
-                        <div class="radio-block d-inline">
-                            <label class="font-weight-bold" for="male">Male</label>
-                            <input class="custom-radio" id="male" name="gender"
-                                   type="radio"
-                                   value="male">
+                    <div class="radio-block-container text-muted col-6 d-block">
+                        <div class="d-block" style="">
+                            <p id="radio-gender" class="text-muted d-block">Gender</p>
                         </div>
-                        <div class="radio-block d-inline">
-                            <label class="font-weight-bold" for="female">Female</label>
-                            <input class="custom-radio" id="female" name="gender"
-                                   type="radio"
-                                   value="female">
+                        <div class="d-block">
+                            <div class="radio-block d-inline-block">
+                                <label class="font-weight-bold" for="male">Male</label>
+                                <input class="custom-radio" id="male" name="gender" type="radio" value="male">
+                            </div>
+                            <div class="radio-block d-inline-block">
+                                <label class="font-weight-bold" for="female">Female</label>
+                                <input class="custom-radio" id="female" name="gender" type="radio" value="female">
+                            </div>
+                            <div class="radio-block d-inline-block">
+                                <label class="font-weight-bold" for="custom">Custom</label>
+                                <input class="custom-radio" id="custom" name="gender" type="radio" value="custom">
+                            </div>
                         </div>
-                        <div class="radio-block d-inline">
-                            <label class="font-weight-bold" for="custom">Custom</label>
-                            <input class="custom-radio" id="custom" name="gender"
-                                   type="radio"
-                                   value="custom">
-                        </div>
-
                     </div>
 
                     <div id="birthday-register-container" class="col-6 d-inline-block">
                         <label class="text-muted" for="birthday">Birthday</label>
-                        <input class="form-control" id="birthday" name="birthday"
-                               th:value="*{birthday}"
-                               type="date">
+                        <input class="form-control" id="birthday" name="birthday" value="" type="date">
                     </div>
 
                 </div>
