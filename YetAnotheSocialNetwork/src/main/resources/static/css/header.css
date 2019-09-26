@@ -40,4 +40,6 @@
 .nav-login-box {
     width: 275px;
     overflow: hidden;
+    margin: auto;
+    padding: auto;
 }
