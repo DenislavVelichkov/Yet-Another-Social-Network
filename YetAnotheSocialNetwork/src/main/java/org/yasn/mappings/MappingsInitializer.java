@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MappingsInitializer {
-  private static final String ROOT_PACKAGE_NAME = "org.softuni.productshop";
+  private static final String ROOT_PACKAGE_NAME = "org.softuni.yasn";
 
   public static void initMappings(ModelMapper mapper) {
     String configureMappingsMethodName = IHaveCustomMappings.class.getDeclaredMethods()[0]
@@ -51,7 +51,7 @@ public class MappingsInitializer {
   private static void invokeMethodFromClass(Class<?> klass, String methodName, Object... params) {
     try {
       Method method = klass.getDeclaredMethod(methodName, ModelMapper.class);
-      var obj = klass.newInstance();
+      var obj = klass.getDeclaredConstructor().newInstance();
       method.invoke(obj, params);
     } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
       e.printStackTrace();
