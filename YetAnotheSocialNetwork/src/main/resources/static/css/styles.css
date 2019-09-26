@@ -15,7 +15,7 @@ html {
 }
 
 #main-right-content {
-    max-width: 40rem;
+    max-width: 43rem;
 }
 
 .btn-primary {
@@ -29,6 +29,12 @@ html {
     font-weight: bolder;
 }
 
+#royal-sign-up-button {
+    margin-top: 20px;
+    width: 165px;
+    font-size: 25px;
+}
+
 .yasn-page-container {
     overflow: hidden;
 }
@@ -39,3 +45,20 @@ html {
     font-family: "Monospaced";
 }
 
+.radio-block-container .d-inline{
+    padding-left: 21px;
+    margin-top: 15px;
+}
+
+#index-register-form-container {
+
+}
+
+#radio-gender {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+#birthday-register-container {
+    margin-top: 15px;
+}

@@ -1,106 +1,124 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div>
-        <p class="h2">Create a New Account</p>
-    </div>
-    <div id="index-register-form-container">
-        <form th:action="@{/user/register}" th:method="post" th:object="${model}">
-            <div class="">
-                <label class="font-weight-bold" for="firstName"></label>
-                <input class="form-control" id="firstName" name="firstName"
-                       placeholder="First name"
-                       th:value="*{firstName}"
-                       type="text">
-                <th:block th:if="${#fields.hasErrors('firstName')}">
-                    <small class="error" th:errors="*{firstName}"></small>
-                </th:block>
-            </div>
-            <div class="">
-                <label class="font-weight-bold" for="lastName"></label>
-                <input class="form-control" id="lastName" name="lastName"
-                       placeholder="Last name"
-                       th:value="*{lastName}"
-                       type="text">
-                <th:block th:if="${#fields.hasErrors('lastName')}">
-                    <small class="error" th:errors="*{lastName}"></small>
-                </th:block>
-            </div>
-            <div class="">
-                <label class="font-weight-bold" for="email"></label>
-                <input class="form-control" id="email" name="email"
-                       placeholder="Email..."
-                       th:value="*{email}"
-                       type="email">
-                <th:block th:if="${#fields.hasErrors('email')}">
-                    <small class="error" th:errors="*{email}"></small>
-                </th:block>
-            </div>
-            <div class="">
-                <label class="font-weight-bold" for="confirmEmail"></label>
-                <input class="form-control" id="confirmEmail" name="confirmEmail"
-                       placeholder="Confirm Email..."
-                       th:value="*{confirmEmail}" type="email">
-                <th:block th:if="${#fields.hasErrors('email')}">
-                    <small class="error" th:errors="*{email}"></small>
-                </th:block>
-            </div>
-            <div class="">
-                <label class="font-weight-bold" for="password"></label>
-                <input aria-describedby="passwordHelpInline" class="form-control" id="password"
-                       name="password"
-                       placeholder="Password..."
-                       th:value="*{password}" type="password">
-                <small class="text-muted" id="passwordHelpInline">
-                    Must be 8-20 characters long.
-                </small>
-                <th:block th:if="${#fields.hasErrors('password')}">
-                    <small class="error" th:errors="*{password}"></small>
-                </th:block>
-            </div>
-            <div class="">
-                <label class="font-weight-bold" for="confirmPassword"></label>
-                <input class="form-control" id="confirmPassword"
-                       name="confirmPassword"
-                       placeholder="Confirm Password..."
-                       th:value="*{confirmPassword}" type="password">
-                <th:block th:if="${#fields.hasErrors('password')}">
-                    <small class="error" th:errors="*{password}"></small>
-                </th:block>
-            </div>
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <div>
+            <p class="h2">Create a New Account</p>
+        </div>
+        <div id="index-register-form-container">
+            <form th:action="@{/user/register}" th:method="post" th:object="${model}">
 
-            <div class="form-group">
-                <div class="radio-block-container d-inline-flex text-muted">
-                    <div class="radio-block">
-                        <label class="font-weight-bold" for="male">Male</label>
-                        <input class="custom-radio" id="male" name="gender"
-                               type="radio"
-                               value="male">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="font-weight-bold" for="firstName"></label>
+                        <input class="form-control" id="firstName" name="firstName"
+                               placeholder="First name"
+                               th:value="*{firstName}"
+                               type="text">
+                        <th:block th:if="${#fields.hasErrors('firstName')}">
+                            <small class="error" th:errors="*{firstName}"></small>
+                        </th:block>
                     </div>
-                    <div class="radio-block">
-                        <label class="font-weight-bold" for="female">Female</label>
-                        <input class="custom-radio" id="female" name="gender"
-                               type="radio"
-                               value="female">
-                    </div>
-                    <div class="radio-block">
-                        <label class="font-weight-bold" for="custom">Custom</label>
-                        <input class="custom-radio" id="custom" name="gender"
-                               type="radio"
-                               value="custom">
+                    <div class="col-6">
+                        <label class="font-weight-bold" for="lastName"></label>
+                        <input class="form-control" id="lastName" name="lastName"
+                               placeholder="Last name"
+                               th:value="*{lastName}"
+                               type="text">
+                        <th:block th:if="${#fields.hasErrors('lastName')}">
+                            <small class="error" th:errors="*{lastName}"></small>
+                        </th:block>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="text-muted" for="birthday">Birthday</label>
-                <input class="form-control" id="birthday" name="birthday"
-                       th:value="*{birthday}"
-                       type="date">
-            </div>
-            <div class="button-holder d-flex justify-content-center rounded-lg">
-                <button aria-label="bold" class="btn btn-success btn-lg" id="index-register-form-btn" type="submit">
-                    Sign Up
-                </button>
-            </div>
-        </form>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="font-weight-bold" for="email"></label>
+                        <input class="form-control" id="email" name="email"
+                               placeholder="Email..."
+                               th:value="*{email}"
+                               type="email">
+                        <th:block th:if="${#fields.hasErrors('email')}">
+                            <small class="error" th:errors="*{email}"></small>
+                        </th:block>
+                    </div>
+                    <div class="col-6">
+                        <label class="font-weight-bold" for="confirmEmail"></label>
+                        <input class="form-control" id="confirmEmail" name="confirmEmail"
+                               placeholder="Confirm Email..."
+                               th:value="*{confirmEmail}" type="email">
+                        <th:block th:if="${#fields.hasErrors('email')}">
+                            <small class="error" th:errors="*{email}"></small>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <label class="font-weight-bold" for="password"></label>
+                        <input aria-describedby="passwordHelpInline" class="form-control" id="password"
+                               name="password"
+                               placeholder="Password..."
+                               th:value="*{password}" type="password">
+                        <small class="text-muted" id="passwordHelpInline">
+                            Must be 8-20 characters long.
+                        </small>
+                        <th:block th:if="${#fields.hasErrors('password')}">
+                            <small class="error" th:errors="*{password}"></small>
+                        </th:block>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <label class="font-weight-bold" for="confirmPassword"></label>
+                        <input class="form-control" id="confirmPassword"
+                               name="confirmPassword"
+                               placeholder="Confirm Password..."
+                               th:value="*{confirmPassword}" type="password">
+                        <th:block th:if="${#fields.hasErrors('password')}">
+                            <small class="error" th:errors="*{password}"></small>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="radio-block-container text-muted col-6">
+                        <p id="radio-gender" class="text-muted d-block">Gender</p>
+                        <div class="radio-block d-inline">
+                            <label class="font-weight-bold" for="male">Male</label>
+                            <input class="custom-radio" id="male" name="gender"
+                                   type="radio"
+                                   value="male">
+                        </div>
+                        <div class="radio-block d-inline">
+                            <label class="font-weight-bold" for="female">Female</label>
+                            <input class="custom-radio" id="female" name="gender"
+                                   type="radio"
+                                   value="female">
+                        </div>
+                        <div class="radio-block d-inline">
+                            <label class="font-weight-bold" for="custom">Custom</label>
+                            <input class="custom-radio" id="custom" name="gender"
+                                   type="radio"
+                                   value="custom">
+                        </div>
+
+                    </div>
+
+                    <div id="birthday-register-container" class="col-6 d-inline-block">
+                        <label class="text-muted" for="birthday">Birthday</label>
+                        <input class="form-control" id="birthday" name="birthday"
+                               th:value="*{birthday}"
+                               type="date">
+                    </div>
+
+                </div>
+
+                <div class="button-holder mt-2 d-flex justify-content-center rounded-lg">
+                    <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit"
+                           value="Sign Up"/>
+                </div>
+            </form>
+        </div>
     </div>
 </th:block>

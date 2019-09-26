@@ -22,10 +22,22 @@
     top: 17px;
     background-color: #18738a !important;
     border-color: #175167 !important;
+    width: 110px;
+    font-size: 21px;
+    font-weight: bolder;
 }
 
 .navbar-login-form {
     height: 49px;
     position: relative;
     bottom: 6px;
+}
+
+.navbar-login-form-container form {
+    margin-right: 7rem;
+}
+
+.nav-login-box {
+    width: 275px;
+    overflow: hidden;
 }
