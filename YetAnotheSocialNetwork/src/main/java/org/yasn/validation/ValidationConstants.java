@@ -10,6 +10,8 @@ public class ValidationConstants {
 
   public final static String EMAIL_ALREADY_EXISTS = "Email %s already exists";
 
+  public final static String EMAIL_DOESNT_MATCH = "Email %s doesn't match";
+
   public final static String WRONG_PASSWORD = "Wrong password!";
 
   public final static String NAME_LENGTH = "Name must contain at least 3 characters!";

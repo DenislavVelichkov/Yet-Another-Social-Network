@@ -3,5 +3,5 @@ package org.yasn.mappings;
 import org.modelmapper.ModelMapper;
 
 public interface IHaveCustomMappings {
-    void configureMappings(ModelMapper mapper);
+  void configureMappings(ModelMapper mapper);
 }

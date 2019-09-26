@@ -1,8 +1,10 @@
 package org.yasn.domain.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -11,8 +13,12 @@ import java.util.Set;
 public class User extends BaseEntity implements UserDetails {
 
   private String username;
+  private String firstName;
+  private String lastName;
   private String password;
   private String email;
+  private String gender;
+  private Date birthday;
   private Set<Role> authorities;
 
   public User() {
@@ -26,6 +32,24 @@ public class User extends BaseEntity implements UserDetails {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  @Column(name = "first_name", nullable = false, unique = true, updatable = false)
+  public String getFirstName() {
+    return this.firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  @Column(name = "last_name", nullable = false, unique = true, updatable = false)
+  public String getLastName() {
+    return this.lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   @Override
@@ -66,6 +90,25 @@ public class User extends BaseEntity implements UserDetails {
 
   public void setAuthorities(Set<Role> authorities) {
     this.authorities = authorities;
+  }
+
+  @Column(name = "gender", nullable = false, unique = true, updatable = false)
+  public String getGender() {
+    return this.gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  @Column(name = "birthday", nullable = false, unique = true, updatable = false)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  public Date getBirthday() {
+    return this.birthday;
+  }
+
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
   }
 
   @Override

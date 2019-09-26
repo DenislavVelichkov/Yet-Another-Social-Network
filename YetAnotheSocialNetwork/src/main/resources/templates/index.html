@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <th:block th:include="~{fragments/head.html}"/>
 </head>
@@ -17,7 +17,7 @@
                 <div class="yasn-layout">
                     <div class="container-fluid">
                         <div class="row jumbotron">
-                            <div id="main-left-content" class="col-sm-7 text-center">
+                            <div class="col-sm-7 text-center" id="main-left-content">
                                 <div>
                                     <p class="h2 text-left">
                                         Welcome to Yet Another Social Network &#153!
@@ -27,13 +27,12 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <img src="https://www.supinfo.com/articles/resources/228470/5249/0.png"
-                                         class="img-fluid" alt="yasn-logo"/>
+                                    <img alt="yasn-logo"
+                                         class="img-fluid" src="https://www.supinfo.com/articles/resources/228470/5249/0.png"/>
                                 </div>
                             </div>
-                            <div id="main-right-content" class="col-sm-5 shadow p-3 mb-5 bg-white rounded">
-                                <th:block sec:authorize="isAnonymous()" th:include="~{user/register.html}"/>
-                                <th:block sec:authorize="isFullyAuthenticated()" th:include="~{user/login.html}"/>
+                            <div class="col-sm-5 shadow p-3 mb-5 bg-white rounded" id="main-right-content">
+                                <th:block th:include="~{user/register.html}"/>
                             </div>
                         </div>
                     </div>

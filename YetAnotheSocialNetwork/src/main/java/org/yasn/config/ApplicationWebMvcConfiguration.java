@@ -9,18 +9,18 @@ import org.yasn.web.interceptor.WebPageTitleInterceptor;
 @Configuration
 public class ApplicationWebMvcConfiguration implements WebMvcConfigurer {
 
-    private final WebPageTitleInterceptor titleInterceptor;
+  private final WebPageTitleInterceptor titleInterceptor;
 //    private final FaviconInterceptor faviconInterceptor;
 
-    @Autowired
-    public ApplicationWebMvcConfiguration(WebPageTitleInterceptor titleInterceptor) {
-        this.titleInterceptor = titleInterceptor;
+  @Autowired
+  public ApplicationWebMvcConfiguration(WebPageTitleInterceptor titleInterceptor) {
+    this.titleInterceptor = titleInterceptor;
 //        this.faviconInterceptor = faviconInterceptor;
-    }
+  }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this.titleInterceptor);
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(this.titleInterceptor);
 //        registry.addInterceptor(this.faviconInterceptor);
-    }
+  }
 }

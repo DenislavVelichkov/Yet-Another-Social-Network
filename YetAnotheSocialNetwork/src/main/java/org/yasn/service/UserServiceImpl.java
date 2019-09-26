@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     return this.userRepository
-        .findByUsername(username)
+        .findByEmail(email)
         .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
   }
 
@@ -55,7 +55,9 @@ public class UserServiceImpl implements UserService {
           .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
     }
 
+
     User user = this.modelMapper.map(userServiceModel, User.class);
+    user.setUsername(userServiceModel.getEmail().split("@")[0]);
     user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
 
     return this.modelMapper
@@ -68,6 +70,14 @@ public class UserServiceImpl implements UserService {
         .findByUsername(username)
         .map(user -> this.modelMapper.map(user, UserServiceModel.class))
         .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
+  }
+
+  @Override
+  public UserServiceModel findUserByEmail(String email) {
+    return this.userRepository
+        .findByEmail(email)
+        .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND));
   }
 
   @Override

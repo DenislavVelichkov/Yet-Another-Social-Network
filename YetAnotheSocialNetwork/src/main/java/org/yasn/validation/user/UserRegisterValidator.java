@@ -26,27 +26,35 @@ public class UserRegisterValidator implements org.springframework.validation.Val
   public void validate(Object o, Errors errors) {
     UserRegisterBindingModel userRegisterBindingModel = (UserRegisterBindingModel) o;
 
-    if (this.userRepository.findByUsername(userRegisterBindingModel.getUsername()).isPresent()) {
+    /*if (this.userRepository.findByEmail(userRegisterBindingModel.getUsername()).isPresent()) {
       errors.rejectValue(
           "username",
           String.format(ValidationConstants.USERNAME_ALREADY_EXISTS, userRegisterBindingModel.getUsername()),
           String.format(ValidationConstants.USERNAME_ALREADY_EXISTS, userRegisterBindingModel.getUsername())
       );
-    }
+    }*/
 
-    if (userRegisterBindingModel.getUsername().length() < 3 || userRegisterBindingModel.getUsername().length() > 10) {
+    /*if (userRegisterBindingModel.getUsername().length() < 3 || userRegisterBindingModel.getUsername().length() > 10) {
       errors.rejectValue(
           "username",
           ValidationConstants.USERNAME_LENGTH,
           ValidationConstants.USERNAME_LENGTH
       );
-    }
+    }*/
 
     if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
       errors.rejectValue(
           "password",
           ValidationConstants.PASSWORDS_DO_NOT_MATCH,
           ValidationConstants.PASSWORDS_DO_NOT_MATCH
+      );
+    }
+
+    if (!userRegisterBindingModel.getEmail().equals(userRegisterBindingModel.getConfirmEmail())) {
+      errors.rejectValue(
+          "email",
+          ValidationConstants.EMAIL_DOESNT_MATCH,
+          ValidationConstants.EMAIL_DOESNT_MATCH
       );
     }
 

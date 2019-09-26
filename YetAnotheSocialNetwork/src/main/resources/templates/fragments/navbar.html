@@ -1,32 +1,34 @@
-<th:block xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+          xmlns:th="http://www.thymeleaf.org">
     <th:block sec:authorize="isAnonymous()">
-        <div id="header-container" class="container-fluid">
+        <div class="container-fluid" id="header-container">
             <div class="row">
                 <div class="col">
-                    <img id="navbar-img-logo" src="" class="float-left" alt="">
+                    <img alt="" class="float-left" id="navbar-img-logo" src="">
                 </div>
                 <div class="col">
                     <div class="navbar-login-form-container">
                         <form class="d-inline-flex" method="post" th:action="@{/user/login}"><input name="_csrf"
-                                                                                               type="hidden"
-                                                                                               value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
+                                                                                                    type="hidden"
+                                                                                                    value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
                             <div class="form-group p-1">
-                                <label for="username"></label>
-                                <input class="form-control navbar-login-form" id="username" name="username" placeholder="Username..."
-                                       type="text">
+                                <label for="email"></label>
+                                <input class="form-control navbar-login-form" id="email" name="email"
+                                       placeholder="Email"
+                                       type="email">
                             </div>
 
                             <div class="form-group p-1">
                                 <label for="password"></label>
-                                <input class="form-control navbar-login-form" id="password" name="password" placeholder="Password..."
+                                <input class="form-control navbar-login-form" id="password" name="password"
+                                       placeholder="Password..."
                                        type="password">
                             </div>
 
                             <!-- <div id="" class="button-holder form-group p-2">-->
                             <div class="form-group p-1">
-                                <input value="Log In" aria-label="Log In" data-testid="royal_login_button" type="submit"
-                                       id="navbar-login-btn" class="btn btn-primary btn-lg">
+                                <input aria-label="Log In" class="btn btn-primary btn-lg" data-testid="royal_login_button" id="navbar-login-btn"
+                                       type="submit" value="Log In">
                             </div>
                             <!--<button class="btn btn-primary" type="submit">Login</button>-->
                             <!-- </div>-->
@@ -39,7 +41,7 @@
 
                         </div>
                         <div class="d-inline-block ml-1">
-                            <p>Go to Register Page and Create an Account.<a href="/">Here</a></p>
+                            <p>Go to Register Page and Create an Account.<a href="/" style="color: #34ce57">Here</a></p>
                         </div>
                     </th:block>
                     <th:block th:if="${param.logout}">
@@ -48,7 +50,7 @@
                         </div>
                     </th:block>
                 </div>
-        </div>
+            </div>
         </div>
 
     </th:block>
