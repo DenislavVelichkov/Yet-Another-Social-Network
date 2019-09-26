@@ -50,10 +50,6 @@ html {
     margin-top: 15px;
 }
 
-#index-register-form-container {
-
-}
-
 #radio-gender {
     margin-left: 20px;
     margin-top: 15px;
@@ -61,4 +57,8 @@ html {
 
 #birthday-register-container {
     margin-top: 15px;
+}
+
+div.row:nth-child(2) {
+    line-height: 0;
 }

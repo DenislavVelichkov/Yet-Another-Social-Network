@@ -15,7 +15,7 @@ public class FaviconInterceptor extends HandlerInterceptorAdapter {
                            HttpServletResponse response,
                            Object handler,
                            ModelAndView modelAndView) throws Exception {
-        String link = "../templates/img/fav-icon2.jpg";
+        String link = "../../templates/img/fav-icon2.jpg";
 
         if (modelAndView != null) {
             modelAndView.addObject("favicon", link);

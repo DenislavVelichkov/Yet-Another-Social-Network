@@ -1,7 +1,9 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div>
-            <p class="h2">Create a New Account</p>
+            <div class="h1 d-block">Create a New Account
+            <small class="h5 text-muted d-flex">Dive in social networking!</small>
+            </div>
         </div>
         <div id="index-register-form-container">
             <form th:action="@{/user/register}" th:method="post" th:object="${model}">
