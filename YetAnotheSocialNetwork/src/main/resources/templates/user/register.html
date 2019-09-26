@@ -1,55 +1,41 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div>
-            <div class="h1">Create a New Account
-            <small class="h5 text-muted d-block">Dive in social networking!</small>
+            <div class="h1" >Create a New Account
+                <small class="h5 text-muted d-block">Dive in social networking!</small>
             </div>
         </div>
         <div id="index-register-form-container">
-            <form th:action="@{/user/register}" th:method="post" th:object="${model}">
+            <form action="/user/register" method="post"><input type="hidden" name="_csrf"
+                                                               value="c2248bbf-cabb-4769-a767-7baca40bb77d">
 
                 <div class="row">
                     <div class="col-6">
                         <label class="font-weight-bold" for="firstName"></label>
                         <input class="form-control" id="firstName" name="firstName"
-                               placeholder="First name"
-                               th:value="*{firstName}"
-                               type="text">
-                        <th:block th:if="${#fields.hasErrors('firstName')}">
-                            <small class="error" th:errors="*{firstName}"></small>
-                        </th:block>
+                               placeholder="First name" value="" type="text">
+
                     </div>
                     <div class="col-6">
                         <label class="font-weight-bold" for="lastName"></label>
                         <input class="form-control" id="lastName" name="lastName"
-                               placeholder="Last name"
-                               th:value="*{lastName}"
-                               type="text">
-                        <th:block th:if="${#fields.hasErrors('lastName')}">
-                            <small class="error" th:errors="*{lastName}"></small>
-                        </th:block>
+                               placeholder="Last name" value="" type="text">
+
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-6">
                         <label class="font-weight-bold" for="email"></label>
-                        <input class="form-control" id="email" name="email"
-                               placeholder="Email..."
-                               th:value="*{email}"
-                               type="email">
-                        <th:block th:if="${#fields.hasErrors('email')}">
-                            <small class="error" th:errors="*{email}"></small>
-                        </th:block>
+                        <input class="form-control" id="email" name="email" placeholder="Email..."
+                               value="" type="email">
+
                     </div>
                     <div class="col-6">
                         <label class="font-weight-bold" for="confirmEmail"></label>
                         <input class="form-control" id="confirmEmail" name="confirmEmail"
-                               placeholder="Confirm Email..."
-                               th:value="*{confirmEmail}" type="email">
-                        <th:block th:if="${#fields.hasErrors('email')}">
-                            <small class="error" th:errors="*{email}"></small>
-                        </th:block>
+                               placeholder="Confirm Email..." value="" type="email">
+
                     </div>
                 </div>
 
@@ -57,15 +43,11 @@
                     <div class="col-12">
                         <label class="font-weight-bold" for="password"></label>
                         <input aria-describedby="passwordHelpInline" class="form-control" id="password"
-                               name="password"
-                               placeholder="Password..."
-                               th:value="*{password}" type="password">
+                               name="password" placeholder="Password..." value="" type="password">
                         <small class="text-muted" id="passwordHelpInline">
                             Must be 8-20 characters long.
                         </small>
-                        <th:block th:if="${#fields.hasErrors('password')}">
-                            <small class="error" th:errors="*{password}"></small>
-                        </th:block>
+
                     </div>
 
                 </div>
@@ -73,13 +55,9 @@
                 <div class="row">
                     <div class="col-12">
                         <label class="font-weight-bold" for="confirmPassword"></label>
-                        <input class="form-control" id="confirmPassword"
-                               name="confirmPassword"
-                               placeholder="Confirm Password..."
-                               th:value="*{confirmPassword}" type="password">
-                        <th:block th:if="${#fields.hasErrors('password')}">
-                            <small class="error" th:errors="*{password}"></small>
-                        </th:block>
+                        <input class="form-control" id="confirmPassword" name="confirmPassword"
+                               placeholder="Confirm Password..." value="" type="password">
+
                     </div>
                 </div>
 
@@ -91,15 +69,18 @@
                         <div class="d-block">
                             <div class="radio-block d-inline-block">
                                 <label class="font-weight-bold" for="male">Male</label>
-                                <input class="custom-radio" id="male" name="gender" type="radio" value="male">
+                                <input class="custom-radio" id="male" name="gender" type="radio"
+                                       value="male">
                             </div>
                             <div class="radio-block d-inline-block">
                                 <label class="font-weight-bold" for="female">Female</label>
-                                <input class="custom-radio" id="female" name="gender" type="radio" value="female">
+                                <input class="custom-radio" id="female" name="gender" type="radio"
+                                       value="female">
                             </div>
                             <div class="radio-block d-inline-block">
                                 <label class="font-weight-bold" for="custom">Custom</label>
-                                <input class="custom-radio" id="custom" name="gender" type="radio" value="custom">
+                                <input class="custom-radio" id="custom" name="gender" type="radio"
+                                       value="custom">
                             </div>
                         </div>
                     </div>
@@ -113,7 +94,7 @@
 
                 <div class="button-holder mt-2 d-flex justify-content-center rounded-lg">
                     <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit"
-                           value="Sign Up"/>
+                           value="Sign Up">
                 </div>
             </form>
         </div>

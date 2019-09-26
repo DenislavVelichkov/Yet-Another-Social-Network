@@ -1,6 +1,7 @@
 @import url("header.css");
 @import url("footer.css");
-
+@import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Arvo:700|Patua+One&display=swap');
 * {
     padding: 0;
     margin: 0;
@@ -14,8 +15,14 @@ html {
     box-sizing: border-box;
 }
 
+.h1 {
+    /*font-family: 'Arvo', serif;*/
+    font-family: 'Patua One', cursive;
+    color: #4e555b;
+}
+
 #main-right-content {
-    max-width: 43rem;
+    max-width: 100%;
 }
 
 .btn-primary {
@@ -33,10 +40,6 @@ html {
     margin-top: 20px;
     width: 165px;
     font-size: 25px;
-}
-
-.yasn-page-container {
-    overflow: hidden;
 }
 
 
@@ -64,4 +67,11 @@ html {
 
 div.row:nth-child(2) {
     line-height: 0;
+}
+
+.yasn-inner-page {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 47px;
+    background-color: #eaf1f7;
 }
