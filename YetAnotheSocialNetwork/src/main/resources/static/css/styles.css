@@ -23,6 +23,8 @@ html {
 
 #main-right-content {
     max-width: 100%;
+    padding-left: 42px;
+    padding-right: 34px
 }
 
 .btn-primary {

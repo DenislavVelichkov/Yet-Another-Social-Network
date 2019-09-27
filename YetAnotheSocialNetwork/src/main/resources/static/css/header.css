@@ -7,6 +7,7 @@
 #navbar-login-btn {
     background-color: #17a2b8 !important;
     border-color: #175167 !important;
+    margin-left: 8px
 }
 
 #navbar-login-btn:hover {
@@ -20,13 +21,22 @@
 }
 
 #login-form {
-
+    display: inline-flex;
 }
 
 .nav-login-box {
     padding-right: 15px;
+    display: inline-block;
 }
 
 #login-form-container {
-    padding: 20px;
+    max-width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.navbar-login-form-container {
+    margin-right: 71px;
+    margin-left: 17px;
 }
