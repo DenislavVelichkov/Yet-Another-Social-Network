@@ -7,6 +7,9 @@ import org.yasn.domain.models.binding.UserRegisterBindingModel;
 import org.yasn.repository.UserRepository;
 import org.yasn.validation.ValidationConstants;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Validator
 public class UserRegisterValidator implements org.springframework.validation.Validator {
 
@@ -26,13 +29,41 @@ public class UserRegisterValidator implements org.springframework.validation.Val
   public void validate(Object o, Errors errors) {
     UserRegisterBindingModel userRegisterBindingModel = (UserRegisterBindingModel) o;
 
-    // TODO: 9/29/2019 First And Last Name
+    Pattern namePattern = Pattern.compile("[A-Z][a-z]+");
+    Pattern passwordPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}");
+    Matcher firstNameMatcher = namePattern.matcher(userRegisterBindingModel.getFirstName());
+    Matcher lastNameMatcher = namePattern.matcher(userRegisterBindingModel.getLastName());
+    Matcher passwordNameMatcher = passwordPattern.matcher(userRegisterBindingModel.getPassword());
+
+    if (!firstNameMatcher.matches()) {
+      errors.rejectValue(
+          "firstName",
+          ValidationConstants.NAME_ONLY_LETTERS,
+          ValidationConstants.NAME_ONLY_LETTERS
+      );
+    }
+
+    if (!lastNameMatcher.matches()) {
+      errors.rejectValue(
+          "lastName",
+          ValidationConstants.NAME_ONLY_LETTERS,
+          ValidationConstants.NAME_ONLY_LETTERS
+      );
+    }
 
     if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
       errors.rejectValue(
           "password",
           ValidationConstants.PASSWORDS_DO_NOT_MATCH,
           ValidationConstants.PASSWORDS_DO_NOT_MATCH
+      );
+    }
+
+    if (!passwordNameMatcher.matches()) {
+      errors.rejectValue(
+          "password",
+          ValidationConstants.PASSWORD_CONDITION,
+          ValidationConstants.PASSWORD_CONDITION
       );
     }
 
@@ -43,6 +74,8 @@ public class UserRegisterValidator implements org.springframework.validation.Val
           ValidationConstants.EMAIL_DOESNT_MATCH
       );
     }
+
+
 
     if (this.userRepository.findByEmail(userRegisterBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(

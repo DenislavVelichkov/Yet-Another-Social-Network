@@ -57,7 +57,8 @@ public class UserServiceImpl implements UserService {
 
 
     User user = this.modelMapper.map(userServiceModel, User.class);
-    user.setUsername(userServiceModel.getEmail().split("@")[0]);
+    String[] usernamePrep = userServiceModel.getEmail().split("@");
+    user.setUsername(usernamePrep[0] + usernamePrep[1]);
     user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
 
     return this.modelMapper
