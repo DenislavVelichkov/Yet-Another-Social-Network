@@ -26,6 +26,8 @@ public class UserRegisterValidator implements org.springframework.validation.Val
   public void validate(Object o, Errors errors) {
     UserRegisterBindingModel userRegisterBindingModel = (UserRegisterBindingModel) o;
 
+    // TODO: 9/29/2019 First And Last Name
+
     if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
       errors.rejectValue(
           "password",

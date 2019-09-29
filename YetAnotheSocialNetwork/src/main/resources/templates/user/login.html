@@ -1,46 +1,48 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <th:block th:include="~{fragments/head.html}"/>
+    <th:block th:include="~{fragments/head.html}" />
 </head>
+
 <body>
 <div class="yet-another-social-network">
     <header>
-        <th:block th:include="~{fragments/navbar.html}"/>
+        <th:block th:include="~{fragments/navbar.html}" />
     </header>
     <main>
-        <div class="yasn-inner-page">
-            <div class="row">
-                <div class="col-sm-7 text-center" id="main-left-content">
-                    <div>
-                        <p class="h2 text-left">
-                            Welcome to Yet Another Social Network ™!
-                        </p>
-                        <p class="text-left">
+        <div id="yasn-body-container" class="row">
+            <div id="main-left-content" class="col-lg-6 text-center">
+                <div class="text-center">
+                    <div class="h1 h-container">
+                        Welcome to Yet Another Social Network ™!
+                        <small class="h5 text-muted">
                             Log In or Sign Up if you don't have an account.
-                        </p>
-                    </div>
-                    <div>
-                        <img alt="yasn-logo" class="img-fluid"
-                             src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
+                        </small>
                     </div>
                 </div>
-                <div class="col-sm-5 " id="main-right-content">
+                <div>
+                    <img alt="yasn-logo" class="img-fluid"
+                         src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
+                </div>
+            </div>
+            <div id="main-right-content" class="col-lg-6">
+                <div id="inner-main-right-container">
                     <div class="shadow p-3 mb-5 bg-white rounded">
-                        <p class="h3 text-center text-info">
-                            Please Log In with the form above.
-                        </p>
+                        <div class="text-left h-container">
+                            <p class="h3 text-center text-info">
+                                Please Log In with the form above.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
     <footer>
-        <th:block th:include="~{fragments/footer}"/>
+        <th:block th:include="~{fragments/footer}" />
     </footer>
 </div>
 </body>
+
 </html>

@@ -1,13 +1,24 @@
-#header-container {
-    background-color: #0b769c;
+#yasn-header-container {
     color: #fff;
+    padding: 0 15px 0;
+    margin: 0 10rem 0;
+    min-width: 460px;
 }
 
+.index-header-right {
+   line-height: 0;
+}
 
 #navbar-login-btn {
     background-color: #17a2b8 !important;
     border-color: #175167 !important;
-    margin-left: 8px
+    width: 10rem;
+    padding: 0 0 0 0;
+    height: 57px;
+    line-height: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem; 
 }
 
 #navbar-login-btn:hover {
@@ -15,28 +26,35 @@
     border-color: #175167 !important;
 }
 
-.navbar-login-form {
-    height: 47px;
-    width: 17rem !important;
+.navbar-login-form-field-container {
+    width: 36%;
 }
 
-#login-form {
-    display: inline-flex;
+div.navbar-login-form-field-container:nth-child(2) {
+    padding-left: 10px;
 }
 
-.nav-login-box {
-    padding-right: 15px;
-    display: inline-block;
+.navbar-login-form-btn-container {
+    position: relative;
+    margin-left: 0px;
+    left: 35px;
+}
+
+.navbar-login-form-field {
+    height: 3.5rem; 
+    margin: -7px 0 0 0;
 }
 
 #login-form-container {
-    max-width: 100%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding: 0;
+    padding: 0 2rem 0;
+    display:flex;
 }
 
-.navbar-login-form-container {
-    margin-right: 71px;
-    margin-left: 17px;
+#login-form {
+   margin: 0;
+   padding: 2rem 0 2rem;
+   line-height: 0;
+   display: inline-flex;
+   vertical-align: bottom;
+   width: 100%;
 }

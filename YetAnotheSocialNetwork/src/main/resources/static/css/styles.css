@@ -1,7 +1,12 @@
 @import url("header.css");
 @import url("footer.css");
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Arvo:700|Patua+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Arvo:700|Patua+One&display=swap'); */
+    
+html {
+        box-sizing: border-box;
+    }
+
 * {
     padding: 0;
     margin: 0;
@@ -11,69 +16,87 @@
     box-sizing: inherit;
 }
 
-html {
-    box-sizing: border-box;
-}
-
-.h1 {
+.h1, .h2, .h3, .h4, .h5 {
     /*font-family: 'Arvo', serif;*/
     font-family: 'Patua One', cursive;
     color: #4e555b;
 }
 
-#main-right-content {
-    max-width: 100%;
-    padding-left: 42px;
-    padding-right: 34px
+.yet-another-social-network-header{
+    overflow: hidden;
+    display: block;
+    background-color: #0b769c;
 }
 
-.btn-primary {
-    width: 110px;
-    font-size: 21px;
-    font-weight: bolder;
+.yet-another-social-network-body{
+    overflow: hidden;
+    display: block;
+    background-color: #eaf1f7;
 }
 
-.btn-success {
-    font-size: 19px;
-    font-weight: bolder;
+.h-container {
+    display: inline-block;
 }
 
-#royal-sign-up-button {
-    margin-top: 20px;
-    width: 165px;
-    font-size: 25px;
+small {
+    display: block;
 }
 
+#yasn-body-container {
+    padding: 0 15px 0;
+    margin: 48px 10rem 0;
+    min-width: 460px
+}
+
+#inner-main-right-container {
+    width: 100%;
+    padding: 0 2rem 0;
+}
+
+#main-left-content{
+    padding: 16px 0 0 0;
+}
 
 .error {
     color: red;
-    font-family: "Monospaced";
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#passwordHelpInline {
+    margin: 5px 0 0 5px;
+}
+
+.radio-section-container{
+    /* padding-left: 15px; */
+    margin: 16px 0 0 0;
+    padding-left: 20px;
 }
 
 .radio-block-container {
-    padding-left: 21px;
+    display: inline-flex;
 }
 
-.radio-block {
-    margin-left: 4px;
-}
-
-#radio-gender {
-    margin-top: 15px;
-    margin-left: 4px;
+.radio-block:nth-child(2) {
+    padding: 0 5px 0;
 }
 
 #birthday-register-container {
-    margin-top: 15px;
+    margin: 16px 0 0;
 }
 
-div.row:nth-child(2) {
+#royal-sign-up-button {
+    width: 10rem;
+    padding: 0 0 0 0;
+    margin: 7px 0 0 0;
+    height: 57px;
     line-height: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
 }
 
-.yasn-inner-page {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 47px;
-    background-color: #eaf1f7;
+.button-holder {
+    margin: 16px 0 0 0;
+    text-align: center;
+    display: block;
 }

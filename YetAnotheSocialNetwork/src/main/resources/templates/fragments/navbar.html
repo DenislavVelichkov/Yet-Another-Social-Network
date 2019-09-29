@@ -1,34 +1,43 @@
 <th:block xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
           xmlns:th="http://www.thymeleaf.org">
     <th:block sec:authorize="isAnonymous()">
-        <div id="header-container" class="row">
-            <div class="col-sm-7">
-                <img alt="" class="float-left" id="navbar-img-logo" src="">
+        <div id="yasn-header-container" class="row">
+            <div class="col-lg-6">
+                <img alt="" class="img-fluid ml-6" id="navbar-img-logo" src="">
+                <!-- https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
             </div>
-            <div class="col-sm-5">
-                <div class="navbar-login-form-container">
-                    <div id="login-form-container" class="container">
-                        <form id="login-form" method="post" action="/user/login"
-                              class="form-inline justify-content-center">
-                            <input type="hidden"
-                                   th:name="${_csrf.parameterName}"
-                                   th:value="${_csrf.token}"/>
-                            <div class="nav-login-box form-group">
-                                <label for="email"></label>
-                                <input class="form-control navbar-login-form" id="email" name="email"
-                                       placeholder="Email" type="email" style="width: 10rem;">
-                            </div>
+            <div class="col-lg-6 index-header-right">
 
-                            <div class="nav-login-box form-group">
-                                <label for="password"></label>
-                                <input class="form-control navbar-login-form" id="password" name="password"
-                                       placeholder="Password..." type="password">
-                            </div>
+                <div id="login-form-container">
+                    <form id="login-form" th:action="@{/user/login}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                            <input aria-label="Log In" class="btn btn-primary btn-lg" id="navbar-login-btn"
-                                   type="submit" value="Log In">
-                        </form>
-                    </div>
+                        <div class="navbar-login-form-field-container">
+                            <label for="email"></label>
+                            <input class="form-control navbar-login-form-field" id="email" name="email"
+                                   placeholder="Email" th:value="*{email}" type="email">
+                        </div>
+
+                        <div class=" navbar-login-form-field-container">
+                            <label for="password"></label>
+                            <input class="form-control navbar-login-form-field" id="password" name="password"
+                                   placeholder="Password..." type="password" th:value="*{password}">
+                        </div>
+
+                        <div class="navbar-login-form-btn-container">
+                            <!-- <input aria-label="Log In" class="btn btn-primary btn-lg" id="navbar-login-btn"
+                                    type="submit" value="Log In"> -->
+                            <button id="navbar-login-btn" class="btn btn-success btn-lg" type="submit">Log
+                                In
+                            </button>
+                        </div>
+
+                    </form>
+                    <th:block th:if="${param.error}">
+                        <div class="text-center" style="color: red" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                            <!--Bad Credentials-->
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>

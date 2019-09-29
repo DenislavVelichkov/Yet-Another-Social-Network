@@ -1,102 +1,131 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <div>
-            <div class="h1" >Create a New Account
-                <small class="h5 text-muted d-block">Dive in social networking!</small>
+    <div id="yasn-body-container" class="row">
+        <div id="main-left-content" class="col-lg-6 text-center">
+            <div class="text-left">
+                <div class="h1 h-container">
+                    Welcome to Yet Another Social Network ™!
+                    <small class="h5 text-muted">
+                        Log In or Sign Up if you don't have an account.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <img alt="yasn-logo" class="img-fluid"
+                     src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
             </div>
         </div>
-        <div id="index-register-form-container">
-            <form action="/user/register" method="post"><input type="hidden" name="_csrf"
-                                                               value="c2248bbf-cabb-4769-a767-7baca40bb77d">
-
-                <div class="row">
-                    <div class="col-6">
-                        <label class="font-weight-bold" for="firstName"></label>
-                        <input class="form-control" id="firstName" name="firstName"
-                               placeholder="First name" value="" type="text">
-
-                    </div>
-                    <div class="col-6">
-                        <label class="font-weight-bold" for="lastName"></label>
-                        <input class="form-control" id="lastName" name="lastName"
-                               placeholder="Last name" value="" type="text">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <label class="font-weight-bold" for="email"></label>
-                        <input class="form-control" id="email" name="email" placeholder="Email..."
-                               value="" type="email">
-
-                    </div>
-                    <div class="col-6">
-                        <label class="font-weight-bold" for="confirmEmail"></label>
-                        <input class="form-control" id="confirmEmail" name="confirmEmail"
-                               placeholder="Confirm Email..." value="" type="email">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <label class="font-weight-bold" for="password"></label>
-                        <input aria-describedby="passwordHelpInline" class="form-control" id="password"
-                               name="password" placeholder="Password..." value="" type="password">
-                        <small class="text-muted" id="passwordHelpInline">
-                            Must be 8-20 characters long.
-                        </small>
-
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <label class="font-weight-bold" for="confirmPassword"></label>
-                        <input class="form-control" id="confirmPassword" name="confirmPassword"
-                               placeholder="Confirm Password..." value="" type="password">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="radio-block-container text-muted col-6 d-block">
-                        <div class="d-block" style="">
-                            <p id="radio-gender" class="text-muted d-block">Gender</p>
-                        </div>
-                        <div class="d-block">
-                            <div class="radio-block d-inline-block">
-                                <label class="font-weight-bold" for="male">Male</label>
-                                <input class="custom-radio" id="male" name="gender" type="radio"
-                                       value="male">
-                            </div>
-                            <div class="radio-block d-inline-block">
-                                <label class="font-weight-bold" for="female">Female</label>
-                                <input class="custom-radio" id="female" name="gender" type="radio"
-                                       value="female">
-                            </div>
-                            <div class="radio-block d-inline-block">
-                                <label class="font-weight-bold" for="custom">Custom</label>
-                                <input class="custom-radio" id="custom" name="gender" type="radio"
-                                       value="custom">
-                            </div>
+        <div id="main-right-content" class="col-lg-6">
+            <div id="inner-main-right-container">
+                <div class="shadow p-3 mb-5 bg-white rounded">
+                    <div class="text-left h-container">
+                        <div class="h1">Create a New Account
+                            <small class="h5 text-muted">Dive in social networking!</small>
                         </div>
                     </div>
+                    <div id="index-register-form-container">
+                        <form th:action="@{/user/register}" th:method="post" th:object="${model}">
 
-                    <div id="birthday-register-container" class="col-6 d-inline-block">
-                        <label class="text-muted" for="birthday">Birthday</label>
-                        <input class="form-control" id="birthday" name="birthday" value="" type="date">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="font-weight-bold" for="firstName"></label>
+                                    <input class="form-control" id="firstName" name="firstName"
+                                           placeholder="First name" th:value="*{firstName}" type="text"/>
+                                    <th:block th:if="${#fields.hasErrors('firstName')}">
+                                        <small class="error" th:errors="*{firstName}"></small>
+                                    </th:block>
+                                </div>
+                                <div class="col-6">
+                                    <label class="font-weight-bold" for="lastName"></label>
+                                    <input class="form-control" id="lastName" name="lastName"
+                                           placeholder="Last name" th:value="*{lastName}" type="text"/>
+                                    <th:block th:if="${#fields.hasErrors('lastName')}">
+                                        <small class="error" th:errors="*{lastName}"></small>
+                                    </th:block>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="font-weight-bold" for="email"></label>
+                                    <input class="form-control" id="email" name="email" placeholder="Email"
+                                           th:value="*{email}" type="email"/>
+                                </div>
+                                <div class="col-6">
+                                    <label class="font-weight-bold" for="confirmEmail"></label>
+                                    <input class="form-control" id="confirmEmail" name="confirmEmail"
+                                           placeholder="Confirm Email..."  th:value="*{confirmEmail}" type="email"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="font-weight-bold" for="password"></label>
+                                    <input aria-describedby="passwordHelpInline" class="form-control"
+                                           id="password" name="password" placeholder="Password..." th:value="*{password}"
+                                           type="password"/>
+                                    <th:block th:if="${#fields.hasErrors('password')}">
+                                        <small class="error" th:errors="*{password}"></small>
+                                    </th:block>
+                                    <small class="text-muted" id="passwordHelpInline">
+                                        Must be 8-20 characters long.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="font-weight-bold" for="confirmPassword"></label>
+                                    <input class="form-control" id="confirmPassword" name="confirmPassword"
+                                           placeholder="Confirm Password..."  th:value="*{confirmPassword}" type="password"/>
+                                    <th:block th:if="${#fields.hasErrors('password')}">
+                                        <small class="error" th:errors="*{password}"></small>
+                                    </th:block>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="radio-section-container text-muted col-6">
+                                    <div class="">
+                                        <p id="radio-gender-label" class="text-muted ">Gender</p>
+                                    </div>
+                                    <div class="radio-block-container">
+                                        <div class="radio-block ">
+                                            <label class="font-weight-bold" for="male">Male</label>
+                                            <input class="custom-radio" id="male" name="gender" type="radio"
+                                                   th:value="*{gender}"/>
+                                        </div>
+                                        <div class="radio-block ">
+                                            <label class="font-weight-bold" for="female">Female</label>
+                                            <input class="custom-radio" id="female" name="gender" type="radio"
+                                                   th:value="*{gender}"/>
+                                        </div>
+                                        <div class="radio-block ">
+                                            <label class="font-weight-bold" for="custom">Custom</label>
+                                            <input class="custom-radio" id="custom" name="gender" type="radio"
+                                                   th:value="*{gender}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="birthday-register-container" class="col-6">
+                                    <label class="text-muted" for="birthday">Birthday</label>
+                                    <input class="form-control" id="birthday" name="birthday" th:value="*{birthday}"
+                                           type="date"/>
+                                </div>
+
+                            </div>
+
+                            <div class="button-holder rounded-lg">
+                                <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit"
+                                       value="Sign Up"/>
+                            </div>
+
+                        </form>
                     </div>
-
                 </div>
-
-                <div class="button-holder mt-2 d-flex justify-content-center rounded-lg">
-                    <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit"
-                           value="Sign Up">
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </th:block>
