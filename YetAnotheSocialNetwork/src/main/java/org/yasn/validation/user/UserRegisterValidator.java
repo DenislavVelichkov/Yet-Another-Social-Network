@@ -33,7 +33,7 @@ public class UserRegisterValidator implements org.springframework.validation.Val
     Pattern passwordPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}");
     Matcher firstNameMatcher = namePattern.matcher(userRegisterBindingModel.getFirstName());
     Matcher lastNameMatcher = namePattern.matcher(userRegisterBindingModel.getLastName());
-    Matcher passwordNameMatcher = passwordPattern.matcher(userRegisterBindingModel.getPassword());
+    Matcher passwordMatcher = passwordPattern.matcher(userRegisterBindingModel.getPassword());
 
     if (!firstNameMatcher.matches()) {
       errors.rejectValue(
@@ -59,7 +59,7 @@ public class UserRegisterValidator implements org.springframework.validation.Val
       );
     }
 
-    if (!passwordNameMatcher.matches()) {
+    if (!passwordMatcher.matches()) {
       errors.rejectValue(
           "password",
           ValidationConstants.PASSWORD_CONDITION,
@@ -74,8 +74,6 @@ public class UserRegisterValidator implements org.springframework.validation.Val
           ValidationConstants.EMAIL_DOESNT_MATCH
       );
     }
-
-
 
     if (this.userRepository.findByEmail(userRegisterBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(
