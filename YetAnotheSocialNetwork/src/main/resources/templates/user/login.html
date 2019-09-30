@@ -7,13 +7,16 @@
 
 <body>
 <div class="yet-another-social-network">
+    <div class="yet-another-social-network-header">
     <header>
         <th:block th:include="~{fragments/navbar.html}" />
     </header>
+    </div>
+    <div class="yet-another-social-network-body">
     <main>
         <div id="yasn-body-container" class="row">
             <div id="main-left-content" class="col-lg-6 text-center">
-                <div class="text-center">
+                <div class="text-left">
                     <div class="h1 h-container">
                         Welcome to Yet Another Social Network ™!
                         <small class="h5 text-muted">
@@ -39,9 +42,12 @@
             </div>
         </div>
     </main>
+    </div>
+    <div class="yet-another-social-network-footer">
     <footer>
         <th:block th:include="~{fragments/footer}" />
     </footer>
+    </div>
 </div>
 </body>
 

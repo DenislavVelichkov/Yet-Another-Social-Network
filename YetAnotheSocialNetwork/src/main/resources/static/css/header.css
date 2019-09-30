@@ -1,3 +1,7 @@
+.yet-another-social-network-header {
+    background-color: #0b769c;
+}
+
 #yasn-header-container {
     color: #fff;
     padding: 0 15px 0;
@@ -30,7 +34,7 @@
     width: 36%;
 }
 
-div.navbar-login-form-field-container:nth-child(4) {
+div.navbar-login-form-field-container:nth-child(3) {
     padding-left: 10px;
 }
 
