@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
@@ -62,7 +61,7 @@ public class User extends BaseEntity implements UserDetails {
     this.password = password;
   }
 
-  @Column(name = "email", nullable = false, unique = true)
+  @Column(name = "email", nullable = false)
   public String getEmail() {
     return this.email;
   }
