@@ -17,13 +17,13 @@
             <h1>
                 HOME PAGE !
             </h1>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn-primary btn-lg">Logout</button>
+            </form>
         </main>
 
         <footer>
             <th:block th:include="~{fragments/footer}"/>
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn-primary btn-lg">Logout</button>
-            </form>
         </footer>
     </div>
 </div>
