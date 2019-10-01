@@ -21,6 +21,8 @@
                             <label for="password"></label>
                             <input class="form-control navbar-login-form-field" id="password" name="password"
                                    placeholder="Password..." type="password">
+                            <div class="bad-credentials-label text-center">
+                            </div>
                         </div>
 
                         <div class="navbar-login-form-btn-container">
@@ -32,12 +34,11 @@
                         </div>
 
                     </form>
-                    <th:block th:if="${param.error}">
-                        <div class="text-center" style="color: red"
-                             th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
-                            <!--Bad Credentials-->
-                        </div>
-                    </th:block>
+                    <div class="bad-credentials-label-container">
+                        <th:block th:if="${param.error}">
+                            <script src="/js/error-banner.js"></script>
+                        </th:block>
+                    </div>
                 </div>
             </div>
         </div>

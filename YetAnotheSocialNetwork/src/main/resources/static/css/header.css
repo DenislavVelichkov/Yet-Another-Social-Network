@@ -13,6 +13,20 @@
    line-height: 0;
 }
 
+#login-form-container {
+    padding: 0 2rem 0;
+    display:block;
+}
+
+#login-form {
+    margin: 0;
+    padding: 2rem 0 2rem;
+    line-height: 0;
+    display: inline-flex;
+    vertical-align: bottom;
+    width: 100%;
+}
+
 #navbar-login-btn {
     background-color: #17a2b8 !important;
     border-color: #175167 !important;
@@ -22,7 +36,7 @@
     line-height: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
 
 #navbar-login-btn:hover {
@@ -45,20 +59,19 @@ div.navbar-login-form-field-container:nth-child(3) {
 }
 
 .navbar-login-form-field {
-    height: 3.5rem; 
+    height: 3.5rem;
     margin: -7px 0 0 0;
 }
 
-#login-form-container {
-    padding: 0 2rem 0;
-    display:flex;
+.bad-credentials-label-container {
+    display: block;
 }
 
-#login-form {
-   margin: 0;
-   padding: 2rem 0 2rem;
-   line-height: 0;
-   display: inline-flex;
-   vertical-align: bottom;
-   width: 100%;
+.alert {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.close {
+    line-height: 0;
 }
