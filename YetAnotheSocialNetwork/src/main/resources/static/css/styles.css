@@ -68,17 +68,13 @@ small {
     padding-left: 20px;
 }
 
-.radio-block-container {
-}
-
 .radio-block {
     display: inline-block;
 }
 
-.radio-block:nth-child(2) {
-    padding: 0 25px 0;
+.radio-block:not(:first-child) {
+    padding-right: 25px;
 }
-
 
 #birthday-register-container {
     margin: 16px 0 0;
