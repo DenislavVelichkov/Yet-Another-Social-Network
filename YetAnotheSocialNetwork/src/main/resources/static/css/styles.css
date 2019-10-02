@@ -73,6 +73,10 @@ small {
     display: inline-block;
 }
 
+.radio-block:hover {
+    border-color: #0b2e13;
+}
+
 .radio-block:not(:first-child) {
     padding-right: 1.5em;
 }
