@@ -1,8 +1,7 @@
 @import url("header.css");
 @import url("footer.css");
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
-/* @import url('https://fonts.googleapis.com/css?family=Arvo:700|Patua+One&display=swap'); */
-    
+
 html {
         box-sizing: border-box;
     }
@@ -17,25 +16,21 @@ html {
 }
 
 .h1, .h2, .h3, .h4, .h5 {
-    /*font-family: 'Arvo', serif;*/
     font-family: 'Patua One', cursive;
     color: #4e555b;
 }
 
 .yet-another-social-network-header{
     overflow: hidden;
-    /*display: block;*/
     background-color: #0b769c;
 }
 
 .yet-another-social-network-body{
     overflow: hidden;
-    /*display: block;*/
     background-color: #eaf1f7;
 }
 
 .form-background-container {
-    /*display: inline-block;*/
 }
 
 small {
@@ -74,20 +69,16 @@ small {
 }
 
 .radio-block-container {
-    /*display: inline;*/
 }
 
 .radio-block {
     display: inline-block;
 }
 
-.radio-block:nth-child(2)::before {
-    padding: 0 15px 0;
+.radio-block:nth-child(2) {
+    padding: 0 25px 0;
 }
 
-.radio-block:nth-child(2)::after {
-    padding: 0 0 0;
-}
 
 #birthday-register-container {
     margin: 16px 0 0;
