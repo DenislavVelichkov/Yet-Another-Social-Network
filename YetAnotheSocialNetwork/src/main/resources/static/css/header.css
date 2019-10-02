@@ -4,7 +4,7 @@
 
 #yasn-header-container {
     color: #fff;
-    padding: 0 15px 0;
+    padding: 0 1em 0;
     margin: 0;
     /*min-width: 460px;*/
     /*width: 100%;*/
@@ -32,7 +32,7 @@
     border-color: #175167 !important;
     width: 10rem;
     padding: 0;
-    height: 57px;
+    height: 2.4em;
     line-height: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
@@ -53,18 +53,18 @@
 }
 
 div.navbar-login-form-field-container:nth-child(3) {
-    padding-left: 10px;
+    padding-left: 1em;
 }
 
 .navbar-login-form-btn-container {
     position: relative;
     margin-left: 0;
-    left: 41px;
+    left: 2.6em;
 }
 
 .navbar-login-form-field {
     height: 3.5rem;
-    margin: -7px 0 0 0;
+    margin: -0.45em 0 0 0;
 }
 
 #bad-credentials {
