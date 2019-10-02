@@ -2,11 +2,11 @@
           xmlns:th="http://www.thymeleaf.org">
     <th:block sec:authorize="isAnonymous()">
         <div id="yasn-header-container" class="row">
-            <div class="col-lg-6">
-                <img alt="" class="img-fluid ml-6" id="navbar-img-logo" src="">
-                <!-- https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
+            <div class="col">
+             <!--   <img alt="" class="img-fluid ml-6" id="navbar-img-logo" src="">
+                 https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
             </div>
-            <div class="col-lg-6 index-header-right">
+            <div class="col offset-2 index-header-right">
 
                 <div id="login-form-container">
                     <form id="login-form" th:action="@{/user/login}" th:method="post">
@@ -17,12 +17,10 @@
                                    placeholder="Email" type="email">
                         </div>
 
-                        <div class=" navbar-login-form-field-container">
+                        <div class="navbar-login-form-field-container">
                             <label for="password"></label>
                             <input class="form-control navbar-login-form-field" id="password" name="password"
                                    placeholder="Password..." type="password">
-                            <div class="bad-credentials-label text-center">
-                            </div>
                         </div>
 
                         <div class="navbar-login-form-btn-container">
@@ -32,11 +30,10 @@
                                 Log In
                             </button>
                         </div>
-
-                    </form>
                         <th:block th:if="${param.error}">
                             <script th:src="@{/js/script/error-banner.js}"></script>
                         </th:block>
+                    </form>
                 </div>
             </div>
         </div>

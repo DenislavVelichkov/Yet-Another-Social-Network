@@ -24,18 +24,18 @@ html {
 
 .yet-another-social-network-header{
     overflow: hidden;
-    display: block;
+    /*display: block;*/
     background-color: #0b769c;
 }
 
 .yet-another-social-network-body{
     overflow: hidden;
-    display: block;
+    /*display: block;*/
     background-color: #eaf1f7;
 }
 
 .form-background-container {
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 small {
@@ -44,8 +44,8 @@ small {
 
 #yasn-body-container {
     padding: 0 15px 0;
-    margin: 48px 10rem 0;
-    min-width: 460px
+    margin: 48px 0 0;
+    /*min-width: 460px*/
 }
 
 #inner-main-right-container {
@@ -55,6 +55,7 @@ small {
 
 #main-left-content{
     padding: 16px 0 0 0;
+    offset: view-box;
 }
 
 .error {
@@ -73,11 +74,19 @@ small {
 }
 
 .radio-block-container {
-    display: inline-flex;
+    /*display: inline;*/
 }
 
-.radio-block:nth-child(2) {
+.radio-block {
+    display: inline-block;
+}
+
+.radio-block:nth-child(2)::before {
     padding: 0 15px 0;
+}
+
+.radio-block:nth-child(2)::after {
+    padding: 0 0 0;
 }
 
 #birthday-register-container {
