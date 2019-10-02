@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
 
 html {
-        box-sizing: border-box;
+        box-sizing: border-box!important;
     }
 
 * {
