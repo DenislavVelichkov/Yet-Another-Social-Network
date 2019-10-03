@@ -2,9 +2,12 @@
 @import url("footer.css");
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
 
+
 html {
     box-sizing: border-box;
-    font: 16px/1.5 'Patua One', cursive;
+    font-family: 'Patua One', cursive;
+    line-height: 1.5;
+    font-size: 16px;
 }
 
 * {
@@ -14,6 +17,52 @@ html {
 
 *, *:before, *:after {
     box-sizing: inherit;
+}
+
+@media (max-width: 575.98px) {
+    html {
+        font-size: 13px;
+    }
+
+    .index-header-right {
+        margin-left: 0;
+    }
+
+    #yasn-header-container > div:nth-child(1) {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    html {
+        font-size: 14px;
+    }
+
+    .index-header-right {
+        margin-left: 0;
+    }
+
+    #yasn-header-container > div:nth-child(1) {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 19px;
+    }
 }
 
 .h1, .h2, .h3, .h4, .h5 {
@@ -31,12 +80,11 @@ html {
     background-color: #eaf1f7;
 }
 
-.form-background-container {
-}
 
 small {
     display: block;
 }
+
 
 #yasn-body-container {
     padding: 0 1em 0;
@@ -78,7 +126,7 @@ small {
 }
 
 .radio-block:not(:first-child) {
-    padding-right: 1.5em;
+    padding-right: 1.2em;
 }
 
 #birthday-register-container {
@@ -101,3 +149,5 @@ small {
     text-align: center;
     display: block;
 }
+
+
