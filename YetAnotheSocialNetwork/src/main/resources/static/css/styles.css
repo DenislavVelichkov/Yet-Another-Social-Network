@@ -108,7 +108,7 @@ small {
 }
 
 #main-left-content {
-    padding: 1em 0 0 0;
+    padding: 1em 0 0 ;
     offset: view-box;
 }
 
@@ -123,7 +123,7 @@ small {
 
 .radio-section-container {
 
-    margin: 1em 0 0 0;
+    margin: 1em 0 0;
     padding-left: 1.5em;
 }
 
@@ -145,17 +145,16 @@ small {
 
 #royal-sign-up-button {
     width: 10rem;
-    padding: 0 0 0 0;
-    margin: 1em 0 0 0;
+    padding: 0;
+    margin: 1em auto;
     height: 3rem;
-    line-height: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
     font-size: 1.5rem;
 }
 
 .button-holder {
-    margin: 1em 0 0 0;
+    margin: 1em 0 0;
     text-align: center;
     display: block;
 }
