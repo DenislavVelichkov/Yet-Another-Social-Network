@@ -3,29 +3,24 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
 >
+
 <head>
     <th:block th:include="~{fragments/head.html}"/>
 </head>
+
 <body>
-<div class="yet-another-social-network">
-    <div class="yasn-page-container">
-        <header>
-            <th:block th:include="~{fragments/navbar.html}"/>
-        </header>
+    <header>
+        <th:block th:include="~{fragments/navbar.html}"/>
+    </header>
 
-        <main>
-            <h1>
-                HOME PAGE !
-            </h1>
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn-primary btn-lg">Logout</button>
-            </form>
-        </main>
+    <main>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn-primary btn-lg">Logout</button>
+        </form>
+    </main>
 
-        <footer>
-            <th:block th:include="~{fragments/footer}"/>
-        </footer>
-    </div>
-</div>
+    <footer>
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
 </body>
 </html>

@@ -1,5 +1,6 @@
 @import url("header.css");
 @import url("footer.css");
+@import url("home.css");
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
 
 
@@ -79,17 +80,6 @@ html {
     font-family: 'Patua One', cursive;
     color: #4e555b;
 }
-
-.yet-another-social-network-header {
-    overflow: hidden;
-    background-color: #0b769c;
-}
-
-.yet-another-social-network-body {
-    overflow: hidden;
-    background-color: #eaf1f7;
-}
-
 
 small {
     display: block;

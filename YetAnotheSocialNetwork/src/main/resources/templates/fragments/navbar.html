@@ -1,5 +1,6 @@
 <th:block xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
           xmlns:th="http://www.thymeleaf.org">
+
     <th:block sec:authorize="isAnonymous()">
         <div id="yasn-header-container" class="row">
             <div class="col">
@@ -38,4 +39,11 @@
             </div>
         </div>
     </th:block>
+
+    <th:block sec:authorize="isFullyAuthenticated()">
+        <div id="yasn-home-header-container" class="row">
+            <p>alabala</p>
+        </div>
+    </th:block>
+
 </th:block>
