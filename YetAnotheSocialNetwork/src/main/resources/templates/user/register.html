@@ -1,6 +1,6 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div id="yasn-body-container" class="row no-gutters">
-        <div id="main-left-content" class="col text-center offset-1">
+    <div class="row no-gutters" id="yasn-body-container">
+        <div class="col text-center offset-1" id="main-left-content">
             <div class="text-left">
                 <div class="h1 h-container">
                     Welcome to Yet Another Social Network ™!
@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div id="main-right-content" class="col">
+        <div class="col" id="main-right-content">
             <div id="inner-main-right-container">
                 <div class="shadow p-3 mb-5 bg-white rounded">
                     <div class="text-left form-background-container">
@@ -95,28 +95,28 @@
                             <div class="row">
                                 <div class="radio-section-container text-muted col-6">
                                     <div class="radio-label">
-                                        <p id="radio-gender-label" class="text-muted ">Gender</p>
+                                        <p class="text-muted " id="radio-gender-label">Gender</p>
                                     </div>
 
-                                        <div class="radio-block">
-                                            <label class="font-weight-bold" for="male">Male</label>
-                                            <input class="custom-radio" id="male" name="gender" type="radio"
-                                                   value="male">
-                                        </div>
-                                        <div class="radio-block">
-                                            <label class="font-weight-bold" for="female">Female</label>
-                                            <input class="custom-radio" id="female" name="gender" type="radio"
-                                                   value="female">
-                                        </div>
-                                        <div class="radio-block">
-                                            <label class="font-weight-bold" for="custom">Custom</label>
-                                            <input class="custom-radio" id="custom" name="gender" type="radio"
-                                                   value="custom">
-                                        </div>
+                                    <div class="radio-block">
+                                        <label class="font-weight-bold" for="male">Male</label>
+                                        <input class="custom-radio" id="male" name="gender" type="radio"
+                                               value="male">
+                                    </div>
+                                    <div class="radio-block">
+                                        <label class="font-weight-bold" for="female">Female</label>
+                                        <input class="custom-radio" id="female" name="gender" type="radio"
+                                               value="female">
+                                    </div>
+                                    <div class="radio-block">
+                                        <label class="font-weight-bold" for="custom">Custom</label>
+                                        <input class="custom-radio" id="custom" name="gender" type="radio"
+                                               value="custom">
+                                    </div>
 
                                 </div>
 
-                                <div id="birthday-register-container" class="col-6">
+                                <div class="col-6" id="birthday-register-container">
                                     <label class="text-muted" for="birthday">Birthday</label>
                                     <input class="form-control" id="birthday" name="birthday" th:value="*{birthday}"
                                            type="date">

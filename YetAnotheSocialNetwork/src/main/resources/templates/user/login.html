@@ -2,17 +2,17 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:include="~{fragments/head.html}" />
+    <th:block th:include="~{fragments/head.html}"/>
 </head>
 
 <body>
-    <div class="yet-another-social-network">
-        <header>
-            <th:block th:include="~{fragments/navbar.html}" />
-        </header>
-        <main>
-        <div id="yasn-body-container" class="row no-gutters">
-            <div id="main-left-content" class="col offset-1 text-center">
+<div class="yet-another-social-network">
+    <header>
+        <th:block th:include="~{fragments/navbar.html}"/>
+    </header>
+    <main>
+        <div class="row no-gutters" id="yasn-body-container">
+            <div class="col offset-1 text-center" id="main-left-content">
                 <div class="text-left">
                     <div class="h1 h-container">
                         Welcome to Yet Another Social Network ™!
@@ -26,7 +26,7 @@
                          src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
                 </div>
             </div>
-            <div id="main-right-content" class="col">
+            <div class="col" id="main-right-content">
                 <div id="inner-main-right-container">
                     <div class="shadow p-3 mb-5 bg-white rounded">
                         <div class="text-left h-container">
@@ -39,10 +39,10 @@
             </div>
         </div>
     </main>
-        <footer>
-            <th:block th:include="~{fragments/footer}" />
-        </footer>
-    </div>
+    <footer>
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
 </body>
 
 </html>

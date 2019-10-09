@@ -1,6 +1,6 @@
 /*Header*/
 
-#yasn-home-header-container{
+#yasn-home-header-container {
     background-color: #0b769c;
 
 }
@@ -11,20 +11,20 @@
     padding: 1rem;
 }
 
-.navbar-menu-right ul{
+.navbar-menu-right ul {
     margin: 0;
 }
 
-.navbar-menu-right ul > li i:hover{
+.navbar-menu-right ul > li i:hover {
     color: #fff;
 }
 
-.navbar-menu-right ul li{
+.navbar-menu-right ul li {
     display: inline-block;
     margin: 0 0.33em 0;
 }
 
-.navbar-menu-right ul li:hover{
+.navbar-menu-right ul li:hover {
     cursor: pointer;
 }
 
@@ -37,16 +37,18 @@
 }
 
 .dropdown-menu {
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 
 .dropdown-menu li a {
     color: #1b1e21;
+    font-family: Helvetica, cursive;
 }
 
 .dropdown-menu li a:hover {
-    background-color: rgba(165, 188, 194, 0.41);
+    background-color: rgba(165, 188, 194, 0.15);
     color: #1b1e21;
-    text-decoration:none;
+    text-decoration: none;
 }
+
 /*Body*/
