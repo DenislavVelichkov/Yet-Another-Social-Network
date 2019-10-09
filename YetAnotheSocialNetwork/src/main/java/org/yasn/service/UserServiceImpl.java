@@ -14,6 +14,8 @@ import org.yasn.repository.UserRepository;
 import org.yasn.service.interfaces.RoleService;
 import org.yasn.service.interfaces.UserService;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,6 +61,9 @@ public class UserServiceImpl implements UserService {
     User user = this.modelMapper.map(userServiceModel, User.class);
     String[] usernamePrep = userServiceModel.getEmail().split("@");
     user.setUsername(usernamePrep[0] + "." + usernamePrep[1]);
+    user.setActive(true);
+    Date date = new Date();
+    user.setCreatedOn(new Timestamp(date.getTime()));
     user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
 
     return this.modelMapper

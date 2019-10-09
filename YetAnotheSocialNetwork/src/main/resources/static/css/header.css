@@ -1,11 +1,9 @@
-.yet-another-social-network-header {
-    background-color: #0b769c;
-}
 
 #yasn-header-container {
     color: #fff;
     padding: 0 1em 0;
     margin: 0;
+    background-color: #0b769c;
 }
 
 .index-header-right {
@@ -73,6 +71,7 @@ div.navbar-login-form-field-container:nth-child(3) {
 #bad-credentials {
     width: auto;
     text-align: center;
+    z-index: 1000;
 }
 
 #bad-credentials p {

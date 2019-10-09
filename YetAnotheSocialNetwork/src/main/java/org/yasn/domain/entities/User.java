@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -19,6 +20,8 @@ public class User extends BaseEntity implements UserDetails {
   private String email;
   private String gender;
   private Date birthday;
+  private boolean isActive;
+  private Timestamp createdOn;
   private Set<Role> authorities;
 
   public User() {
@@ -69,6 +72,25 @@ public class User extends BaseEntity implements UserDetails {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  @Column(name = "is_active", nullable = false)
+  public boolean isActive() {
+    return this.isActive;
+  }
+
+  public void setActive(boolean active) {
+    isActive = active;
+  }
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
+  @Column(name = "created_on", updatable = false)
+  public Timestamp getCreatedOn() {
+    return this.createdOn;
+  }
+
+  public void setCreatedOn(Timestamp createdOn) {
+    this.createdOn = createdOn;
   }
 
   @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)

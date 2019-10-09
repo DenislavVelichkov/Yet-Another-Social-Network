@@ -55,6 +55,9 @@
                                     <label class="font-weight-bold" for="confirmEmail"></label>
                                     <input class="form-control" id="confirmEmail" name="confirmEmail"
                                            placeholder="Confirm Email..." th:value="*{confirmEmail}" type="email">
+                                    <th:block th:if="${#fields.hasErrors('email')}">
+                                        <small class="error" th:errors="*{email}">Email doesn't match</small>
+                                    </th:block>
                                 </div>
                             </div>
 
@@ -84,9 +87,7 @@
                                            placeholder="Confirm Password..." th:value="*{confirmPassword}"
                                            type="password">
                                     <th:block th:if="${#fields.hasErrors('password')}">
-                                        <small class="error" th:errors="*{password}">
-
-                                        </small>
+                                        <small class="error" th:errors="*{password}"></small>
                                     </th:block>
                                 </div>
                             </div>

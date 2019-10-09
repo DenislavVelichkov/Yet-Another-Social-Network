@@ -1,5 +1,7 @@
 package org.yasn.domain.models.binding;
 
+import java.sql.Timestamp;
+
 public class UserRegisterBindingModel {
 
   private String username;
@@ -11,6 +13,8 @@ public class UserRegisterBindingModel {
   private String confirmEmail;
   private String gender;
   private String birthday;
+  private boolean isActive;
+  private Timestamp createdOn;
 
   public UserRegisterBindingModel() {
   }
@@ -85,5 +89,21 @@ public class UserRegisterBindingModel {
 
   public void setBirthday(String birthday) {
     this.birthday = birthday;
+  }
+
+  public boolean isActive() {
+    return this.isActive;
+  }
+
+  public void setActive(boolean active) {
+    isActive = active;
+  }
+
+  public Timestamp getCreatedOn() {
+    return this.createdOn;
+  }
+
+  public void setCreatedOn(Timestamp createdOn) {
+    this.createdOn = createdOn;
   }
 }
