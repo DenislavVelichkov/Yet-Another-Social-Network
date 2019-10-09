@@ -8,11 +8,15 @@
 .navbar-menu-right {
     display: flex;
     justify-content: right;
+    padding: 1rem;
 }
 
 .navbar-menu-right ul{
     margin: 0;
-    padding: 1rem;
+}
+
+.navbar-menu-right ul > li i:hover{
+    color: #fff;
 }
 
 .navbar-menu-right ul li{
@@ -32,8 +36,17 @@
     display: block;
 }
 
-/*Body*/
-
-main {
-    margin: 1em 0 1em;
+.dropdown-menu {
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
+
+.dropdown-menu li a {
+    color: #1b1e21;
+}
+
+.dropdown-menu li a:hover {
+    background-color: rgba(165, 188, 194, 0.41);
+    color: #1b1e21;
+    text-decoration:none;
+}
+/*Body*/
