@@ -20,8 +20,20 @@
     margin: 0 0.33em 0;
 }
 
+.navbar-menu-right ul li:hover{
+    cursor: pointer;
+}
+
 .navbar-menu-right i {
     font-size: 1.3rem;
 }
 
+.navbar-dropdown-menu {
+    display: block;
+}
+
 /*Body*/
+
+main {
+    margin: 1em 0 1em;
+}
