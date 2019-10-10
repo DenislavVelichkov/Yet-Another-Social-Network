@@ -19,10 +19,17 @@
 
         </div>
         <div class="col-6 justify-content-center text-center">
-            <div class="wiym-container">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur et mollitia odit provident
-                    reprehenderit sequi tempore! Accusamus animi cumque dolore doloribus eaque eligendi, impedit magni
-                    nam quas reprehenderit, sapiente similique.</p>
+            <div class="wiym-wall-container">
+                <form th:action="@{/action/wall/post/}"
+                      enctype="multipart/form-data"
+                      id="yasn-wall-form" th:method="post" th:object="${post}">
+                    <span>
+                        Create a Post
+                    </span>
+                    <div>
+                        <textarea placeholder="What's on your mind?" name="post"></textarea>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="col-3">

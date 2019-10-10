@@ -99,9 +99,12 @@
                                             <a th:href="@{/settings}">Account Settings</a>
                                         </li>
                                         <li>
-                                            <a href="javascript: document.logoutForm.submit()">
+                                            <div>
+                                                <i class="fa fa-sign-out-alt"></i>
+                                                <a href="javascript: document.logoutForm.submit()">
                                                 Logout
                                             </a>
+                                            </div>
                                             <form method="post" name="logoutForm" th:action="@{/logout}"
                                                   th:hidden="true">
                                                 <input hidden type="submit" value="Logout"/>

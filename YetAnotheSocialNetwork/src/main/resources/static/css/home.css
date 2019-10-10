@@ -59,13 +59,17 @@
     margin-top: 1rem;
 }
 
+.fa.fa-sign-out-alt {
+    font-size: 1em!important;
+}
+
 /*Body*/
 #yasn-home-body-container {
     background-color: #e9ebee;
-    padding-top: 1rem;
+    padding: 1rem 0 1rem;
 }
 
-.wiym-container {
+.wiym-wall-container {
     display: block;
     background-color: #fff;
     width: 100%;
