@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
@@ -30,7 +29,11 @@ public class User extends BaseEntity implements UserDetails {
   }
 
   @Override
-  @Column(name = "username", nullable = false, unique = true, updatable = false)
+  @Column(
+      name = "username",
+      nullable = false,
+      unique = true,
+      updatable = false)
   public String getUsername() {
     return this.username;
   }
@@ -39,7 +42,10 @@ public class User extends BaseEntity implements UserDetails {
     this.username = username;
   }
 
-  @Column(name = "first_name", nullable = false, updatable = false)
+  @Column(
+      name = "first_name",
+      nullable = false,
+      updatable = false)
   public String getFirstName() {
     return this.firstName;
   }
@@ -48,7 +54,10 @@ public class User extends BaseEntity implements UserDetails {
     this.firstName = firstName;
   }
 
-  @Column(name = "last_name", nullable = false, updatable = false)
+  @Column(
+      name = "last_name",
+      nullable = false,
+      updatable = false)
   public String getLastName() {
     return this.lastName;
   }
@@ -67,7 +76,10 @@ public class User extends BaseEntity implements UserDetails {
     this.password = password;
   }
 
-  @Column(name = "email", nullable = false, unique = true)
+  @Column(
+      name = "email",
+      nullable = false,
+      unique = true)
   public String getEmail() {
     return this.email;
   }
@@ -116,7 +128,10 @@ public class User extends BaseEntity implements UserDetails {
     this.authorities = authorities;
   }
 
-  @Column(name = "gender", nullable = false, updatable = false)
+  @Column(
+      name = "gender",
+      nullable = false,
+      updatable = false)
   public String getGender() {
     return this.gender;
   }
@@ -125,7 +140,7 @@ public class User extends BaseEntity implements UserDetails {
     this.gender = gender;
   }
 
-  @Column(name = "birthday", nullable = false, updatable = true)
+  @Column(name = "birthday", nullable = false)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   public Date getBirthday() {
     return this.birthday;
@@ -134,9 +149,12 @@ public class User extends BaseEntity implements UserDetails {
   public void setBirthday(Date birthday) {
     this.birthday = birthday;
   }
-  
-  @OneToOne(mappedBy = "profileOwner", cascade = CascadeType.ALL,
-      fetch = FetchType.LAZY, optional = false)
+
+  @OneToOne(
+      mappedBy = "profileOwner",
+      cascade = CascadeType.ALL,
+      fetch = FetchType.LAZY,
+      optional = false)
   public UserProfile getUserProfile() {
     return this.userProfile;
   }

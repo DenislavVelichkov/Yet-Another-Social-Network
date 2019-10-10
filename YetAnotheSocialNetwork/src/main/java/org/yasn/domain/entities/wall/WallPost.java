@@ -18,6 +18,9 @@ public class WallPost extends BaseEntity {
   private List<PostComment> postComments;
   private Timestamp createdOn;
 
+  public WallPost() {
+  }
+
   @ManyToOne(
       targetEntity = UserProfile.class,
       cascade = CascadeType.ALL

@@ -73,4 +73,5 @@ public class UserController extends BaseController {
   public ModelAndView login() {
     return super.view("/user/login");
   }
+
 }

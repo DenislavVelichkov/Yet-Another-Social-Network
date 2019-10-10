@@ -46,70 +46,73 @@
 
             </div>
             <div class="col-6">
-                <div class="navbar-profile-container float-left">
-                    <img>
-                    <div>
-                        <a th:href="@{/profile}">
-                            <th:block>
+                <nav>
+                    <div class="navbar-profile-container float-left">
+                        <img>
+                        <div>
+                            <a th:href="@{/profile}">
+                                <th:block>
 
-                            </th:block>
-                        </a>
+                                </th:block>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="navbar-menu-right nav-tabs float-right">
-                    <ul>
-                        <li>
-                            <a class="yasn-notification-friends">
+                    <div class="navbar-menu-right nav-tabs float-right">
+                        <ul>
+                            <li>
+                                <a class="yasn-notification-friends">
                                 <span>
                                     <div>
                                         <i class="fa fa-users"></i>
                                     </div>
                                 </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="yasn-notification-messages">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="yasn-notification-messages">
                                 <span>
                                     <div>
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                 </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="yasn-notification-notifications">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="yasn-notification-notifications">
                                 <span>
                                     <div>
                                         <i class="fas fa-bell"></i>
                                     </div>
                                 </span>
-                            </a>
-                        </li>
-                        <li class="navbar-dropdown-menu">
-                            <div class="dropdown">
-                                <a aria-expanded="true" data-target="#" data-toggle="dropdown" role="button">
-                                    <i class="fas fa-caret-down"></i>
                                 </a>
-                                <ul aria-labelledby="dropdownMenu" class="dropdown-menu multi-level" role="menu">
-                                    <li>
-                                        <a th:href="@{/admin}">Admin Panel</a>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{/settings}">Account Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript: document.logoutForm.submit()">
-                                            Logout
-                                        </a>
-                                        <form method="post" name="logoutForm" th:action="@{/logout}" th:hidden="true">
-                                            <input hidden type="submit" value="Logout"/>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                            </li>
+                            <li class="navbar-dropdown-menu">
+                                <div class="dropdown">
+                                    <a aria-expanded="true" data-target="#" data-toggle="dropdown" role="button">
+                                        <i class="fas fa-caret-down"></i>
+                                    </a>
+                                    <ul aria-labelledby="dropdownMenu" class="dropdown-menu multi-level" role="menu">
+                                        <li>
+                                            <a th:href="@{/admin}">Admin Panel</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/settings}">Account Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript: document.logoutForm.submit()">
+                                                Logout
+                                            </a>
+                                            <form method="post" name="logoutForm" th:action="@{/logout}"
+                                                  th:hidden="true">
+                                                <input hidden type="submit" value="Logout"/>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
             <div class="col-3">
 

@@ -10,10 +10,10 @@ public class PostComment extends BaseEntity {
   private WallPost parentPost;
   private String commentContent;
 
-  @ManyToOne(
-      targetEntity = WallPost.class,
-      cascade = CascadeType.ALL
-  )
+  public PostComment() {
+  }
+
+  @ManyToOne(targetEntity = WallPost.class, cascade = CascadeType.ALL)
   @JoinColumn(name = "wall_post_id", referencedColumnName = "id")
   public WallPost getParentPost() {
     return this.parentPost;

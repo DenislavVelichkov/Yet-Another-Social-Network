@@ -17,6 +17,9 @@ public class UserProfile extends BaseEntity {
   private Set<UserProfile> friendOf;
   private Set<UserProfile> friends;
 
+  public UserProfile() {
+  }
+
   @Column(name = "full_name")
   public String getFullName() {
     return this.fullName;

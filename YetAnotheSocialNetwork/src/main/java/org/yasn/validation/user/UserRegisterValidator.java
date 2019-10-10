@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.yasn.common.annotations.validation.Validator;
 import org.yasn.domain.models.binding.UserRegisterBindingModel;
-import org.yasn.repository.UserRepository;
+import org.yasn.repository.user.UserRepository;
 import org.yasn.validation.ValidationConstants;
 
 import java.util.regex.Matcher;
