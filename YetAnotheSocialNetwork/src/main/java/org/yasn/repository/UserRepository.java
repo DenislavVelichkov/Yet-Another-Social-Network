@@ -2,7 +2,7 @@ package org.yasn.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.yasn.domain.entities.User;
+import org.yasn.domain.entities.user.User;
 
 import java.util.Optional;
 

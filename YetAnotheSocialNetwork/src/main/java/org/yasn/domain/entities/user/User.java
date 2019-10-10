@@ -1,7 +1,8 @@
-package org.yasn.domain.entities;
+package org.yasn.domain.entities.user;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.yasn.domain.entities.BaseEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,6 +23,7 @@ public class User extends BaseEntity implements UserDetails {
   private Date birthday;
   private boolean isActive;
   private Timestamp createdOn;
+  private UserProfile userProfile;
   private Set<Role> authorities;
 
   public User() {
@@ -131,6 +133,16 @@ public class User extends BaseEntity implements UserDetails {
 
   public void setBirthday(Date birthday) {
     this.birthday = birthday;
+  }
+  
+  @OneToOne(mappedBy = "profileOwner", cascade = CascadeType.ALL,
+      fetch = FetchType.LAZY, optional = false)
+  public UserProfile getUserProfile() {
+    return this.userProfile;
+  }
+
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
   }
 
   @Override

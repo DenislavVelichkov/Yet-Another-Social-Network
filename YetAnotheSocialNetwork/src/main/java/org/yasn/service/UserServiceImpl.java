@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.UserRoles;
-import org.yasn.domain.entities.User;
+import org.yasn.domain.entities.user.User;
 import org.yasn.domain.models.service.UserServiceModel;
 import org.yasn.repository.UserRepository;
 import org.yasn.service.interfaces.RoleService;

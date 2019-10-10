@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
 import org.yasn.common.annotations.validation.Validator;
-import org.yasn.domain.entities.User;
+import org.yasn.domain.entities.user.User;
 import org.yasn.domain.models.binding.UserEditBindingModel;
 import org.yasn.repository.UserRepository;
 import org.yasn.validation.ValidationConstants;

@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yasn.common.UserRoles;
-import org.yasn.domain.entities.Role;
+import org.yasn.domain.entities.user.Role;
 import org.yasn.domain.models.service.RoleServiceModel;
 import org.yasn.repository.RoleRepository;
 import org.yasn.service.interfaces.RoleService;

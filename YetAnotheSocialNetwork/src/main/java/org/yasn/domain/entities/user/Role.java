@@ -1,6 +1,7 @@
-package org.yasn.domain.entities;
+package org.yasn.domain.entities.user;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.yasn.domain.entities.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
