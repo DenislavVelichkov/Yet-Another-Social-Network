@@ -1,5 +1,6 @@
 package org.yasn.domain.models.service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -11,6 +12,8 @@ public class UserServiceModel extends BaseServiceModel {
   private String email;
   private String gender;
   private Date birthday;
+  private boolean isActive;
+  private Timestamp createdOn;
   private Set<RoleServiceModel> authorities;
 
   public UserServiceModel() {
@@ -78,5 +81,21 @@ public class UserServiceModel extends BaseServiceModel {
 
   public void setAuthorities(Set<RoleServiceModel> authorities) {
     this.authorities = authorities;
+  }
+
+  public boolean isActive() {
+    return this.isActive;
+  }
+
+  public void setActive(boolean active) {
+    isActive = active;
+  }
+
+  public Timestamp getCreatedOn() {
+    return this.createdOn;
+  }
+
+  public void setCreatedOn(Timestamp createdOn) {
+    this.createdOn = createdOn;
   }
 }

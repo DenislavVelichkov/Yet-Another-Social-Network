@@ -65,10 +65,11 @@ public class UserProfile extends BaseEntity {
   @ManyToMany(
       cascade = CascadeType.ALL
   )
-  @JoinTable(name = "friend_of_friends",
-      joinColumns =
-          {@JoinColumn(name = "friend_of_id")},
-      inverseJoinColumns = {@JoinColumn(name = "friend_id")})
+  @JoinTable(
+      name = "friend_of_friends",
+      joinColumns = @JoinColumn(
+          name = "friend_of_id"),
+          inverseJoinColumns = @JoinColumn(name = "friend_id"))
   public Set<UserProfile> getFriends() {
     return this.friends;
   }
@@ -78,10 +79,11 @@ public class UserProfile extends BaseEntity {
   }
 
   @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "friend_of_friends",
-      joinColumns =
-          {@JoinColumn(name = "friend_id")},
-      inverseJoinColumns = {@JoinColumn(name = "friend_of_id")})
+  @JoinTable(
+      name = "friend_of_friends",
+      joinColumns = @JoinColumn(
+          name = "friend_id"),
+          inverseJoinColumns = @JoinColumn(name = "friend_of_id"))
   public Set<UserProfile> getFriendOf() {
     return this.friendOf;
   }

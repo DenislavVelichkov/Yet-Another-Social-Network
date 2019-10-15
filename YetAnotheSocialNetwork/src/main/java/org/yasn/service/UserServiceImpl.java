@@ -57,14 +57,15 @@ public class UserServiceImpl implements UserService {
           .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
     }
 
+    String[] usernamePrep = userServiceModel.getEmail().split("@");
+    Date date = new Date();
+
+    userServiceModel.setUsername(usernamePrep[0] + "." + usernamePrep[1]);
+    userServiceModel.setActive(true);
+    userServiceModel.setCreatedOn(new Timestamp(date.getTime()));
+    userServiceModel.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
 
     User user = this.modelMapper.map(userServiceModel, User.class);
-    String[] usernamePrep = userServiceModel.getEmail().split("@");
-    user.setUsername(usernamePrep[0] + "." + usernamePrep[1]);
-    user.setActive(true);
-    Date date = new Date();
-    user.setCreatedOn(new Timestamp(date.getTime()));
-    user.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
 
     return this.modelMapper
         .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);

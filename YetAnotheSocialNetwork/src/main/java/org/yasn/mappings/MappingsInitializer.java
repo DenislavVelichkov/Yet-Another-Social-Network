@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MappingsInitializer {
-  private static final String ROOT_PACKAGE_NAME = "org.softuni.yasn";
+  private static final String ROOT_PACKAGE_NAME = "org.yasn";
 
   public static void initMappings(ModelMapper mapper) {
     String configureMappingsMethodName = IHaveCustomMappings.class.getDeclaredMethods()[0]
