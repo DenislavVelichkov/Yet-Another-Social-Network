@@ -150,11 +150,7 @@ public class User extends BaseEntity implements UserDetails {
     this.birthday = birthday;
   }
 
-  @OneToOne(
-      mappedBy = "profileOwner",
-      cascade = CascadeType.ALL,
-      fetch = FetchType.LAZY,
-      optional = false)
+  @OneToOne(mappedBy = "profileOwner")
   public UserProfile getUserProfile() {
     return this.userProfile;
   }

@@ -29,7 +29,7 @@ public class UserProfile extends BaseEntity {
     this.fullName = fullName;
   }
 
-  @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+  @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   public User getProfileOwner() {
     return this.profileOwner;

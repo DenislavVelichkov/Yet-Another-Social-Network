@@ -63,6 +63,10 @@
     font-size: 1em!important;
 }
 
+.nav-tabs {
+    border-bottom: 0 solid #dee2e6!important;
+}
+
 /*Body*/
 #yasn-home-body-container {
     background-color: #e9ebee;

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.UserRoles;
 import org.yasn.domain.entities.user.User;
+import org.yasn.domain.entities.user.UserProfile;
 import org.yasn.domain.models.service.UserServiceModel;
+import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.service.interfaces.RoleService;
 import org.yasn.service.interfaces.UserService;
@@ -23,16 +25,19 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
+  private final UserProfileRepository userProfileRepository;
   private final RoleService roleService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
 
   @Autowired
   public UserServiceImpl(UserRepository userRepository,
+                         UserProfileRepository userProfileRepository,
                          RoleService roleService,
                          ModelMapper modelMapper,
                          BCryptPasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
+    this.userProfileRepository = userProfileRepository;
     this.roleService = roleService;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
@@ -66,6 +71,14 @@ public class UserServiceImpl implements UserService {
     userServiceModel.setPassword(this.passwordEncoder.encode(userServiceModel.getPassword()));
 
     User user = this.modelMapper.map(userServiceModel, User.class);
+    UserProfile profile = new UserProfile();
+    profile.setProfileOwner(user);
+    profile.setFullName(userServiceModel.getFirstName()
+        +
+        " "
+        + userServiceModel.getLastName());
+
+    this.userProfileRepository.saveAndFlush(profile);
 
     return this.modelMapper
         .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
