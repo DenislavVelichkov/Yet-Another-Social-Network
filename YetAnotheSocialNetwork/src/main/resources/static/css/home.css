@@ -85,16 +85,62 @@
     display: block;
     margin: 0.8em 0 0;
 }
+
 /*Body*/
 #yasn-home-body-container {
     background-color: #e9ebee;
     padding: 1rem 0 1rem;
 }
 
-.wiym-wall-container {
+.yasn-wall-container {
     display: block;
-    background-color: #fff;
-    width: 100%;
+    width: 70%;
     alignment-baseline: top;
     border: 0.01em solid #e5e5e5;
+    margin: 0 auto 0;
+}
+
+.yasn-post-container {
+    display: block;
+    background-color: #fff;
+    padding: 1em;
+    width: 100%;
+}
+
+.yasn-post-container > span {
+    display: block;
+    font-weight: bold;
+    color: rgb(105, 107, 110);
+}
+
+.yasn-post-attributes-container textarea {
+    display: block;
+    width: 100%;
+    resize: none;
+    padding: 0.5em;
+    outline: 0;
+}
+
+.post-options li, .post-options span {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.post-options li {
+    padding: 0.43em;
+    margin-top: 0.4em;
+    cursor: pointer;
+}
+
+.yasn-post-privacy {
+    float: right;
+}
+
+.yasn-post-container input[type="submit"] {
+    padding: 0.3em 1em;
+    display: block;
+    margin-top: 0.5em;
+    background-color: #0b769c;
+    border:none;
 }

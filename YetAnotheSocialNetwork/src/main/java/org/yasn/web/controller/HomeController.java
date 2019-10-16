@@ -37,7 +37,7 @@ public class HomeController extends BaseController {
   @PreAuthorize("isAuthenticated()")
   @PageTitle("Home")
   public ModelAndView home(ModelAndView modelAndView,
-                           @ModelAttribute(name = "model") WallPostBindingModel wallPost,
+                           @ModelAttribute(name = "wallPostModel") WallPostBindingModel wallPost,
                            @ModelAttribute(name = "avatar") AvatarViewModel avatar,
                            Principal principal) {
 
