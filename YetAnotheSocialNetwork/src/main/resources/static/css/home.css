@@ -60,13 +60,31 @@
 }
 
 .fa.fa-sign-out-alt {
-    font-size: 1em!important;
+    font-size: 1em !important;
 }
 
 .nav-tabs {
-    border-bottom: 0 solid #dee2e6!important;
+    border-bottom: 0 solid #dee2e6 !important;
 }
 
+#avatar-picture {
+    width: 2em;
+    height: auto;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #fff;
+}
+
+#avatar-name {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-avatar-container {
+    display: block;
+    margin: 0.8em 0 0;
+}
 /*Body*/
 #yasn-home-body-container {
     background-color: #e9ebee;

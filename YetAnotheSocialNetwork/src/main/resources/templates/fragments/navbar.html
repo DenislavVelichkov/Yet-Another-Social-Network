@@ -40,22 +40,23 @@
         </div>
     </th:block>
 
-    <th:block sec:authorize="isFullyAuthenticated()">
+    <th:block sec:authorize="isAuthenticated()">
         <div class="row" id="yasn-home-header-container">
             <div class="col-3">
 
             </div>
             <div class="col-6">
                 <nav>
-                    <div class="navbar-profile-container float-left">
-                        <img>
-                        <div>
+                    <div class="navbar-avatar-container float-left">
+                        <th:block>
+                            <img id="avatar-picture"
+                                 th:if="${#lists.isEmpty(avatar.profilePicture)}"
+                                 th:src="@{https://res.cloudinary.com/yet-another-social-network/image/upload/v1571190394/yet-another-social-network/person_cfcu2j.png}"
+                                 alt="no-profile-picture"/>
                             <a th:href="@{/profile}">
-                                <th:block>
-
-                                </th:block>
+                                <span id="avatar-name" th:text="${avatar.fullName}"></span>
                             </a>
-                        </div>
+                        </th:block>
                     </div>
                     <div class="navbar-menu-right nav-tabs float-right">
                         <ul>
