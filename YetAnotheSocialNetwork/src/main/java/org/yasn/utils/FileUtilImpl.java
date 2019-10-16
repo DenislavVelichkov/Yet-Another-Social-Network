@@ -8,7 +8,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 
-
 public class FileUtilImpl implements FileUtil {
 
   @Override
@@ -20,10 +19,8 @@ public class FileUtilImpl implements FileUtil {
       conn.setConnectTimeout(5000);
       conn.setReadTimeout(5000);
       conn.connect();
-
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       IOUtils.copy(conn.getInputStream(), baos);
-
       image = baos.toByteArray();
     } catch (IOException e) {
       e.printStackTrace();
