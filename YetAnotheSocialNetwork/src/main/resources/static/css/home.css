@@ -68,7 +68,7 @@
 }
 
 #avatar-picture {
-    width: 2em;
+    width: 2.8em;
     height: auto;
     border-radius: 50%;
     display: inline-block;
@@ -79,11 +79,12 @@
     display: inline-block;
     color: #fff;
     text-decoration: none;
+    vertical-align: bottom;
 }
 
 .navbar-avatar-container {
     display: block;
-    margin: 0.8em 0 0;
+    margin: 0.4em 0 0;
 }
 
 /*Body*/
