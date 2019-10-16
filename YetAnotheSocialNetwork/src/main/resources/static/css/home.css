@@ -105,6 +105,7 @@
     background-color: #fff;
     padding: 1em;
     width: 100%;
+    margin-bottom: 0 !important;
 }
 
 .yasn-post-container > span {
@@ -133,6 +134,10 @@
     cursor: pointer;
 }
 
+.post-options li i:hover {
+    color: rgba(34, 37, 40, 0.21);
+}
+
 .yasn-post-privacy {
     float: right;
 }
@@ -142,5 +147,10 @@
     display: block;
     margin-top: 0.5em;
     background-color: #0b769c;
-    border:none;
+    border-color: #0b678d;
+    font-weight: bold;
+}
+
+.yasn-post-container input[type="submit"]:hover {
+    background-color: #0ba4ca;
 }
