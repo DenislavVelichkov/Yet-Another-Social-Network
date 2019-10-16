@@ -11,16 +11,19 @@ import org.yasn.domain.models.binding.WallPostBindingModel;
 import org.yasn.domain.models.service.UserProfileServiceModel;
 import org.yasn.domain.models.view.AvatarViewModel;
 import org.yasn.service.interfaces.UserProfileService;
+import org.yasn.utils.FileUtil;
 
 import java.security.Principal;
 
 @Controller
 public class HomeController extends BaseController {
   private final UserProfileService userProfileService;
+  private final FileUtil fileUtil;
 
   @Autowired
-  public HomeController(UserProfileService userProfileService) {
+  public HomeController(UserProfileService userProfileService, FileUtil fileUtil) {
     this.userProfileService = userProfileService;
+    this.fileUtil = fileUtil;
   }
 
   @GetMapping("/")
@@ -40,10 +43,15 @@ public class HomeController extends BaseController {
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(principal.getName());
+
     avatar.setFullName(userProfileServiceModel.getFullName());
-    avatar.setProfilePicture(userProfileServiceModel.getProfilePicture());
     avatar.setGender(userProfileServiceModel.getProfileOwner().getGender());
 
+    modelAndView
+        .getModelMap()
+        .addAttribute(
+            "profilePicture",
+            fileUtil.encodeByteArrayToBase64String(userProfileServiceModel.getProfilePicture()));
     modelAndView.addObject("model", wallPost);
     modelAndView.addObject("avatar", avatar);
 

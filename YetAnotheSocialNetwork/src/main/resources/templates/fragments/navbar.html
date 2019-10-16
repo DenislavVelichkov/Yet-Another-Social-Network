@@ -48,12 +48,10 @@
             <div class="col-6">
                 <nav>
                     <div class="navbar-avatar-container float-left">
-                        <th:block th:if="${#arrays.isEmpty(avatar.profilePicture)}">
                             <img id="avatar-picture"
-                                 th:src="@{https://res.cloudinary.com/yet-another-social-network/image/upload/v1571195079/yet-another-social-network/neutral-person_shubid.png}"
+                                 th:src="@{'data:image/png;base64,' + ${profilePicture}}"
                                  alt="no-profile-picture"/>
-                        </th:block>
-                            <a th:href="@{/profile}">
+                            <a th:href="@{/user/profile}">
                                 <span id="avatar-name" th:text="${avatar.fullName}"></span>
                             </a>
                     </div>

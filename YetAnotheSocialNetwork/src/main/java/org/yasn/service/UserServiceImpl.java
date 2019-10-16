@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.UserRoles;
+import org.yasn.common.WebConstants;
 import org.yasn.domain.entities.user.User;
 import org.yasn.domain.entities.user.UserProfile;
 import org.yasn.domain.models.service.UserServiceModel;
@@ -15,7 +16,10 @@ import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.service.interfaces.RoleService;
 import org.yasn.service.interfaces.UserService;
+import org.yasn.utils.FileUtil;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -29,18 +33,21 @@ public class UserServiceImpl implements UserService {
   private final RoleService roleService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
+  private final FileUtil fileUtil;
 
   @Autowired
   public UserServiceImpl(UserRepository userRepository,
                          UserProfileRepository userProfileRepository,
                          RoleService roleService,
                          ModelMapper modelMapper,
-                         BCryptPasswordEncoder passwordEncoder) {
+                         BCryptPasswordEncoder passwordEncoder,
+                         FileUtil fileUtil) {
     this.userRepository = userRepository;
     this.userProfileRepository = userProfileRepository;
     this.roleService = roleService;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
+    this.fileUtil = fileUtil;
   }
 
   @Override
@@ -77,6 +84,14 @@ public class UserServiceImpl implements UserService {
         +
         " "
         + userServiceModel.getLastName());
+
+    try {
+      profile.setProfilePicture(
+          fileUtil.downloadImageFile(
+              new URL(WebConstants.DEFAULT_AVATAR_IMG_PATH)));
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
 
     this.userProfileRepository.saveAndFlush(profile);
 
