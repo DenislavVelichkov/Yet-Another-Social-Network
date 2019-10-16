@@ -42,6 +42,7 @@ public class HomeController extends BaseController {
         this.userProfileService.findUserProfileByUsername(principal.getName());
     avatar.setFullName(userProfileServiceModel.getFullName());
     avatar.setProfilePicture(userProfileServiceModel.getProfilePicture());
+    avatar.setGender(userProfileServiceModel.getProfileOwner().getGender());
 
     modelAndView.addObject("model", wallPost);
     modelAndView.addObject("avatar", avatar);

@@ -2,6 +2,7 @@ package org.yasn.domain.models.view;
 
 public class AvatarViewModel {
   private String fullName;
+  private String gender;
   private byte[] profilePicture;
 
   public AvatarViewModel() {
@@ -21,5 +22,13 @@ public class AvatarViewModel {
 
   public void setProfilePicture(byte[] profilePicture) {
     this.profilePicture = profilePicture;
+  }
+
+  public String getGender() {
+    return this.gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 }
