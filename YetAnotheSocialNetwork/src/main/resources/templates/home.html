@@ -19,42 +19,9 @@
 
         </div>
         <div class="col-6">
-            <div class="yasn-wall-container">
-                <div class="yasn-post-container shadow-sm p-3 mb-5 bg-white rounded">
-                    <span>
-                        Create a Post
-                    </span>
-                    <div class="yasn-post-attributes-container">
-                        <form th:action="@{/action/wall/post/}"
-                              enctype="multipart/form-data"
-                              id="yasn-wall-form" th:method="post" th:object="${wallPostModel}">
-                            <div>
-                                <textarea placeholder="What's on your mind?" name="post"></textarea>
-                            </div>
-                            <div class="post-options">
-                                <li><i class="fas fa-user-friends"></i></li>
-                                <li><i class="far fa-compass"></i></li>
-                                <li><i class="fas fa-camera"></i></li>
-                                <li><i class="far fa-grin-wink"></i></li>
-
-                                <div style="float:right;">
-                                    <div class="spinner-border text-info" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <input class="btn btn-primary" type="submit" value="Post">
-                                </div>
-                                <li class="yasn-post-privacy">
-                                    <span>
-                                        <i class="fas fa-user-secret"></i>
-                                        <span>Privacy</span>
-                                    </span>
-                                </li>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
+            <th:block>
+                <th:block th:include="~{fragments/wall.html}"/>
+            </th:block>
         </div>
         <div class="col-3">
 

@@ -39,10 +39,10 @@ public class HomeController extends BaseController {
   public ModelAndView home(ModelAndView modelAndView,
                            @ModelAttribute(name = "wallPostModel") WallPostBindingModel wallPost,
                            @ModelAttribute(name = "avatar") AvatarViewModel avatar,
-                           Principal principal) {
+                           Principal activeUser) {
 
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(principal.getName());
+        this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
     avatar.setFullName(userProfileServiceModel.getFullName());
     avatar.setGender(userProfileServiceModel.getProfileOwner().getGender());
