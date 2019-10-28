@@ -78,8 +78,8 @@ public class UserRegisterValidator implements org.springframework.validation.Val
     if (this.userRepository.findByEmail(userRegisterBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(
           "email",
-          String.format(ValidationConstants.EMAIL_ALREADY_EXISTS, userRegisterBindingModel.getEmail()),
-          String.format(ValidationConstants.EMAIL_ALREADY_EXISTS, userRegisterBindingModel.getEmail())
+          ValidationConstants.EMAIL_ALREADY_EXISTS,
+          ValidationConstants.EMAIL_ALREADY_EXISTS
       );
     }
   }

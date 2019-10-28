@@ -9,27 +9,29 @@
                 <form th:action="@{/action/wall/post/}"
                       enctype="multipart/form-data"
                       id="yasn-wall-form" th:method="post" th:object="${wallPostModel}">
-                    <div>
-                        <textarea placeholder="What's on your mind?" name="post"></textarea>
-                    </div>
-                    <div class="post-options">
-                        <li><i class="fas fa-user-friends"></i></li>
-                        <li><i class="far fa-compass"></i></li>
-                        <li><i class="fas fa-camera"></i></li>
-                        <li><i class="far fa-grin-wink"></i></li>
 
-                        <div style="float:right;">
-                            <div class="spinner-border text-info" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <input class="btn btn-primary" type="submit" value="Post">
-                        </div>
-                        <li class="yasn-post-privacy">
+                    <textarea placeholder="What's on your mind?" name="post"></textarea>
+
+                    <div class="yasn-post-location">
+                        <input type="text" role="combobox" placeholder="Enter Location">
+                    </div>
+                    <div class="yasn-post-photo">
+                        <input type="file" name="photo">
+                    </div>
+                    <div class="yasn-post-buttons">
+                        <ul>
+                            <li><i class="fas fa-user-friends"></i></li>
+                            <li><i class="far fa-compass"></i></button></li>
+                            <li><i class="fas fa-camera"></i></input></li>
+                            <li><i class="far fa-grin-wink"></i></li>
+                            <li class="yasn-post-privacy">
                                     <span>
                                         <i class="fas fa-user-secret"></i>
                                         <span>Privacy</span>
+                                        <input class="btn btn-primary" type="submit" value="Post">
                                     </span>
-                        </li>
+                            </li>
+                        </ul>
                     </div>
                 </form>
 

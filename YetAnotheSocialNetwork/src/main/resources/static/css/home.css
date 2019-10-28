@@ -115,6 +115,9 @@
     color: rgb(105, 107, 110);
 }
 
+.yasn-post-container ul {
+    margin: 0;
+}
 .yasn-post-attributes-container textarea {
     display: block;
     width: 100%;
@@ -123,19 +126,19 @@
     outline: 0;
 }
 
-.post-options li, .post-options span {
+.yasn-post-buttons li, .yasn-post-buttons span {
     display: inline-block;
     text-decoration: none;
     font-size: 1em;
 }
 
-.post-options li {
+.yasn-post-buttons li {
     padding: 0.43em;
     margin-top: 0.4em;
     cursor: pointer;
 }
 
-.post-options li i:hover {
+.yasn-post-buttons li i:hover {
     color: rgba(34, 37, 40, 0.21);
 }
 
@@ -145,8 +148,8 @@
 
 .yasn-post-container input[type="submit"] {
     padding: 0.3em 1em;
-    display: block;
-    margin-top: 0.5em;
+    display: inline-block;
+    margin: 0;
     background-color: #0b769c;
     border-color: #0b678d;
     font-weight: bold;
@@ -154,4 +157,13 @@
 
 .yasn-post-container input[type="submit"]:hover {
     background-color: #0ba4ca;
+}
+
+.yasn-post-location {
+    margin: 1em 0 0;
+    display: none;
+}
+
+.yasn-post-photo {
+    display: none;
 }
