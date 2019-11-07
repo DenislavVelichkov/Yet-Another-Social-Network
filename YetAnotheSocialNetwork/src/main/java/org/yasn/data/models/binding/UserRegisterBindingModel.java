@@ -1,26 +1,22 @@
-package org.yasn.domain.models.service;
+package org.yasn.data.models.binding;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Set;
+public class UserRegisterBindingModel {
 
-public class UserServiceModel extends BaseServiceModel {
   private String username;
   private String firstName;
   private String lastName;
   private String password;
+  private String confirmPassword;
   private String email;
+  private String confirmEmail;
   private String gender;
-  private Date birthday;
-  private boolean isActive;
-  private Timestamp createdOn;
-  private Set<RoleServiceModel> authorities;
+  private String birthday;
 
-  public UserServiceModel() {
+  public UserRegisterBindingModel() {
   }
 
   public String getUsername() {
-    return this.username;
+    return username;
   }
 
   public void setUsername(String username) {
@@ -44,19 +40,35 @@ public class UserServiceModel extends BaseServiceModel {
   }
 
   public String getPassword() {
-    return this.password;
+    return password;
   }
 
   public void setPassword(String password) {
     this.password = password;
   }
 
+  public String getConfirmPassword() {
+    return confirmPassword;
+  }
+
+  public void setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+  }
+
   public String getEmail() {
-    return this.email;
+    return email;
   }
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getConfirmEmail() {
+    return this.confirmEmail;
+  }
+
+  public void setConfirmEmail(String confirmEmail) {
+    this.confirmEmail = confirmEmail;
   }
 
   public String getGender() {
@@ -67,35 +79,11 @@ public class UserServiceModel extends BaseServiceModel {
     this.gender = gender;
   }
 
-  public Date getBirthday() {
+  public String getBirthday() {
     return this.birthday;
   }
 
-  public void setBirthday(Date birthday) {
+  public void setBirthday(String birthday) {
     this.birthday = birthday;
-  }
-
-  public Set<RoleServiceModel> getAuthorities() {
-    return this.authorities;
-  }
-
-  public void setAuthorities(Set<RoleServiceModel> authorities) {
-    this.authorities = authorities;
-  }
-
-  public boolean isActive() {
-    return this.isActive;
-  }
-
-  public void setActive(boolean active) {
-    isActive = active;
-  }
-
-  public Timestamp getCreatedOn() {
-    return this.createdOn;
-  }
-
-  public void setCreatedOn(Timestamp createdOn) {
-    this.createdOn = createdOn;
   }
 }

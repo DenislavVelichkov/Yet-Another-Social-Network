@@ -1,6 +1,6 @@
-package org.yasn.domain.entities.wall;
+package org.yasn.data.entities.wall;
 
-import org.yasn.domain.entities.BaseEntity;
+import org.yasn.data.entities.BaseEntity;
 
 import javax.persistence.*;
 

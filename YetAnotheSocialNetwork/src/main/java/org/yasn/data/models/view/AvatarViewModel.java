@@ -1,4 +1,4 @@
-package org.yasn.domain.models.view;
+package org.yasn.data.models.view;
 
 public class AvatarViewModel {
   private String fullName;

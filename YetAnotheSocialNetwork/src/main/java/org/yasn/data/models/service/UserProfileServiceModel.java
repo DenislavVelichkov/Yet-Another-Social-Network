@@ -1,8 +1,8 @@
-package org.yasn.domain.models.service;
+package org.yasn.data.models.service;
 
-import org.yasn.domain.entities.user.User;
-import org.yasn.domain.entities.user.UserProfile;
-import org.yasn.domain.entities.wall.WallPost;
+import org.yasn.data.entities.user.User;
+import org.yasn.data.entities.user.UserProfile;
+import org.yasn.data.entities.wall.WallPost;
 
 import java.util.List;
 import java.util.Set;

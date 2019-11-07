@@ -3,11 +3,11 @@ package org.yasn.validation.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
-import org.yasn.common.annotations.validation.Validator;
-import org.yasn.domain.entities.user.User;
-import org.yasn.domain.models.binding.UserEditBindingModel;
+import org.yasn.data.entities.user.User;
+import org.yasn.data.models.binding.UserEditBindingModel;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.validation.ValidationConstants;
+import org.yasn.validation.Validator;
 
 @Validator
 public class UserEditValidator implements org.springframework.validation.Validator {

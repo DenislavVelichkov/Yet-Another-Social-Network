@@ -1,4 +1,4 @@
-package org.yasn.domain.models.binding;
+package org.yasn.data.models.binding;
 
 public class WallPostBindingModel {
 

@@ -2,10 +2,10 @@ package org.yasn.validation.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
-import org.yasn.common.annotations.validation.Validator;
-import org.yasn.domain.models.binding.UserRegisterBindingModel;
+import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.validation.ValidationConstants;
+import org.yasn.validation.Validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

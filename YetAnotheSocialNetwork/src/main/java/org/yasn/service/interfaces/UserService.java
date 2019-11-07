@@ -1,7 +1,7 @@
 package org.yasn.service.interfaces;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.yasn.domain.models.service.UserServiceModel;
+import org.yasn.data.models.service.UserServiceModel;
 
 import java.util.List;
 

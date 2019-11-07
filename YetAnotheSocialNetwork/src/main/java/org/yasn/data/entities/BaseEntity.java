@@ -1,4 +1,4 @@
-package org.yasn.domain.entities;
+package org.yasn.data.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 

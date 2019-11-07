@@ -1,7 +1,7 @@
-package org.yasn.domain.entities.user;
+package org.yasn.data.entities.user;
 
-import org.yasn.domain.entities.BaseEntity;
-import org.yasn.domain.entities.wall.WallPost;
+import org.yasn.data.entities.BaseEntity;
+import org.yasn.data.entities.wall.WallPost;
 
 import javax.persistence.*;
 import java.util.List;

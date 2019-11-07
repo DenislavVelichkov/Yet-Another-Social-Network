@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
-import org.yasn.domain.models.service.UserProfileServiceModel;
+import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.service.interfaces.UserProfileService;
 

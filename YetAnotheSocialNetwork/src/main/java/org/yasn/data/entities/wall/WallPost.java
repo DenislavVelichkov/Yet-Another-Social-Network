@@ -1,8 +1,8 @@
-package org.yasn.domain.entities.wall;
+package org.yasn.data.entities.wall;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.yasn.domain.entities.BaseEntity;
-import org.yasn.domain.entities.user.UserProfile;
+import org.yasn.data.entities.BaseEntity;
+import org.yasn.data.entities.user.UserProfile;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
