@@ -43,6 +43,7 @@ public class UserController extends BaseController {
   public ModelAndView index(ModelAndView modelAndView,
                             @ModelAttribute(name = "model") UserRegisterBindingModel model) {
     modelAndView.addObject("model", model);
+
     return super.view("index");
   }
 

@@ -16,6 +16,8 @@
     <name>YASN</name>
     <description>Yet Another Social Network Final Exam Project For Java MVC course.</description>
 
+    <packaging>war</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

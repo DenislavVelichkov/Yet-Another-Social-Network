@@ -7,7 +7,7 @@
                     </span>
             <div class="yasn-post-attributes-container">
                 <form th:action="@{/action/wall/post/}"
-                      enctype="multipart/form-data"
+                      th:enctype="multipart/form-data"
                       id="yasn-wall-form" th:method="post" th:object="${wallPostModel}">
 
                     <textarea placeholder="What's on your mind?" name="post"></textarea>

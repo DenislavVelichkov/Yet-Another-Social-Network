@@ -17,11 +17,13 @@ import java.security.Principal;
 
 @Controller
 public class HomeController extends BaseController {
+
   private final UserProfileService userProfileService;
   private final FileUtil fileUtil;
 
   @Autowired
-  public HomeController(UserProfileService userProfileService, FileUtil fileUtil) {
+  public HomeController(UserProfileService userProfileService,
+                        FileUtil fileUtil) {
     this.userProfileService = userProfileService;
     this.fileUtil = fileUtil;
   }
@@ -47,12 +49,13 @@ public class HomeController extends BaseController {
     avatar.setFullName(userProfileServiceModel.getFullName());
     avatar.setGender(userProfileServiceModel.getProfileOwner().getGender());
 
+    /*Required for Thymeleaf to display avatar picture correctly.*/
     modelAndView
         .getModelMap()
         .addAttribute(
             "profilePicture",
             fileUtil.encodeByteArrayToBase64String(userProfileServiceModel.getProfilePicture()));
-    modelAndView.addObject("model", wallPost);
+    modelAndView.addObject("modelWallPost", wallPost);
     modelAndView.addObject("avatar", avatar);
 
     return super.view("home", modelAndView);

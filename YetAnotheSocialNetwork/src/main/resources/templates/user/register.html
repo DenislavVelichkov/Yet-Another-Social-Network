@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+      
+ lang="en">
 
 <th:block layout:fragment="content">
     <form th:action="@{/user/register}" th:method="post" th:object="${model}">
@@ -11,7 +12,7 @@
             <div class="col-6">
                 <label class="font-weight-bold" for="firstName"></label>
                 <input class="form-control" id="firstName" name="firstName"
-                       placeholder="First name" th:value="*{firstName}" type="text">
+                       placeholder="First name" th:field="*{firstName}" type="text">
                 <th:block th:if="${#fields.hasErrors('firstName')}">
                     <small class="error" th:errors="*{firstName}"></small>
                 </th:block>
