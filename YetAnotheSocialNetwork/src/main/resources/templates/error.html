@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <th:block th:include="~{fragments/head}"></th:block>
-</head>
-<body>
-<header>
-    <th:block th:include="~{fragments/navbar}"></th:block>
-</header>
-<main class="mt-3">
-    <h1 class="text-center text-dark">Oops! Something Went Wrong</h1>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/default_layout}">
+
+<th:block layout:fragment="main-content">
+    <div class="mt-3">
+    <h1 class="text-center text-dark">Oops! Something Went Wrong. Even AI can't figure it out..</h1>
     <hr class="hr-2 bg-dark ">
     <div class="text-center">
         <h3 style="color: red;" th:text="${message}"></h3>
@@ -18,9 +15,5 @@
         <img alt="robot-image" th:src="@{https://res.cloudinary.com/yet-another-social-network/image/upload/v1569550986/yet-another-social-network/error_messages/404}">
 <!--        ${statusCode}-->
     </div>
-</main>
-<footer>
-    <th:block th:include="~{fragments/footer}"></th:block>
-</footer>
-</body>
-</html>
+    </div>
+</th:block>
