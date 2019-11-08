@@ -4,11 +4,17 @@
 @import url("register.css");
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
 
-html {
-    box-sizing: border-box;
-    font-family: 'Patua One', cursive, Monospaced;
-    line-height: 1.5;
-    font-size: 16px;
+/*TODO optimize Icons Fonts in Production , use iconmood.io to extract and save locally icon DB*/
+
+:root {
+    /*Font Size*/
+    --sizing-font-size-small: 12px/1.5;
+    --sizing-font-size-medium: 14px/1.5;
+    --sizing-font-size-large: 16px/1.5;
+    --sizing-font-size-huge: 18px/1.5;
+
+    /*Spacing between elements*/
+    --sizig-element-base-size: 1em;
 }
 
 * {
@@ -20,9 +26,16 @@ html {
     box-sizing: inherit;
 }
 
+html {
+    box-sizing: border-box;
+    font-family: 'Patua One', cursive, Monospaced;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
 @media (max-width: 575.98px) {
     html {
-        font-size: 12px;
+        font-size: var(--sizing-font-size-small);
     }
 
     .index-header-right {
@@ -41,7 +54,7 @@ html {
 
 @media (min-width: 576px) and (max-width: 767.98px) {
     html {
-        font-size: 12px;
+        font-size: var(--sizing-font-size-small);
     }
 
     .index-header-right {
@@ -60,19 +73,23 @@ html {
 
 @media (min-width: 768px) and (max-width: 991.98px) {
     html {
-        font-size: 13px;
+        font-size: var(--sizing-font-size-medium);
     }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
     html {
-        font-size: 15px;
+        font-size: var(--sizing-font-size-large);
     }
+}
+
+@media (max-width: 1199.98px) {
+    /*TODO hide sidebars on small screens use JQuery*/
 }
 
 @media (min-width: 1200px) {
     html {
-        font-size: 17px;
+        font-size: var(--sizing-font-size-huge);
     }
 }
 

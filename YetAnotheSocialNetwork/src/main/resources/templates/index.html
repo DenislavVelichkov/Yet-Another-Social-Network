@@ -3,19 +3,10 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/default_layout}"
 >
 
-<head>
-    <th:block th:insert="~{fragments/head}"/>
-</head>
-<body>
-<header>
-    <div class="yet-another-social-network-header">
-        <th:block th:insert="~{fragments/navbar}"/>
-    </div>
-</header>
-<main>
-    <div class="yet-another-social-network-body">
+<th:block layout:fragment="main-content">
         <div class="row no-gutters" id="yasn-body-container">
             <div class="col text-center offset-1" id="main-left-content">
                 <div class="text-left">
@@ -49,12 +40,4 @@
                 </div>
             </div>
         </div>
-    </div>
-</main>
-<footer>
-    <div class="yet-another-social-network-footer">
-        <th:block th:insert="~{fragments/footer}"/>
-    </div>
-</footer>
-</body>
-</html>
+</th:block>>

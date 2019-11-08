@@ -2,22 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/default_layout}">
+      layout:decorate="~{fragments/default_layout}"
+      lang="en">
 
 <th:block layout:fragment="main-content">
     <div class="row" id="yasn-home-body-container">
 
-        <div class="col-3">
+        <div id="sidebar-left" class="col-3">
 
         </div>
 
-        <div class="col-6">
-            <th:block>
-                <th:block layout:insert="~{fragments/post-a-comment}"/>
-            </th:block>
+        <div id="wall" class="col-6">
+
+            <th:block layout:insert="~{post-a-comment}"/>
+
         </div>
 
-        <div class="col-3">
+        <div id="sidebar-right" class="col-3">
 
         </div>
     </div>
