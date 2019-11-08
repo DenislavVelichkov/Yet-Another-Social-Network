@@ -2,38 +2,25 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/default_layout}">
 
-<head>
-    <th:block th:include="~{fragments/head.html}"/>
-</head>
+<th:block layout:fragment="main-content">
+    <div class="row" id="yasn-home-body-container">
 
-<body>
-    <header>
-        <th:block th:include="~{fragments/navbar.html}"/>
-    </header>
+        <div class="col-3">
 
-    <main>
-        <div class="row" id="yasn-home-body-container">
-
-            <div class="col-3">
-
-            </div>
-
-            <div class="col-6">
-                <th:block>
-                    <th:block th:include="~{fragments/wall.html}"/>
-                </th:block>
-            </div>
-
-            <div class="col-3">
-
-            </div>
         </div>
-</main>
 
-<footer>
-    <th:block th:include="~{fragments/footer}"/>
-</footer>
-</body>
+        <div class="col-6">
+            <th:block>
+                <th:block layout:insert="~{fragments/post-a-comment}"/>
+            </th:block>
+        </div>
+
+        <div class="col-3">
+
+        </div>
+    </div>
+</th:block>
 </html>

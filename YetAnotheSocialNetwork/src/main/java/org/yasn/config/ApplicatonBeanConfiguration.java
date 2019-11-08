@@ -1,5 +1,6 @@
 package org.yasn.config;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import javax.validation.Validator;
 
 @Configuration
 public class ApplicatonBeanConfiguration {
+
   private final static ModelMapper modelMapper;
   private final static FileUtil fileUtil;
 
@@ -39,5 +41,10 @@ public class ApplicatonBeanConfiguration {
   @Bean
   public FileUtil fileUtil() {
     return fileUtil;
+  }
+
+  @Bean
+  public LayoutDialect layoutDialect() {
+    return new LayoutDialect(null, true);
   }
 }

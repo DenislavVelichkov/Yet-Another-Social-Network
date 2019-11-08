@@ -9,6 +9,16 @@
     padding: 0 2rem 0;
 }
 
+#inner-main-right-container p a {
+    text-decoration: none;
+    color: #0c5460;
+}
+
+#inner-main-right-container p a:hover{
+    text-decoration: none;
+    color: #17a2b8;
+}
+
 #main-left-content {
     padding: 1em 0 0;
     offset: view-box;

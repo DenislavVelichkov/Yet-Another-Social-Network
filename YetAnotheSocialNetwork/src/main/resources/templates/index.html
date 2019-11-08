@@ -1,25 +1,62 @@
 <!DOCTYPE html>
+</html>
+
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
-    <th:block th:include="~{fragments/head.html}"/>
+
+    <th:block th:insert="~{fragments/head}"/>
+
 </head>
 <body>
 <header>
     <div class="yet-another-social-network-header">
-        <th:block th:include="~{fragments/navbar.html}"/>
+        <th:block th:insert="~{fragments/navbar}"/>
     </div>
 </header>
 <main>
     <div class="yet-another-social-network-body">
-        <th:block th:include="~{user/register.html}"/>
+        <div class="row no-gutters" id="yasn-body-container">
+            <div class="col text-center offset-1" id="main-left-content">
+                <div class="text-left">
+                    <div class="h1 h-container">
+                        Welcome to Yet Another Social Network ™!
+                        <small class="h5 text-muted">
+                            Log In or Sign Up if you don't have an account.
+                        </small>
+                    </div>
+                </div>
+                <div>
+                    <img alt="yasn-logo" class="img-fluid"
+                         src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
+                </div>
+            </div>
+
+            <div class="col" id="main-right-content">
+                <div id="inner-main-right-container">
+                    <th:block layout:fragment="content">
+                        <div class="shadow p-3 mb-5 bg-white rounded">
+                            <div class="text-left form-background-container">
+                                <div class="h1">Create a New Account
+                                    <small class="h5 text-muted">Dive in social networking!</small>
+                                </div>
+                            </div>
+                            <div id="index-register-form-container">
+                                <th:block layout:insert="user/register"/>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer>
     <div class="yet-another-social-network-footer">
-        <th:block th:include="~{fragments/footer.html}"/>
+        <th:block th:insert="~{fragments/footer}"/>
     </div>
 </footer>
 </body>

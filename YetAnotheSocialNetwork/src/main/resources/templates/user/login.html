@@ -1,48 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index}">
 
-<head>
-    <th:block th:include="~{fragments/head.html}"/>
-</head>
-
-<body>
-<div class="yet-another-social-network">
-    <header>
-        <th:block th:include="~{fragments/navbar.html}"/>
-    </header>
-    <main>
-        <div class="row no-gutters" id="yasn-body-container">
-            <div class="col offset-1 text-center" id="main-left-content">
-                <div class="text-left">
-                    <div class="h1 h-container">
-                        Welcome to Yet Another Social Network ™!
-                        <small class="h5 text-muted">
-                            Log In or Sign Up if you don't have an account.
-                        </small>
-                    </div>
-                </div>
-                <div>
-                    <img alt="yasn-logo" class="img-fluid"
-                         src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
-                </div>
-            </div>
-            <div class="col" id="main-right-content">
-                <div id="inner-main-right-container">
-                    <div class="shadow p-3 mb-5 bg-white rounded">
-                        <div class="text-left h-container">
-                            <p class="h3 text-center text-info">
-                                Please Log In with the form above.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<th:block layout:fragment="content">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <div class="text-left h-container">
+            <p class="h3 text-center text-info">
+                Please Log In with the form above ^ If you still have not signed up, go back and <a th:href="@{/register}">Register</a>.
+            </p>
         </div>
-    </main>
-    <footer>
-        <th:block th:include="~{fragments/footer}"/>
-    </footer>
-</div>
-</body>
-
+    </div>
+</th:block>
 </html>

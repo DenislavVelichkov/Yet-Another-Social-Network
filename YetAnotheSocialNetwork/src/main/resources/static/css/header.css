@@ -1,6 +1,6 @@
-header {
+.yet-another-social-network-header {
     position: sticky !important;
-    z-index: 1;
+    /*z-index: 1;*/
 }
 
 .sticky {
