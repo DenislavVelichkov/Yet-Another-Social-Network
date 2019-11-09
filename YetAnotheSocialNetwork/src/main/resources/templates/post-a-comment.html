@@ -7,23 +7,27 @@
                     </span>
             <div class="yasn-post-attributes-container">
                 <form th:action="@{/action/wall/post/}"
-                      th:enctype="multipart/form-data"
+                      enctype="multipart/form-data"
                       id="yasn-wall-form" th:method="post" th:object="${wallPostModel}">
 
+                    <label for="post" id="post"></label>
                     <textarea placeholder="What's on your mind?" name="post"></textarea>
 
-                    <div class="yasn-post-location">
+                    <div class="yasn-post-extra-location">
                         <input type="text" role="combobox" placeholder="Enter Location">
                     </div>
-                    <div class="yasn-post-photo">
-                        <input type="file" name="photo">
+                    <div class="yasn-post-extra-photo">
+                        <label for="pic" id="pic"></label>
+                        <input type="file" name="pic">
                     </div>
+                    <div class="yasn-post-extra-emojiies"></div>
+                    <!--TODO complete functionality of the form with the other 2 menues-->
                     <div class="yasn-post-buttons">
                         <ul>
-                            <li><i class="fas fa-user-friends"></i></li>
-                            <li><i class="far fa-compass"></i></button></li>
-                            <li><i class="fas fa-camera"></i></input></li>
-                            <li><i class="far fa-grin-wink"></i></li>
+                            <li><span><i class="fas fa-user-friends"></i></span></li>
+                            <li><span onclick="postLocationInPost()"><i class="far fa-compass"></i></span></li>
+                            <li><span onclick="postPicInPost()"><i class="fas fa-camera"></i></span></li>
+                            <li><span onclick="chooseEmojii()"><i class="far fa-grin-wink"></i></span></li>
                             <li class="yasn-post-privacy">
                                     <span>
                                         <i class="fas fa-user-secret"></i>

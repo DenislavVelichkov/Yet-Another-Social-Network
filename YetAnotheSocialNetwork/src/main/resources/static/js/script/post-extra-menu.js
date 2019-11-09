@@ -1,5 +1,11 @@
-let location = document.querySelector(".yasn-photo");
-location
-location.click(function () {
-    $('.yasn-post-photo').show();
-});
+let postPicInPost = function () {
+    $('.yasn-post-extra-location').hide();
+    $('.yasn-post-extra-emojiies').hide();
+    $('.yasn-post-extra-photo').show();
+};
+
+let postLocationInPost = function () {
+    $('.yasn-post-extra-location').show();
+    $('.yasn-post-extra-emojiies').hide();
+    $('.yasn-post-extra-photo').hide();
+};

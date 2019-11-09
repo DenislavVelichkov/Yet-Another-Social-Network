@@ -12,9 +12,6 @@
     --sizing-font-size-medium: 14px/1.5;
     --sizing-font-size-large: 16px/1.5;
     --sizing-font-size-huge: 18px/1.5;
-
-    /*Spacing between elements*/
-    --sizig-element-base-size: 1em;
 }
 
 * {

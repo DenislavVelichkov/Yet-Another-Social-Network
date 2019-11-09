@@ -159,11 +159,30 @@
     background-color: #0ba4ca;
 }
 
-.yasn-post-location {
-    margin: 1em 0 0;
+
+.yasn-post-extra-location,
+.yasn-post-extra-photo,
+.yasn-post-extra-emojiies {
     display: none;
+    margin: var(--sizig-element-base-size) 0 0;
 }
 
-.yasn-post-photo {
-    display: none;
+/*Emojiies*/
+.emojii-container {
+    background: #fff;
+    width: 287px;
+    border: 0.3em solid #ececec;
+    z-index: 10000;
+    box-shadow: 0 0.5em 1em;
+    rgba(0,0,0,.169);
 }
+
+.emojii-list {
+    padding: 1em;
+    display: none;
+    height: 170px;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-y: scroll;
+}
+
