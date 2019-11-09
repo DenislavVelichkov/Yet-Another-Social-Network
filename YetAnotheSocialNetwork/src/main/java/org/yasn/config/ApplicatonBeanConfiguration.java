@@ -43,6 +43,7 @@ public class ApplicatonBeanConfiguration {
     return fileUtil;
   }
 
+//  Required in order layout to work properly
   @Bean
   public LayoutDialect layoutDialect() {
     return new LayoutDialect(null, true);
