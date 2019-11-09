@@ -10,18 +10,26 @@
                       enctype="multipart/form-data"
                       id="yasn-wall-form" th:method="post" th:object="${wallPostModel}">
 
-                    <label for="post" id="post"></label>
-                    <textarea placeholder="What's on your mind?" name="post"></textarea>
+                    <label for="comment-text" id="post"></label>
+                    <textarea id="comment-text" placeholder="What's on your mind?" name="post"></textarea>
+
+                    <div class="yasn-post-extra-tag">
+
+                    </div>
 
                     <div class="yasn-post-extra-location">
-                        <input type="text" role="combobox" placeholder="Enter Location">
+                        <label for="location"></label>
+                        <input type="text" id="location" name="location" placeholder="Enter Location...">
+
                     </div>
+
                     <div class="yasn-post-extra-photo">
                         <label for="pic" id="pic"></label>
                         <input type="file" name="pic">
                     </div>
+
                     <div class="yasn-post-extra-emojiies"></div>
-                    <!--TODO complete functionality of the form with the other 2 menues-->
+
                     <div class="yasn-post-buttons">
                         <ul>
                             <li><span><i class="fas fa-user-friends"></i></span></li>

@@ -162,27 +162,40 @@
 
 .yasn-post-extra-location,
 .yasn-post-extra-photo,
-.yasn-post-extra-emojiies {
+.yasn-post-extra-emojiies,
+.yasn-post-extra-tag {
     display: none;
-    margin: var(--sizig-element-base-size) 0 0;
+    margin: 1em 0 0;
 }
 
 /*Emojiies*/
 .emojii-container {
     background: #fff;
-    width: 287px;
+    width: inherit;
     border: 0.3em solid #ececec;
-    z-index: 10000;
+    display: inline-block;
     box-shadow: 0 0.5em 1em;
     rgba(0,0,0,.169);
 }
 
 .emojii-list {
+    font-size: var(--sizing-font-size-small);
     padding: 1em;
     display: none;
     height: 170px;
+    z-index: 10000;
     overflow: hidden;
-    overflow-y: hidden;
     overflow-y: scroll;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.emojii-list li{
+    display: inline-block;
+    padding: 0.2em;
+}
+
+.emojii-list li:hover{
+    background-color: #e9ebee;
 }
 
