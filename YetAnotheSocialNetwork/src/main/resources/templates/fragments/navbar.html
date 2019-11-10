@@ -4,7 +4,7 @@
     <th:block sec:authorize="isAnonymous()">
         <div class="row" id="yasn-header-container">
             <div class="col">
-                <!--   <img alt="" class="img-fluid ml-6" id="navbar-img-logo" src="">
+                <!--   <images alt="" class="images-fluid ml-6" id="navbar-images-logo" src="">
                     https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
             </div>
             <div class="col offset-1 index-header-right">
@@ -86,10 +86,10 @@
                             </li>
                             <li class="navbar-dropdown-menu">
                                 <div class="dropdown">
-                                    <a aria-expanded="true" data-target="#" data-toggle="dropdown" role="button">
+                                    <a role="button" data-target="#" data-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-caret-down"></i>
                                     </a>
-                                    <ul aria-labelledby="dropdownMenu" class="dropdown-menu multi-level" role="menu">
+                                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                                         <li>
                                             <a th:href="@{/admin}">Admin Panel</a>
                                         </li>

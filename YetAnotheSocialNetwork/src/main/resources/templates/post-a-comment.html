@@ -5,6 +5,7 @@
                     <span>
                         Create a Post
                     </span>
+
             <div class="yasn-post-attributes-container">
                 <form th:action="@{/action/wall/post/}"
                       enctype="multipart/form-data"
@@ -35,13 +36,11 @@
                             <li><span><i class="fas fa-user-friends"></i></span></li>
                             <li><span onclick="postLocationInPost()"><i class="far fa-compass"></i></span></li>
                             <li><span onclick="postPicInPost()"><i class="fas fa-camera"></i></span></li>
-                            <li><span onclick="chooseEmojii()"><i class="far fa-grin-wink"></i></span></li>
+                            <li><i class="fas fa-user-secret"></i>
+                                <span>Privacy</span>
+                            </li>
                             <li class="yasn-post-privacy">
-                                    <span>
-                                        <i class="fas fa-user-secret"></i>
-                                        <span>Privacy</span>
-                                        <input class="btn btn-primary" type="submit" value="Post">
-                                    </span>
+                                <input class="btn btn-primary" type="submit" value="Post">
                             </li>
                         </ul>
                     </div>
@@ -50,4 +49,12 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+
+
+
+
+    </script>
+
 </th:block>
