@@ -15,6 +15,7 @@ let postTagFriends = function () {
     $('.yasn-post-extra-location').hide();
     $('.yasn-post-extra-photo').hide();
 };
+
 $(document).ready(function () {
     $("#comment-text").emojioneArea({
         buttonTitle: "Use the TAB key to insert emoji faster",
@@ -22,7 +23,8 @@ $(document).ready(function () {
         pickerPosition: "right",
         filtersPosition: "top",
         hidePickerOnBlur: false,
-        spellcheck: true
+        spellcheck: true,
+        search: false
     });
 });
 
