@@ -16,7 +16,7 @@ let postTagFriends = function () {
     $('.yasn-post-extra-photo').hide();
 };
 
-/*$(document).ready(function () {
+$(document).ready(function () {
     $("#comment-text").emojioneArea({
         buttonTitle: "Use the TAB key to insert emoji faster",
         recentEmojies: true,
@@ -26,7 +26,7 @@ let postTagFriends = function () {
         spellcheck: true,
         search: false
     });
-});*/
+});
 
 /*var text = $('#comment-text').data('emojioneArea').getText();
 $('#comment-text').append(text);*/

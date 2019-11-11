@@ -2,7 +2,6 @@ package org.yasn.web.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,18 +36,22 @@ public class UserController extends BaseController {
     this.userEditValidator = userEditValidator;
   }
 
+  @GetMapping("/login")
+  public ModelAndView userLogin() {
+    return super.view("/user/login");
+  }
+
   @GetMapping("/register")
-  @PreAuthorize("isAnonymous()")
   @PageTitle("Log In or Sign Up")
   public ModelAndView index(ModelAndView modelAndView,
-                            @ModelAttribute(name = "model") UserRegisterBindingModel model) {
-    modelAndView.addObject("model", model);
+                            @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
 
-    return super.view("index");
+    modelAndView.addObject("registerModel", registerModel);
+
+    return super.view("/user/register");
   }
 
   @PostMapping("/register")
-  @PreAuthorize("isAnonymous()")
   public ModelAndView registerConfirm(ModelAndView modelAndView,
                                       @ModelAttribute(name = "model") UserRegisterBindingModel model,
                                       BindingResult bindingResult) {
@@ -67,12 +70,4 @@ public class UserController extends BaseController {
 
     return super.redirect("/user/login");
   }
-
-  @GetMapping("/")
-  @PreAuthorize("isAnonymous()")
-  @PageTitle("Login")
-  public ModelAndView login() {
-    return super.view("/user/login");
-  }
-
 }

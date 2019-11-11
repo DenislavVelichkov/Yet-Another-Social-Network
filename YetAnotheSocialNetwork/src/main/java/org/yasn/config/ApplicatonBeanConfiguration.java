@@ -1,6 +1,7 @@
 package org.yasn.config;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
+import nz.net.ultraq.thymeleaf.decorators.strategies.GroupingRespectLayoutTitleStrategy;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +47,6 @@ public class ApplicatonBeanConfiguration {
 //  Required in order layout to work properly
   @Bean
   public LayoutDialect layoutDialect() {
-    return new LayoutDialect(null, true);
+    return new LayoutDialect(new GroupingRespectLayoutTitleStrategy(), true);
   }
 }

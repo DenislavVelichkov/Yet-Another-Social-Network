@@ -1,45 +1,50 @@
 package org.yasn.web.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
-import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.view.AvatarViewModel;
 import org.yasn.service.interfaces.UserProfileService;
+import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
 
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/")
 public class HomeController extends BaseController {
 
   private final UserProfileService userProfileService;
   private final FileUtil fileUtil;
+  private final ModelMapper modelMapper;
+  private final WallService wallService;
 
   @Autowired
   public HomeController(UserProfileService userProfileService,
-                        FileUtil fileUtil) {
+                        FileUtil fileUtil,
+                        ModelMapper modelMapper,
+                        WallService wallService) {
     this.userProfileService = userProfileService;
     this.fileUtil = fileUtil;
+    this.modelMapper = modelMapper;
+    this.wallService = wallService;
   }
 
   @GetMapping("/")
-  @PreAuthorize("isAnonymous()")
   public ModelAndView index() {
 
     return super.redirect("/user/register");
   }
 
   @GetMapping("/home")
-  @PreAuthorize("isAuthenticated()")
   @PageTitle("Home")
   public ModelAndView home(ModelAndView modelAndView,
-                           @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                            @ModelAttribute(name = "avatar") AvatarViewModel avatar,
                            Principal activeUser) {
 
@@ -55,7 +60,7 @@ public class HomeController extends BaseController {
         .addAttribute(
             "profilePicture",
             fileUtil.encodeByteArrayToBase64String(userProfileServiceModel.getProfilePicture()));
-    modelAndView.addObject("wallPost", wallPost);
+
     modelAndView.addObject("avatar", avatar);
 
     return super.view("home", modelAndView);

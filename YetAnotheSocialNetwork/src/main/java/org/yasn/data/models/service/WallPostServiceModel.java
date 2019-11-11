@@ -15,5 +15,6 @@ public class WallPostServiceModel extends BaseServiceModel {
   private byte[] postPicture;
   private String postContent;
   private long likes;
+  private String location;
   private Timestamp createdOn;
 }

@@ -37,4 +37,5 @@ public class WallPostController extends BaseController {
 
     return super.redirect("/home");
   }
+
 }

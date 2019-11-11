@@ -15,5 +15,6 @@ public class WallPostBindingModel {
   private byte[] postPicture;
   private String postContent;
   private long likes;
+  private String location;
   private Timestamp createdOn;
 }

@@ -5,11 +5,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{index}">
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="index-right-content">
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div class="text-left h-container">
             <p class="h3 text-center text-info">
-                Please Log In with the form above ^ If you still have not signed up, go back and <a th:href="@{/register}">Register</a>.
+                Please Log In with the form above ^ If you still have not signed up, go back and
+                <a th:href="@{/user/register}">Register</a>.
             </p>
         </div>
     </div>

@@ -1,11 +1,4 @@
-<!DOCTYPE HTML>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      >
-
-<th:block layout:fragment="wall">
+<th:block th:fragment="wall">
 
     <div class="yasn-wall-container">
         <div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
@@ -20,7 +13,10 @@
                       id="yasn-wall-form" th:method="post" th:object="${wallPost}">
 
                     <label for="comment-text" id="post"></label>
-                    <textarea th:value="*{postContent}" id="comment-text" placeholder="What's on your mind?" name="post"
+                    <textarea th:value="*{postContent}"
+                              id="comment-text"
+                              placeholder="What's on your mind?"
+                              name="post"
                               type="text"></textarea>
 
                     <div class="yasn-post-extra-tag">
@@ -29,7 +25,7 @@
 
                     <div class="yasn-post-extra-location">
                         <label for="location"></label>
-                        <input type="text" id="location" name="location" placeholder="Enter Location...">
+                        <input th:field="*{location}" type="text" id="location" name="location" placeholder="Enter Location...">
 
                     </div>
 

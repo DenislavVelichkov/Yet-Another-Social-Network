@@ -4,22 +4,23 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <th:block th:insert="~{fragments/head}"/>
+    <th:block layout:insert="~{fragments/head}"/>
 </head>
 <body>
     <header>
         <div class="yet-another-social-network-header">
-            <th:block th:insert="~{fragments/navbar}"/>
+            <th:block layout:insert="~{fragments/navbar}"/>
         </div>
     </header>
     <main>
         <div class="yet-another-social-network-body">
             <th:block layout:fragment="main-content"/>
+            <th:block layout:fragment="error"/>
         </div>
     </main>
     <footer>
         <div class="yet-another-social-network-footer">
-            <th:block th:insert="~{fragments/footer}"/>
+            <th:block layout:insert="~{fragments/footer}"/>
         </div>
     </footer>
 </body>

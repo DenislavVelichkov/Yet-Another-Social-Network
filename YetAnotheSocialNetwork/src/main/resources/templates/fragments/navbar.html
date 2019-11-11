@@ -1,124 +1,129 @@
-<th:block xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-          xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <th:block sec:authorize="isAnonymous()">
-        <div class="row" id="yasn-header-container">
-            <div class="col">
-                <!--   <images alt="" class="images-fluid ml-6" id="navbar-images-logo" src="">
-                    https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
-            </div>
-            <div class="col offset-1 index-header-right">
+<th:block layout:fragment="navbar"
+          sec:authorize="isAnonymous()">
+    <div class="row" id="yasn-header-container">
+        <div class="col">
+            <!--   <images alt="" class="images-fluid ml-6" id="navbar-images-logo" src="">
+                https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
+        </div>
+        <div class="col offset-1 index-header-right">
 
-                <div id="login-form-container">
-                    <form id="login-form" th:action="@{/user/login}" th:method="post">
+            <div id="login-form-container">
+                <form id="login-form" th:action="@{/user/login}" th:method="post">
 
-                        <div class="navbar-login-form-field-container">
-                            <label for="email"></label>
-                            <input class="form-control navbar-login-form-field" id="email" name="email"
-                                   placeholder="Email" type="email">
-                        </div>
+                    <div class="navbar-login-form-field-container">
+                        <label for="email"></label>
+                        <input class="form-control navbar-login-form-field" id="email" name="email"
+                               placeholder="Email" type="email">
+                    </div>
 
-                        <div class="navbar-login-form-field-container">
-                            <label for="password"></label>
-                            <input class="form-control navbar-login-form-field" id="password" name="password"
-                                   placeholder="Password..." type="password">
-                        </div>
+                    <div class="navbar-login-form-field-container">
+                        <label for="password"></label>
+                        <input class="form-control navbar-login-form-field" id="password" name="password"
+                               placeholder="Password..." type="password">
+                    </div>
 
-                        <div class="navbar-login-form-btn-container">
-                            <button class="btn btn-success btn-lg"
-                                    id="navbar-login-btn"
-                                    type="submit">
-                                Log In
-                            </button>
-                        </div>
-                        <th:block th:if="${param.error}">
-                            <script th:src="@{/js/script/error-banner.js}"></script>
-                        </th:block>
-                    </form>
-                </div>
+                    <div class="navbar-login-form-btn-container">
+                        <button class="btn btn-success btn-lg"
+                                id="navbar-login-btn"
+                                type="submit">
+                            Log In
+                        </button>
+                    </div>
+                    <th:block th:if="${param.error}">
+                        <script th:src="@{/js/script/error-banner.js}"></script>
+                    </th:block>
+                </form>
             </div>
         </div>
-    </th:block>
+    </div>
+</th:block>
 
-    <th:block sec:authorize="isAuthenticated()">
-        <div class="row" id="yasn-home-header-container">
-            <div id="header-left" class="col-3">
+<th:block layout:fragment="navbar"
+          sec:authorize="isAuthenticated()">
+    <div class="row" id="yasn-home-header-container">
+        <div id="header-left" class="col-3">
 
-            </div>
-            <div class="col-6">
-                <nav>
-                    <div class="navbar-avatar-container float-left">
-                            <img id="avatar-picture"
-                                 th:src="@{'data:image/png;base64,' + ${profilePicture}}"
-                                 alt="no-profile-picture"/>
-                            <a th:href="@{/user/profile}">
-                                <span id="avatar-name" th:text="${avatar.fullName}"></span>
-                            </a>
-                    </div>
-                    <div class="navbar-menu-right nav-tabs float-right">
-                        <ul>
-                            <li>
-                                <a class="yasn-notification-friends">
+        </div>
+        <div class="col-6">
+            <nav>
+                <div class="navbar-avatar-container float-left">
+                    <img id="avatar-picture"
+                         th:src="@{'data:image/png;base64,' + ${profilePicture}}"
+                         alt="no-profile-picture"/>
+                    <a th:href="@{/user/profile}">
+                        <span id="avatar-name" th:text="${avatar.fullName}"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu-right nav-tabs float-right">
+                    <ul>
+                        <li>
+                            <a class="yasn-notification-friends">
                                 <span>
                                     <div>
                                         <i class="fa fa-users"></i>
                                     </div>
                                 </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="yasn-notification-messages">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="yasn-notification-messages">
                                 <span>
                                     <div>
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                 </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="yasn-notification-notifications">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="yasn-notification-notifications">
                                 <span>
                                     <div>
                                         <i class="fas fa-bell"></i>
                                     </div>
                                 </span>
+                            </a>
+                        </li>
+                        <li class="navbar-dropdown-menu">
+                            <div class="dropdown">
+                                <a role="button" data-target="#" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-caret-down"></i>
                                 </a>
-                            </li>
-                            <li class="navbar-dropdown-menu">
-                                <div class="dropdown">
-                                    <a role="button" data-target="#" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-caret-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                                        <li>
-                                            <a th:href="@{/admin}">Admin Panel</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{/settings}">Account Settings</a>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <i class="fa fa-sign-out-alt"></i>
-                                                <a href="javascript: document.logoutForm.submit()">
+                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                    <li>
+                                        <a th:href="@{/admin}">Admin Panel</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/settings}">Account Settings</a>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <i class="fa fa-sign-out-alt"></i>
+                                            <a href="javascript: document.logoutForm.submit()">
                                                 Logout
                                             </a>
-                                            </div>
-                                            <form method="post" name="logoutForm" th:action="@{/logout}"
-                                                  th:hidden="true">
-                                                <input hidden type="submit" value="Logout"/>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <div id="header-right" class="col-3">
-
-            </div>
+                                        </div>
+                                        <form method="post" name="logoutForm" th:action="@{/logout}"
+                                              th:hidden="true">
+                                            <input hidden type="submit" value="Logout"/>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </th:block>
+        <div id="header-right" class="col-3">
 
+        </div>
+    </div>
 </th:block>
+
+</html>
