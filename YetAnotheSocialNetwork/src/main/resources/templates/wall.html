@@ -1,18 +1,27 @@
-<th:block
-        xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+
+<th:block layout:fragment="wall">
+
     <div class="yasn-wall-container">
-        <div class="yasn-post-container shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
                     <span>
                         Create a Post
                     </span>
 
             <div class="yasn-post-attributes-container">
-                <form th:action="@{/action/wall/post/}"
+                <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
+                <form th:action="@{/home/wall/post}"
                       enctype="multipart/form-data"
-                      id="yasn-wall-form" th:method="post" th:object="${wallPostModel}">
+                      id="yasn-wall-form" th:method="post" th:object="${wallPost}">
 
                     <label for="comment-text" id="post"></label>
-                    <textarea id="comment-text" placeholder="What's on your mind?" name="post"></textarea>
+                    <textarea th:value="*{postContent}" id="comment-text" placeholder="What's on your mind?" name="post"
+                              type="text"></textarea>
 
                     <div class="yasn-post-extra-tag">
 
@@ -49,12 +58,5 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-
-
-
-
-    </script>
 
 </th:block>

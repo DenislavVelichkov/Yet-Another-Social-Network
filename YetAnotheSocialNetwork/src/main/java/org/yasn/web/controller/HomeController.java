@@ -39,7 +39,7 @@ public class HomeController extends BaseController {
   @PreAuthorize("isAuthenticated()")
   @PageTitle("Home")
   public ModelAndView home(ModelAndView modelAndView,
-                           @ModelAttribute(name = "wallPostModel") WallPostBindingModel wallPost,
+                           @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                            @ModelAttribute(name = "avatar") AvatarViewModel avatar,
                            Principal activeUser) {
 
@@ -55,7 +55,7 @@ public class HomeController extends BaseController {
         .addAttribute(
             "profilePicture",
             fileUtil.encodeByteArrayToBase64String(userProfileServiceModel.getProfilePicture()));
-    modelAndView.addObject("modelWallPost", wallPost);
+    modelAndView.addObject("wallPost", wallPost);
     modelAndView.addObject("avatar", avatar);
 
     return super.view("home", modelAndView);
