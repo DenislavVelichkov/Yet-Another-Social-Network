@@ -1,12 +1,18 @@
-header {
-    position: sticky !important;
-    z-index: 1;
+/*Sticky Header*/
+
+body {
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
+header {
+    position: sticky; /* Allocates space for the element, but moves it with you when you scroll */
+    top: 0; /* specifies the start position for the sticky behavior - 0 is pretty common */
     width: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
 }
 
 #yasn-header-container {
