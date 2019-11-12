@@ -162,11 +162,13 @@
 
 .yasn-post-extra-location,
 .yasn-post-extra-photo,
-.yasn-post-extra-privacy,
+.yasn-post-extra-privacy ul,
 .yasn-post-extra-tag {
     display: none;
     margin: 1em 0 0;
 }
+
+
 
 /*Emojiies*/
 .emojii-container {
