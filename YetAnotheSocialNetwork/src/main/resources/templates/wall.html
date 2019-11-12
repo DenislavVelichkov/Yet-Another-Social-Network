@@ -59,8 +59,8 @@
                             <li class="yasn-post-extra-privacy">
                                 <ul>
                                     <li th:each="opt : ${wallPost.getPostPrivacy()}">
-                                        <input type="radio" th:field="*{postPrivacy.getLabel()}" th:value="${opt}" />
-                                        <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + opt}}">Wireframe</label>
+                                        <input type="radio" th:field="*{postPrivacy}" th:value="${opt}" />
+                                        <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + opt}}"></label>
                                     </li>
                                 </ul>
                             </li>

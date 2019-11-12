@@ -65,7 +65,8 @@ public class UserController extends BaseController {
       return super.view("index", modelAndView);
     }
 
-    UserServiceModel userServiceModel = this.modelMapper.map(model, UserServiceModel.class);
+    UserServiceModel userServiceModel =
+        this.modelMapper.map(model, UserServiceModel.class);
     this.userService.registerUser(userServiceModel);
 
     return super.redirect("/user/login");
