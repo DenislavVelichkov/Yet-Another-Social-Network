@@ -28,8 +28,5 @@ $(document).ready(function () {
     });
 });
 
-/*var text = $('#comment-text').data('emojioneArea').getText();
-$('#comment-text').append(text);*/
-
 
 

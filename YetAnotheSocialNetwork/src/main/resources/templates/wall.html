@@ -16,14 +16,15 @@
                 <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
                 <form th:action="@{/home/wall/post}"
                       enctype="multipart/form-data"
-                      id="yasn-wall-form" th:method="post" th:object="${wallPost}">
+                      method="post" th:object="${wallPost}"
+                      id="yasn-wall-form">
 
                     <label for="comment-text" id="post"></label>
-                    <textarea th:value="*{postContent}"
-                              id="comment-text"
-                              placeholder="What's on your mind?"
-                              name="post"
-                              type="text"></textarea>
+                    <textarea th:field="*{postContent}"
+                           id="comment-text"
+                           placeholder="What's on your mind?"
+                           name="post"
+                           type="text"></textarea>
 
                     <div class="yasn-post-extra-tag">
 
@@ -31,13 +32,17 @@
 
                     <div class="yasn-post-extra-location">
                         <label for="location"></label>
-                        <input th:field="*{location}" type="text" id="location" name="location" placeholder="Enter Location...">
+                        <input th:field="*{location}"
+                               type="text"
+                               id="location"
+                               name="location"
+                               placeholder="Enter Location...">
 
                     </div>
 
                     <div class="yasn-post-extra-photo">
                         <label for="pic" id="pic"></label>
-                        <input type="file" name="pic">
+                        <input type="file" name="pic" th:field="*{postPicture}">
                     </div>
 
                     <div class="yasn-post-extra-emojiies"></div>
