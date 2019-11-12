@@ -2,12 +2,12 @@
     let alert_element =
         $(
             '<div id="bad-credentials" class="alert alert-danger">\n' +
-            '<p>\n' +
-            '<strong>Wrong email address or Password!</strong>\n' +
-            '</p>\n' +
-            '<p>\n' +
-            'Please enter your credentials again.\n' +
-            '</p>\n' +
+                '<p>\n' +
+                    '<strong>Wrong email address or Password!</strong>\n' +
+                '</p>\n' +
+                '<p>\n' +
+                    'Please enter your credentials again.\n' +
+                '</p>\n' +
             '</div>'
         )
     ;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
+import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.view.AvatarViewModel;
 import org.yasn.service.interfaces.UserProfileService;
@@ -46,6 +47,7 @@ public class HomeController extends BaseController {
   @PageTitle("Home")
   public ModelAndView home(ModelAndView modelAndView,
                            @ModelAttribute(name = "avatar") AvatarViewModel avatar,
+                           @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                            Principal activeUser) {
 
     UserProfileServiceModel userProfileServiceModel =
@@ -62,6 +64,7 @@ public class HomeController extends BaseController {
             fileUtil.encodeByteArrayToBase64String(userProfileServiceModel.getProfilePicture()));
 
     modelAndView.addObject("avatar", avatar);
+    modelAndView.addObject(wallPost);
 
     return super.view("home", modelAndView);
   }

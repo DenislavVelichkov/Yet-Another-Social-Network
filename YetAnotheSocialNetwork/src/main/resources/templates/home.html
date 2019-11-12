@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/default_layout}"
-      lang="en">
+      lang="en"
+      layout:decorate="~{/fragments/default_layout}">
 
 <th:block layout:fragment="main-content">
     <div class="row" id="yasn-home-body-container">
@@ -14,7 +14,7 @@
 
         <div id="yasn-home-wall" class="col-6">
 
-            <th:block th:insert="~{wall}"/>
+            <th:block layout:insert="~{wall}"/>
 
         </div>
 
@@ -23,3 +23,5 @@
         </div>
     </div>
 </th:block>
+
+</html>
