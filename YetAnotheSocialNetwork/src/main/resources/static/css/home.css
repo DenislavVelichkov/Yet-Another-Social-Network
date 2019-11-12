@@ -95,7 +95,7 @@
 
 .yasn-wall-container {
     display: block;
-    width: 70%;
+    width: 60%;
     alignment-baseline: top;
     border: 0.01em solid #e5e5e5;
     margin: 0 auto 0;
@@ -138,11 +138,11 @@
     cursor: pointer;
 }
 
-.yasn-post-buttons li i:hover {
-    color: rgba(34, 37, 40, 0.21);
+.yasn-post-buttons li:hover {
+    color: rgba(11, 14, 17, 0.21);
 }
 
-.yasn-post-privacy {
+.yasn-wall-post-form-button {
     float: right;
 }
 
@@ -156,13 +156,13 @@
 }
 
 .yasn-post-container input[type="submit"]:hover {
-    background-color: #0ba4ca;
+    background-color: rgba(11, 103, 141, 0.85);
 }
 
 
 .yasn-post-extra-location,
 .yasn-post-extra-photo,
-.yasn-post-extra-emojiies,
+.yasn-post-extra-privacy,
 .yasn-post-extra-tag {
     display: none;
     margin: 1em 0 0;

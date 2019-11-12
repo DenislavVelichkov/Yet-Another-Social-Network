@@ -21,10 +21,10 @@
 
                     <label for="comment-text" id="post"></label>
                     <textarea th:field="*{postContent}"
-                           id="comment-text"
-                           placeholder="What's on your mind?"
-                           name="post"
-                           type="text"></textarea>
+                              id="comment-text"
+                              placeholder="What's on your mind?"
+                              name="post"
+                              type="text"></textarea>
 
                     <div class="yasn-post-extra-tag">
 
@@ -49,13 +49,22 @@
 
                     <div class="yasn-post-buttons">
                         <ul>
-                            <li><span><i class="fas fa-user-friends"></i></span></li>
-                            <li><span onclick="postLocationInPost()"><i class="far fa-compass"></i></span></li>
-                            <li><span onclick="postPicInPost()"><i class="fas fa-camera"></i></span></li>
-                            <li><i class="fas fa-user-secret"></i>
+                            <li><i class="fas fa-user-friends"></i></li>
+                            <li onclick="postLocationInPost()"><i class="far fa-compass"></i></li>
+                            <li onclick="postPicInPost()"><i class="fas fa-camera"></i></li>
+                            <li onclick="postPrivacyToggle()">
+                                <i class="fas fa-user-secret"></i>
                                 <span>Privacy</span>
                             </li>
-                            <li class="yasn-post-privacy">
+                            <li class="yasn-post-extra-privacy">
+                                <ul>
+                                    <li th:each="opt : ${wallPost.getPostPrivacy()}">
+                                        <input type="radio" th:field="*{postPrivacy.getLabel()}" th:value="${opt}" />
+                                        <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + opt}}">Wireframe</label>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="yasn-wall-post-form-button">
                                 <input class="btn btn-primary" type="submit" value="Post">
                             </li>
                         </ul>

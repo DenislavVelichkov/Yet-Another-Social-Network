@@ -3,7 +3,7 @@ package org.yasn.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yasn.common.UserRoles;
+import org.yasn.common.enums.UserRoles;
 import org.yasn.data.entities.user.Role;
 import org.yasn.data.models.service.RoleServiceModel;
 import org.yasn.repository.user.RoleRepository;

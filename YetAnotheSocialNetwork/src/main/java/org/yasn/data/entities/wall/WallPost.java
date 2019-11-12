@@ -1,6 +1,7 @@
 package org.yasn.data.entities.wall;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.entities.BaseEntity;
 import org.yasn.data.entities.user.UserProfile;
 
@@ -17,6 +18,7 @@ public class WallPost extends BaseEntity {
   private long likes;
   private List<PostComment> postComments;
   private Timestamp createdOn;
+  private PostPrivacy postPrivacy;
 
   public WallPost() {
   }
@@ -84,5 +86,15 @@ public class WallPost extends BaseEntity {
 
   public void setCreatedOn(Timestamp createdOn) {
     this.createdOn = createdOn;
+  }
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "post_privacy")
+  public PostPrivacy getPostPrivacy() {
+    return this.postPrivacy;
+  }
+
+  public void setPostPrivacy(PostPrivacy postPrivacy) {
+    this.postPrivacy = postPrivacy;
   }
 }

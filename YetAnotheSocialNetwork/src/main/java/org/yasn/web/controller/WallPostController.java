@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.WallPostServiceModel;
@@ -33,13 +31,10 @@ public class WallPostController extends BaseController {
   @PostMapping("/post")
   public ModelAndView postOnWall(ModelAndView modelAndView,
                                  @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                                 @RequestAttribute MultipartFile pic,
                                  Principal activeUser) throws IOException {
 
     WallPostServiceModel wallPostService =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
-
-    wallPostService.setPostPicture(pic.getBytes());
 
     this.wallService.createPost(wallPostService, activeUser);
 

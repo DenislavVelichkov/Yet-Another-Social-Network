@@ -9,6 +9,7 @@ import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.wall.WallPostRepository;
 import org.yasn.service.interfaces.WallService;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -30,11 +31,12 @@ public class WallServiceImpl implements WallService {
 
   @Override
   public WallPostServiceModel createPost(WallPostServiceModel wallPostServiceModel,
-                                         Principal principal) {
+                                         Principal principal) throws IOException {
     WallPost wallPost = this.modelMapper.map(wallPostServiceModel, WallPost.class);
     wallPost.setCreatedOn(new Timestamp(new Date().getTime()));
     wallPost.setCreatedBy(
         this.userProfileRepository.findByProfileOwnerUsername(principal.getName()).get());
+    wallPost.setPostPicture(wallPostServiceModel.getPostPicture().getBytes());
 
     return this.modelMapper.map(
         this.wallPostRepository.saveAndFlush(wallPost), WallPostServiceModel.class);
