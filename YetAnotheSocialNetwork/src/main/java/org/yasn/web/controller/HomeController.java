@@ -44,7 +44,6 @@ public class HomeController extends BaseController {
   @GetMapping("/home")
   @PageTitle("Home")
   public ModelAndView home(ModelAndView modelAndView,
-                           @ModelAttribute(name = "avatar") AvatarViewModel avatar,
                            @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                            Principal activeUser) {
 

@@ -4,13 +4,15 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<th:block layout:fragment="wall-post">
+<!--/*@thymesVar id="allPosts" type="List<org.yasn.data.models.view.WallPostViewModel>"*/-->
+<th:block layout:fragment="wall-post"
+          th:each="post : ${allPosts}">
     <div class="yasn-wall-post-container shadow p-3 mb-5 bg-white rounded">
         <div class="yasn-wall-post-content">
             <div class="post-meta-avatar">
-                <!--/*@thymesVar id="wallPostView" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
             <img class="user-img"
-                 th:src="@{'data:image/png;base64,' + ${wallPostView.ownerAvatar.profilePicture}}">
+                 th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}">
             </div>
             <div class="post-menu">
                 <div class="dropdown">
@@ -39,68 +41,31 @@
                 <a href="/user/profile"> [(${{avatar.fullName}})] </a>
             </div>
             <div class="post-meta-info">
-                <!--/*@thymesVar id="wallPostView" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                <span th:title="${wallPostView.createdOn}"></span>
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <span th:text="${{post.createdOn}}"></span>
                 <span class="time-created"></span>
-                <span th:if="${wallPostView.get}" <i class="fa fa-users"></i></span></div>
+                <span th:if="${post.postPrivacy == 'PUBLIC'}">
+                    <i class="fa fa-users"></i>
+                </span>
+                <span th:unless="${post.postPrivacy == 'PUBLIC'}">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </div>
 
             <div class="post-contents">
-                <p>Интересно е да се направи првиот пост на оваа мрежа, која е демо . 😉</p>
-                <img src="https://demo.opensource-socialnetwork.org/post/photo/54/a5f83993526c84a33b85123fac91803a.png?ossn_cache=d123740f">
+                <p>[(${{postContent}})]</p>
+                <img class="img-fluid" th:src="@{'data:image/png;base64,' + ${post.postPicture}}">
 
 
             </div>
             <div class="comments-likes">
                 <div class="menu-likes-comments-share">
-                    <li><a class="post-control-comment comment-post" data-guid="54"
-                           href="javascript:void(0)">Comment</a></li>
-                    <li><a id="ossn-like-54" onclick="Ossn.PostLike(54);" class="post-control-like"
-                           href="javascript:void(0);">Like</a></li>
+                    <li><a href="javascript:void(0)">Comment</a></li>
+                    <li><a href="javascript:void(0);">Like</a></li>
                 </div>
 
-                <div class="comments-list">
-                    <div class="ossn-comments-list-54"></div>
-                    <div class="comments-item">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <img class="comment-user-img"
-                                     src="https://demo.opensource-socialnetwork.org/avatar/administrator/smaller/3cd6fb84f9f5e7eae05f320945cb6611.jpeg?ossn_cache=d123740f">
-                            </div>
-                            <div class="col-md-11">
-                                <form action="https://demo.opensource-socialnetwork.org/action/post/comment"
-                                      id="comment-container-54" class="ossn-form comment-container" autocomplete="off"
-                                      method="post" enctype="multipart/form-data">
-                                    <fieldset><input type="hidden" name="ossn_ts" value="1573569548">
-                                        <input type="hidden" name="ossn_token" value="a2c442826f143a8ef6801d918b758b9b">
-                                        <div class="ossn-comment-attach-photo"
-                                             onclick="Ossn.Clk('#ossn-comment-image-file-54');"><i
-                                                class="fa fa-camera"></i></div>
-                                        <div class="ossn-comment-attach-photo"><i class="fa fa-smile-o"></i></div>
-                                        <span type="text" name="comment" id="comment-box-54" class="comment-box"
-                                              placeholder="Write a comment..." contenteditable="true"></span>
-                                        <input type="hidden" name="post" value="54">
-                                        <input type="hidden" name="comment-attachment">
-
-
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <script>  Ossn.PostComment(54); </script>
-                    <div class="ossn-comment-attachment" id="comment-attachment-container-54">
-                        <script>Ossn.CommentImage(54);</script>
-                        <form id="ossn-comment-attachment-54" class="ossn-form" method="post"
-                              enctype="multipart/form-data">
-                            <fieldset><input type="hidden" name="ossn_ts" value="1573569548">
-                                <input type="hidden" name="ossn_token" value="a2c442826f143a8ef6801d918b758b9b"> <input
-                                        type="file" name="file" style="display:none;" id="ossn-comment-image-file-54">
-                                <div class="image-data"></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
             </div>
+
         </div>
     </div>
 </th:block>
