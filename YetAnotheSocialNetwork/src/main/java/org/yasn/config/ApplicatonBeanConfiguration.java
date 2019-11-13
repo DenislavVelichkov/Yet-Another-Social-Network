@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.yasn.mappings.MappingsInitializer;
 import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
 
@@ -19,9 +20,9 @@ public class ApplicatonBeanConfiguration {
   private final static FileUtil fileUtil;
 
   static {
-    modelMapper = new ModelMapper();
-//    MappingsInitializer.initMappings(modelMapper);
     fileUtil = new FileUtilImpl();
+    modelMapper = new ModelMapper();
+    MappingsInitializer.initMappings(modelMapper);
   }
 
   @Bean

@@ -1,6 +1,7 @@
 package org.yasn.utils;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 
+@Component
 public class FileUtilImpl implements FileUtil {
 
   @Override
