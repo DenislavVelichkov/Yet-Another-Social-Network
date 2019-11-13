@@ -8,6 +8,7 @@ import org.yasn.data.entities.user.UserProfile;
 
 import java.sql.Timestamp;
 
+
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,10 +1,13 @@
 package org.yasn.service;
 
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.entities.wall.WallPost;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.view.AvatarViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.wall.WallPostRepository;
@@ -56,6 +59,25 @@ public class WallServiceImpl implements WallService {
 
   @Override
   public List<WallPostViewModel> displayAllPosts() {
+    ModelMapper modelMapper = new ModelMapper();
+
+    Converter<byte[], String> encodePic =
+        mappingContext -> mappingContext == null ?
+            null : fileUtil.encodeByteArrayToBase64String(mappingContext.getSource());
+    Converter<UserProfile, AvatarViewModel> swapFields = ctx -> ctx == null ?
+        null : avatarService.findAvatarByOwnerId(ctx.getSource().getId());
+    modelMapper.createTypeMap(WallPostServiceModel.class, WallPostViewModel.class)
+        .addMappings(exp ->
+            exp.using(swapFields)
+                .map(WallPostServiceModel::getCreatedBy, WallPostViewModel::setAvatar))
+        .addMappings(exp ->
+            exp.using(encodePic)
+                .map(WallPostServiceModel::getPostPicture, WallPostViewModel::setPostPicture))
+        .addMapping(WallPostServiceModel::getPostContent, WallPostViewModel::setPostContent)
+        .addMapping(WallPostServiceModel::getLikes, WallPostViewModel::setLikes)
+        .addMapping(WallPostServiceModel::getLocation, WallPostViewModel::setLocation)
+        .addMapping(WallPostServiceModel::getCreatedOn, WallPostViewModel::setCreatedOn)
+        .addMapping(WallPostServiceModel::getPostPrivacy, WallPostViewModel::setPostPrivacy);
 
     List<WallPostServiceModel> allPostsServiceModels =
         this.wallPostRepository
@@ -64,11 +86,9 @@ public class WallServiceImpl implements WallService {
             .map(wallPost -> this.modelMapper.map(wallPost, WallPostServiceModel.class))
             .collect(Collectors.toList());
 
-
     return allPostsServiceModels
         .stream()
-        .map(wallPostServiceModel -> this.modelMapper.map(wallPostServiceModel, WallPostViewModel.class))
+        .map(modelMapper.getTypeMap(WallPostServiceModel.class, WallPostViewModel.class)::map)
         .collect(Collectors.toList());
   }
-
 }
