@@ -1,5 +1,8 @@
 package org.yasn.data.entities.user;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.yasn.data.entities.BaseEntity;
@@ -9,103 +12,61 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
-  private String username;
-  private String firstName;
-  private String lastName;
-  private String password;
-  private String email;
-  private String gender;
-  private Date birthday;
-  private boolean isActive;
-  private Timestamp createdOn;
-  private UserProfile userProfile;
-  private Set<Role> authorities;
 
-  public User() {
-  }
-
-  @Override
   @Column(
       name = "username",
       nullable = false,
       unique = true,
       updatable = false)
-  public String getUsername() {
-    return this.username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
+  private String username;
 
   @Column(
       name = "first_name",
       nullable = false,
       updatable = false)
-  public String getFirstName() {
-    return this.firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+  private String firstName;
 
   @Column(
       name = "last_name",
       nullable = false,
       updatable = false)
-  public String getLastName() {
-    return this.lastName;
-  }
+  private String lastName;
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  @Override
   @Column(name = "password", nullable = false)
-  public String getPassword() {
-    return this.password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
+  private String password;
 
   @Column(
       name = "email",
       nullable = false,
       unique = true)
-  public String getEmail() {
-    return this.email;
-  }
+  private String email;
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+  @Column(
+      name = "gender",
+      nullable = false,
+      updatable = false)
+  private String gender;
+
+  @Column(name = "birthday", nullable = false)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date birthday;
 
   @Column(name = "is_active", nullable = false)
-  public boolean isActive() {
-    return this.isActive;
-  }
-
-  public void setActive(boolean active) {
-    isActive = active;
-  }
+  private boolean isActive;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(name = "created_on", updatable = false)
-  public Timestamp getCreatedOn() {
-    return this.createdOn;
-  }
+  private Timestamp createdOn;
 
-  public void setCreatedOn(Timestamp createdOn) {
-    this.createdOn = createdOn;
-  }
+  @OneToOne(mappedBy = "profileOwner")
+  private UserProfile userProfile;
 
   @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
   @JoinTable(
@@ -119,45 +80,7 @@ public class User extends BaseEntity implements UserDetails {
           referencedColumnName = "id"
       )
   )
-  @Override
-  public Set<Role> getAuthorities() {
-    return this.authorities;
-  }
-
-  public void setAuthorities(Set<Role> authorities) {
-    this.authorities = authorities;
-  }
-
-  @Column(
-      name = "gender",
-      nullable = false,
-      updatable = false)
-  public String getGender() {
-    return this.gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-  @Column(name = "birthday", nullable = false)
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  public Date getBirthday() {
-    return this.birthday;
-  }
-
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
-  }
-
-  @OneToOne(mappedBy = "profileOwner")
-  public UserProfile getUserProfile() {
-    return this.userProfile;
-  }
-
-  public void setUserProfile(UserProfile userProfile) {
-    this.userProfile = userProfile;
-  }
+  private Set<Role> authorities;
 
   @Override
   @Transient

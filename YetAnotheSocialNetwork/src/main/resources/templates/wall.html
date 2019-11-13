@@ -58,8 +58,14 @@
                             </li>
                             <li class="yasn-post-extra-privacy">
                                 <ul>
+                                    <!--todo    Fix radio buttons hover color-->
+
                                     <li th:each="label : ${T(org.yasn.common.enums.PostPrivacy).values()}">
-                                        <input type="radio" th:id="${{label}}" th:value="${{label}}" th:field="*{postPrivacy}" />
+                                        <input type="radio"
+                                               th:id="${{label}}"
+                                               th:value="${{label}}"
+                                               th:field="*{postPrivacy}" />
+
                                         <label th:for="${{label}}">[(${{label.getLabel()}})]</label>
                                     </li>
                                 </ul>
@@ -73,8 +79,8 @@
 
             </div>
         </div>
+        <th:block layout:insert="~{wall-post}"/>
     </div>
 
 </th:block>
-
 </html>

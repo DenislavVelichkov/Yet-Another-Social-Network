@@ -1,16 +1,13 @@
 package org.yasn.data.models.service;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class RoleServiceModel extends BaseServiceModel {
+
   private String authority;
-
-  public RoleServiceModel() {
-  }
-
-  public String getAuthority() {
-    return this.authority;
-  }
-
-  public void setAuthority(String authority) {
-    this.authority = authority;
-  }
 }

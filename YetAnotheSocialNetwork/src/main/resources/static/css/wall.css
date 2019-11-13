@@ -1,0 +1,35 @@
+.yasn-wall-post-container {
+    margin-top: 3em;
+}
+
+.post-meta-avatar {
+    float: left;
+}
+
+.post-menu {
+    float: right;
+    color: #1b1e21;
+    cursor: pointer;
+}
+
+.post-menu ul.show {
+    display: inline-block;
+}
+
+.post-menu ul.show li {
+    display:inline-block;
+    margin-left: 1em;
+}
+
+.post-control-delete {
+    margin-left: 3em;
+    color: red!important;
+}
+
+.user-img {
+    width: 4em;
+    height: auto;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #fff;
+}

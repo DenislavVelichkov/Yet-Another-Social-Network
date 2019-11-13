@@ -1,17 +1,13 @@
 package org.yasn.common.enums;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public enum PostPrivacy {
   PUBLIC("Public"),
   FRIENDS_ONLY("Friends only");
 
-  private static final Map<String, PostPrivacy> LABEL_TO_CLASS_MAP =
-      Stream.of(PostPrivacy.values())
-      .collect(Collectors.toUnmodifiableMap(
-          PostPrivacy::getLabel, postPrivacy -> postPrivacy));
+//  private static final Map<String, PostPrivacy> LABEL_TO_CLASS_MAP =
+//      Stream.of(PostPrivacy.values())
+//      .collect(Collectors.toUnmodifiableMap(
+//          PostPrivacy::getLabel, postPrivacy -> postPrivacy));
 
   private final String label;
 
@@ -19,11 +15,11 @@ public enum PostPrivacy {
     this.label = label;
   }
 
-  public static PostPrivacy fromLabel(String label) {
-    return label == null ? null : LABEL_TO_CLASS_MAP.get(label);
-  }
+//  public static PostPrivacy fromLabel(String label) {
+//    return label == null ? null : LABEL_TO_CLASS_MAP.get(label);
+//  }
 
   public String getLabel() {
-   return this.label;
+    return this.label;
   }
 }

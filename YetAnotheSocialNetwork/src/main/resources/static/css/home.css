@@ -168,36 +168,7 @@
     margin: 1em 0 0;
 }
 
-
-
-/*Emojiies*/
-.emojii-container {
-    background: #fff;
-    width: inherit;
-    border: 0.3em solid #ececec;
-    display: inline-block;
-    box-shadow: 0 0.5em 1em;
-    rgba(0,0,0,.169);
-}
-
-.emojii-list {
-    font-size: var(--sizing-font-size-small);
-    padding: 1em;
-    display: none;
-    height: 170px;
-    z-index: 10000;
-    overflow: hidden;
-    overflow-y: scroll;
-    list-style-type: none;
-    cursor: pointer;
-}
-
-.emojii-list li{
-    display: inline-block;
-    padding: 0.2em;
-}
-
-.emojii-list li:hover{
-    background-color: #e9ebee;
+.emojionearea * {
+    z-index: 0!important;
 }
 

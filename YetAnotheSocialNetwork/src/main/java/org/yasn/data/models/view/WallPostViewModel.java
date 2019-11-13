@@ -1,19 +1,18 @@
-package org.yasn.data.models.service;
+package org.yasn.data.models.view;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.data.entities.user.UserProfile;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class WallPostServiceModel extends BaseServiceModel {
-  private UserProfile createdBy;
-  private byte[] postPicture;
+public class WallPostViewModel {
+  private AvatarViewModel ownerAvatar;
+  private String postPicture;
   private String postContent;
   private long likes;
   private String location;

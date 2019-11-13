@@ -1,16 +1,13 @@
 package org.yasn.data.models.service;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class BaseServiceModel {
+
   private String id;
-
-  public BaseServiceModel() {
-  }
-
-  public String getId() {
-    return this.id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 }

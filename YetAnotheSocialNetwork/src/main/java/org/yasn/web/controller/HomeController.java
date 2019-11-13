@@ -1,6 +1,5 @@
 package org.yasn.web.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,30 +10,29 @@ import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.view.AvatarViewModel;
+import org.yasn.data.models.view.WallPostViewModel;
+import org.yasn.service.interfaces.AvatarService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
-import org.yasn.utils.FileUtil;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class HomeController extends BaseController {
 
   private final UserProfileService userProfileService;
-  private final FileUtil fileUtil;
-  private final ModelMapper modelMapper;
+  private final AvatarService avatarService;
   private final WallService wallService;
 
   @Autowired
   public HomeController(UserProfileService userProfileService,
-                        FileUtil fileUtil,
-                        ModelMapper modelMapper,
-                        WallService wallService) {
+                        AvatarService avatarService,
+                        WallService wallService1) {
     this.userProfileService = userProfileService;
-    this.fileUtil = fileUtil;
-    this.modelMapper = modelMapper;
-    this.wallService = wallService;
+    this.avatarService = avatarService;
+    this.wallService = wallService1;
   }
 
   @GetMapping("/")
@@ -53,18 +51,16 @@ public class HomeController extends BaseController {
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
-    avatar.setFullName(userProfileServiceModel.getFullName());
-    avatar.setGender(userProfileServiceModel.getProfileOwner().getGender());
+    AvatarViewModel avatarViewModel =
+        avatarService.findAvatarByOwnerId(userProfileServiceModel.getId());
+
+    List<WallPostViewModel> allPosts = this.wallService.displayAllPosts();
 
     /*Required for Thymeleaf to display avatar picture correctly.*/
-    modelAndView
-        .getModelMap()
-        .addAttribute(
-            "profilePicture",
-            fileUtil.encodeByteArrayToBase64String(userProfileServiceModel.getProfilePicture()));
 
-    modelAndView.addObject("avatar", avatar);
-    modelAndView.addObject(wallPost);
+    modelAndView.addObject("avatar", avatarViewModel);
+    modelAndView.addObject("wallPost", wallPost);
+    modelAndView.addObject("allPosts", allPosts);
 
     return super.view("home", modelAndView);
   }

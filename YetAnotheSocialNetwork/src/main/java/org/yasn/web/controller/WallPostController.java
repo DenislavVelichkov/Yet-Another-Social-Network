@@ -33,8 +33,11 @@ public class WallPostController extends BaseController {
                                  @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                                  Principal activeUser) throws IOException {
 
+// TODO: 11/12/2019 Validations
+
     WallPostServiceModel wallPostService =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
+    wallPostService.setPostPicture(wallPost.getPostPicture().getBytes());
 
     this.wallService.createPost(wallPostService, activeUser);
 

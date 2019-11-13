@@ -53,8 +53,9 @@
         <div class="col-6">
             <nav>
                 <div class="navbar-avatar-container float-left">
+                    <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
                     <img id="avatar-picture"
-                         th:src="@{'data:image/png;base64,' + ${profilePicture}}"
+                         th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}"
                          alt="no-profile-picture"/>
                     <a th:href="@{/user/profile}">
                         <span id="avatar-name" th:text="${avatar.fullName}"></span>
@@ -94,7 +95,7 @@
                                 <a role="button" data-target="#" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-caret-down"></i>
                                 </a>
-                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                <ul class="dropdown-menu multi-level" role="menu">
                                     <li>
                                         <a th:href="@{/admin}">Admin Panel</a>
                                     </li>

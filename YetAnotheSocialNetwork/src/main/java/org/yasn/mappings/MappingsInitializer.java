@@ -17,7 +17,7 @@ public class MappingsInitializer {
   public static void initMappings(ModelMapper mapper) {
     String configureMappingsMethodName =
         IHaveCustomMappings.class.getDeclaredMethods()[0]
-        .getName();
+            .getName();
 
     getClassesWithCustomMappings()
         .forEach(klass -> invokeMethodFromClass(klass, configureMappingsMethodName, mapper));
