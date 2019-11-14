@@ -61,6 +61,8 @@ public class WallServiceImpl implements WallService {
   public List<WallPostViewModel> displayAllPosts() {
     ModelMapper modelMapper = new ModelMapper();
 
+    /*TODO Refoctor code, remove this long peace of code somewhere else*/
+
     Converter<byte[], String> encodePic =
         mappingContext -> mappingContext == null ?
             null : fileUtil.encodeByteArrayToBase64String(mappingContext.getSource());
