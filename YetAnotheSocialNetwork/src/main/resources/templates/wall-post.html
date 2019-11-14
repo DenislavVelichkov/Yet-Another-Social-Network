@@ -11,8 +11,8 @@
         <div class="yasn-wall-post-content">
             <div class="post-meta-avatar">
                 <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
-            <img class="user-img"
-                 th:src="@{'data:image/png;base64,' + ${post.avatar.profilePicture}}">
+                <img class="user-img"
+                     th:src="@{'data:image/png;base64,' + ${post.avatar.profilePicture}}">
             </div>
             <div class="post-menu">
                 <div class="dropdown">
@@ -20,7 +20,7 @@
                        aria-expanded="false">
                         <i class="fas fa-comment-dots"></i>
                     </a>
-                    <ul class="dropdown-menu multi-level" role="menu" >
+                    <ul class="dropdown-menu multi-level" role="menu">
                         <li>
                             <!--     todo  little post menu CRUD operations  -->
                             <a class="post-control-edit"
@@ -53,17 +53,20 @@
             </div>
 
             <div class="post-contents">
-                <p>[(${{postContent}})]</p>
+                <p>[(${{post.postContent}})]</p>
                 <img class="img-fluid" th:src="@{'data:image/png;base64,' + ${post.postPicture}}">
-
-
             </div>
-            <div class="comments-likes">
-                <div class="menu-likes-comments-share">
-                    <li><a href="javascript:void(0)">Comment</a></li>
-                    <li><a href="javascript:void(0);">Like</a></li>
-                </div>
 
+            <div class="comments-likes">
+                <ul>
+                    <li><a href="javascript:void(0)">Comment</a></li>
+                    <li>
+                        <span>
+                            <i class="far fa-thumbs-up"></i>
+                            <a href="javascript:void(0);">Like</a>
+                        </span>
+                    </li>
+                </ul>
             </div>
 
         </div>

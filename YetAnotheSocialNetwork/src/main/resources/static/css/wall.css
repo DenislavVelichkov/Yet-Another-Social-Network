@@ -33,3 +33,20 @@
     display: inline-block;
     background-color: #fff;
 }
+
+.post-contents {
+    margin-top: 2em;
+}
+
+.comments-likes {
+    display: block;
+    margin-top: 2em;
+}
+
+.comments-likes li {
+    display: inline-block;
+}
+
+.comments-likes > ul:nth-child(1) > li:nth-child(2) {
+    float: right;
+}
