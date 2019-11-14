@@ -82,15 +82,14 @@
             </div>
             <div class="yasn-post-comment">
                 <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
-                <img class="comment-meta-avatar-img img-fluid"
-                     th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}" alt="profile-picture"/>
-                <div class="comment-post-textarea">
-                    <div class="#comment-emoji-container">
+                <form th:method="post" enctype="multipart/form-data">
+                    <img class="comment-meta-avatar-img img-fluid"
+                         th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}" alt="profile-picture"/>
 
-                    </div>
-                    <input class="comment-post-textarea" id="yasn-comment-post-textarea" type="submit"
+                    <input class="comment-post-textarea" id="yasn-comment-post-textarea" type="text"
                            name="comment-post-textarea"/>
-                </div>
+                    <input class="comment-post-submit-btn btn-sm btn-outline-info" type="submit" value="Post"/>
+                </form>
             </div>
             <th:block layout:insert="~{/wall/post-comment}"/>
         </div>
