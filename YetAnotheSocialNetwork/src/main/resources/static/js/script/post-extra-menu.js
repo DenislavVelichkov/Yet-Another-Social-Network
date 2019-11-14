@@ -28,6 +28,11 @@ let postTagFriends = function () {
     $('.yasn-post-extra-privacy ul').hide();
 };
 
+let postCommentPop = function () {
+    $('.yasn-post-comment').toggle();
+};
+
+/*Text Area resizer*/
 let observe;
 if (window.attachEvent) {
     observe = function (element, event, handler) {
@@ -39,9 +44,8 @@ if (window.attachEvent) {
     };
 }
 
-/*Text Area resizer*/
 function initTextArea() {
-    const text = document.getElementById('text');
+    const text = document.querySelector('.comment-post-textarea');
 
     function resize() {
         text.style.height = 'auto';
@@ -66,6 +70,7 @@ function initTextArea() {
 
 
 /*Emojies config*/
+window.emojioneVersion = "3.1.2";
 $(document).ready(function () {
     $("#comment-text").emojioneArea({
         buttonTitle: "Use the TAB key to insert emoji faster",
@@ -77,5 +82,17 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $(".comment-post-textarea").emojioneArea({
+        inline: true,
+        placeholder: "Type something here",
+        buttonTitle: "Use the TAB key to insert emoji faster",
+        recentEmojies: true,
+        pickerPosition: "right",
+        filtersPosition: "top",
+        hidePickerOnBlur: true,
+        search: false
+    });
+});
 
 

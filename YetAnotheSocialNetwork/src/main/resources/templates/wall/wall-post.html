@@ -63,8 +63,36 @@
                 </th:block>
             </div>
 
-            <th:block layout:insert="~{/wall/post-comment}"/>
+            <div class="comments-likes">
+                <ul>
+                    <li onclick="postCommentPop()">
+                        <a href="javascript:void(0)">Comment</a>
+                    </li>
+                    <span> - </span>
+                    <li>
+                        <a href="javascript:void(0)">Like</a>
+                    </li>
+                    <li>
+                <span>
+                    [(${{post.likes}})]
+                </span>
+                        <i class="far fa-thumbs-up"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="yasn-post-comment">
+                <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
+                <img class="comment-meta-avatar-img img-fluid"
+                     th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}" alt="profile-picture"/>
+                <div class="comment-post-textarea">
+                    <div class="#comment-emoji-container">
 
+                    </div>
+                    <input class="comment-post-textarea" id="yasn-comment-post-textarea" type="submit"
+                           name="comment-post-textarea"/>
+                </div>
+            </div>
+            <th:block layout:insert="~{/wall/post-comment}"/>
         </div>
     </div>
 </th:block>

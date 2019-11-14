@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
+import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.WallService;
 
 import java.io.IOException;
@@ -21,34 +23,47 @@ import java.security.Principal;
 public class WallPostController extends BaseController {
 
   private final WallService wallService;
+  private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
 
   @Autowired
   public WallPostController(WallService wallService,
+                            PostCommentService postCommentService,
                             ModelMapper modelMapper) {
     this.wallService = wallService;
+    this.postCommentService = postCommentService;
     this.modelMapper = modelMapper;
   }
 
   @PostMapping("/post")
   public ModelAndView postOnWall(ModelAndView modelAndView,
                                  @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                                 @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
                                  Principal activeUser) throws IOException {
 
 // TODO: 11/12/2019 Validations
 
-    WallPostServiceModel wallPostService =
+    WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
-    wallPostService.setPostPicture(wallPost.getPostPicture().getBytes());
+    wallPostServiceModel.setPostPicture(wallPost.getPostPicture().getBytes());
 
-    if (wallPostService.getPostPrivacy() == null) {
-      wallPostService.setPostPrivacy(PostPrivacy.PUBLIC);
+    if (wallPostServiceModel.getPostPrivacy() == null) {
+      wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
     }
 
-    this.wallService.createPost(wallPostService, activeUser);
+    this.wallService.createPost(wallPostServiceModel, activeUser);
 
     return super.redirect("/home");
   }
 
+  @PostMapping("/comment")
+  public ModelAndView postOnWall(ModelAndView modelAndView,
+                                 @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+                                 Principal activeUser) {
+
+    PostCommentServiceModel postCommentServiceModel =
+        this.modelMapper.map(postComment, PostCommentServiceModel.class);
+
+
+    return super.redirect("/home");
+  }
 }

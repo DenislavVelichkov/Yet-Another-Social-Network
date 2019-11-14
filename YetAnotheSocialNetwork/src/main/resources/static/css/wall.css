@@ -17,13 +17,13 @@
 }
 
 .post-menu ul.show li {
-    display:inline-block;
+    display: inline-block;
     margin-left: 1em;
 }
 
 .post-control-delete {
     margin-left: 3em;
-    color: red!important;
+    color: red !important;
 }
 
 .user-img {
@@ -50,3 +50,22 @@
 .comments-likes > ul > li:nth-child(4) {
     float: right;
 }
+
+.yasn-post-comment {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.comment-meta-avatar-img {
+    display: inline-block;
+    width: 7%;
+}
+
+.comment-post-textarea {
+    display: inline-block;
+    width: 93% !important;
+    margin-top: 0.5em !important;
+}
+
+

@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
-<th:block layout:fragment="post-comment">
-    <div class="comments-likes">
-        <ul>
-            <li>
-                <a href="javascript:void(0)">Comment</a>
-            </li>
-            <span> - </span>
-            <li>
-                <a href="javascript:void(0)">Like</a>
-            </li>
-            <li>
-                <span>
-                    [(${{post.likes}})]
-                </span>
-                <i class="far fa-thumbs-up"></i>
-            </li>
-        </ul>
+<!--<th:block layout:fragment="post-comment"
+          th:each="comment : postComments">
+    /*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/
+    <div class="post-comment-container">
+        <div class="comment-meta-avatar">
+            &lt;!&ndash;/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/&ndash;&gt;
+            <img class="user-img"
+                 th:src="@{'data:image/png;base64,' + ${comment.avatar.profilePicture}}">
+        </div>
+        <div class="comment-menu">
+            <div class="dropdown">
+                <a role="button" data-toggle="dropdown" data-target="#"
+                   aria-expanded="false">
+                    <i class="fas fa-comment-dots"></i>
+                </a>
+                <ul class="dropdown-menu multi-level" role="menu">
+                    <li>
+                        &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
+                        <a class="post-control-edit"
+                           href="">
+                            Edit
+                        </a>
+
+                        <a class="post-control-delete"
+                           href="">
+                            Delete
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div>
+            <a href="/user/profile"> [(${{avatar.fullName}})] </a>
+        </div>
     </div>
-</th:block>
+</th:block>-->
 
 </html>
