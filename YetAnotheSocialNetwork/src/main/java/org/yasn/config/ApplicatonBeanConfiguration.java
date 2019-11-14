@@ -16,8 +16,8 @@ import javax.validation.Validator;
 @Configuration
 public class ApplicatonBeanConfiguration {
 
-  private final static ModelMapper modelMapper;
-  private final static FileUtil fileUtil;
+  private static ModelMapper modelMapper;
+  private static FileUtil fileUtil;
 
   static {
     fileUtil = new FileUtilImpl();

@@ -42,6 +42,7 @@
             </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--TODO    Fix time rendering -->
                 <span th:text="${{post.createdOn}}"></span>
                 <span class="time-created"></span>
                 <span th:if="${post.postPrivacy.name() == 'PUBLIC'}">
@@ -54,20 +55,15 @@
 
             <div class="post-contents">
                 <p>[(${{post.postContent}})]</p>
-                <img class="img-fluid" th:src="@{'data:image/png;base64,' + ${post.postPicture}}">
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+
+                <th:block th:unless="${post.postPicture.isEmpty()}">
+                    <img class="post-content-pic img-fluid"
+                         th:src="@{'data:image/png;base64,' + ${post.postPicture}}" alt="post-picture">
+                </th:block>
             </div>
 
-            <div class="comments-likes">
-                <ul>
-                    <li><a href="javascript:void(0)">Comment</a></li>
-                    <li>
-                        <span>
-                            <i class="far fa-thumbs-up"></i>
-                            <a href="javascript:void(0);">Like</a>
-                        </span>
-                    </li>
-                </ul>
-            </div>
+            <th:block layout:insert="~{/wall/post-comment}"/>
 
         </div>
     </div>

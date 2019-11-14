@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.yasn.common.enums.PostPrivacy;
+import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.service.interfaces.WallService;
@@ -31,6 +33,7 @@ public class WallPostController extends BaseController {
   @PostMapping("/post")
   public ModelAndView postOnWall(ModelAndView modelAndView,
                                  @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+                                 @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
                                  Principal activeUser) throws IOException {
 
 // TODO: 11/12/2019 Validations
@@ -38,6 +41,10 @@ public class WallPostController extends BaseController {
     WallPostServiceModel wallPostService =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
     wallPostService.setPostPicture(wallPost.getPostPicture().getBytes());
+
+    if (wallPostService.getPostPrivacy() == null) {
+      wallPostService.setPostPrivacy(PostPrivacy.PUBLIC);
+    }
 
     this.wallService.createPost(wallPostService, activeUser);
 

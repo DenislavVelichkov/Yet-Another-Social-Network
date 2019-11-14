@@ -47,6 +47,6 @@
     display: inline-block;
 }
 
-.comments-likes > ul:nth-child(1) > li:nth-child(2) {
+.comments-likes > ul > li:nth-child(4) {
     float: right;
 }

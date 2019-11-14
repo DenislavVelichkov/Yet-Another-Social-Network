@@ -17,6 +17,7 @@ import org.yasn.service.interfaces.WallService;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -53,9 +54,12 @@ public class HomeController extends BaseController {
     AvatarViewModel avatarViewModel =
         avatarService.findAvatarByOwnerId(userProfileServiceModel.getId());
 
-    List<WallPostViewModel> allPosts = this.wallService.displayAllPosts();
-
-    /*Required for Thymeleaf to display avatar picture correctly.*/
+    // TODO: 11/14/2019 Optimize display with some kind of Cache method
+    List<WallPostViewModel> allPosts = this.wallService
+        .displayAllPosts()
+        .stream()
+        .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+        .collect(Collectors.toList());
 
     modelAndView.addObject("avatar", avatarViewModel);
     modelAndView.addObject("wallPost", wallPost);

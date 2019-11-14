@@ -20,4 +20,12 @@ public class PostComment extends BaseEntity {
 
   @Column(name = "comment_content")
   private String commentContent;
+
+  @Column(name = "post_liked")
+  private boolean isPostLiked;
+
+  @Lob
+  @Basic(fetch = FetchType.LAZY)
+  @Column(name = "comment_picture")
+  private byte[] commentPicture;
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block layout:fragment="post-comment">
+    <div class="comments-likes">
+        <ul>
+            <li>
+                <a href="javascript:void(0)">Comment</a>
+            </li>
+            <span> - </span>
+            <li>
+                <a href="javascript:void(0)">Like</a>
+            </li>
+            <li>
+                <span>
+                    [(${{post.likes}})]
+                </span>
+                <i class="far fa-thumbs-up"></i>
+            </li>
+        </ul>
+    </div>
+</th:block>
+
+</html>
