@@ -58,7 +58,7 @@
 }
 
 .yasn-post-comment form {
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -85,6 +85,7 @@
     position: relative;
     top: 0.4em;
     left: 0;
+    cursor: pointer;
 }
 
 .emojionearea * {

@@ -85,7 +85,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".comment-post-textarea").emojioneArea({
         inline: true,
-        placeholder: "Type something here",
+        placeholder: "Type your comment here",
         buttonTitle: "Use the TAB key to insert emoji faster",
         recentEmojies: true,
         pickerPosition: "right",
