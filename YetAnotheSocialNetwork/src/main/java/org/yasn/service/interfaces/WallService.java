@@ -7,7 +7,12 @@ import java.security.Principal;
 import java.util.List;
 
 public interface WallService {
+
   void createPost(WallPostServiceModel wallPost, Principal currentUser) throws IOException;
 
   List<WallPostServiceModel> displayAllPosts();
+
+  void createComment();
+
+
 }

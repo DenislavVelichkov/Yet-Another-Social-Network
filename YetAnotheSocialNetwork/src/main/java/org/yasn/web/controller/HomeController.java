@@ -56,8 +56,10 @@ public class HomeController extends BaseController {
 
     UserProfileServiceModel userProfileService =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
+
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileService, UserProfileViewModel.class);
+
     userProfileView.setProfilePicture(
         this.fileUtil.encodeByteArrayToBase64String(userProfileService.getProfilePicture()));
 
@@ -67,9 +69,22 @@ public class HomeController extends BaseController {
         .displayAllPosts()
         .stream()
         .map(view -> {
-          String img = this.fileUtil.encodeByteArrayToBase64String(view.getPostOwner().getProfilePicture());
-          WallPostViewModel viewModel = this.modelMapper.map(view, WallPostViewModel.class);
-          viewModel.getPostOwner().setProfilePicture(img);
+          String profilePicture =
+              this.fileUtil
+                  .encodeByteArrayToBase64String(
+                      view.getPostOwner().getProfilePicture());
+
+          String postPicture =
+              this.fileUtil
+                  .encodeByteArrayToBase64String(
+                      view.getPostPicture());
+
+          WallPostViewModel viewModel =
+              this.modelMapper.map(view, WallPostViewModel.class);
+
+          viewModel.getPostOwner().setProfilePicture(profilePicture);
+          viewModel.setPostPicture(postPicture);
+
           return viewModel;
         })
         .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))

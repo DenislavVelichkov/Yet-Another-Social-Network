@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.data.entities.user.UserProfile;
+import org.yasn.data.models.view.UserProfileViewModel;
 
 import java.sql.Timestamp;
 
@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 public class WallPostBindingModel {
-  private UserProfile createdBy;
+  private UserProfileViewModel postOwner;
   private MultipartFile postPicture;
   private String postContent;
   private long likes;

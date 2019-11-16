@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 
-<!--<th:block layout:fragment="post-comment"
+<th:block layout:fragment="post-comment"
           th:each="comment : postComments">
 
     <div class="post-comment-container">
@@ -20,7 +22,7 @@
                 </a>
                 <ul class="dropdown-menu multi-level" role="menu">
                     <li>
-                        &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
+                        <!--     todo  little post menu CRUD operations  -->
                         <a class="post-control-edit"
                            href="">
                             Edit
@@ -39,6 +41,6 @@
             <a href="/user/profile"> [(${userProfileView.fullName})] </a>
         </div>
     </div>
-</th:block>-->
+</th:block>
 
 </html>

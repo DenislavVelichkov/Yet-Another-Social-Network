@@ -63,4 +63,9 @@ public class WallServiceImpl implements WallService {
         .collect(Collectors.toList());
   }
 
+  @Override
+  public void createComment() {
+
+  }
+
 }

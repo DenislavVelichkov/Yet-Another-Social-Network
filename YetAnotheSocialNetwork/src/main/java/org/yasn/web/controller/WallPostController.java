@@ -14,6 +14,7 @@ import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.WallService;
+import org.yasn.utils.FileUtil;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -25,14 +26,17 @@ public class WallPostController extends BaseController {
   private final WallService wallService;
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
+  private final FileUtil fileUtil;
 
   @Autowired
   public WallPostController(WallService wallService,
                             PostCommentService postCommentService,
-                            ModelMapper modelMapper) {
+                            ModelMapper modelMapper,
+                            FileUtil fileUtil) {
     this.wallService = wallService;
     this.postCommentService = postCommentService;
     this.modelMapper = modelMapper;
+    this.fileUtil = fileUtil;
   }
 
   @PostMapping("/post")
