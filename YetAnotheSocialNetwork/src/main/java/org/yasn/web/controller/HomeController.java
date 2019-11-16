@@ -67,9 +67,9 @@ public class HomeController extends BaseController {
         .displayAllPosts()
         .stream()
         .map(view -> {
-          String img = this.fileUtil.encodeByteArrayToBase64String(view.getPostPicture());
+          String img = this.fileUtil.encodeByteArrayToBase64String(view.getPostOwner().getProfilePicture());
           WallPostViewModel viewModel = this.modelMapper.map(view, WallPostViewModel.class);
-          viewModel.setPostPicture(img);
+          viewModel.getPostOwner().setProfilePicture(img);
           return viewModel;
         })
         .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
