@@ -43,6 +43,7 @@ public class WallServiceImpl implements WallService {
 
     wallPostServiceModel.setPostOwner(
         this.userProfileService.findUserProfileByUsername(activeUser.getName()));
+
     wallPostServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
 
     WallPost wallPost =

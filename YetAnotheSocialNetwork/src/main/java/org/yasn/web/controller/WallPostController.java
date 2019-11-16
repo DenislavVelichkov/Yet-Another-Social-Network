@@ -56,9 +56,9 @@ public class WallPostController extends BaseController {
   }
 
   @PostMapping("/comment")
-  public ModelAndView postOnWall(ModelAndView modelAndView,
-                                 @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                 Principal activeUser) {
+  public ModelAndView postCommentOnPost(ModelAndView modelAndView,
+                                        @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+                                        Principal activeUser) {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);

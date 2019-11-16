@@ -10,10 +10,10 @@
     <div class="yasn-wall-post-container shadow p-3 mb-5 bg-white rounded">
         <div class="yasn-wall-post-content">
             <div class="post-meta-avatar">
-                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--/*@thymesVar id="postOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <img class="user-img"
-                     th:src="@{'data:image/png;base64,' + ${post.postOwner.profilePicture}}">
+                     th:src="@{'data:image/png;base64,' + ${post.postOwner.profilePicture}}" alt="avatar">
             </div>
             <div class="post-menu">
                 <div class="dropdown">
@@ -39,12 +39,12 @@
                 </div>
             </div>
             <div>
-                <a href="/user/profile"> [(${{avatar.fullName}})] </a>
+                <a href="/user/profile"> [(${post.postOwner.fullName})] </a>
             </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--TODO    Fix time rendering -->
-                <span th:text="${{post.createdOn}}"></span>
+                <span th:text="${#dates.format(post.createdOn,'yyyy-MM-dd hh:MM')}"></span>
                 <span class="time-created"></span>
                 <span th:if="${post.postPrivacy.name() == 'PUBLIC'}">
                     <i class="fa fa-users"></i>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="post-contents">
-                <p>[(${{post.postContent}})]</p>
+                <p>[(${post.postContent})]</p>
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
 
                 <th:block th:unless="${post.postPicture.isEmpty()}">

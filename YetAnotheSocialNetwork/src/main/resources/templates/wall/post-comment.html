@@ -5,12 +5,12 @@
 
 <!--<th:block layout:fragment="post-comment"
           th:each="comment : postComments">
-    /*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/
+
     <div class="post-comment-container">
         <div class="comment-meta-avatar">
-            &lt;!&ndash;/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/&ndash;&gt;
+
             <img class="user-img"
-                 th:src="@{'data:image/png;base64,' + ${comment.avatar.profilePicture}}">
+                 th:src="@{'data:image/png;base64,' + ${}}">
         </div>
         <div class="comment-menu">
             <div class="dropdown">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div>
-            <a href="/user/profile"> [(${{avatar.fullName}})] </a>
+            <a href="/user/profile"> [(${userProfileView.fullName})] </a>
         </div>
     </div>
 </th:block>-->
