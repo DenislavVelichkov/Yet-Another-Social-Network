@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface WallPostRepository extends JpaRepository<WallPost, String> {
 
-  List<WallPost> findAllByCreatedBy_Id(String id);
-
+  List<WallPost> findAllByPostOwner_Id(String username);
 }

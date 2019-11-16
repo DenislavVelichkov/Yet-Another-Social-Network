@@ -30,13 +30,10 @@ public class UserProfile extends BaseEntity {
   private byte[] profilePicture;
 
   @OneToMany(
-      mappedBy = "createdBy",
+      mappedBy = "postOwner",
       cascade = CascadeType.ALL,
       orphanRemoval = true)
   private List<WallPost> wallPosts;
-
-  @OneToOne(targetEntity = Avatar.class, cascade = CascadeType.ALL)
-  private Avatar avatar;
 
   @ManyToMany(
       cascade = CascadeType.ALL

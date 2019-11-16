@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.WebConstants;
 import org.yasn.common.enums.UserRoles;
-import org.yasn.data.entities.user.Avatar;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.UserServiceModel;
-import org.yasn.repository.user.AvatarRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.service.interfaces.RoleService;
@@ -36,7 +34,6 @@ public class UserServiceImpl implements UserService {
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
   private final FileUtil fileUtil;
-  private final AvatarRepository avatarRepository;
 
   @Autowired
   public UserServiceImpl(UserRepository userRepository,
@@ -44,15 +41,13 @@ public class UserServiceImpl implements UserService {
                          RoleService roleService,
                          ModelMapper modelMapper,
                          BCryptPasswordEncoder passwordEncoder,
-                         FileUtil fileUtil,
-                         AvatarRepository avatarRepository) {
+                         FileUtil fileUtil) {
     this.userRepository = userRepository;
     this.userProfileRepository = userProfileRepository;
     this.roleService = roleService;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
     this.fileUtil = fileUtil;
-    this.avatarRepository = avatarRepository;
   }
 
   @Override
@@ -96,15 +91,8 @@ public class UserServiceImpl implements UserService {
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }
-    Avatar avatar = new Avatar();
-    avatar.setAvatarOwner(profile);
-    avatar.setFullName(profile.getFullName());
-    avatar.setGender(user.getGender());
-    avatar.setProfilePicture(profile.getProfilePicture());
-    profile.setAvatar(avatar);
 
     this.userProfileRepository.saveAndFlush(profile);
-    this.avatarRepository.saveAndFlush(avatar);
 
     return this.modelMapper
         .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);

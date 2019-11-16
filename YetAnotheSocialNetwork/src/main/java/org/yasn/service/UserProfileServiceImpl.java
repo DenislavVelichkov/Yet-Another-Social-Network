@@ -23,6 +23,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public UserProfileServiceModel findUserProfileByUsername(String username) {
+
     return this.userProfileRepository.findByProfileOwnerUsername(username)
         .map(userProfile -> this.modelMapper.map(userProfile, UserProfileServiceModel.class))
         .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));

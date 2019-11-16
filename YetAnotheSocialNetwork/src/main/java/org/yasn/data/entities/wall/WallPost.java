@@ -20,11 +20,10 @@ import java.util.List;
 public class WallPost extends BaseEntity {
 
   @ManyToOne(
-      targetEntity = UserProfile.class,
-      cascade = CascadeType.ALL
+      targetEntity = UserProfile.class
   )
   @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
-  private UserProfile createdBy;
+  private UserProfile postOwner;
 
   @Lob
   @Basic(fetch = FetchType.LAZY)

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.data.entities.user.UserProfile;
 
 import java.sql.Timestamp;
 
@@ -13,7 +12,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 public class WallPostServiceModel extends BaseServiceModel {
-  private UserProfile createdBy;
+  private UserProfileServiceModel postOwner;
   private byte[] postPicture;
   private String postContent;
   private long likes;

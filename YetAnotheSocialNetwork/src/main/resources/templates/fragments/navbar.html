@@ -53,12 +53,12 @@
         <div class="col-6">
             <nav>
                 <div class="navbar-avatar-container float-left">
-                    <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
+                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                     <img id="avatar-picture"
-                         th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}"
+                         th:src="@{'data:image/png;base64,' + ${userProfileView.profilePicture}}"
                          alt="no-profile-picture"/>
                     <a th:href="@{/user/profile}">
-                        <span id="avatar-name" th:text="${avatar.fullName}"></span>
+                        <span id="avatar-name" th:text="${userProfileView.fullName}"></span>
                     </a>
                 </div>
                 <div class="navbar-menu-right nav-tabs float-right">

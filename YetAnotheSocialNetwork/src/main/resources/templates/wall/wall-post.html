@@ -4,15 +4,16 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/*@thymesVar id="allPosts" type="List<org.yasn.data.models.view.WallPostViewModel>"*/-->
+<!--/*@thymesVar id="allWallPosts" type="List<org.yasn.data.models.view.WallPostViewModel>"*/-->
 <th:block layout:fragment="wall-post"
-          th:each="post : ${allPosts}">
+          th:each="post : ${allWallPosts}">
     <div class="yasn-wall-post-container shadow p-3 mb-5 bg-white rounded">
         <div class="yasn-wall-post-content">
             <div class="post-meta-avatar">
-                <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="postOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                 <img class="user-img"
-                     th:src="@{'data:image/png;base64,' + ${post.avatar.profilePicture}}">
+                     th:src="@{'data:image/png;base64,' + ${post.postOwner.profilePicture}}">
             </div>
             <div class="post-menu">
                 <div class="dropdown">
@@ -81,10 +82,11 @@
                 </ul>
             </div>
             <div class="yasn-post-comment">
-                <!--/*@thymesVar id="avatar" type="org.yasn.data.models.view.AvatarViewModel"*/-->
                 <form th:method="post" enctype="multipart/form-data">
+                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                     <img class="comment-meta-avatar-img img-fluid"
-                         th:src="@{'data:image/png;base64,' + ${avatar.profilePicture}}" alt="profile-picture"/>
+                         th:src="@{'data:image/png;base64,' + ${userProfileView.profilePicture}}"
+                         alt="profile-picture"/>
 
                     <input class="comment-post-textarea" id="yasn-comment-post-textarea" type="text"
                            name="comment-post-textarea"/>

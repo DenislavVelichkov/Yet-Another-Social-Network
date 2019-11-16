@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 public class WallPostViewModel {
-  private AvatarViewModel avatar;
+  private UserProfileViewModel postOwner;
   private String postPicture;
   private String postContent;
   private long likes;
