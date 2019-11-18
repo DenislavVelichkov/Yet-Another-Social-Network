@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "post_comments")
 public class PostComment extends BaseEntity {
 
-  @ManyToOne(targetEntity = WallPost.class, cascade = CascadeType.ALL)
+  @ManyToOne(targetEntity = WallPost.class)
   @JoinColumn(name = "wall_post_id", referencedColumnName = "id")
   private WallPost parentPost;
 

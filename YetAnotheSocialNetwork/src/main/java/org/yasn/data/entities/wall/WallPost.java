@@ -38,8 +38,6 @@ public class WallPost extends BaseEntity {
 
   @OneToMany(
       mappedBy = "parentPost",
-      orphanRemoval = true,
-      fetch = FetchType.EAGER,
       cascade = CascadeType.ALL)
   private List<PostComment> postComments;
 
