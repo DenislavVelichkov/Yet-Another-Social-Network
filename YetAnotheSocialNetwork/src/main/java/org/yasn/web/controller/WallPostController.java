@@ -67,6 +67,7 @@ public class WallPostController extends BaseController {
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
 
+    this.postCommentService.postComment(postCommentServiceModel, activeUser);
 
     return super.redirect("/home");
   }

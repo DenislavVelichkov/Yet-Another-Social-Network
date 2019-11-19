@@ -44,7 +44,8 @@
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--TODO    Fix time rendering -->
-                <span th:text="${#dates.format(post.createdOn,'yyyy-MM-dd hh:MM')}"></span>
+                <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtil"*/-->
+                <span th:text="${time.calcTimeAgo(post.createdOn)}"></span>
                 <span class="time-created"></span>
                 <span th:if="${post.postPrivacy.name() == 'PUBLIC'}">
                     <i class="fa fa-users"></i>
@@ -75,14 +76,14 @@
                     </li>
                     <li>
                 <span>
-                    [(${{post.likes}})]
+                    [(${post.likes})]
                 </span>
                         <i class="far fa-thumbs-up"></i>
                     </li>
                 </ul>
             </div>
             <div class="yasn-post-comment">
-                <form th:method="post" enctype="multipart/form-data">
+                <form th:action="@{/home/wall/comment}" th:method="post" enctype="multipart/form-data">
                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                     <img class="comment-meta-avatar-img img-fluid"
                          th:src="@{'data:image/png;base64,' + ${userProfileView.profilePicture}}"
@@ -90,10 +91,10 @@
 
                     <input class="comment-post-textarea" id="yasn-comment-post-textarea" type="text"
                            name="comment-post-textarea"/>
-                    <input class="comment-post-submit-btn btn-sm btn-outline-info" type="submit" value="Post"/>
+                    <input class="comment-post-submit-btn btn-sm" type="submit" value="Send"/>
                 </form>
             </div>
-            <th:block layout:insert="~{/wall/post-comment}"/>
+            <th:block layout:insert="~{/wall/post-comments}"/>
         </div>
     </div>
 </th:block>

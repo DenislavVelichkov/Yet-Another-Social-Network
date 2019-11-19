@@ -54,6 +54,11 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
+  public void createComment() {
+
+  }
+
+  @Override
   public List<WallPostServiceModel> displayAllPosts() {
 
     return this.wallPostRepository
@@ -61,11 +66,6 @@ public class WallServiceImpl implements WallService {
         .stream()
         .map(wallPost -> this.modelMapper.map(wallPost, WallPostServiceModel.class))
         .collect(Collectors.toList());
-  }
-
-  @Override
-  public void createComment() {
-
   }
 
 }

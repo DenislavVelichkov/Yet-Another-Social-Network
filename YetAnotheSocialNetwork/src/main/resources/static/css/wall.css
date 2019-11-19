@@ -80,6 +80,22 @@
 
 .comment-post-submit-btn {
     display: inline-block;
+    background-color: transparent;
+    border-color: #cccccc;
+    font-weight: bold;
+    color: #cccccc;
+    float: right;
+    height: 2.5em;
+    position: relative;
+    top: 0.4em;
+    left: 0;
+    cursor: pointer;
+}
+
+.comment-post-submit-btn:hover {
+    display: inline-block;
+    background-color: transparent;
+    box-shadow: none;
     float: right;
     height: 2.5em;
     position: relative;

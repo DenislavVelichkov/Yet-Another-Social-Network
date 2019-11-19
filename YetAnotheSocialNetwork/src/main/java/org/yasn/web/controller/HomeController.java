@@ -16,6 +16,7 @@ import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
+import org.yasn.utils.TimeUtil;
 
 import java.security.Principal;
 import java.util.List;
@@ -65,6 +66,8 @@ public class HomeController extends BaseController {
 
 
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
+    // TODO: 11/19/2019 Fix Post privacy filtration with its correct behaviour
+
     List<WallPostViewModel> allPosts = this.wallService
         .displayAllPosts()
         .stream()
@@ -93,6 +96,7 @@ public class HomeController extends BaseController {
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("wallPost", wallPost);
     modelAndView.addObject("allWallPosts", allPosts);
+    modelAndView.addObject("time", new TimeUtil());
 
     return super.view("home", modelAndView);
   }

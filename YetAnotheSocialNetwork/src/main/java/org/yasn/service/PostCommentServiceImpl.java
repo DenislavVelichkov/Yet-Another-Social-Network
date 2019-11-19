@@ -2,7 +2,6 @@ package org.yasn.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.repository.wall.PostCommentRepository;
 import org.yasn.service.interfaces.PostCommentService;
@@ -19,7 +18,7 @@ public class PostCommentServiceImpl implements PostCommentService {
   }
 
   @Override
-  public PostCommentServiceModel postComment(PostCommentBindingModel commentModel, Principal user) {
+  public PostCommentServiceModel postComment(PostCommentServiceModel commentModel, Principal user) {
 
     return null;
   }
