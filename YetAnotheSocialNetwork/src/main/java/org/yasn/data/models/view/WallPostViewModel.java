@@ -6,11 +6,13 @@ import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class WallPostViewModel {
+  private String id;
   private UserProfileViewModel postOwner;
   private String postPicture;
   private String postContent;
@@ -18,4 +20,5 @@ public class WallPostViewModel {
   private String location;
   private Timestamp createdOn;
   private PostPrivacy postPrivacy;
+  private List<PostCommentViewModel> comments;
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.data.entities.BaseEntity;
+import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.entities.wall.WallPost;
 
 import javax.persistence.*;
@@ -34,6 +35,9 @@ public class UserProfile extends BaseEntity {
       cascade = CascadeType.ALL,
       orphanRemoval = true)
   private List<WallPost> wallPosts;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<PostComment> comments;
 
   @ManyToMany(
       cascade = CascadeType.ALL

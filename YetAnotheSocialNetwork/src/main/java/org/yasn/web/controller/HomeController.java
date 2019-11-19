@@ -13,10 +13,11 @@ import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
+import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
-import org.yasn.utils.TimeUtil;
+import org.yasn.utils.TimeUtilImpl;
 
 import java.security.Principal;
 import java.util.List;
@@ -29,16 +30,19 @@ public class HomeController extends BaseController {
   private final UserProfileService userProfileService;
   private final WallService wallService;
   private final ModelMapper modelMapper;
+  private final PostCommentService postCommentService;
   private final FileUtil fileUtil;
 
   @Autowired
   public HomeController(UserProfileService userProfileService,
                         WallService wallService,
                         ModelMapper modelMapper,
+                        PostCommentService postCommentService,
                         FileUtil fileUtil) {
     this.userProfileService = userProfileService;
     this.wallService = wallService;
     this.modelMapper = modelMapper;
+    this.postCommentService = postCommentService;
     this.fileUtil = fileUtil;
   }
 
@@ -52,7 +56,7 @@ public class HomeController extends BaseController {
   @PageTitle("Home")
   public ModelAndView home(ModelAndView modelAndView,
                            @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                           @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+                           @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
                            Principal activeUser) {
 
     UserProfileServiceModel userProfileService =
@@ -64,14 +68,15 @@ public class HomeController extends BaseController {
     userProfileView.setProfilePicture(
         this.fileUtil.encodeByteArrayToBase64String(userProfileService.getProfilePicture()));
 
-
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
     // TODO: 11/19/2019 Fix Post privacy filtration with its correct behaviour
+    // TODO: 11/20/2019 Fix Like button
 
     List<WallPostViewModel> allPosts = this.wallService
         .displayAllPosts()
         .stream()
         .map(view -> {
+
           String profilePicture =
               this.fileUtil
                   .encodeByteArrayToBase64String(
@@ -90,13 +95,22 @@ public class HomeController extends BaseController {
 
           return viewModel;
         })
+        .filter(wallPostViewModel ->
+            wallPostViewModel
+                .getPostPrivacy()
+                .getLabel()
+                .equals("Public")
+                || wallPostViewModel
+                .getPostOwner()
+                .getFriends()
+                .contains(this.userProfileService
+                    .findUserProfileByUsername(activeUser.getName())))
         .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
         .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
-    modelAndView.addObject("wallPost", wallPost);
     modelAndView.addObject("allWallPosts", allPosts);
-    modelAndView.addObject("time", new TimeUtil());
+    modelAndView.addObject("time", new TimeUtilImpl());
 
     return super.view("home", modelAndView);
   }

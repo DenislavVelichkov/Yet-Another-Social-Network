@@ -12,6 +12,7 @@ import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
@@ -26,22 +27,26 @@ public class WallPostController extends BaseController {
   private final WallService wallService;
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
+  private final CloudinaryService cloudinaryService;
   private final FileUtil fileUtil;
 
   @Autowired
   public WallPostController(WallService wallService,
                             PostCommentService postCommentService,
                             ModelMapper modelMapper,
+                            CloudinaryService cloudinaryService,
                             FileUtil fileUtil) {
     this.wallService = wallService;
     this.postCommentService = postCommentService;
     this.modelMapper = modelMapper;
+    this.cloudinaryService = cloudinaryService;
     this.fileUtil = fileUtil;
   }
 
   @PostMapping("/post")
   public ModelAndView postOnWall(ModelAndView modelAndView,
                                  @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+                                 @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
                                  Principal activeUser) throws IOException {
 
 // TODO: 11/12/2019 Validations
@@ -62,12 +67,15 @@ public class WallPostController extends BaseController {
   @PostMapping("/comment")
   public ModelAndView postCommentOnPost(ModelAndView modelAndView,
                                         @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                        Principal activeUser) {
+                                        @ModelAttribute(name = "postId") String postId,
+                                        Principal activeUser) throws IOException {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
+    postCommentServiceModel.setCommentPicture(
+        this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
 
-    this.postCommentService.postComment(postCommentServiceModel, activeUser);
+    this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
     return super.redirect("/home");
   }

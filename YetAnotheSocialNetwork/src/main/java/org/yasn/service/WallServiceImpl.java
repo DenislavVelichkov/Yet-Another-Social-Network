@@ -50,12 +50,13 @@ public class WallServiceImpl implements WallService {
         this.modelMapper.map(wallPostServiceModel, WallPost.class);
 
     this.wallPostRepository.saveAndFlush(wallPost);
-
   }
 
   @Override
-  public void createComment() {
-
+  public WallPostServiceModel findWallPostById(String id) {
+    return this.modelMapper.map(
+        this.wallPostRepository.findById(id).get(),
+        WallPostServiceModel.class);
   }
 
   @Override
@@ -64,7 +65,8 @@ public class WallServiceImpl implements WallService {
     return this.wallPostRepository
         .findAll()
         .stream()
-        .map(wallPost -> this.modelMapper.map(wallPost, WallPostServiceModel.class))
+        .map(wallPost ->
+            this.modelMapper.map(wallPost, WallPostServiceModel.class))
         .collect(Collectors.toList());
   }
 

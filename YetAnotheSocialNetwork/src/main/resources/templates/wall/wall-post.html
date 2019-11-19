@@ -43,8 +43,7 @@
             </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                <!--TODO    Fix time rendering -->
-                <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtil"*/-->
+                <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
                 <span th:text="${time.calcTimeAgo(post.createdOn)}"></span>
                 <span class="time-created"></span>
                 <span th:if="${post.postPrivacy.name() == 'PUBLIC'}">
@@ -83,14 +82,21 @@
                 </ul>
             </div>
             <div class="yasn-post-comment">
-                <form th:action="@{/home/wall/comment}" th:method="post" enctype="multipart/form-data">
+                <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
+                <form th:action="@{/home/wall/comment}"
+                      th:method="post" enctype="multipart/form-data"
+                      th:object="${postComment}">
                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                     <img class="comment-meta-avatar-img img-fluid"
                          th:src="@{'data:image/png;base64,' + ${userProfileView.profilePicture}}"
                          alt="profile-picture"/>
 
-                    <input class="comment-post-textarea" id="yasn-comment-post-textarea" type="text"
-                           name="comment-post-textarea"/>
+                    <label for="yasn-comment-post-textarea" name="comment-post-textarea"></label>
+                    <input class="comment-post-textarea"
+                           id="yasn-comment-post-textarea" type="text"
+                           name="comment-post-textarea"
+                           th:field="*{commentContent}"/>
+                    <input type="hidden" name="postId" th:value="${post.id}"/>
                     <input class="comment-post-submit-btn btn-sm" type="submit" value="Send"/>
                 </form>
             </div>

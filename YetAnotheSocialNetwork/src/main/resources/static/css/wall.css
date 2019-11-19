@@ -108,6 +108,10 @@
     z-index: 1 !important;
 }
 
+.post-meta-info > span:nth-child(1) {
+    color: rgba(93, 93, 93, 0.48);
+}
+
 
 
 

@@ -12,7 +12,5 @@ public interface WallService {
 
   List<WallPostServiceModel> displayAllPosts();
 
-  void createComment();
-
-
+  WallPostServiceModel findWallPostById(String id);
 }

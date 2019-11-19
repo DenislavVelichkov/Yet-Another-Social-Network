@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
->
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!--/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/-->
+<!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
 
-<!--<th:block layout:fragment="post-comment"
-          th:each="comment : postComments">
+<th:block layout:fragment="post-comment"
+
+          th:each="comment : post.getComments()">
 
     <div class="post-comment-container">
         <div class="comment-meta-avatar">
-
-            <img class="user-img"
-                 th:src="@{'data:image/png;base64,' + ${}}">
+            <!--/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/-->
+            <!--/*@thymesVar id="commentOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+            <!--<img class="user-img"
+                 th:src="@{'data:image/png;base64,' + ${commentOwner.profilePicture}}">-->
         </div>
         <div class="comment-menu">
             <div class="dropdown">
@@ -20,7 +25,7 @@
                 </a>
                 <ul class="dropdown-menu multi-level" role="menu">
                     <li>
-                        &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
+                        <!--     todo  little post menu CRUD operations  -->
                         <a class="post-control-edit"
                            href="">
                             Edit
@@ -38,7 +43,11 @@
         <div>
             <a href="/user/profile"> [(${userProfileView.fullName})] </a>
         </div>
+        <div class="wall-post-comment-content-container">
+            <!--/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/-->
+            <p>[(${comment.commentContent})]</p>
+        </div>
     </div>
-</th:block>-->
+</th:block>
 
 </html>

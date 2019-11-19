@@ -14,6 +14,7 @@ public class UserProfileServiceModel extends BaseServiceModel {
   private String fullName;
   private UserServiceModel profileOwner;
   private byte[] profilePicture;
+  private List<PostCommentServiceModel> comments;
   private List<WallPostServiceModel> wallPosts;
   private Set<UserProfileServiceModel> friends;
 }

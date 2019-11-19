@@ -37,9 +37,8 @@ public class WallPost extends BaseEntity {
   private long likes;
 
   @OneToMany(
-      mappedBy = "parentPost",
       cascade = CascadeType.ALL)
-  private List<PostComment> postComments;
+  private List<PostComment> comments;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(name = "created_on")

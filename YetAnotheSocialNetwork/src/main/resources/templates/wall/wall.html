@@ -20,11 +20,11 @@
                       id="yasn-wall-form">
 
                     <label for="comment-text" id="post"></label>
-                    <textarea th:field="*{postContent}"
-                              id="comment-text"
-                              placeholder="What's on your mind?"
+                    <textarea id="comment-text"
                               name="post"
-                              type="text"></textarea>
+                              type="text"
+                              th:field="*{postContent}">
+                    </textarea>
 
                     <div class="yasn-post-extra-tag">
 
@@ -32,6 +32,7 @@
 
                     <div class="yasn-post-extra-location">
                         <label for="location"></label>
+                        <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                         <input th:field="*{location}"
                                type="text"
                                id="location"
