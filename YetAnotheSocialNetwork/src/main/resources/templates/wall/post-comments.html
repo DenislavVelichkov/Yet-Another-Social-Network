@@ -1,10 +1,11 @@
+<!--
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<!--/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/-->
-<!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+&lt;!&ndash;/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/&ndash;&gt;
+&lt;!&ndash;/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/&ndash;&gt;
 
 <th:block layout:fragment="post-comment"
 
@@ -12,10 +13,10 @@
 
     <div class="post-comment-container">
         <div class="comment-meta-avatar">
-            <!--/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/-->
-            <!--/*@thymesVar id="commentOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-            <!--<img class="user-img"
-                 th:src="@{'data:image/png;base64,' + ${commentOwner.profilePicture}}">-->
+            &lt;!&ndash;/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/&ndash;&gt;
+            &lt;!&ndash;/*@thymesVar id="commentOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/&ndash;&gt;
+            &lt;!&ndash;<img class="user-img"
+                 th:src="@{'data:image/png;base64,' + ${commentOwner.profilePicture}}">&ndash;&gt;
         </div>
         <div class="comment-menu">
             <div class="dropdown">
@@ -25,7 +26,7 @@
                 </a>
                 <ul class="dropdown-menu multi-level" role="menu">
                     <li>
-                        <!--     todo  little post menu CRUD operations  -->
+                        &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
                         <a class="post-control-edit"
                            href="">
                             Edit
@@ -44,10 +45,10 @@
             <a href="/user/profile"> [(${userProfileView.fullName})] </a>
         </div>
         <div class="wall-post-comment-content-container">
-            <!--/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/-->
+            &lt;!&ndash;/*@thymesVar id="comment" type="org.yasn.data.models.view.PostCommentViewModel"*/&ndash;&gt;
             <p>[(${comment.commentContent})]</p>
         </div>
     </div>
 </th:block>
 
-</html>
+</html>-->
