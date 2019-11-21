@@ -65,9 +65,6 @@ public class HomeController extends BaseController {
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileService, UserProfileViewModel.class);
 
-    userProfileView.setProfilePicture(
-        this.fileUtil.encodeByteArrayToBase64String(userProfileService.getProfilePicture()));
-
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
     // TODO: 11/19/2019 Fix Post privacy filtration with its correct behaviour
     // TODO: 11/20/2019 Fix Like button
@@ -77,21 +74,8 @@ public class HomeController extends BaseController {
         .stream()
         .map(view -> {
 
-          String profilePicture =
-              this.fileUtil
-                  .encodeByteArrayToBase64String(
-                      view.getPostOwner().getProfilePicture());
-
-          String postPicture =
-              this.fileUtil
-                  .encodeByteArrayToBase64String(
-                      view.getPostPicture());
-
           WallPostViewModel viewModel =
               this.modelMapper.map(view, WallPostViewModel.class);
-
-          viewModel.getPostOwner().setProfilePicture(profilePicture);
-          viewModel.setPostPicture(postPicture);
 
           return viewModel;
         })

@@ -15,7 +15,6 @@ import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.WallService;
-import org.yasn.utils.FileUtil;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -28,19 +27,16 @@ public class WallPostController extends BaseController {
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
   private final CloudinaryService cloudinaryService;
-  private final FileUtil fileUtil;
 
   @Autowired
   public WallPostController(WallService wallService,
                             PostCommentService postCommentService,
                             ModelMapper modelMapper,
-                            CloudinaryService cloudinaryService,
-                            FileUtil fileUtil) {
+                            CloudinaryService cloudinaryService) {
     this.wallService = wallService;
     this.postCommentService = postCommentService;
     this.modelMapper = modelMapper;
     this.cloudinaryService = cloudinaryService;
-    this.fileUtil = fileUtil;
   }
 
   @PostMapping("/post")
@@ -53,7 +49,11 @@ public class WallPostController extends BaseController {
 
     WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
-    wallPostServiceModel.setPostPicture(wallPost.getPostPicture().getBytes());
+
+    if (!wallPost.getPostPicture().isEmpty()) {
+      wallPostServiceModel.setPostPicture(
+          this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
+    }
 
     if (wallPostServiceModel.getPostPrivacy() == null) {
       wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
@@ -72,8 +72,8 @@ public class WallPostController extends BaseController {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
-    postCommentServiceModel.setCommentPicture(
-        this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+    /*postCommentServiceModel.setCommentPicture(
+        this.cloudinaryService.uploadImage(postComment.getCommentPicture()));*/
 
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 

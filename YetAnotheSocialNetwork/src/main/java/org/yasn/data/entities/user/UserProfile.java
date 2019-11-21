@@ -21,22 +21,23 @@ public class UserProfile extends BaseEntity {
   @Column(name = "full_name")
   private String fullName;
 
-  @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User profileOwner;
 
-  @Lob
-  @Basic(fetch = FetchType.LAZY)
   @Column(name = "profile_picture")
-  private byte[] profilePicture;
+  private String profilePicture;
 
   @OneToMany(
-      mappedBy = "postOwner",
+      targetEntity = WallPost.class,
       cascade = CascadeType.ALL,
-      orphanRemoval = true)
+      mappedBy = "postOwner")
   private List<WallPost> wallPosts;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "profiles_comments",
+      joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"))
   private List<PostComment> comments;
 
   @ManyToMany(
@@ -44,8 +45,7 @@ public class UserProfile extends BaseEntity {
   )
   @JoinTable(
       name = "user_profiles_friends",
-      joinColumns = @JoinColumn(
-          name = "user_profile_id"),
-      inverseJoinColumns = @JoinColumn(name = "friend_id"))
+      joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "friend_id", referencedColumnName = "id"))
   private Set<UserProfile> friends;
 }

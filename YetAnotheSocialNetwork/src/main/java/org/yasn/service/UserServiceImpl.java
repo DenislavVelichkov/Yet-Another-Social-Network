@@ -14,12 +14,10 @@ import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.UserServiceModel;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
+import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.RoleService;
 import org.yasn.service.interfaces.UserService;
-import org.yasn.utils.FileUtil;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -31,23 +29,24 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final UserProfileRepository userProfileRepository;
   private final RoleService roleService;
+  private final CloudinaryService cloudinaryService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
-  private final FileUtil fileUtil;
+
 
   @Autowired
   public UserServiceImpl(UserRepository userRepository,
                          UserProfileRepository userProfileRepository,
                          RoleService roleService,
+                         CloudinaryService cloudinaryService,
                          ModelMapper modelMapper,
-                         BCryptPasswordEncoder passwordEncoder,
-                         FileUtil fileUtil) {
+                         BCryptPasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.userProfileRepository = userProfileRepository;
     this.roleService = roleService;
+    this.cloudinaryService = cloudinaryService;
     this.modelMapper = modelMapper;
     this.passwordEncoder = passwordEncoder;
-    this.fileUtil = fileUtil;
   }
 
   @Override
@@ -84,13 +83,7 @@ public class UserServiceImpl implements UserService {
         " "
         + userServiceModel.getLastName());
 
-    try {
-      profile.setProfilePicture(
-          fileUtil.downloadImageFile(
-              new URL(WebConstants.DEFAULT_AVATAR_IMG_PATH)));
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
+    profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_IMG_PATH);
 
     this.userProfileRepository.saveAndFlush(profile);
 

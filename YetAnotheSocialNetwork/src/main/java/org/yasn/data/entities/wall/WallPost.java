@@ -19,16 +19,12 @@ import java.util.List;
 @Table(name = "wall_posts")
 public class WallPost extends BaseEntity {
 
-  @ManyToOne(
-      targetEntity = UserProfile.class
-  )
+  @ManyToOne(targetEntity = UserProfile.class)
   @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
   private UserProfile postOwner;
 
-  @Lob
-  @Basic(fetch = FetchType.LAZY)
-  @Column(name = "comment_picture")
-  private byte[] postPicture;
+  @Column(name = "post_picture")
+  private String postPicture;
 
   @Column(name = "post_content")
   private String postContent;
@@ -36,8 +32,7 @@ public class WallPost extends BaseEntity {
   @Column(name = "likes_count")
   private long likes;
 
-  @OneToMany(
-      cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL)
   private List<PostComment> comments;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")

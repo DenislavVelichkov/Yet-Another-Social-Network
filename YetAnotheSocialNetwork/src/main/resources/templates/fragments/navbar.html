@@ -55,7 +55,7 @@
                 <div class="navbar-avatar-container float-left">
                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                     <img id="avatar-picture"
-                         th:src="@{'data:image/png;base64,' + ${userProfileView.profilePicture}}"
+                         th:src="@{${userProfileView.profilePicture}}"
                          alt="no-profile-picture"/>
                     <a th:href="@{/user/profile}">
                         <span id="avatar-name" th:text="${userProfileView.fullName}"></span>

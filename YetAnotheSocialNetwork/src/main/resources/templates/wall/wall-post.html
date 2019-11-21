@@ -10,10 +10,10 @@
     <div class="yasn-wall-post-container shadow p-3 mb-5 bg-white rounded">
         <div class="yasn-wall-post-content">
             <div class="post-meta-avatar">
-                <!--/*@thymesVar id="postOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="postOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                 <img class="user-img"
-                     th:src="@{'data:image/png;base64,' + ${post.postOwner.profilePicture}}" alt="avatar">
+                     th:src="@{${post.postOwner.profilePicture}}" alt="avatar">
             </div>
             <div class="post-menu">
                 <div class="dropdown">
@@ -56,11 +56,9 @@
 
             <div class="post-contents">
                 <p>[(${post.postContent})]</p>
-                <!--/*@thymesVar id="postPicture" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-
-                <th:block th:unless="${post.postPicture.isEmpty()}">
+                <th:block th:unless="${post.postPicture == null}">
                     <img class="post-content-pic img-fluid"
-                         th:src="@{'data:image/png;base64,' + ${post.postPicture}}" alt="post-picture">
+                         th:src="@{${post.postPicture}}" alt="post-picture">
                 </th:block>
             </div>
 
@@ -88,7 +86,7 @@
                       th:object="${postComment}">
                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                     <img class="comment-meta-avatar-img img-fluid"
-                         th:src="@{'data:image/png;base64,' + ${userProfileView.profilePicture}}"
+                         th:src="@{${userProfileView.profilePicture}}"
                          alt="profile-picture"/>
 
                     <label for="yasn-comment-post-textarea" name="comment-post-textarea"></label>

@@ -15,7 +15,7 @@ import java.util.List;
 public class WallPostServiceModel extends BaseServiceModel {
   private UserProfileServiceModel postOwner;
   private PostCommentServiceModel postComments;
-  private byte[] postPicture;
+  private String postPicture;
   private String postContent;
   private long likes;
   private String location;

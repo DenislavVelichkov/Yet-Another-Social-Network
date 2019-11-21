@@ -11,11 +11,11 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "post_comments")
+@Table(name = "comments")
 public class PostComment extends BaseEntity {
 
-  @ManyToOne(targetEntity = WallPost.class, cascade = CascadeType.ALL)
-  @JoinColumn(name = "wall_post_id", referencedColumnName = "id")
+  @ManyToOne(targetEntity = WallPost.class)
+  @JoinColumn(name = "parent_post_id", referencedColumnName = "id")
   private WallPost parentPost;
 
   @Column(name = "comment_content")
@@ -24,8 +24,6 @@ public class PostComment extends BaseEntity {
   @Column(name = "post_liked")
   private boolean isPostLiked;
 
-  @Lob
-  @Basic(fetch = FetchType.LAZY)
   @Column(name = "comment_picture")
-  private byte[] commentPicture;
+  private String commentPicture;
 }
