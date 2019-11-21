@@ -72,34 +72,35 @@
 
 .comment-post-textarea {
     display: inline-block;
-    width: 80% !important;
+    width: 70% !important;
     margin-top: 0.5em !important;
     margin-right: 1em;
     margin-left: 1em
 }
 
 .comment-post-submit-btn {
+    border: none;
+    text-align: center;
     display: inline-block;
-    background-color: transparent;
-    border-color: #cccccc;
+    background-color: #ffffff;
     font-weight: bold;
-    color: #cccccc;
+    color: #929292;
     float: right;
-    height: 2.5em;
     position: relative;
-    top: 0.4em;
+    top: 0.3em;
     left: 0;
     cursor: pointer;
+    width: 10%;
+    height: 75%;
 }
 
 .comment-post-submit-btn:hover {
     display: inline-block;
-    background-color: transparent;
-    box-shadow: none;
+    background-color: #f0f2f4;
+    border-radius: 1em;
     float: right;
-    height: 2.5em;
     position: relative;
-    top: 0.4em;
+    top: 0.3em;
     left: 0;
     cursor: pointer;
 }
@@ -117,6 +118,7 @@
     border-radius: 1em;
     background-color: rgba(233, 235, 238, 0.65);
     width: 100%;
+    display: block;
 }
 
 .post-delimiter {
@@ -126,6 +128,27 @@
 .wall-post-comment-content-container {
     margin-top: 2em;
     margin-left: 1em;
+}
+
+.comment-image-upload > input {
+    display: none;
+}
+
+.comment-image-upload > label {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 1em;
+    position: relative;
+    top: 0.6em;
+    left: 0;
+}
+
+.comment-image-upload > label:hover {
+    color: #b9bbbe;
+}
+
+.img-container {
+    display: block;
 }
 
 

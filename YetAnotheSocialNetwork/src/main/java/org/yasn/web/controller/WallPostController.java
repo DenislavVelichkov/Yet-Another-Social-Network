@@ -72,8 +72,11 @@ public class WallPostController extends BaseController {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
-    /*postCommentServiceModel.setCommentPicture(
-        this.cloudinaryService.uploadImage(postComment.getCommentPicture()));*/
+
+    if (!postComment.getCommentPicture().isEmpty()) {
+      postCommentServiceModel.setCommentPicture(
+          this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+    }
 
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
