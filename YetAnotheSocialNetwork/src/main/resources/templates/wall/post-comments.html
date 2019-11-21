@@ -3,16 +3,17 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<th:block layout:fragment="post-comment"
-
-          th:each="comment : post.getComments()">
+<!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+<!--/*@thymesVar id="commentOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+<!--/*@thymesVar id="comments" type="List<org.yasn.data.models.view.PostCommentViewModel>"*/-->
+<th:block layout:fragment="post-comments"
+          th:each="comment : ${post.comments}">
 
     <div class="post-comment-container">
-        <div class="comment-meta-avatar">
-            <img th:src="@{${commentOwner.profilePicture}}" alt="profile-avatar"/>
+        <div class="post-meta-avatar">
+            <img class="user-img" th:src="@{${comment.commentOwner.profilePicture}}" alt="profile-avatar"/>
         </div>
-        <div class="comment-menu">
+        <div class="post-menu">
             <div class="dropdown">
                 <a role="button" data-toggle="dropdown" data-target="#"
                    aria-expanded="false">
@@ -36,12 +37,19 @@
             </div>
         </div>
         <div>
-            <a href="/user/profile"> [(${userProfileView.fullName})] </a>
+            <a href="/user/profile"> [(${comment.commentOwner.fullName})] </a>
+        </div>
+        <div class="post-meta-info">
+            <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
+            <span th:text="${time.calcTimeAgo(post.getCreatedOn())}"></span>
         </div>
         <div class="wall-post-comment-content-container">
             <p>[(${comment.commentContent})]</p>
+            <th:block th:unless="${comment.commentPicture == null}">
+                <img class="post-content-pic img-fluid"
+                     th:src="@{${comment.commentPicture}}" alt="comment-picture">
+            </th:block>
         </div>
     </div>
 </th:block>
-
 </html>

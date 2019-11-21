@@ -20,7 +20,7 @@ import java.util.List;
 public class WallPost extends BaseEntity {
 
   @ManyToOne(targetEntity = UserProfile.class)
-  @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+  @JoinColumn(name = "post_owner_id", referencedColumnName = "id")
   private UserProfile postOwner;
 
   @Column(name = "post_picture")

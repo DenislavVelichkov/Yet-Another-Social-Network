@@ -45,7 +45,6 @@
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
                 <span th:text="${time.calcTimeAgo(post.createdOn)}"></span>
-                <span class="time-created"></span>
                 <span th:if="${post.postPrivacy.name() == 'PUBLIC'}">
                     <i class="fa fa-users"></i>
                 </span>
@@ -98,7 +97,8 @@
                     <input class="comment-post-submit-btn btn-sm" type="submit" value="Send"/>
                 </form>
             </div>
-            <!--            <th:block layout:insert="~{/wall/post-comments}"/>-->
+            <hr class="post-delimiter">
+            <th:block layout:insert="~{/wall/post-comments}"/>
         </div>
     </div>
 </th:block>

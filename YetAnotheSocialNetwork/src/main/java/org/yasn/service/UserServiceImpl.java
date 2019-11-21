@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_IMG_PATH);
 
-    this.userProfileRepository.saveAndFlush(profile);
+    user.setUserProfile(profile);
 
     return this.modelMapper
         .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);

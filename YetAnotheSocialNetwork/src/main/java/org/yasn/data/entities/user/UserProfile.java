@@ -21,7 +21,7 @@ public class UserProfile extends BaseEntity {
   @Column(name = "full_name")
   private String fullName;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User profileOwner;
 
@@ -34,10 +34,11 @@ public class UserProfile extends BaseEntity {
       mappedBy = "postOwner")
   private List<WallPost> wallPosts;
 
-  @OneToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "profiles_comments",
-      joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"))
+  @OneToMany(
+      targetEntity = PostComment.class,
+      fetch = FetchType.EAGER,
+      mappedBy = "commentOwner",
+      cascade = CascadeType.ALL)
   private List<PostComment> comments;
 
   @ManyToMany(
