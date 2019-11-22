@@ -106,4 +106,9 @@ small {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/*CSS Style rewrite*/
+.rounded {
+    border-radius: 0.50em !important;
+}
+
 

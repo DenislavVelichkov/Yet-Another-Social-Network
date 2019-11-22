@@ -36,7 +36,6 @@ public class UserProfile extends BaseEntity {
 
   @OneToMany(
       targetEntity = PostComment.class,
-      fetch = FetchType.EAGER,
       mappedBy = "commentOwner",
       cascade = CascadeType.ALL)
   private List<PostComment> comments;

@@ -18,5 +18,6 @@ public class PostCommentBindingModel {
   private Timestamp createdOn;
   private String commentContent;
   private boolean isPostLiked;
+  private long likes;
   private MultipartFile commentPicture;
 }

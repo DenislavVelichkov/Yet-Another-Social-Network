@@ -14,6 +14,7 @@ public class PostCommentServiceModel extends BaseServiceModel {
   private UserProfileServiceModel commentOwner;
   private String commentContent;
   private Timestamp createdOn;
+  private long likes;
   private boolean isPostLiked;
   private String commentPicture;
 }

@@ -13,6 +13,7 @@ public class PostCommentViewModel {
   private WallPostViewModel parentPost;
   private UserProfileViewModel commentOwner;
   private Timestamp createdOn;
+  private long likes;
   private String commentContent;
   private boolean isPostLiked;
   private String commentPicture;

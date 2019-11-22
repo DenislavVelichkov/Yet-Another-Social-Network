@@ -3,10 +3,12 @@ package org.yasn.data.entities.wall;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.yasn.data.entities.BaseEntity;
 import org.yasn.data.entities.user.UserProfile;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -26,9 +28,16 @@ public class PostComment extends BaseEntity {
   @Column(name = "comment_content")
   private String commentContent;
 
-  @Column(name = "post_liked")
-  private boolean isPostLiked;
+  @Column(name = "comment_liked")
+  private boolean isCommentLiked;
 
   @Column(name = "comment_picture")
   private String commentPicture;
+
+  @Column(name = "likes")
+  private long likes;
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
+  @Column(name = "created_on")
+  private Timestamp createdOn;
 }

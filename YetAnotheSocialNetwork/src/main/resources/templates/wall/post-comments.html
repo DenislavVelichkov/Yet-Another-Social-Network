@@ -33,15 +33,14 @@
                         </a>
                     </li>
                 </ul>
-
             </div>
         </div>
         <div>
             <a href="/user/profile"> [(${comment.commentOwner.fullName})] </a>
         </div>
         <div class="post-meta-info">
-            <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
-            <span th:text="${time.calcTimeAgo(post.getCreatedOn())}"></span>
+
+            <span th:text="${time.calcTimeAgo(comment.createdOn)}"></span>
             <div class="wall-post-comment-content-container">
                 <p>[(${comment.commentContent})]</p>
             </div>
