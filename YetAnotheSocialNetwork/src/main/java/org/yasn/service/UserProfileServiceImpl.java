@@ -28,4 +28,13 @@ public class UserProfileServiceImpl implements UserProfileService {
         .map(userProfile -> this.modelMapper.map(userProfile, UserProfileServiceModel.class))
         .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
   }
+
+  @Override
+  public UserProfileServiceModel findUserProfileById(String id) {
+    return this.userProfileRepository.findById(id)
+        .map(userProfile -> this.modelMapper.map(userProfile, UserProfileServiceModel.class))
+        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
+  }
+
+
 }

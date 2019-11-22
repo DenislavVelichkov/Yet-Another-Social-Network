@@ -12,6 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class UserProfileViewModel {
+  private String id;
   private String fullName;
   private UserServiceModel profileOwner;
   private String profilePicture;

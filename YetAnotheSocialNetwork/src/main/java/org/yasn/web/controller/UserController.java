@@ -11,26 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
+import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.data.models.view.UserProfileViewModel;
+import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.UserService;
 import org.yasn.validation.user.UserEditValidator;
 import org.yasn.validation.user.UserRegisterValidator;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
 
   private final UserService userService;
+  private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
   private final UserEditValidator userEditValidator;
 
   @Autowired
   public UserController(UserService userService,
+                        UserProfileService userProfileService,
                         ModelMapper modelMapper,
                         UserRegisterValidator userRegisterValidator,
                         UserEditValidator userEditValidator) {
     this.userService = userService;
+    this.userProfileService = userProfileService;
     this.modelMapper = modelMapper;
     this.userRegisterValidator = userRegisterValidator;
     this.userEditValidator = userEditValidator;
@@ -70,5 +78,22 @@ public class UserController extends BaseController {
     this.userService.registerUser(userServiceModel);
 
     return super.redirect("/user/login");
+  }
+
+  @GetMapping("/profile")
+  @PageTitle("Profile")
+  public ModelAndView userProfile(ModelAndView modelAndView,
+                                  Principal activeUser) {
+
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(activeUser.getName());
+
+    UserProfileViewModel userProfileViewModel =
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+
+    modelAndView.addObject("userProfile", userProfileViewModel);
+
+    return super.view("/user/profile");
   }
 }

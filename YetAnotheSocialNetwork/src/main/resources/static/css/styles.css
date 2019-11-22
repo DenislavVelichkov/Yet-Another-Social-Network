@@ -3,6 +3,7 @@
 @import url("home.css");
 @import url("register.css");
 @import url("wall.css");
+@import url("back-to-top.css");
 @import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
 
 /*TODO optimize Icons Fonts in Production , use iconmood.io to extract and save locally icon DB*/
