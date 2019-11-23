@@ -51,5 +51,4 @@ public class ApplicatonBeanConfiguration {
   public LayoutDialect layoutDialect() {
     return new LayoutDialect(new GroupingRespectLayoutTitleStrategy(), true);
   }
-
 }

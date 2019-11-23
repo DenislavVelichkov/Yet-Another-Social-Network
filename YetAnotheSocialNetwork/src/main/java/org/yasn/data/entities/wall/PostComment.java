@@ -18,11 +18,13 @@ import java.sql.Timestamp;
 public class PostComment extends BaseEntity {
 
   @ManyToOne(targetEntity = WallPost.class)
-  @JoinColumn(name = "parent_post_id", referencedColumnName = "id")
+  @JoinColumn(name = "parent_post_id",
+      referencedColumnName = "id")
   private WallPost parentPost;
 
   @ManyToOne(targetEntity = UserProfile.class)
-  @JoinColumn(name = "comment_owner_id", referencedColumnName = "id")
+  @JoinColumn(name = "comment_owner_id",
+      referencedColumnName = "id")
   private UserProfile commentOwner;
 
   @Column(name = "comment_content")

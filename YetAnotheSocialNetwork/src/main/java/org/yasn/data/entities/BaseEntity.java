@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -21,5 +22,9 @@ public abstract class BaseEntity {
       name = "uuid-string",
       strategy = "org.hibernate.id.UUIDGenerator"
   )
+  @Column(name = "id",
+      updatable = false,
+      unique = true,
+      nullable = false)
   private String id;
 }

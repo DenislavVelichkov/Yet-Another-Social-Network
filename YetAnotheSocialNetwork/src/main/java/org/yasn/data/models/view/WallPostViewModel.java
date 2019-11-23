@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,5 +20,5 @@ public class WallPostViewModel {
   private String location;
   private Timestamp createdOn;
   private PostPrivacy postPrivacy;
-  private List<PostCommentViewModel> comments;
+  private Set<PostCommentViewModel> comments;
 }

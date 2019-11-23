@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       lang="en"
-      layout:decorate="~{/fragments/default_layout}">
+      layout:decorate="~{fragments/default_layout}">
 
 <th:block layout:fragment="main-content">
     <div class="row" id="yasn-home-body-container">
@@ -14,7 +14,7 @@
 
         <div id="yasn-home-wall" class="col-6">
 
-            <th:block layout:insert="~{/wall/wall}"/>
+            <th:block layout:insert="~{wall/wall}"/>
 
         </div>
 

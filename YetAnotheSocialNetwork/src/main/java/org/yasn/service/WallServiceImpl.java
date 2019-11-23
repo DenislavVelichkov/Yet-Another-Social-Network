@@ -2,7 +2,9 @@ package org.yasn.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.wall.WallPost;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.repository.wall.WallPostRepository;
@@ -10,7 +12,6 @@ import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -38,7 +39,7 @@ public class WallServiceImpl implements WallService {
 
   @Override
   public void createPost(WallPostServiceModel wallPostServiceModel,
-                         Principal activeUser) throws IOException {
+                         Principal activeUser) {
     // TODO: 11/14/2019 Validations !
 
     wallPostServiceModel.setPostOwner(
@@ -55,7 +56,9 @@ public class WallServiceImpl implements WallService {
   @Override
   public WallPostServiceModel findWallPostById(String id) {
     return this.modelMapper.map(
-        this.wallPostRepository.findById(id).get(),
+        this.wallPostRepository.findById(id)
+            .orElseThrow(
+                () -> new UsernameNotFoundException(ExceptionMessages.INCORRECT_ID)),
         WallPostServiceModel.class);
   }
 

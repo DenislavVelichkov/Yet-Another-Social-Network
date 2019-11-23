@@ -10,7 +10,7 @@ import org.yasn.data.entities.user.UserProfile;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,7 +20,8 @@ import java.util.List;
 public class WallPost extends BaseEntity {
 
   @ManyToOne(targetEntity = UserProfile.class)
-  @JoinColumn(name = "post_owner_id", referencedColumnName = "id")
+  @JoinColumn(name = "post_owner_id",
+      referencedColumnName = "id")
   private UserProfile postOwner;
 
   @Column(name = "post_picture")
@@ -32,8 +33,11 @@ public class WallPost extends BaseEntity {
   @Column(name = "likes_count")
   private long likes;
 
-  @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL)
-  private List<PostComment> comments;
+  @OneToMany(
+      targetEntity = PostComment.class,
+      mappedBy = "parentPost",
+      cascade = CascadeType.ALL)
+  private Set<PostComment> comments;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(name = "created_on")

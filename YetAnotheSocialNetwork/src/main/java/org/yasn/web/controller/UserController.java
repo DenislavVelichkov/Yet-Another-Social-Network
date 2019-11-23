@@ -88,12 +88,12 @@ public class UserController extends BaseController {
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
-    UserProfileViewModel userProfileViewModel =
+    UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
 
-    modelAndView.addObject("userProfile", userProfileViewModel);
+    modelAndView.addObject("userProfileView", userProfileView);
 
-    return super.view("/user/profile");
+    return super.view("profile", modelAndView);
   }
 }

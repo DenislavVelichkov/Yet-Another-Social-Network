@@ -8,7 +8,6 @@ import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.entities.wall.WallPost;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,7 +21,9 @@ public class UserProfile extends BaseEntity {
   private String fullName;
 
   @OneToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JoinColumn(
+      name = "user_id",
+      referencedColumnName = "id")
   private User profileOwner;
 
   @Column(name = "profile_picture")
@@ -30,22 +31,24 @@ public class UserProfile extends BaseEntity {
 
   @OneToMany(
       targetEntity = WallPost.class,
-      cascade = CascadeType.ALL,
-      mappedBy = "postOwner")
-  private List<WallPost> wallPosts;
+      mappedBy = "postOwner",
+      cascade = CascadeType.ALL)
+  private Set<WallPost> wallPosts;
 
   @OneToMany(
       targetEntity = PostComment.class,
       mappedBy = "commentOwner",
       cascade = CascadeType.ALL)
-  private List<PostComment> comments;
+  private Set<PostComment> postComments;
 
   @ManyToMany(
       cascade = CascadeType.ALL
   )
   @JoinTable(
       name = "user_profiles_friends",
-      joinColumns = @JoinColumn(name = "user_profile_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "friend_id", referencedColumnName = "id"))
+      joinColumns = @JoinColumn(name = "user_profile_id",
+          referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "friend_id",
+          referencedColumnName = "id"))
   private Set<UserProfile> friends;
 }

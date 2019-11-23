@@ -19,7 +19,6 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
-
   @Column(
       name = "username",
       nullable = false,
@@ -65,10 +64,12 @@ public class User extends BaseEntity implements UserDetails {
   @Column(name = "created_on", updatable = false)
   private Timestamp createdOn;
 
-  @OneToOne(mappedBy = "profileOwner", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "profileOwner",
+      cascade = CascadeType.ALL)
   private UserProfile userProfile;
 
-  @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+  @ManyToMany(targetEntity = Role.class,
+      fetch = FetchType.EAGER)
   @JoinTable(
       name = "users_roles",
       joinColumns = @JoinColumn(

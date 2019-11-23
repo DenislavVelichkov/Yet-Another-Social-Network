@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
+import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
+import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.PostCommentService;
@@ -66,24 +68,20 @@ public class HomeController extends BaseController {
         this.modelMapper.map(userProfileService, UserProfileViewModel.class);
 
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
-    // TODO: 11/19/2019 Fix Post privacy filtration with its correct behaviour
     // TODO: 11/20/2019 Fix Like button
 
-    List<WallPostViewModel> allPosts = this.wallService
-        .displayAllPosts()
+    List<WallPostServiceModel> allPostsServiceModels =
+        this.wallService
+            .displayAllPosts();
+
+    List<WallPostViewModel> allPosts = allPostsServiceModels
         .stream()
-        .map(view -> {
-
-          WallPostViewModel viewModel =
-              this.modelMapper.map(view, WallPostViewModel.class);
-
-          return viewModel;
-        })
+        .map(view ->
+            this.modelMapper.map(view, WallPostViewModel.class))
         .filter(wallPostViewModel ->
             wallPostViewModel
                 .getPostPrivacy()
-                .getLabel()
-                .equals("Public")
+                .equals(PostPrivacy.PUBLIC)
                 || wallPostViewModel
                 .getPostOwner()
                 .getFriends()
