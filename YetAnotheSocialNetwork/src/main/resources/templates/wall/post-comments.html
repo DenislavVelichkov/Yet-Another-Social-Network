@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
 <!--/*@thymesVar id="commentOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
 <!--/*@thymesVar id="comments" type="List<org.yasn.data.models.view.PostCommentViewModel>"*/-->
-<th:block layout:fragment="post-comments"
-          th:each="comment : ${post.comments}">
-
+<div th:each="comment : ${post.comments}">
+    <hr class="post-delimiter">
     <div class="post-comment-container">
         <div class="post-meta-avatar">
             <img class="user-img" th:src="@{${comment.commentOwner.profilePicture}}" alt="profile-avatar"/>
@@ -52,5 +50,5 @@
             </th:block>
         </div>
     </div>
-</th:block>
+</div>
 </html>

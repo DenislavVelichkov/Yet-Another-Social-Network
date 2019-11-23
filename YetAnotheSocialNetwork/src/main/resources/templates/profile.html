@@ -3,11 +3,26 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/default_layout}"
+      layout:decorator="~{fragments/default_layout}"
       sec:authorize="isAuthenticated()">
 
 <th:block layout:fragment="main-content">
+    <div class="row" id="user-profile-body-container">
 
+        <div id="user-profile-sidebar-left" class="col-2">
+
+        </div>
+
+        <div id="user-profile-main" class="col-8">
+            <div class="user-profile-container">
+                <th:block layout:insert="~{wall/create-a-post}"/>
+            </div>
+        </div>
+
+        <div id="user-profile-right" class="col-2">
+
+        </div>
+    </div>
 </th:block>
 
 </html>

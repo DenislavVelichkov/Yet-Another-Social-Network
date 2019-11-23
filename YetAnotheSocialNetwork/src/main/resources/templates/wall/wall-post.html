@@ -5,8 +5,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/*@thymesVar id="allWallPosts" type="List<org.yasn.data.models.view.WallPostViewModel>"*/-->
-<th:block layout:fragment="wall-post"
-          th:each="post : ${allWallPosts}">
+<th:block th:each="post : ${allWallPosts}">
     <div class="yasn-wall-post-container shadow p-3 mb-5 bg-white rounded">
         <div class="yasn-wall-post-content">
             <div class="post-meta-avatar">
@@ -104,8 +103,7 @@
                     <input class="comment-post-submit-btn" type="submit" value="Send"/>
                 </form>
             </div>
-            <hr class="post-delimiter">
-            <th:block layout:insert="~{/wall/post-comments}"/>
+            <th:block layout:insert="~{wall/post-comments}"/>
         </div>
     </div>
 </th:block>
