@@ -82,7 +82,7 @@ public class HomeController extends BaseController {
             wallPostViewModel
                 .getPostPrivacy()
                 .equals(PostPrivacy.PUBLIC)
-                || wallPostViewModel
+         || wallPostViewModel
                 .getPostOwner()
                 .getFriends()
                 .contains(this.userProfileService
