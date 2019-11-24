@@ -1,6 +1,10 @@
+#user-profile-main {
+    margin: 0 10rem 0;
+}
+
 .user-profile-container {
     display: block;
-    margin: 1em 10rem 0;
+    margin: 1em 20rem 0;
 }
 
 .user-cover-container {
@@ -9,25 +13,49 @@
     width: 100%;
 }
 
-.cover-img-container > img {
-    height: 300px;
-    width: 100%;
-    border-radius: 0.05em;
-    overflow: hidden;
+.cover-img-container {
+    position: relative;
 }
 
-.user-profile-img-container {
-    background-color: #ffffff;
-    position: absolute;
-    top: 9em;
-    left: 13em;
+.cover-img-container img {
+    display: block;
+}
+
+.cover-img-container .static {
+    width: 100%;
     height: auto;
-    width: 10em;
+}
+
+.cover-img-container .profile-picture {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    height: auto;
+    width: 20%;
 }
 
 .profile-nav-container {
     display: block;
     width: 100%;
 }
+
+.profile-cover-menu > ul {
+    margin-top: 1rem;
+    padding-bottom: 1em;
+}
+
+.profile-cover-menu li {
+    display: inline;
+    text-align: center;
+    padding: 0 1em 0;
+
+}
+
+.profile-cover-menu > ul a{
+    font-weight: bold;
+    color: #4e555b;
+}
+
+
 
 /*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/
