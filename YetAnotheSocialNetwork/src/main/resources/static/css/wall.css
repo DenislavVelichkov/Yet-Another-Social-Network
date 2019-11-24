@@ -79,20 +79,20 @@
 }
 
 .comment-post-submit-btn {
-    border: none;
-    text-align: center;
-    display: inline-block;
-    background-color: #ffffff;
-    font-weight: bold;
-    color: #929292;
-    float: right;
-    position: relative;
-    top: 0.3em;
-    left: 0;
-    cursor: pointer;
-    width: 10%;
-    height: 75%;
-}
+     border: none;
+     text-align: center;
+     display: inline-block;
+     background-color: #ffffff;
+     font-weight: bold;
+     color: #929292;
+     float: right;
+     position: relative;
+     top: 0.3em;
+     left: 0;
+     cursor: pointer;
+     width: 10%;
+     height: 75%;
+ }
 
 .comment-post-submit-btn:hover {
     display: inline-block;
@@ -103,6 +103,37 @@
     top: 0.3em;
     left: 0;
     cursor: pointer;
+}
+
+.yasn-post-buttons > ul:nth-child(1) > li:nth-child(6) {
+    float: right;
+}
+
+.post-submit-btn {
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 18px;
+    color: #929292;
+    cursor: pointer;
+    width: 100%;
+    padding: 0 1em 0;
+    display: inline-block;
+
+}
+
+.post-submit-btn:hover {
+    border: none;
+    text-align: center;
+    border-radius: 1em;
+    background-color: #f0f2f4;
+    font-weight: bold;
+    font-size: 18px;
+    color: #929292;
+    width: 100%;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .emojionearea * {

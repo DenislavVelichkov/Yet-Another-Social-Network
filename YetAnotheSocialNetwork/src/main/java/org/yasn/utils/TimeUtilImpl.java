@@ -14,42 +14,43 @@ public class TimeUtilImpl implements TimeUtil {
 
     long timeAgo = new Date().getTime() - eventTime.getTime();
 
-   /*int days = (int) ((milliseconds / (1000*60*60*24)) % 7);
-    int weeks = (int) (milliseconds / (1000*60*60*24*7));*/
     int seconds = (int) (timeAgo / 1000) % 60;
     int minutes = (int) ((timeAgo / (1000 * 60)) % 60);
     int hours = (int) ((timeAgo / (1000 * 60 * 60)) % 24);
-    int days = (int) (timeAgo / (1000 * 60 * 60 * 24));
+//    int days = (int) (timeAgo / (1000 * 60 * 60 * 24));
+    int days = (int) ((timeAgo / (1000*60*60*24)) % 7);
+    int weeks = (int) (timeAgo / (1000*60*60*24*7));
 
     StringBuilder sb = new StringBuilder();
 
-    if (days > 0) {
+    if (weeks > 0) {
+      if (weeks == 1) {
+        sb.append(weeks).append(" week ");
+      } else {
+        sb.append(weeks).append(" weeks ");
+      }
+      sb.append(DELIMITER);
+    } else if (days > 0) {
       if (days == 1) {
         sb.append(days).append(" day ");
       } else {
         sb.append(days).append(" days ");
       }
-      sb.append("and ")
-          .append(hours).append(" hours ")
-          .append(DELIMITER);
+      sb.append(DELIMITER);
     } else if (hours > 0) {
       if (hours == 1) {
         sb.append(hours).append(" hour ");
       } else {
         sb.append(hours).append(" hours ");
       }
-      sb.append("and ")
-          .append(minutes).append(" minutes ")
-          .append(DELIMITER);
+      sb.append(DELIMITER);
     } else if (minutes > 0) {
       if (minutes == 1) {
         sb.append(minutes).append(" minute ");
       } else {
         sb.append(minutes).append(" minutes ");
       }
-      sb.append("and ")
-          .append(seconds).append(" seconds ")
-          .append(DELIMITER);
+      sb.append(DELIMITER);
     } else if (seconds > 0) {
       sb.append(seconds).append(" seconds ").append(DELIMITER);
     } else {

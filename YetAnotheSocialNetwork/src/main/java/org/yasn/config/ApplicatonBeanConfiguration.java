@@ -3,12 +3,14 @@ package org.yasn.config;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import nz.net.ultraq.thymeleaf.decorators.strategies.GroupingRespectLayoutTitleStrategy;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.yasn.mappings.MappingsInitializer;
 import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
+import org.yasn.utils.TimeUtil;
+import org.yasn.utils.TimeUtilImpl;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -22,7 +24,8 @@ public class ApplicatonBeanConfiguration {
   static {
     fileUtil = new FileUtilImpl();
     modelMapper = new ModelMapper();
-    MappingsInitializer.initMappings(modelMapper);
+//    MappingsInitializer.initMappings(modelMapper);
+    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     modelMapper.validate();
   }
 
@@ -44,6 +47,11 @@ public class ApplicatonBeanConfiguration {
   @Bean
   public FileUtil fileUtil() {
     return fileUtil;
+  }
+
+  @Bean
+  public TimeUtil timeUtil(){
+    return new TimeUtilImpl();
   }
 
   //  Required in order layout to work properly

@@ -19,7 +19,7 @@ import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
-import org.yasn.utils.TimeUtilImpl;
+import org.yasn.utils.TimeUtil;
 
 import java.security.Principal;
 import java.util.List;
@@ -34,18 +34,21 @@ public class HomeController extends BaseController {
   private final ModelMapper modelMapper;
   private final PostCommentService postCommentService;
   private final FileUtil fileUtil;
+  private final TimeUtil timeUtil;
 
   @Autowired
   public HomeController(UserProfileService userProfileService,
                         WallService wallService,
                         ModelMapper modelMapper,
                         PostCommentService postCommentService,
-                        FileUtil fileUtil) {
+                        FileUtil fileUtil,
+                        TimeUtil timeUtil) {
     this.userProfileService = userProfileService;
     this.wallService = wallService;
     this.modelMapper = modelMapper;
     this.postCommentService = postCommentService;
     this.fileUtil = fileUtil;
+    this.timeUtil = timeUtil;
   }
 
   @GetMapping("/")
@@ -92,7 +95,7 @@ public class HomeController extends BaseController {
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("allWallPosts", allPosts);
-    modelAndView.addObject("time", new TimeUtilImpl());
+    modelAndView.addObject("time", timeUtil);
 
     return super.view("home", modelAndView);
   }

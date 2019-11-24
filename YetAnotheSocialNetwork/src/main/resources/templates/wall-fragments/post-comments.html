@@ -42,7 +42,7 @@
             <div class="wall-post-comment-content-container">
                 <p>[(${comment.commentContent})]</p>
             </div>
-            <th:block th:unless="${comment.commentPicture == null}">
+            <th:block th:unless="${comment.commentPicture.isEmpty()}">
                 <div class="img-container">
                     <img class="post-content-pic img-fluid"
                          th:src="@{${comment.commentPicture}}" alt="comment-picture">

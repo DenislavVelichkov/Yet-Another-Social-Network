@@ -11,7 +11,8 @@ footer .yasn-footer-menu a::after {
 
 }
 
-footer .yasn-footer-menu a:nth-last-child(2)::after, footer .yasn-footer-menu a:last-child::after {
+footer .yasn-footer-menu a:nth-last-child(2)::after,
+footer .yasn-footer-menu a:last-child::after {
     content: " ";
 }
 

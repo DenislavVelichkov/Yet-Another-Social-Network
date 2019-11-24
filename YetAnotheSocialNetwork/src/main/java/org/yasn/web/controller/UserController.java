@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
+import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
@@ -20,6 +21,7 @@ import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.UserService;
 import org.yasn.service.interfaces.WallService;
+import org.yasn.utils.TimeUtil;
 import org.yasn.validation.user.UserEditValidator;
 import org.yasn.validation.user.UserRegisterValidator;
 
@@ -34,6 +36,7 @@ public class UserController extends BaseController {
   private final UserService userService;
   private final UserProfileService userProfileService;
   private final WallService wallService;
+  private final TimeUtil timeUtil;
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
   private final UserEditValidator userEditValidator;
@@ -42,12 +45,14 @@ public class UserController extends BaseController {
   public UserController(UserService userService,
                         UserProfileService userProfileService,
                         WallService wallService,
+                        TimeUtil timeUtil,
                         ModelMapper modelMapper,
                         UserRegisterValidator userRegisterValidator,
                         UserEditValidator userEditValidator) {
     this.userService = userService;
     this.userProfileService = userProfileService;
     this.wallService = wallService;
+    this.timeUtil = timeUtil;
     this.modelMapper = modelMapper;
     this.userRegisterValidator = userRegisterValidator;
     this.userEditValidator = userEditValidator;
@@ -111,8 +116,12 @@ public class UserController extends BaseController {
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("allProfilePosts", allPosts);
+    modelAndView.addObject("postComment", new PostCommentBindingModel());
     modelAndView.addObject("wallPost", new WallPostBindingModel());
+    modelAndView.addObject("time", timeUtil);
 
     return super.view("profile", modelAndView);
   }
+
+
 }

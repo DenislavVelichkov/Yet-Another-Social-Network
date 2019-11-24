@@ -55,6 +55,28 @@
     color: #4e555b;
 }
 
+.profile-action-buttons {
+    display: inline-block;
+    float: right;
+}
+
+.profile-action-buttons a{
+    padding: 0 1em 0;
+}
+
+.cover-img-container span {
+    position: absolute;
+    top: 80%;
+    left: 18%;
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+    height: auto;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
 
 
 /*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/

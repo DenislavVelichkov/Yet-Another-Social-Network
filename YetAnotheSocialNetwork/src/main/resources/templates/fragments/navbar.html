@@ -58,7 +58,7 @@
                          th:src="@{${userProfileView.profilePicture}}"
                          alt="no-profile-picture"/>
                     <a th:href="@{/user/profile}">
-                        <span id="avatar-name" th:text="${userProfileView.fullName}"></span>
+                        <span id="avatar-name" th:text=" 'Hey, ' + ${userProfileView.getProfileOwner().getFirstName()} + '!'"></span>
                     </a>
                 </div>
                 <div class="navbar-menu-right nav-tabs float-right">

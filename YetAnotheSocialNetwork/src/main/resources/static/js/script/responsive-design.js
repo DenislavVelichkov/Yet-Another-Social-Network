@@ -1,4 +1,7 @@
 /*TODO media queries for HOME page*/
+
+/*
+/!*Back to top button*!/
 let btn = $('#back-to-top-btn');
 
 $(window).scroll(function () {
@@ -12,4 +15,4 @@ $(window).scroll(function () {
 btn.on('click', function (e) {
     e.preventDefault();
     $('html, body').animate({scrollTop: 0}, '300');
-});
+});*/

@@ -50,8 +50,10 @@ public class WallPostController extends BaseController {
     WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
 
+    if (!wallPost.getPostPicture().isEmpty()) {
       wallPostServiceModel.setPostPicture(
           this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
+    }
 
     if (wallPostServiceModel.getPostPrivacy() == null) {
       wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
@@ -71,9 +73,10 @@ public class WallPostController extends BaseController {
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
 
+    if (!postComment.getCommentPicture().isEmpty()) {
       postCommentServiceModel.setCommentPicture(
           this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
-
+    }
 
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
