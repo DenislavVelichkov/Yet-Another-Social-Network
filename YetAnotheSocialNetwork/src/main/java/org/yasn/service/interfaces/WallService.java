@@ -13,4 +13,6 @@ public interface WallService {
   List<WallPostServiceModel> displayAllPosts();
 
   WallPostServiceModel findWallPostById(String id);
+
+  List<WallPostServiceModel> findAllByUsername(String username);
 }

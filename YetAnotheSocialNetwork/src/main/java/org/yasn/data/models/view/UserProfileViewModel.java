@@ -15,6 +15,8 @@ public class UserProfileViewModel {
   private String fullName;
   private UserServiceModel profileOwner;
   private String profilePicture;
+  private String coverPicture;
+  private Set<String> photoGallery;
   private Set<WallPostViewModel> wallPosts;
   private Set<PostCommentViewModel> postComments;
   private Set<UserProfileViewModel> friends;

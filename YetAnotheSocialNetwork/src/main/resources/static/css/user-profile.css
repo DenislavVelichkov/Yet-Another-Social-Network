@@ -1,5 +1,33 @@
 .user-profile-container {
     display: block;
     margin: 1em 10rem 0;
-
 }
+
+.user-cover-container {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.cover-img-container > img {
+    height: 300px;
+    width: 100%;
+    border-radius: 0.05em;
+    overflow: hidden;
+}
+
+.user-profile-img-container {
+    background-color: #ffffff;
+    position: absolute;
+    top: 9em;
+    left: 13em;
+    height: auto;
+    width: 10em;
+}
+
+.profile-nav-container {
+    display: block;
+    width: 100%;
+}
+
+/*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/

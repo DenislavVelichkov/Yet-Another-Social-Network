@@ -9,17 +9,45 @@
 <th:block layout:fragment="main-content">
     <div class="row" id="user-profile-body-container">
 
-        <div id="user-profile-sidebar-left" class="col-2">
+        <div id="user-profile-sidebar-left" class="col-1">
 
         </div>
 
-        <div id="user-profile-main" class="col-8">
+        <div id="user-profile-main" class="col-10">
             <div class="user-profile-container">
-                <th:block layout:insert="~{wall/create-a-post}"/>
+                <div class="user-cover-container">
+                    <div class="cover-img-container shadow p-1 mb-5 bg-white rounded">
+                        <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                        <img class="img-fluid" th:src="@{${userProfileView.coverPicture}}" alt="cover-profile-image"/>
+                        <div class="user-profile-img-container shadow p-sm-1 mb-5 bg-white rounded">
+                            <img class="img-fluid" th:src="@{${userProfileView.profilePicture}}" alt="profile-picture"/>
+                        </div>
+                        <div class="profile-nav-container">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <th:block layout:insert="~{wall-fragments/create-a-post}"/>
+                        <th:block layout:insert="~{user/profile-posts}"/>
+                    </div>
+                    <div class="offset-1 col-6">
+                        <div class="user-profile-sidebar-container">
+                            <div class="profile-gallery-container shadow p-sm-1 mb-5 bg-white rounded">
+
+                            </div>
+                            <div class="profile-friends-container shadow p-sm-1 mb-5 bg-white rounded">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        <div id="user-profile-right" class="col-2">
+        <div id="user-profile-right" class="col-1">
 
         </div>
     </div>

@@ -14,13 +14,18 @@ import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.data.models.view.UserProfileViewModel;
+import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.UserService;
+import org.yasn.service.interfaces.WallService;
 import org.yasn.validation.user.UserEditValidator;
 import org.yasn.validation.user.UserRegisterValidator;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -28,6 +33,7 @@ public class UserController extends BaseController {
 
   private final UserService userService;
   private final UserProfileService userProfileService;
+  private final WallService wallService;
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
   private final UserEditValidator userEditValidator;
@@ -35,11 +41,13 @@ public class UserController extends BaseController {
   @Autowired
   public UserController(UserService userService,
                         UserProfileService userProfileService,
+                        WallService wallService,
                         ModelMapper modelMapper,
                         UserRegisterValidator userRegisterValidator,
                         UserEditValidator userEditValidator) {
     this.userService = userService;
     this.userProfileService = userProfileService;
+    this.wallService = wallService;
     this.modelMapper = modelMapper;
     this.userRegisterValidator = userRegisterValidator;
     this.userEditValidator = userEditValidator;
@@ -92,8 +100,17 @@ public class UserController extends BaseController {
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
+    List<WallPostServiceModel> postServiceModels =
+        this.wallService.findAllByUsername(activeUser.getName());
+
+    List<WallPostViewModel> allPosts =
+        postServiceModels
+            .stream()
+            .map(wallPostServiceModel -> this.modelMapper.map(wallPostServiceModel, WallPostViewModel.class))
+            .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject("allProfilePosts", allPosts);
     modelAndView.addObject("wallPost", new WallPostBindingModel());
 
     return super.view("profile", modelAndView);

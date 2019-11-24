@@ -29,6 +29,15 @@ public class UserProfile extends BaseEntity {
   @Column(name = "profile_picture")
   private String profilePicture;
 
+  @Column(name = "cover_picture")
+  private String coverPicture;
+
+  @OneToMany(
+      targetEntity = PersonalGallery.class,
+      mappedBy = "photoOwner",
+      cascade = CascadeType.ALL)
+  private Set<PersonalGallery> photoGallery;
+
   @OneToMany(
       targetEntity = WallPost.class,
       mappedBy = "postOwner",

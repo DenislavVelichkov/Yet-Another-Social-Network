@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService {
         + userServiceModel.getLastName());
 
     profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_IMG_PATH);
+    profile.setCoverPicture(WebConstants.DEFAULT_COVER_IMG_PATH);
 
     user.setUserProfile(profile);
 
