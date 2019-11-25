@@ -54,6 +54,8 @@
 
             <div class="post-contents">
                 <p>[(${post.postContent})]</p>
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="postPicture" type="java.lang.String"*/-->
                 <th:block th:unless="${post.postPicture == null}">
                     <img class="post-content-pic img-fluid"
                          th:src="@{${post.postPicture}}" alt="post-picture">

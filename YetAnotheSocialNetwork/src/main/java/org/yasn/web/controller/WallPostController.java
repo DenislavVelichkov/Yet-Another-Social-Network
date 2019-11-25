@@ -53,6 +53,8 @@ public class WallPostController extends BaseController {
     if (!wallPost.getPostPicture().isEmpty()) {
       wallPostServiceModel.setPostPicture(
           this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
+    } else {
+      wallPostServiceModel.setPostPicture(null);
     }
 
     if (wallPostServiceModel.getPostPrivacy() == null) {
@@ -76,6 +78,8 @@ public class WallPostController extends BaseController {
     if (!postComment.getCommentPicture().isEmpty()) {
       postCommentServiceModel.setCommentPicture(
           this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+    }else {
+      postCommentServiceModel.setCommentPicture(null);
     }
 
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);

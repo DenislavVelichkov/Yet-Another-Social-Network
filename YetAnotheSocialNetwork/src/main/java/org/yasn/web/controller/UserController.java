@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
+import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
+import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.UserServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
-import org.yasn.service.interfaces.UserProfileService;
-import org.yasn.service.interfaces.UserService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.interfaces.*;
 import org.yasn.utils.TimeUtil;
 import org.yasn.validation.user.UserEditValidator;
 import org.yasn.validation.user.UserRegisterValidator;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,8 @@ public class UserController extends BaseController {
   private final UserProfileService userProfileService;
   private final WallService wallService;
   private final TimeUtil timeUtil;
+  private final CloudinaryService cloudinaryService;
+  private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
   private final UserEditValidator userEditValidator;
@@ -46,6 +49,8 @@ public class UserController extends BaseController {
                         UserProfileService userProfileService,
                         WallService wallService,
                         TimeUtil timeUtil,
+                        CloudinaryService cloudinaryService,
+                        PostCommentService postCommentService,
                         ModelMapper modelMapper,
                         UserRegisterValidator userRegisterValidator,
                         UserEditValidator userEditValidator) {
@@ -53,6 +58,8 @@ public class UserController extends BaseController {
     this.userProfileService = userProfileService;
     this.wallService = wallService;
     this.timeUtil = timeUtil;
+    this.cloudinaryService = cloudinaryService;
+    this.postCommentService = postCommentService;
     this.modelMapper = modelMapper;
     this.userRegisterValidator = userRegisterValidator;
     this.userEditValidator = userEditValidator;
@@ -111,7 +118,10 @@ public class UserController extends BaseController {
     List<WallPostViewModel> allPosts =
         postServiceModels
             .stream()
-            .map(wallPostServiceModel -> this.modelMapper.map(wallPostServiceModel, WallPostViewModel.class))
+            .map(wallPostServiceModel ->
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
+            .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
@@ -123,5 +133,51 @@ public class UserController extends BaseController {
     return super.view("profile", modelAndView);
   }
 
+  @PostMapping("/profile/post")
+  public ModelAndView postOnWall(ModelAndView modelAndView,
+                                 @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+                                 @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+                                 Principal activeUser) throws IOException {
 
+// TODO: 11/12/2019 Validations
+
+    WallPostServiceModel wallPostServiceModel =
+        this.modelMapper.map(wallPost, WallPostServiceModel.class);
+
+    if (!wallPost.getPostPicture().isEmpty()) {
+      wallPostServiceModel.setPostPicture(
+          this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
+    } else {
+      wallPostServiceModel.setPostPicture(null);
+    }
+
+    if (wallPostServiceModel.getPostPrivacy() == null) {
+      wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
+    }
+
+    this.wallService.createPost(wallPostServiceModel, activeUser);
+
+    return super.redirect("/user/profile");
+  }
+
+  @PostMapping("/profile/comment")
+  public ModelAndView postCommentOnPost(ModelAndView modelAndView,
+                                        @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+                                        @ModelAttribute(name = "postId") String postId,
+                                        Principal activeUser) throws IOException {
+
+    PostCommentServiceModel postCommentServiceModel =
+        this.modelMapper.map(postComment, PostCommentServiceModel.class);
+
+    if (!postComment.getCommentPicture().isEmpty()) {
+      postCommentServiceModel.setCommentPicture(
+          this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+    } else {
+      postCommentServiceModel.setCommentPicture(null);
+    }
+
+    this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
+
+    return super.redirect("/user/profile");
+  }
 }
