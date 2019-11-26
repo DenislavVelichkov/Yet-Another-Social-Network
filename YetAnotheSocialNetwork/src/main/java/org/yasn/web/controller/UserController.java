@@ -1,7 +1,7 @@
 package org.yasn.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/user")
 public class UserController extends BaseController {
 
@@ -43,27 +44,6 @@ public class UserController extends BaseController {
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
   private final UserEditValidator userEditValidator;
-
-  @Autowired
-  public UserController(UserService userService,
-                        UserProfileService userProfileService,
-                        WallService wallService,
-                        TimeUtil timeUtil,
-                        CloudinaryService cloudinaryService,
-                        PostCommentService postCommentService,
-                        ModelMapper modelMapper,
-                        UserRegisterValidator userRegisterValidator,
-                        UserEditValidator userEditValidator) {
-    this.userService = userService;
-    this.userProfileService = userProfileService;
-    this.wallService = wallService;
-    this.timeUtil = timeUtil;
-    this.cloudinaryService = cloudinaryService;
-    this.postCommentService = postCommentService;
-    this.modelMapper = modelMapper;
-    this.userRegisterValidator = userRegisterValidator;
-    this.userEditValidator = userEditValidator;
-  }
 
   @GetMapping("/login")
   public ModelAndView userLogin() {

@@ -1,7 +1,7 @@
 package org.yasn.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/")
 public class HomeController extends BaseController {
 
@@ -35,21 +36,6 @@ public class HomeController extends BaseController {
   private final PostCommentService postCommentService;
   private final FileUtil fileUtil;
   private final TimeUtil timeUtil;
-
-  @Autowired
-  public HomeController(UserProfileService userProfileService,
-                        WallService wallService,
-                        ModelMapper modelMapper,
-                        PostCommentService postCommentService,
-                        FileUtil fileUtil,
-                        TimeUtil timeUtil) {
-    this.userProfileService = userProfileService;
-    this.wallService = wallService;
-    this.modelMapper = modelMapper;
-    this.postCommentService = postCommentService;
-    this.fileUtil = fileUtil;
-    this.timeUtil = timeUtil;
-  }
 
   @GetMapping("/")
   public ModelAndView index() {

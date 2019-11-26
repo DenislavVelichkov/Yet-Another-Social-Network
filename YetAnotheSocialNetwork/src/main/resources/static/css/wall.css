@@ -52,14 +52,14 @@
 }
 
 .yasn-post-comment {
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
     width: 100%;
+    overflow: hidden;
 }
 
 .yasn-post-comment form {
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: flex;
+    flex-wrap: nowrap;
     width: 100%;
 }
 
@@ -67,31 +67,29 @@
 .comment-meta-avatar-img {
     display: inline-block;
     border-radius: 50%;
-    width: 7%;
+    width: 47px;
+    height: auto;
 }
 
 .comment-post-textarea {
     display: inline-block;
-    width: 73% !important;
+    width: 74% !important;
     margin-top: 0.5em !important;
     margin-right: 1em;
     margin-left: 1em
 }
 
 .comment-post-submit-btn {
-     border: none;
-     text-align: center;
-     display: inline-block;
-     background-color: #ffffff;
-     font-weight: bold;
-     color: #929292;
-     float: right;
-     position: relative;
-     top: 0.3em;
-     left: 0;
-     cursor: pointer;
-     width: 10%;
-     height: 75%;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    background-color: #ffffff;
+    font-weight: bold;
+    color: #929292;
+    float: right;
+    cursor: pointer;
+    width: 65px;
+    height: auto;
  }
 
 .comment-post-submit-btn:hover {
@@ -99,10 +97,13 @@
     background-color: #f0f2f4;
     border-radius: 1em;
     float: right;
-    position: relative;
-    top: 0.3em;
-    left: 0;
     cursor: pointer;
+}
+
+.yasn-post-buttons {
+    display: block;
+    overflow: hidden;
+    width: 100%;
 }
 
 .yasn-post-buttons > ul:nth-child(1) > li:nth-child(6) {
@@ -140,8 +141,9 @@
     z-index: 1 !important;
 }
 
-.post-meta-info > span:nth-child(1) {
+.post-meta-info > span {
     color: rgba(93, 93, 93, 0.48);
+    font-style: italic;
 }
 
 .post-comment-container {
@@ -181,6 +183,8 @@
 .img-container {
     display: block;
 }
+
+
 
 
 

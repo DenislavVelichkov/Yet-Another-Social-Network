@@ -1,11 +1,10 @@
 package org.yasn.web.controller;
 
+import lombok.NoArgsConstructor;
 import org.springframework.web.servlet.ModelAndView;
 
+@NoArgsConstructor
 public abstract class BaseController {
-
-  protected BaseController() {
-  }
 
   protected ModelAndView view(String viewName, ModelAndView modelAndView) {
     modelAndView.setViewName(viewName);

@@ -1,7 +1,7 @@
 package org.yasn.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,23 +21,13 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/home/wall")
+@AllArgsConstructor
 public class WallPostController extends BaseController {
 
   private final WallService wallService;
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
   private final CloudinaryService cloudinaryService;
-
-  @Autowired
-  public WallPostController(WallService wallService,
-                            PostCommentService postCommentService,
-                            ModelMapper modelMapper,
-                            CloudinaryService cloudinaryService) {
-    this.wallService = wallService;
-    this.postCommentService = postCommentService;
-    this.modelMapper = modelMapper;
-    this.cloudinaryService = cloudinaryService;
-  }
 
   @PostMapping("/post")
   public ModelAndView postOnWall(ModelAndView modelAndView,
