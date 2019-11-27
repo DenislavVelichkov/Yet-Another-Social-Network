@@ -22,4 +22,5 @@ public class WallPostServiceModel extends BaseServiceModel {
   private Timestamp createdOn;
   private PostPrivacy postPrivacy;
   private Set<PostCommentServiceModel> comments;
+
 }

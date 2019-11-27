@@ -46,4 +46,5 @@ public class WallPost extends BaseEntity {
   @Enumerated(EnumType.STRING)
   @Column(name = "post_privacy")
   private PostPrivacy postPrivacy;
+
 }

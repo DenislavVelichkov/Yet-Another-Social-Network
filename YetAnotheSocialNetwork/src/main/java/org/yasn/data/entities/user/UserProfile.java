@@ -60,4 +60,5 @@ public class UserProfile extends BaseEntity {
       inverseJoinColumns = @JoinColumn(name = "friend_id",
           referencedColumnName = "id"))
   private Set<UserProfile> friends;
+
 }

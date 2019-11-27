@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.wall.WallPost;
+import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.repository.wall.WallPostRepository;
 import org.yasn.service.interfaces.UserProfileService;
@@ -83,4 +84,14 @@ public class WallServiceImpl implements WallService {
         .collect(Collectors.toList());
   }
 
+  public void likePost(WallPostServiceModel wallPostServiceModel, String profileId) {
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(profileId);
+
+
+    WallPost wallPost =
+        this.modelMapper.map(wallPostServiceModel, WallPost.class);
+
+    this.wallPostRepository.saveAndFlush(wallPost);
+  }
 }

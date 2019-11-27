@@ -15,4 +15,6 @@ public interface WallService {
   WallPostServiceModel findWallPostById(String id);
 
   List<WallPostServiceModel> findAllByUsername(String username);
+
+  void likePost(WallPostServiceModel wallPostServiceModel, String profileId);
 }
