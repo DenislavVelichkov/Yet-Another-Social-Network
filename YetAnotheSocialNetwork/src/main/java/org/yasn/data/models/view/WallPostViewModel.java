@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
+import org.yasn.data.entities.wall.Like;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -21,4 +22,5 @@ public class WallPostViewModel {
   private Timestamp createdOn;
   private PostPrivacy postPrivacy;
   private Set<PostCommentViewModel> comments;
+  private Set<Like> actualLikes;
 }

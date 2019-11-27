@@ -6,6 +6,7 @@
     function likeAPost() {
             $(document.body).on('click', '#post-like', function (ev) {
                 const url = URLs.likes + $(this).attr('data-post_id');
+                const likesCount = $('#likes-count').val();
 
                 /*$(function () {
                     var token = $("meta[name='_csrf']").attr("content");
@@ -16,7 +17,11 @@
                 });*/
 
                 fetch(url)
-                    .then($(this).html('Unlike'));
+                    .then(response => {
+                        if ($('#likes-count') === likesCount) {
+                            $(this).toggle();
+                        }
+                    });
 
                 ev.preventDefault();
                 return false;

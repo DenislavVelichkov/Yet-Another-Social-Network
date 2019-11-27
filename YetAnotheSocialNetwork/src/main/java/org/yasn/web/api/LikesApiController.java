@@ -18,14 +18,16 @@ public class LikesApiController extends BaseController {
   private final WallService  wallService;
 
   @GetMapping("/api/likes/{postId}")
-  public String likeAction(@PathVariable String postId,
-                           Principal activeUser) {
+  public void likeAction(@PathVariable String postId,
+                                 Principal activeUser) {
     WallPostServiceModel wallPostServiceModel =
         this.wallService.findWallPostById(postId);
 
-    wallPostServiceModel.setLikes(wallPostServiceModel.getLikes() + 1);
-    this.wallService.likePost(wallPostServiceModel, activeUser.getName());
+    if (this.wallService.isPostLikedByActiveUser(activeUser.getName())) {
+      this.wallService.unlikePost(wallPostServiceModel, activeUser.getName());
 
-   return "redirect:/home";
+    } else {
+      this.wallService.likePost(wallPostServiceModel, activeUser.getName());
+    }
   }
 }

@@ -70,20 +70,19 @@
                     <span> - </span>
                     <li >
                         <a onclick="likeAPost()" href="javascript:void(0)"
-                             id="post-like"
-                             th:attr="data-post_id = ${post.id}">
+                              id="post-like"
+                              th:attr="data-post_id = ${post.id}">
                             Like
                         </a>
                     </li>
                     <li>
-                <span>
-                    [(${post.likes})]
-                </span>
+
+                <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
                         <i class="far fa-thumbs-up"></i>
                     </li>
                 </ul>
             </div>
-            <div class="yasn-post-comment">
+        <div class="yasn-post-comment">
                 <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
                 <form th:action="@{/home/wall/comment}"
                       th:method="post"

@@ -1,7 +1,6 @@
 package org.yasn.data.entities.wall;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.yasn.common.enums.PostPrivacy;
@@ -14,7 +13,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "wall_posts")
 public class WallPost extends BaseEntity {
@@ -30,8 +28,8 @@ public class WallPost extends BaseEntity {
   @Column(name = "post_content")
   private String postContent;
 
-  @Column(name = "likes_count")
-  private long likes;
+  /*@Column(name = "likes_count")
+  private long likes;*/
 
   @OneToMany(
       targetEntity = PostComment.class,
@@ -47,4 +45,10 @@ public class WallPost extends BaseEntity {
   @Column(name = "post_privacy")
   private PostPrivacy postPrivacy;
 
+  @OneToMany(
+      targetEntity = Like.class,
+      mappedBy = "likeOwner",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
+  private Set<Like> actualLikes;
 }

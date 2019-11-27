@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
+import org.yasn.data.entities.LikeId;
+import org.yasn.data.entities.wall.Like;
 import org.yasn.data.entities.wall.WallPost;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.repository.wall.LikeRepository;
 import org.yasn.repository.wall.WallPostRepository;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
@@ -24,17 +27,21 @@ public class WallServiceImpl implements WallService {
   private final WallPostRepository wallPostRepository;
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
+  private final LikeRepository likeRepository;
   private final FileUtil fileUtil;
+
 
   @Autowired
   public WallServiceImpl(WallPostRepository wallPostRepository,
                          UserProfileService userProfileService,
                          ModelMapper modelMapper,
+                         LikeRepository likeRepository,
                          FileUtil fileUtil) {
 
     this.wallPostRepository = wallPostRepository;
     this.userProfileService = userProfileService;
     this.modelMapper = modelMapper;
+    this.likeRepository = likeRepository;
     this.fileUtil = fileUtil;
   }
 
@@ -88,10 +95,52 @@ public class WallServiceImpl implements WallService {
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(profileId);
 
+    Like like = new Like();
 
     WallPost wallPost =
-        this.modelMapper.map(wallPostServiceModel, WallPost.class);
+        this.modelMapper.map(
+            wallPostServiceModel, WallPost.class);
+
+    LikeId likeId = new LikeId();
+    likeId.setPost(wallPost.getId());
+    likeId.setProfile(userProfileServiceModel.getId());
+
+    like.setLikeOwner(wallPost);
+    like.setId(likeId);
+    like.setLiked(true);
+
+    this.likeRepository.saveAndFlush(like);
+  }
+
+  @Override
+  public void unlikePost(WallPostServiceModel wallPostServiceModel, String activeUser) {
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(activeUser);
+
+   WallPost wallPost =
+       this.modelMapper.map(wallPostServiceModel, WallPost.class);
+
+    Like likeToRemove = wallPost
+        .getActualLikes()
+        .stream()
+        .filter(like ->
+            like.getId().getProfile()
+                .equals(userProfileServiceModel.getId()))
+        .findFirst()
+        .get();
+
+    wallPost.getActualLikes().remove(likeToRemove);
 
     this.wallPostRepository.saveAndFlush(wallPost);
+  }
+
+  @Override
+  public boolean isPostLikedByActiveUser(String activeUser) {
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(activeUser);
+
+    return this.likeRepository
+        .findById_ProfileLike(
+            userProfileServiceModel.getId()).isPresent();
   }
 }
