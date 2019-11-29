@@ -68,12 +68,14 @@
                     </li>
                     <span> - </span>
                     <li>
-                        <a href="javascript:void(0)">Like</a>
+                        <a onclick="likeAPost()" href="javascript:void(0)"
+                           id="post-like"
+                           th:attr="data-post_id = ${post.id}">
+                            Like
+                        </a>
                     </li>
                     <li>
-                <span>
-                    [(${post.likes})]
-                </span>
+                        <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
                         <i class="far fa-thumbs-up"></i>
                     </li>
                 </ul>
