@@ -81,6 +81,17 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
+  public List<WallPostServiceModel> findAllByOwnerId(String ownerId) {
+
+    return this.wallPostRepository
+        .findAllByPostOwner_ProfileOwner_Id(ownerId)
+        .stream()
+        .map(wallPost ->
+            this.modelMapper.map(wallPost, WallPostServiceModel.class))
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public List<WallPostServiceModel> displayAllPosts() {
 
     return this.wallPostRepository

@@ -13,6 +13,7 @@ import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.PostCommentService;
@@ -53,11 +54,16 @@ public class HomeController extends BaseController {
     UserProfileServiceModel userProfileService =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
+    ActiveUserDetails activeUserDetails =
+        this.modelMapper.map(userProfileService, ActiveUserDetails.class);
+
+    activeUserDetails.setFirstName(userProfileService.getProfileOwner().getFirstName());
+
+
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileService, UserProfileViewModel.class);
 
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
-    // TODO: 11/20/2019 Fix Like button
 
     List<WallPostServiceModel> allPostsServiceModels =
         this.wallService
@@ -80,6 +86,7 @@ public class HomeController extends BaseController {
         .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject("activeUserDetails", activeUserDetails);
     modelAndView.addObject("allWallPosts", allPosts);
     modelAndView.addObject("time", timeUtil);
 

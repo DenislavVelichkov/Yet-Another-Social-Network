@@ -38,7 +38,8 @@
                 </div>
             </div>
             <div>
-                <a href="/user/profile"> [(${post.postOwner.fullName})] </a>
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <a th:href="@{'/user/profile/' + ${post.postOwner.id}}"> [(${post.postOwner.fullName})] </a>
             </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->

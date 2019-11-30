@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.common.enums.PostPrivacy;
@@ -18,6 +15,7 @@ import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.UserServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.*;
@@ -81,19 +79,27 @@ public class UserController extends BaseController {
     return super.redirect("/user/login");
   }
 
-  @GetMapping("/profile")
+  @GetMapping("/profile/{profileId}")
   @PageTitle("Profile")
-  public ModelAndView userProfile(ModelAndView modelAndView,
-                                  Principal activeUser) {
+  public ModelAndView userProfileById(ModelAndView modelAndView,
+                                      @PathVariable String profileId,
+                                      Principal activeUser) {
 
     UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileById(profileId);
+    UserProfileServiceModel activeUserProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
+
+    ActiveUserDetails activeUserDetails =
+        this.modelMapper.map(activeUserProfileServiceModel, ActiveUserDetails.class);
+
+    activeUserDetails.setFirstName(activeUserProfileServiceModel.getProfileOwner().getFirstName());
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
     List<WallPostServiceModel> postServiceModels =
-        this.wallService.findAllByUsername(activeUser.getName());
+        this.wallService.findAllByOwnerId(profileId);
 
     List<WallPostViewModel> allPosts =
         postServiceModels
@@ -105,6 +111,45 @@ public class UserController extends BaseController {
             .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject("activeUserDetails", activeUserDetails);
+    modelAndView.addObject("allProfilePosts", allPosts);
+    modelAndView.addObject("postComment", new PostCommentBindingModel());
+    modelAndView.addObject("wallPost", new WallPostBindingModel());
+    modelAndView.addObject("time", timeUtil);
+
+    return super.view("/profile-fragments/profile-guest-page", modelAndView);
+  }
+
+  @GetMapping("/profile/timeline/{username}")
+  @PageTitle("Profile")
+  public ModelAndView userProfileByUsername(ModelAndView modelAndView,
+                                            @PathVariable String username) {
+
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(username);
+
+    ActiveUserDetails activeUserDetails =
+        this.modelMapper.map(userProfileServiceModel, ActiveUserDetails.class);
+
+    activeUserDetails.setFirstName(userProfileServiceModel.getProfileOwner().getFirstName());
+
+    UserProfileViewModel userProfileView =
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    List<WallPostServiceModel> postServiceModels =
+        this.wallService.findAllByUsername(username);
+
+    List<WallPostViewModel> allPosts =
+        postServiceModels
+            .stream()
+            .map(wallPostServiceModel ->
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
+            .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+            .collect(Collectors.toList());
+
+    modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject("activeUserDetails", activeUserDetails);
     modelAndView.addObject("allProfilePosts", allPosts);
     modelAndView.addObject("postComment", new PostCommentBindingModel());
     modelAndView.addObject("wallPost", new WallPostBindingModel());
@@ -112,6 +157,7 @@ public class UserController extends BaseController {
 
     return super.view("profile", modelAndView);
   }
+
 
   @PostMapping("/profile/post")
   public ModelAndView postOnWall(ModelAndView modelAndView,

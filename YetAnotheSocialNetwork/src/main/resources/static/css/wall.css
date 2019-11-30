@@ -54,7 +54,6 @@
 .yasn-post-comment {
     display: block;
     width: 100%;
-    overflow: hidden;
 }
 
 .yasn-post-comment form {

@@ -53,12 +53,12 @@
         <div class="col-6">
             <nav>
                 <div class="navbar-avatar-container float-left">
-                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                     <img id="avatar-picture"
-                         th:src="@{${userProfileView.profilePicture}}"
+                         th:src="@{${activeUserDetails.profilePicture}}"
                          alt="no-profile-picture"/>
-                    <a th:href="@{/user/profile}">
-                        <span id="avatar-name" th:text=" 'Hey, ' + ${userProfileView.getProfileOwner().getFirstName()} + '!'"></span>
+                    <a th:href="@{'/user/profile/timeline/' + ${#authentication.name}}">
+                        <span id="avatar-name" th:text=" 'Hey, ' + ${activeUserDetails.firstName} + '!'"></span>
                     </a>
                 </div>
                 <div class="navbar-menu-right nav-tabs float-right">
@@ -100,7 +100,7 @@
                                         <a th:href="@{/admin}">Admin Panel</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/settings}">Account Settings</a>
+                                        <a th:href="@{/profile/edit}">Profile Settings</a>
                                     </li>
                                     <li>
                                         <div>
