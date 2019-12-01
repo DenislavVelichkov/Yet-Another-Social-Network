@@ -34,7 +34,7 @@
             </div>
         </div>
         <div>
-            <a href="/user/profile"> [(${comment.commentOwner.fullName})] </a>
+            <a th:href="@{'/profile/guest/' + ${comment.commentOwner.id}}"> [(${comment.commentOwner.fullName})] </a>
         </div>
         <div class="post-meta-info">
 

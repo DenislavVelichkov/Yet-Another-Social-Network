@@ -44,7 +44,6 @@ public class UserProfileController extends BaseController {
   @GetMapping("/timeline/{profileId}")
   @PageTitle("Profile")
   public ModelAndView activeUserTimeline(ModelAndView modelAndView,
-
                                          @PathVariable String profileId) {
 
     UserProfileServiceModel userProfileServiceModel =
@@ -57,7 +56,6 @@ public class UserProfileController extends BaseController {
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
-    this.modelMapper.validate();
 
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);
@@ -88,6 +86,8 @@ public class UserProfileController extends BaseController {
                                           Principal activeUser) throws IOException {
 
 // TODO: 11/12/2019 Validations
+    String profileId =
+        this.userProfileService.findUserProfileByUsername(username).getId();
 
     WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
@@ -105,7 +105,7 @@ public class UserProfileController extends BaseController {
 
     this.wallService.createPost(wallPostServiceModel, activeUser);
 
-    return super.redirect("/profile/timeline/" + username);
+    return super.redirect("/profile/timeline/" + profileId);
   }
 
   @GetMapping("/guest/{profileId}")
@@ -179,8 +179,12 @@ public class UserProfileController extends BaseController {
 
   @PostMapping("/timeline/comment")
   public ModelAndView postCommentOnTimelinePost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                        @ModelAttribute(name = "postId") String postId,
-                                        Principal activeUser) throws IOException {
+                                                @ModelAttribute(name = "postId") String postId,
+                                                @ModelAttribute(name = "username") String username,
+                                                Principal activeUser) throws IOException {
+
+    String profileId =
+        this.userProfileService.findUserProfileByUsername(username).getId();
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
@@ -194,7 +198,7 @@ public class UserProfileController extends BaseController {
 
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
-    return super.redirect("/user/profile");
+    return super.redirect("/profile/timeline/" + profileId);
   }
 
   @PostMapping("/guest/comment")

@@ -82,7 +82,7 @@
             </div>
             <div class="yasn-post-comment">
                 <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
-                <form th:action="@{/profile/comment}"
+                <form th:action="@{/profile/timeline/comment}"
                       th:method="post"
                       enctype="multipart/form-data"
                       th:object="${postComment}">
