@@ -38,8 +38,8 @@
                 </div>
             </div>
             <div>
-                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                <a th:href="@{'/user/profile/' + ${post.postOwner.id}}"> [(${post.postOwner.fullName})] </a>
+                <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
             </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
@@ -69,21 +69,21 @@
                         <a href="javascript:void(0)">Comment</a>
                     </li>
                     <span> - </span>
-                    <li >
+                    <li>
                         <a class="post-is-liked" onclick="likeAPost()" href="javascript:void(0)"
-                              id="post-like"
-                              th:attr="data-post_id = ${post.id}">
+                           id="post-like"
+                           th:attr="data-post_id = ${post.id}">
                             Like
                         </a>
                     </li>
                     <li>
 
-                <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
+                        <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
                         <i class="far fa-thumbs-up"></i>
                     </li>
                 </ul>
             </div>
-        <div class="yasn-post-comment">
+            <div class="yasn-post-comment">
                 <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
                 <form th:action="@{/home/wall/comment}"
                       th:method="post"

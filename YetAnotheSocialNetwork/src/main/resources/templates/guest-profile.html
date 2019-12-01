@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="~{fragments/default_layout}"
-      sec:authorize="isAuthenticated()">
+      layout:decorator="~{fragments/default_layout}">
 
 <th:block layout:fragment="main-content">
     <div class="row" id="user-profile-body-container">
@@ -41,8 +39,8 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <th:block layout:insert="~{profile-fragments/create-timeline-post}"/>
-                        <th:block layout:insert="~{profile-fragments/profile-post}"/>
+                        <th:block layout:insert="~{guest-profile-fragments/post-on-timeline-as-guest}"/>
+                        <th:block layout:insert="~{guest-profile-fragments/guest-profile-post}"/>
                         <!--todo Fix send buttons to be responsive!-->
                     </div>
                     <div class="col-6">

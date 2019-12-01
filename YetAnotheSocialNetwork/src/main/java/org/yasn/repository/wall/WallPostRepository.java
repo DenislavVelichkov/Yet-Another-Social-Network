@@ -14,5 +14,5 @@ public interface WallPostRepository extends JpaRepository<WallPost, String> {
 
   List<WallPost> findAllByPostOwner_ProfileOwner_Username(String string);
 
-  List<WallPost> findAllByPostOwner_ProfileOwner_Id(String id);
+  List<WallPost> findAllByPostOwner_Id(String id);
 }

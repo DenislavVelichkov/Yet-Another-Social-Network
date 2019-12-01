@@ -84,7 +84,7 @@ public class WallServiceImpl implements WallService {
   public List<WallPostServiceModel> findAllByOwnerId(String ownerId) {
 
     return this.wallPostRepository
-        .findAllByPostOwner_ProfileOwner_Id(ownerId)
+        .findAllByPostOwner_Id(ownerId)
         .stream()
         .map(wallPost ->
             this.modelMapper.map(wallPost, WallPostServiceModel.class))

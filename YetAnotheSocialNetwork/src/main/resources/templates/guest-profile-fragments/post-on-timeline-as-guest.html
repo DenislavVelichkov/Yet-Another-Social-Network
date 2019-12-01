@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block>
+
+    <div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
+                    <span>
+                        Create a Post
+                    </span>
+
+        <div class="yasn-post-attributes-container">
+            <!--/*@thymesVar id="timelinePost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
+            <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+            <form th:action="@{/profile/guest/post}"
+                  enctype="multipart/form-data"
+                  method="post" th:object="${timelinePost}"
+                  id="yasn-wall-form">
+
+                <label for="comment-text" id="post"></label>
+                <textarea id="comment-text"
+                          name="post"
+                          type="text"
+                          th:field="*{postContent}">
+                    </textarea>
+
+                <div class="yasn-post-extra-tag">
+
+                </div>
+
+                <div class="yasn-post-extra-location">
+                    <label for="location"></label>
+                    <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                    <input th:field="*{location}"
+                           type="text"
+                           id="location"
+                           name="location"
+                           placeholder="Enter Location...">
+
+                </div>
+
+                <div class="yasn-post-extra-photo">
+                    <label for="pic" id="pic"></label>
+                    <input type="file" name="pic" th:field="*{postPicture}">
+                </div>
+
+                <div class="yasn-post-extra-emojiies"></div>
+
+                <div class="yasn-post-buttons">
+                    <ul>
+                        <li><i class="fas fa-user-friends"></i></li>
+                        <li onclick="postLocationInPost()"><i class="far fa-compass"></i></li>
+                        <li onclick="postPicInPost()"><i class="fas fa-camera"></i></li>
+                        <li onclick="postPrivacyToggle()">
+                            <i class="fas fa-user-secret"></i>
+                            <span>Privacy</span>
+                        </li>
+                        <li class="yasn-post-extra-privacy">
+                            <ul>
+                                <!--todo    Fix radio buttons hover color-->
+
+                                <li th:each="label : ${T(org.yasn.common.enums.PostPrivacy).values()}">
+                                    <input type="radio"
+                                           th:id="${{label}}"
+                                           th:value="${{label}}"
+                                           th:field="*{postPrivacy}" />
+
+                                    <label th:for="${{label}}">[(${label.getLabel()})]</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <input type="hidden" name="profileId" th:value="${userProfileView.id}"/>
+                            <input class="post-submit-btn" type="submit" value="Post">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</th:block>
+
+</html>

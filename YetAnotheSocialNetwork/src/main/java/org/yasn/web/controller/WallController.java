@@ -22,7 +22,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/home/wall")
 @AllArgsConstructor
-public class WallPostController extends BaseController {
+public class WallController extends BaseController {
 
   private final WallService wallService;
   private final PostCommentService postCommentService;
@@ -30,8 +30,7 @@ public class WallPostController extends BaseController {
   private final CloudinaryService cloudinaryService;
 
   @PostMapping("/post")
-  public ModelAndView postOnWall(ModelAndView modelAndView,
-                                 @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+  public ModelAndView postOnWall(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                                  @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
                                  Principal activeUser) throws IOException {
 
@@ -57,8 +56,7 @@ public class WallPostController extends BaseController {
   }
 
   @PostMapping("/comment")
-  public ModelAndView postCommentOnPost(ModelAndView modelAndView,
-                                        @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+  public ModelAndView postCommentOnPost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
                                         @ModelAttribute(name = "postId") String postId,
                                         Principal activeUser) throws IOException {
 

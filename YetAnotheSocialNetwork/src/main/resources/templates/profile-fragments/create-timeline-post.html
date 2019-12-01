@@ -11,10 +11,11 @@
                     </span>
 
             <div class="yasn-post-attributes-container">
-                <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
-                <form th:action="@{/user/profile/post}"
+                <!--/*@thymesVar id="timelinePost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
+                <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                <form th:action="@{/profile/timeline/post}"
                       enctype="multipart/form-data"
-                      method="post" th:object="${wallPost}"
+                      method="post" th:object="${timelinePost}"
                       id="yasn-wall-form">
 
                     <label for="comment-text" id="post"></label>
@@ -70,11 +71,11 @@
                                 </ul>
                             </li>
                             <li>
+                                <input type="hidden" name="username" th:value="${#authentication.name}"/>
                                 <input class="post-submit-btn" type="submit" value="Post">
                             </li>
                         </ul>
                     </div>
-<!--                        <input class="btn btn-primary" type="submit" value="Post">-->
                 </form>
 
             </div>

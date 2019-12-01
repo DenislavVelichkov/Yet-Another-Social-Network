@@ -57,7 +57,7 @@
                     <img id="avatar-picture"
                          th:src="@{${activeUserDetails.profilePicture}}"
                          alt="no-profile-picture"/>
-                    <a th:href="@{'/user/profile/timeline/' + ${#authentication.name}}">
+                    <a th:href="@{'/profile/timeline/' + ${#authentication.name}}">
                         <span id="avatar-name" th:text=" 'Hey, ' + ${activeUserDetails.firstName} + '!'"></span>
                     </a>
                 </div>

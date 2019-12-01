@@ -82,7 +82,7 @@
             </div>
             <div class="yasn-post-comment">
                 <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
-                <form th:action="@{/profile/comment}"
+                <form th:action="@{/profile/guest/comment}"
                       th:method="post"
                       enctype="multipart/form-data"
                       th:object="${postComment}">
@@ -102,7 +102,7 @@
                         <input id="file-input" type="file" th:field="*{commentPicture}"/>
                     </div>
                     <input type="hidden" name="postId" th:value="${post.id}"/>
-                    <input type="hidden" name="username" th:value="${#authentication.name}"/>
+                    <input type="hidden" name="profileId" th:value="${userProfileView.id}"/>
                     <input class="comment-post-submit-btn" type="submit" value="Send"/>
                 </form>
             </div>
