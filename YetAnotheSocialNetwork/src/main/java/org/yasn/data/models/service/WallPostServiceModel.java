@@ -14,13 +14,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class WallPostServiceModel extends BaseServiceModel {
   private UserProfileServiceModel postOwner;
-  private PostCommentServiceModel postComments;
   private String postPicture;
   private String postContent;
-  private long likes;
-  private String location;
+  private Set<PostCommentServiceModel> comments;
   private Timestamp createdOn;
   private PostPrivacy postPrivacy;
-  private Set<PostCommentServiceModel> comments;
   private Set<LikeServiceModel> actualLikes;
+  private String location;
 }

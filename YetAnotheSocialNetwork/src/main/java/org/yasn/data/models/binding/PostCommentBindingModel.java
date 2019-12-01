@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
-import org.yasn.data.models.view.UserProfileViewModel;
-import org.yasn.data.models.view.WallPostViewModel;
+import org.yasn.data.models.service.UserProfileServiceModel;
+import org.yasn.data.models.service.WallPostServiceModel;
 
 import java.sql.Timestamp;
 
@@ -13,11 +13,11 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 public class PostCommentBindingModel {
-  private WallPostViewModel parentPost;
-  private UserProfileViewModel commentOwner;
-  private Timestamp createdOn;
+
+  private String id;
   private String commentContent;
-  private boolean isPostLiked;
-  private long likes;
   private MultipartFile commentPicture;
+  private WallPostServiceModel parentPost;
+  private UserProfileServiceModel commentOwner;
+  private Timestamp createdOn;
 }

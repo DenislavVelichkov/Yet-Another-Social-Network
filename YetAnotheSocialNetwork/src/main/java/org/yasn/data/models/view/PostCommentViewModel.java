@@ -9,12 +9,11 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostCommentViewModel {
+public class PostCommentViewModel extends BaseViewModel{
+
   private WallPostViewModel parentPost;
   private UserProfileViewModel commentOwner;
-  private Timestamp createdOn;
-  private long likes;
   private String commentContent;
-  private boolean isPostLiked;
   private String commentPicture;
+  private Timestamp createdOn;
 }

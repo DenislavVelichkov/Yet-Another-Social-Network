@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ActiveUserDetails extends BaseViewModel{
+public class PersonalGalleryViewModel extends BaseViewModel {
 
-  private String firstName;
-  private String profilePicture;
+  private String photo;
+  private UserProfileViewModel photoOwner;
 }

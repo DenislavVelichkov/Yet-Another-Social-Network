@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
+import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.service.interfaces.UserProfileService;
@@ -23,10 +24,14 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public UserProfileServiceModel findUserProfileByUsername(String username) {
+    ModelMapper mapper = new ModelMapper();
 
-    return this.userProfileRepository.findByProfileOwnerUsername(username)
-        .map(userProfile -> this.modelMapper.map(userProfile, UserProfileServiceModel.class))
-        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
+    UserProfile profile =
+        this.userProfileRepository.findByProfileOwner_Username(username).get();
+
+    UserProfileServiceModel profileService = mapper.map(profile, UserProfileServiceModel.class);
+    mapper.validate();
+    return profileService;
   }
 
   @Override

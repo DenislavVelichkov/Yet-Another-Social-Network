@@ -28,9 +28,6 @@ public class WallPost extends BaseEntity {
   @Column(name = "post_content")
   private String postContent;
 
-  /*@Column(name = "likes_count")
-  private long likes;*/
-
   @OneToMany(
       targetEntity = PostComment.class,
       mappedBy = "parentPost",
@@ -51,4 +48,7 @@ public class WallPost extends BaseEntity {
       cascade = CascadeType.ALL,
       orphanRemoval = true)
   private Set<Like> actualLikes;
+
+  @Column(name = "location")
+  private String location;
 }

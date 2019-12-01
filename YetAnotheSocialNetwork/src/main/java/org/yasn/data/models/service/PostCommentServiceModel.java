@@ -10,11 +10,10 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 public class PostCommentServiceModel extends BaseServiceModel {
+
   private WallPostServiceModel parentPost;
   private UserProfileServiceModel commentOwner;
   private String commentContent;
-  private Timestamp createdOn;
-  private long likes;
-  private boolean isPostLiked;
   private String commentPicture;
+  private Timestamp createdOn;
 }

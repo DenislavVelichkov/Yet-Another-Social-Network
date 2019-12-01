@@ -10,14 +10,14 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserProfileViewModel {
-  private String id;
+public class UserProfileViewModel extends BaseViewModel{
+
   private String fullName;
   private UserServiceModel profileOwner;
   private String profilePicture;
   private String coverPicture;
-  private Set<String> photoGallery;
-  private Set<WallPostViewModel> wallPosts;
+  private Set<PersonalGalleryViewModel> photoGallery;
   private Set<PostCommentViewModel> postComments;
+  private Set<WallPostViewModel> wallPosts;
   private Set<UserProfileViewModel> friends;
 }

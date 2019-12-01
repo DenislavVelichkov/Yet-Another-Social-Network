@@ -41,24 +41,26 @@ public class UserProfileController extends BaseController {
   private final UserRegisterValidator userRegisterValidator;
 
 
-  @GetMapping("/timeline/{username}")
+  @GetMapping("/timeline/{profileId}")
   @PageTitle("Profile")
   public ModelAndView activeUserTimeline(ModelAndView modelAndView,
-                                            @PathVariable String username) {
+
+                                         @PathVariable String profileId) {
 
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(username);
+        this.userProfileService.findUserProfileById(profileId);
 
-    ActiveUserDetails activeUserDetails =
-        this.modelMapper.map(userProfileServiceModel, ActiveUserDetails.class);
-
+    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
+    activeUserDetails.setId(userProfileServiceModel.getId());
     activeUserDetails.setFirstName(userProfileServiceModel.getProfileOwner().getFirstName());
+    activeUserDetails.setProfilePicture(userProfileServiceModel.getProfilePicture());
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+    this.modelMapper.validate();
 
     List<WallPostServiceModel> postServiceModels =
-        this.wallService.findAllByUsername(username);
+        this.wallService.findAllByOwnerId(profileId);
 
     List<WallPostViewModel> allPosts =
         postServiceModels
@@ -118,10 +120,10 @@ public class UserProfileController extends BaseController {
     UserProfileServiceModel activeUserProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
-    ActiveUserDetails activeUserDetails =
-        this.modelMapper.map(activeUserProfileServiceModel, ActiveUserDetails.class);
-
+    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
+    activeUserDetails.setId(activeUserProfileServiceModel.getId());
     activeUserDetails.setFirstName(activeUserProfileServiceModel.getProfileOwner().getFirstName());
+    activeUserDetails.setProfilePicture(activeUserProfileServiceModel.getProfilePicture());
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);

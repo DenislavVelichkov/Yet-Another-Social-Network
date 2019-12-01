@@ -12,6 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class UserServiceModel extends BaseServiceModel {
+
   private String username;
   private String firstName;
   private String lastName;
@@ -21,5 +22,6 @@ public class UserServiceModel extends BaseServiceModel {
   private Date birthday;
   private boolean isActive;
   private Timestamp createdOn;
+  private UserProfileServiceModel userProfile;
   private Set<RoleServiceModel> authorities;
 }

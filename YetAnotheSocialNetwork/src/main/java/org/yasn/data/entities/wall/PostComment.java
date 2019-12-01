@@ -30,14 +30,8 @@ public class PostComment extends BaseEntity {
   @Column(name = "comment_content")
   private String commentContent;
 
-  @Column(name = "comment_liked")
-  private boolean isCommentLiked;
-
   @Column(name = "comment_picture")
   private String commentPicture;
-
-  @Column(name = "likes")
-  private long likes;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(name = "created_on")

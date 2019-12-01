@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.data.entities.wall.Like;
+import org.yasn.data.models.service.LikeServiceModel;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -12,15 +12,14 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WallPostViewModel {
-  private String id;
+public class WallPostViewModel extends BaseViewModel
+{
   private UserProfileViewModel postOwner;
   private String postPicture;
   private String postContent;
-  private long likes;
-  private String location;
+  private Set<PostCommentViewModel> comments;
   private Timestamp createdOn;
   private PostPrivacy postPrivacy;
-  private Set<PostCommentViewModel> comments;
-  private Set<Like> actualLikes;
+  private Set<LikeServiceModel> actualLikes;
+  private String location;
 }

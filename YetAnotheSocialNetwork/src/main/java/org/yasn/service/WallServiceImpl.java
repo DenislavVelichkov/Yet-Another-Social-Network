@@ -151,7 +151,6 @@ public class WallServiceImpl implements WallService {
         this.userProfileService.findUserProfileByUsername(activeUser);
 
     return this.likeRepository
-        .findById_ProfileLike(
-            userProfileServiceModel.getId()).isPresent();
+        .findById_ProfileLike(userProfileServiceModel.getId()).isPresent();
   }
 }
