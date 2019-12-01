@@ -16,7 +16,6 @@ import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
 
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -46,12 +45,11 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public void createPost(WallPostServiceModel wallPostServiceModel,
-                         Principal activeUser) {
+  public void createPost(WallPostServiceModel wallPostServiceModel, String username) {
     // TODO: 11/14/2019 Validations !
 
     wallPostServiceModel.setPostOwner(
-        this.userProfileService.findUserProfileByUsername(activeUser.getName()));
+        this.userProfileService.findUserProfileByUsername(username));
 
     wallPostServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
 

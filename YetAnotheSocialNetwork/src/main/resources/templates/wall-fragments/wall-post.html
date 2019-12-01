@@ -37,10 +37,6 @@
 
                 </div>
             </div>
-            <div>
-                <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
-            </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
@@ -51,6 +47,17 @@
                 <span th:unless="${post.postPrivacy.name() == 'PUBLIC'}">
                     <i class="fas fa-lock"></i>
                 </span>
+            </div>
+            <div>
+                <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                <th:block th:unless="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                    <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                </th:block>
+                <th:block th:if="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                    <a th:href="@{'/profile/timeline/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                </th:block>
+
             </div>
 
             <div class="post-contents">

@@ -34,7 +34,15 @@
             </div>
         </div>
         <div>
-            <a th:href="@{'/profile/guest/' + ${comment.commentOwner.id}}"> [(${comment.commentOwner.fullName})] </a>
+            <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+            <th:block th:unless="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">
+                <a th:href="@{'/profile/guest/' + ${comment.commentOwner.id}}">
+                    [(${comment.commentOwner.fullName})] </a>
+            </th:block>
+            <th:block th:if="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">
+                <a th:href="@{'/profile/timeline/' + ${comment.commentOwner.id}}">
+                    [(${comment.commentOwner.fullName})] </a>
+            </th:block>
         </div>
         <div class="post-meta-info">
 

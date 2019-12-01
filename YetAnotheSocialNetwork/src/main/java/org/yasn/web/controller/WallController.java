@@ -50,7 +50,7 @@ public class WallController extends BaseController {
       wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
     }
 
-    this.wallService.createPost(wallPostServiceModel, activeUser);
+    this.wallService.createPost(wallPostServiceModel, activeUser.getName());
 
     return super.redirect("/home");
   }

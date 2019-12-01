@@ -38,7 +38,14 @@
                 </div>
             </div>
             <div>
-                <a href="/user/profile"> [(${post.postOwner.fullName})] </a>
+                <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                <th:block th:unless="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                    <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                </th:block>
+                <th:block th:if="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                    <a th:href="@{'/profile/timeline/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                </th:block>
             </div>
             <div class="post-meta-info">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->

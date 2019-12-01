@@ -103,7 +103,7 @@ public class UserProfileController extends BaseController {
       wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
     }
 
-    this.wallService.createPost(wallPostServiceModel, activeUser);
+    this.wallService.createPost(wallPostServiceModel, activeUser.getName());
 
     return super.redirect("/profile/timeline/" + profileId);
   }
@@ -113,6 +113,7 @@ public class UserProfileController extends BaseController {
   public ModelAndView guestProfile(ModelAndView modelAndView,
                                    @PathVariable String profileId,
                                    Principal activeUser) {
+// TODO: 12/2/19 Create a Timeline
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(profileId);
@@ -153,7 +154,7 @@ public class UserProfileController extends BaseController {
   @PostMapping("/guest/post")
   public ModelAndView postOnTimeline(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
                                      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-                                     Principal activeUser,
+                                     @ModelAttribute(name = "activeUserId") String activeUserId,
                                      @ModelAttribute(name = "profileId") String profileId) throws IOException {
 
 // TODO: 11/12/2019 Validations
@@ -172,7 +173,12 @@ public class UserProfileController extends BaseController {
       wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
     }
 
-    this.wallService.createPost(wallPostServiceModel, activeUser);
+    String username =
+        this.userProfileService.findUserProfileById(activeUserId)
+            .getProfileOwner()
+            .getUsername();
+
+    this.wallService.createPost(wallPostServiceModel, username);
 
     return super.redirect("/profile/guest/" + profileId);
   }
@@ -203,9 +209,9 @@ public class UserProfileController extends BaseController {
 
   @PostMapping("/guest/comment")
   public ModelAndView postCommentOnGuestTimelinePost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                                @ModelAttribute(name = "postId") String postId,
-                                                @ModelAttribute(name = "profileId") String profileId,
-                                                Principal activeUser) throws IOException {
+                                                     @ModelAttribute(name = "postId") String postId,
+                                                     @ModelAttribute(name = "profileId") String profileId,
+                                                     Principal activeUser) throws IOException {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);

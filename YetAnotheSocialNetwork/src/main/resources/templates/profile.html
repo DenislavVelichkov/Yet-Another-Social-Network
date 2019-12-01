@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="~{fragments/default_layout}"
+      layout:decorate="~{fragments/default_layout}"
       sec:authorize="isAuthenticated()">
 
 <th:block layout:fragment="main-content">
@@ -24,7 +24,7 @@
                             <img class="img-fluid z-depth-2 rounded profile-picture"
                                  th:src="@{${userProfileView.profilePicture}}"
                                  alt="profile-picture"/>
-                            <span th:text="${userProfileView.getFullName()}"></span>
+                            <span th:text="${userProfileView.fullName}"></span>
                         </div>
                         <div class="profile-nav-container">
                             <div class="profile-cover-menu">
@@ -46,7 +46,6 @@
                                     </li>
                                     <li>
                                         <div class="profile-action-buttons">
-                                            <a href="" type="submit">Add Friend</a>
                                             <a href="" type="submit">Messages</a>
                                         </div>
                                     </li>
