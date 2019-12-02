@@ -150,20 +150,6 @@
     float: right;
 }
 
-/*.yasn-post-container input[type="submit"] {
-    padding: 0.3em 1em;
-    display: inline-block;
-    margin: 0;
-    background-color: #0b769c;
-    border-color: #0b678d;
-    font-weight: bold;
-}*/
-
-/*.yasn-post-container input[type="submit"]:hover {
-    background-color: rgba(11, 103, 141, 0.85);
-}*/
-
-
 .yasn-post-extra-location,
 .yasn-post-extra-photo,
 .yasn-post-extra-privacy ul,

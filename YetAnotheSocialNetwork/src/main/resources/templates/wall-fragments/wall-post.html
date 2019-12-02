@@ -38,6 +38,17 @@
                 </div>
             </div>
             <div class="post-meta-info">
+                <div>
+                    <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                    <th:block th:unless="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                        <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                    </th:block>
+                    <th:block th:if="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                        <a th:href="@{'/profile/timeline/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                    </th:block>
+
+                </div>
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
                 <span th:text="${time.calcTimeAgo(post.createdOn)}"></span>
@@ -47,18 +58,9 @@
                 <span th:unless="${post.postPrivacy.name() == 'PUBLIC'}">
                     <i class="fas fa-lock"></i>
                 </span>
-            </div>
-            <div>
-                <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
-                <th:block th:unless="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
-                    <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
-                </th:block>
-                <th:block th:if="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
-                    <a th:href="@{'/profile/timeline/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
-                </th:block>
 
             </div>
+
 
             <div class="post-contents">
                 <p>[(${post.postContent})]</p>
@@ -77,9 +79,10 @@
                     </li>
                     <span> - </span>
                     <li>
-                        <a class="post-is-liked" onclick="likeAPost()" href="javascript:void(0)"
-                           id="post-like"
-                           th:attr="data-post_id = ${post.id}">
+                        <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                            <a class="post-is-liked" onclick="likeAPost()" href="javascript:void(0)"
+                                     id="post-like"
+                                     th:attr="data-post_id = ${post.id}">
                             Like
                         </a>
                     </li>

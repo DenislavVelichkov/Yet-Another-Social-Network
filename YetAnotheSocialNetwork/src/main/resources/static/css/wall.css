@@ -62,7 +62,6 @@
     width: 100%;
 }
 
-
 .comment-meta-avatar-img {
     display: inline-block;
     border-radius: 50%;
@@ -183,7 +182,18 @@
     display: block;
 }
 
+.post-content-pic {
+    padding: 1em;
+}
 
+/*Sticky sidebar*/
+.user-profile-sidebar-container {
+    position: sticky;
+    top: 6vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 
 
