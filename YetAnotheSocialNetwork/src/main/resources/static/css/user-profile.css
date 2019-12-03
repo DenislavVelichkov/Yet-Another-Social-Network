@@ -79,4 +79,13 @@
 }
 
 
+/*Sticky sidebar*/
+.user-profile-sidebar-container {
+    position: sticky;
+    top: 8vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 /*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/
