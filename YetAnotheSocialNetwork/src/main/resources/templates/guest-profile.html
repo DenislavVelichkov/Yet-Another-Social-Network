@@ -29,7 +29,10 @@
                                 <ul>
                                     <li>
                                         <div class="profile-action-buttons">
-                                            <a href="" type="submit">Add Friend</a>
+                                            <a class="action-add-friend" href="javascript:void(0)" onclick="addFriend()"
+                                               th:attr="profileId = ${userProfileView.id}">
+                                                Add Friend
+                                            </a>
                                         </div>
                                     </li>
                                 </ul>

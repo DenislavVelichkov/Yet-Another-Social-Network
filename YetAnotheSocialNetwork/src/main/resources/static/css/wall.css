@@ -186,14 +186,6 @@
     padding: 1em;
 }
 
-/*Sticky sidebar*/
-.user-profile-sidebar-container {
-    position: sticky;
-    top: 6vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
 
 
 

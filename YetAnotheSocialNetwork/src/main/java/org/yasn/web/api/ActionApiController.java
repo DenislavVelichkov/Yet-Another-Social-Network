@@ -25,9 +25,9 @@ public class ActionApiController extends BaseController {
 
   @GetMapping("/api/likes/{postId}")
   public LikeDetailsResponse likeAction(@PathVariable String postId,
-                                              Principal activeUser) {
+                                        Principal activeUser) {
     WallPostServiceModel wallPostServiceModel =
-        this.wallService.findWallPostById(postId);
+            this.wallService.findWallPostById(postId);
 
     if (this.wallService.isPostLikedByActiveUser(activeUser.getName())) {
       this.wallService.unlikePost(wallPostServiceModel, activeUser.getName());
@@ -35,28 +35,30 @@ public class ActionApiController extends BaseController {
     } else {
       this.wallService.likePost(wallPostServiceModel, activeUser.getName());
     }
+
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(activeUser.getName());
+            this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
     LikeServiceModel likeServiceModel = this.wallService
-        .findWallPostById(postId)
-        .getActualLikes()
-        .stream()
-        .filter(likeModel ->
-            likeModel
-                .getId()
-                .getProfile().equals(userProfileServiceModel.getId())
-                && likeModel
-                .getId()
-                .getPost().equals(postId))
-        .findFirst()
-        .orElse(null);
+            .findWallPostById(postId)
+            .getActualLikes()
+            .stream()
+            .filter(likeModel ->
+                    likeModel
+                            .getId()
+                            .getProfile().equals(userProfileServiceModel.getId())
+                            && likeModel
+                            .getId()
+                            .getPost().equals(postId))
+            .findFirst()
+            .orElse(null);
 
     if (likeServiceModel != null) {
-     return this.modelMapper.map(
-          likeServiceModel, LikeDetailsResponse.class);
+      return this.modelMapper.map(
+              likeServiceModel, LikeDetailsResponse.class);
     }
 
     return null;
   }
 }
+

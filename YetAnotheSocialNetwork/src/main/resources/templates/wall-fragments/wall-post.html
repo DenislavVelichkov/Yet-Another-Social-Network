@@ -80,9 +80,8 @@
                     <span> - </span>
                     <li>
                         <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                            <a class="post-is-liked" onclick="likeAPost()" href="javascript:void(0)"
-                                     id="post-like"
-                                     th:attr="data-post_id = ${post.id}">
+                        <a class="post-like" onclick="likeAPost()" href="javascript:void(0)"
+                           th:attr="data-post_id = ${post.id}">
                             Like
                         </a>
                     </li>
