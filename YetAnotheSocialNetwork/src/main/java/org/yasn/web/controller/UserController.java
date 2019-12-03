@@ -16,8 +16,8 @@ import org.yasn.service.interfaces.UserService;
 import org.yasn.validation.user.UserRegisterValidator;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController extends BaseController {
 
   private final UserService userService;

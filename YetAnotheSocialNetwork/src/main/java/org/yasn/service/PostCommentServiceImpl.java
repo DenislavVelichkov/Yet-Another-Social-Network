@@ -1,7 +1,7 @@
 package org.yasn.service;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.models.service.PostCommentServiceModel;
@@ -18,25 +18,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PostCommentServiceImpl implements PostCommentService {
   private final PostCommentRepository postCommentRepository;
   private final ModelMapper modelMapper;
   private final UserProfileService userProfileService;
   private final WallService wallService;
   private final CloudinaryService cloudinaryService;
-
-  @Autowired
-  public PostCommentServiceImpl(PostCommentRepository postCommentRepository,
-                                ModelMapper modelMapper,
-                                UserProfileService userProfileService,
-                                WallService wallService,
-                                CloudinaryService cloudinaryService) {
-    this.postCommentRepository = postCommentRepository;
-    this.modelMapper = modelMapper;
-    this.userProfileService = userProfileService;
-    this.wallService = wallService;
-    this.cloudinaryService = cloudinaryService;
-  }
 
   @Override
   public void postComment(PostCommentServiceModel postCommentServiceModel,

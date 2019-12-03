@@ -1,7 +1,7 @@
 package org.yasn.service;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final UserProfileRepository userProfileRepository;
@@ -32,22 +33,6 @@ public class UserServiceImpl implements UserService {
   private final CloudinaryService cloudinaryService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
-
-
-  @Autowired
-  public UserServiceImpl(UserRepository userRepository,
-                         UserProfileRepository userProfileRepository,
-                         RoleService roleService,
-                         CloudinaryService cloudinaryService,
-                         ModelMapper modelMapper,
-                         BCryptPasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
-    this.userProfileRepository = userProfileRepository;
-    this.roleService = roleService;
-    this.cloudinaryService = cloudinaryService;
-    this.modelMapper = modelMapper;
-    this.passwordEncoder = passwordEncoder;
-  }
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

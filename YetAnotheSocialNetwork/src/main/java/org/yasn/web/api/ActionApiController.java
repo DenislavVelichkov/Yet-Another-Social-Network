@@ -15,9 +15,10 @@ import org.yasn.web.controller.BaseController;
 
 import java.security.Principal;
 
-@AllArgsConstructor
+
 @RestController
-public class LikesApiController extends BaseController {
+@AllArgsConstructor
+public class ActionApiController extends BaseController {
   private final ModelMapper modelMapper;
   private final WallService  wallService;
   private final UserProfileService userProfileService;

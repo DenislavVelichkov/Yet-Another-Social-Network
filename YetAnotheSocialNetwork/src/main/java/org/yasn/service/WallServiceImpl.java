@@ -1,7 +1,7 @@
 package org.yasn.service;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
@@ -22,27 +22,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class WallServiceImpl implements WallService {
   private final WallPostRepository wallPostRepository;
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
   private final LikeRepository likeRepository;
   private final FileUtil fileUtil;
-
-
-  @Autowired
-  public WallServiceImpl(WallPostRepository wallPostRepository,
-                         UserProfileService userProfileService,
-                         ModelMapper modelMapper,
-                         LikeRepository likeRepository,
-                         FileUtil fileUtil) {
-
-    this.wallPostRepository = wallPostRepository;
-    this.userProfileService = userProfileService;
-    this.modelMapper = modelMapper;
-    this.likeRepository = likeRepository;
-    this.fileUtil = fileUtil;
-  }
 
   @Override
   public void createPost(WallPostServiceModel wallPostServiceModel, String username) {
