@@ -19,7 +19,7 @@ public interface WallService {
 
   void likePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
 
-  boolean isPostLikedByActiveUser(String activeUser);
+  boolean isPostLikedByActiveUser(String activeUser, String postId);
 
   void unlikePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
 }

@@ -1,60 +1,80 @@
 const URLs = {
-    likes: '/api/likes/',
-    addFriend: '/api/add-friend/'
+    likes: '/api/likes',
+    addFriend: '/api/add-friend/',
 };
 
-function likeAPost() {
+function getCookie(name) {
+
+    if (!document.cookie) {
+        return null;
+    }
+
+    const xsrfCookies = document.cookie.split(';')
+        .map(c => c.trim())
+        .filter(c => c.startsWith(name + '='));
+
+    if (xsrfCookies.length === 0) {
+        return null;
+    }
+
+    return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+}
+
+let csrfToken = getCookie('XSRF-TOKEN');
+
+const likeAPost = function () {
     $(document).ready(function () {
 
-        $(document.body).on('click', '#post-like', function (ev) {
-            const url = URLs.likes + $(this).attr('data-post_id');
+        $(document.body).on('click', '.post-like', function (ev) {
+            const postId = $(this).attr('likePostId');
+            const url = URLs.likes;
 
-            /*$(function () {
-                var token = $("meta[name='_csrf']").attr("content");
-                var header = $("meta[name='_csrf_header']").attr("content");
-                $(document).ajaxSend(function(e, xhr, options) {
-                    xhr.setRequestHeader(header, token);
-                });
-            });*/
+            fetch(url, {
+                credentials: 'same-origin',
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'likePostId' + '=' + postId + '&' + '_csrf' + '=' + csrfToken,
 
-            fetch(url)
-                .then($(this).html('Unlike'));
+            }).then($(this).html('Unlike'));
 
             ev.preventDefault();
             return false;
         });
-    });
-}
 
-function addFriend() {
+    });
+};
+
+const addFriend = function () {
     $(document).ready(function () {
+
         $(document.body).on('click', '.action-add-friend', function (ev) {
-            const url = URLs.addFriend + $(this).attr('data-profile_id');
+            const url = URLs.addFriend;
+            const profileId = $(this).attr('profileId');
 
             fetch(url, {
-                credentials: 'include',
-                method: "POST",
+                credentials: 'same-origin',
+                method: 'post',
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Cache': 'no-cache'
-                }
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'profileId' + '=' + profileId + '&' + '_csrf' + '=' + csrfToken
+
             })
                 .then((response) => {
-                    alert(response);
+                    alert(response.json());
                     return response.json();
                 })
                 .then((data) => {
                     console.log(data);
-                    alert(data);
+                    window.location = '/profile/guest/' + profileId;
                 });
 
             ev.preventDefault();
             return false;
         });
+
     });
-}
-
-
-
+};
 

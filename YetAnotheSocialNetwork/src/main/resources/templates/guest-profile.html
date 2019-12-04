@@ -5,6 +5,9 @@
       layout:decorate="~{fragments/default_layout}">
 
 <th:block layout:fragment="main-content">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
     <div class="row" id="user-profile-body-container">
 
         <div id="user-profile-sidebar-left" class="col-3">
@@ -33,6 +36,7 @@
                                                th:attr="profileId = ${userProfileView.id}">
                                                 Add Friend
                                             </a>
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         </div>
                                     </li>
                                 </ul>
@@ -67,7 +71,6 @@
 
         </div>
     </div>
-
 </th:block>
 
 </html>

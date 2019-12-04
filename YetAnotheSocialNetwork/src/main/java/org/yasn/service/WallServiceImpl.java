@@ -130,11 +130,11 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public boolean isPostLikedByActiveUser(String activeUser) {
+  public boolean isPostLikedByActiveUser(String activeUser, String postId) {
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser);
 
     return this.likeRepository
-        .findById_ProfileLike(userProfileServiceModel.getId()).isPresent();
+        .findById_ProfileAndLikeOwner_Id(userProfileServiceModel.getId(), postId).isPresent();
   }
 }
