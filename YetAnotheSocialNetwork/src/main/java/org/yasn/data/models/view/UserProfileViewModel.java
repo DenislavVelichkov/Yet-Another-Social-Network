@@ -20,4 +20,6 @@ public class UserProfileViewModel extends BaseViewModel{
   private Set<PostCommentViewModel> postComments;
   private Set<WallPostViewModel> wallPosts;
   private Set<UserProfileViewModel> friends;
+  private Set<NotificationViewModel> notifications;
+
 }

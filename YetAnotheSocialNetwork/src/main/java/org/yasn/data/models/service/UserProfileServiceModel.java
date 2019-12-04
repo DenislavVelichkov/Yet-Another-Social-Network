@@ -19,4 +19,5 @@ public class UserProfileServiceModel extends BaseServiceModel {
   private Set<WallPostServiceModel> wallPosts;
   private Set<PostCommentServiceModel> postComments;
   private Set<UserProfileServiceModel> friends;
+  private Set<NotificationServiceModel> notifications;
 }

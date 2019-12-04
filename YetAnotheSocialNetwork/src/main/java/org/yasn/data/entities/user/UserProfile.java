@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.data.entities.BaseEntity;
+import org.yasn.data.entities.Notification;
 import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.entities.wall.WallPost;
 
@@ -60,4 +61,10 @@ public class UserProfile extends BaseEntity {
       inverseJoinColumns = @JoinColumn(name = "friend_id",
           referencedColumnName = "id"))
   private Set<UserProfile> friends;
+
+  @OneToMany(
+      targetEntity = Notification.class,
+      mappedBy = "recipient",
+      cascade= CascadeType.ALL)
+  Set<Notification> notifications;
 }

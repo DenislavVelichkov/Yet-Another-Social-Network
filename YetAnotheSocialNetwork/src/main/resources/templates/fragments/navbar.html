@@ -84,6 +84,7 @@
                         <li>
                             <a class="yasn-notification-notifications">
                                 <span>
+                                    <span class="yasn-notification-container-hidden"></span>
                                     <div>
                                         <i class="fas fa-bell"></i>
                                     </div>
@@ -104,15 +105,13 @@
                                     </li>
                                     <li>
                                         <div>
+                                            <form method="post" name="logoutForm" th:action="@{/logout}"
+                                                  th:hidden="true"></form>
                                             <i class="fa fa-sign-out-alt"></i>
                                             <a href="javascript: document.logoutForm.submit()">
                                                 Logout
                                             </a>
                                         </div>
-                                        <form method="post" name="logoutForm" th:action="@{/logout}"
-                                              th:hidden="true">
-                                            <input hidden type="submit" value="Logout"/>
-                                        </form>
                                     </li>
                                 </ul>
                             </div>
