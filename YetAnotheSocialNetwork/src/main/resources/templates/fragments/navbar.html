@@ -82,14 +82,18 @@
                             </a>
                         </li>
                         <li>
-                            <a class="yasn-notification-notifications">
-                                <span>
-                                    <span class="yasn-notification-container-hidden"></span>
-                                    <div>
-                                        <i class="fas fa-bell"></i>
-                                    </div>
-                                </span>
+                            <a class="yasn-notifications">
+                                <div class="notification-icons-container">
+                                    <i class="fas fa-bell"></i>
+                                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                                    <th:block th:if="${userProfileView.notifications.size() != 0}">
+                                        <span class="yasn-notification-container-hidden">[(${userProfileView.notifications.size()})]</span>
+                                    </th:block>
+                                </div>
                             </a>
+                            <div class="notification-dropdown-content">
+
+                            </div>
                         </li>
                         <li class="navbar-dropdown-menu">
                             <div class="dropdown">

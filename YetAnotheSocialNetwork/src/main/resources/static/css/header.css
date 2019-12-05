@@ -106,5 +106,28 @@ div.navbar-login-form-field-container:nth-child(3) {
 }
 
 .yasn-notification-container-hidden {
-    display: none;
+    display: block;
+}
+
+.yasn-notification-container-hidden {
+    color: #fff;
+    background-color: red;
+}
+
+.yasn-notification-container-hidden {
+    display: inline-block;
+    border-radius: 1em;
+    text-align: center;
+    height: auto;
+    position: relative;
+    font-size: 10px;
+    font-weight: bolder;
+    width: 12px;
+    top: 3px;
+    left: -11px;
+}
+
+.notification-icons-container {
+    width: 100%;
+    display: block;
 }

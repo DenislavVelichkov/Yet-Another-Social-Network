@@ -16,10 +16,8 @@ import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
-import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
-import org.yasn.utils.FileUtil;
 import org.yasn.utils.TimeUtil;
 
 import java.security.Principal;
@@ -34,8 +32,6 @@ public class HomeController extends BaseController {
   private final UserProfileService userProfileService;
   private final WallService wallService;
   private final ModelMapper modelMapper;
-  private final PostCommentService postCommentService;
-  private final FileUtil fileUtil;
   private final TimeUtil timeUtil;
 
   @GetMapping("/")

@@ -15,10 +15,11 @@ import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
-import org.yasn.service.interfaces.*;
+import org.yasn.service.interfaces.CloudinaryService;
+import org.yasn.service.interfaces.PostCommentService;
+import org.yasn.service.interfaces.UserProfileService;
+import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.TimeUtil;
-import org.yasn.validation.user.UserEditValidator;
-import org.yasn.validation.user.UserRegisterValidator;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -35,10 +36,7 @@ public class UserProfileController extends BaseController {
   private final TimeUtil timeUtil;
   private final CloudinaryService cloudinaryService;
   private final PostCommentService postCommentService;
-  private final UserEditValidator userEditValidator;
-  private final UserService userService;
   private final ModelMapper modelMapper;
-  private final UserRegisterValidator userRegisterValidator;
 
 
   @GetMapping("/timeline/{profileId}")
