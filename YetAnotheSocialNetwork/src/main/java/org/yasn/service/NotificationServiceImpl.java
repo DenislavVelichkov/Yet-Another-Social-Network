@@ -3,6 +3,7 @@ package org.yasn.service;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.yasn.common.NotificationMessages;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.entities.Notification;
 import org.yasn.data.models.service.NotificationServiceModel;
@@ -11,6 +12,8 @@ import org.yasn.repository.NotificationRepository;
 import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,24 +26,35 @@ public class NotificationServiceImpl implements NotificationService {
 
   @Override
   public NotificationServiceModel createNotification(
-      String senderId, String recipientId, NotificationType notificationType) {
+      String recipientId, String senderUsername, NotificationType notificationType) {
+
+    UserProfileServiceModel sender  =
+        this.userProfileService
+            .findUserProfileByUsername(senderUsername);
 
     UserProfileServiceModel recipient =
-        this.userProfileService
-            .findUserProfileByUsername(recipientId);
-
-    UserProfileServiceModel sender =
-        this.userProfileService.findUserProfileById(senderId);
+        this.userProfileService.findUserProfileById(recipientId);
 
     NotificationServiceModel notificationServiceModel =
         new NotificationServiceModel();
 
-    notificationServiceModel.setSenderId(senderId);
+    notificationServiceModel.setSenderId(sender.getId());
     notificationServiceModel.setRecipient(recipient);
     notificationServiceModel.setNotificationType(notificationType);
     notificationServiceModel.setViewed(false);
     notificationServiceModel.setSenderFullName(sender.getFullName());
     notificationServiceModel.setSenderPicture(sender.getProfilePicture());
+    notificationServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
+
+    switch (notificationType) {
+      case FRIEND_REQ:
+        notificationServiceModel.setContent(NotificationMessages.FRIEND_REQUEST);
+        break;
+      case MESSAGE:
+        break;
+      default:
+        break;
+    }
 
     Notification notification =
         this.modelMapper.map(notificationServiceModel, Notification.class);

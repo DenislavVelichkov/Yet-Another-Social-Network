@@ -131,3 +131,8 @@ div.navbar-login-form-field-container:nth-child(3) {
     width: 100%;
     display: block;
 }
+
+.notification-content-container {
+    display: block;
+    background-color: #0b769c24;
+}

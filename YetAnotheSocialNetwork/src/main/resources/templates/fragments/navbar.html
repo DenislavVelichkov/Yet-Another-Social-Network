@@ -82,13 +82,31 @@
                             </a>
                         </li>
                         <li>
-                            <a class="yasn-notifications">
+                            <a class="yasn-notifications"
+                               role="button"
+                               data-target="#"
+                               data-toggle="dropdown">
                                 <div class="notification-icons-container">
                                     <i class="fas fa-bell"></i>
                                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
                                     <th:block th:if="${userProfileView.notifications.size() != 0}">
-                                        <span class="yasn-notification-container-hidden">[(${userProfileView.notifications.size()})]</span>
+                                        <span class="yasn-notification-container-hidden">
+                                            [(${userProfileView.notifications.size()})]
+                                        </span>
                                     </th:block>
+                                </div>
+                                <div id="yasn-notifications-content" class="dropdown-menu multi-level" role="menu">
+                                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                                    <th:block th:each="notification : ${userProfileView.notifications}">
+                                        <div class="notification-content-container">
+                                            <img class="comment-meta-avatar-img" th:src="@{${notification.senderPicture}}">
+                                            <span>[(${notification.senderFullName})]</span>
+                                            <span>[(${notification.content})]</span>
+                                            <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
+                                            <span th:text="${time.calcTimeAgo(notification.createdOn)}"></span>
+                                        </div>
+                                    </th:block>
+                                    <hr class="post-delimiter">
                                 </div>
                             </a>
                             <div class="notification-dropdown-content">
@@ -97,7 +115,7 @@
                         </li>
                         <li class="navbar-dropdown-menu">
                             <div class="dropdown">
-                                <a role="button" data-target="#" data-toggle="dropdown" aria-expanded="false">
+                                <a role="button" data-target="#" data-toggle="dropdown">
                                     <i class="fas fa-caret-down"></i>
                                 </a>
                                 <ul class="dropdown-menu multi-level" role="menu">
