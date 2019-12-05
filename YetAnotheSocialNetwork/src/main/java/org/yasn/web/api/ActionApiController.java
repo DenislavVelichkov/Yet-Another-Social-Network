@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.service.interfaces.NotificationService;
+import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.web.controller.BaseController;
 
@@ -20,6 +21,7 @@ import java.security.Principal;
 public class ActionApiController extends BaseController {
   private final WallService wallService;
   private final NotificationService notificationService;
+  private final UserProfileService userProfileService;
 
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
@@ -58,6 +60,14 @@ public class ActionApiController extends BaseController {
 
       this.notificationService.createNotification(
           profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
+
+  }
+
+  @PostMapping("/accept-friend")
+  public void acceptFriendRequest(@ModelAttribute(name = "senderId") String senderId,
+                                Principal activeUser) {
+
+    this.userProfileService.addFriend(senderId, activeUser.getName());
 
   }
 

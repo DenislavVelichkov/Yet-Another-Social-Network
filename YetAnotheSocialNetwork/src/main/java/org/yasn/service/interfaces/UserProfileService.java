@@ -6,4 +6,6 @@ public interface UserProfileService {
   UserProfileServiceModel findUserProfileByUsername(String username);
 
   UserProfileServiceModel findUserProfileById(String id);
+
+  void addFriend(String senderId, String userName);
 }

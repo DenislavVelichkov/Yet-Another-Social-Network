@@ -44,13 +44,30 @@ public class UserProfileServiceImpl implements UserProfileService {
         this.modelMapper.map(profile, UserProfileServiceModel.class);
 
     profileService.setId(profile.getId());
-    profileService.setFullName(profile.getProfileOwner().getFirstName()
+    profileService.setFullName(
+        profile.getProfileOwner().getFirstName()
         + ' '
         + profile.getProfileOwner().getLastName());
 
     this.modelMapper.validate();
 
     return profileService;
+  }
+
+  @Override
+  public void addFriend(String senderId, String userName) {
+
+    UserProfileServiceModel recipient =
+        this.modelMapper.map(this.findUserProfileByUsername(userName), UserProfileServiceModel.class);
+    this.modelMapper.validate();
+
+    UserProfileServiceModel sender =
+        this.modelMapper.map(this.findUserProfileById(senderId), UserProfileServiceModel.class);
+    this.modelMapper.validate();
+
+    recipient.getFriends().add(sender);
+
+    this.userProfileRepository.saveAndFlush(this.modelMapper.map(recipient, UserProfile.class));
   }
 
 

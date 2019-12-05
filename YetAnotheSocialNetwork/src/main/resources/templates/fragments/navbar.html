@@ -100,10 +100,19 @@
                                     <th:block th:each="notification : ${userProfileView.notifications}">
                                         <div class="notification-content-container">
                                             <img class="comment-meta-avatar-img" th:src="@{${notification.senderPicture}}">
-                                            <span>[(${notification.senderFullName})]</span>
-                                            <span>[(${notification.content})]</span>
+                                            <a th:href="@{'/profile/guest/' + ${notification.senderId}}">
+                                                [(${notification.senderFullName})]
+                                            </a>
+                                            <span>, [(${notification.content})]</span>
                                             <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
-                                            <span th:text="${time.calcTimeAgo(notification.createdOn)}"></span>
+                                            <a id="accept-friend" onclick="acceptFriend()"
+                                               th:attr="senderId = ${notification.senderId}"
+                                               href="javascript: void(0)"
+                                               style="margin-left: 1em">
+                                                Accept
+                                            </a>
+                                            <span th:text="${time.calcTimeAgo(notification.createdOn)}"
+                                                  style="font-style: italic; margin-left: 1em"></span>
                                         </div>
                                     </th:block>
                                     <hr class="post-delimiter">

@@ -65,10 +65,11 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public List<NotificationServiceModel> findAllByRecipientIdAndSenderId(String recipientId, String senderId) {
+  public List<NotificationServiceModel> findAllByRecipientIdAndSenderId(String recipientId,
+                                                                        String senderId) {
 
-    List<Notification> notifications = this.notificationRepository
-        .findAllByRecipientIdAndSenderId(recipientId, senderId);
+    List<Notification> notifications =
+        this.notificationRepository.findAllByRecipientIdAndSenderId(recipientId, senderId);
 
     return notifications
         .stream()

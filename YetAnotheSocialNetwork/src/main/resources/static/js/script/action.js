@@ -1,6 +1,7 @@
 const URLs = {
     likes: '/api/likes',
-    addFriend: '/api/add-friend/',
+    addFriend: '/api/add-friend',
+    acceptFriend: '/api/accept-friend',
 };
 
 function getCookie(name) {
@@ -61,7 +62,7 @@ const addFriend = function () {
                 },
                 body: 'profileId' + '=' + profileId + '&' + '_csrf' + '=' + csrfToken
 
-            }).then(response => Response.redirect("/home"));
+            }).then(() => window.location = '/profile/guest/' + profileId);
                 /*.then((response) => {
                     alert(response.json());
                     return response.json();
@@ -75,6 +76,28 @@ const addFriend = function () {
             return false;
         });
 
+    });
+};
+
+const acceptFriend = function () {
+    $(document).ready(function () {
+        $(document.body).on('click', '#accept-friend', function (ev) {
+            const url = URLs.acceptFriend;
+            const senderId = $(this).attr('senderId');
+
+            fetch(url, {
+                credentials: 'same-origin',
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'senderId' + '=' + senderId + '&' + '_csrf' + '=' + csrfToken
+
+            }).then(() => window.location = '/profile/guest/' + senderId);
+
+            ev.preventDefault();
+            return false;
+        });
     });
 };
 

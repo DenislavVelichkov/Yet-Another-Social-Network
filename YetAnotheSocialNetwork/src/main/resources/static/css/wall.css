@@ -18,7 +18,6 @@
 
 .post-menu ul.show li {
     display: inline-block;
-    margin-left: 1em;
 }
 
 .post-control-delete {
@@ -186,6 +185,10 @@
     padding: 1em;
 }
 
+.post-menu .dropdown-menu {
+    min-width: 3rem!important;
+    text-align: center!important;
+}
 
 
 
