@@ -64,6 +64,24 @@
                 <div class="navbar-menu-right nav-tabs float-right">
                     <ul>
                         <li>
+                            <a th:href="@{/home}" class="yasn-home" style="color: #212529">
+                                <span>
+                                    <div>
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="yasn-search">
+                                <span>
+                                    <div>
+                                        <i class="fab fa-searchengin"></i>
+                                    </div>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
                             <a class="yasn-notification-friends">
                                 <span>
                                     <div>
@@ -88,16 +106,17 @@
                                data-toggle="dropdown">
                                 <div class="notification-icons-container">
                                     <i class="fas fa-bell"></i>
-                                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-                                    <th:block th:if="${userProfileView.notifications.size() != 0}">
+                                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                                    <th:block th:unless="${activeUserDetails.notifications.size() == 0}">
                                         <span class="yasn-notification-container-hidden">
                                             [(${userProfileView.notifications.size()})]
                                         </span>
                                     </th:block>
                                 </div>
                                 <div id="yasn-notifications-content" class="dropdown-menu multi-level" role="menu">
-                                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-                                    <th:block th:each="notification : ${userProfileView.notifications}">
+                                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                                    <th:block th:each="notification : ${activeUserDetails.notifications}">
+                                        <hr class="post-delimiter">
                                         <div class="notification-content-container">
                                             <img class="comment-meta-avatar-img" th:src="@{${notification.senderPicture}}">
                                             <a th:href="@{'/profile/guest/' + ${notification.senderId}}">
@@ -115,12 +134,8 @@
                                                   style="font-style: italic; margin-left: 1em"></span>
                                         </div>
                                     </th:block>
-                                    <hr class="post-delimiter">
                                 </div>
                             </a>
-                            <div class="notification-dropdown-content">
-
-                            </div>
                         </li>
                         <li class="navbar-dropdown-menu">
                             <div class="dropdown">

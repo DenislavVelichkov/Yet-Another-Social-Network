@@ -11,4 +11,6 @@ public interface NotificationService {
 
   NotificationServiceModel createNotification(
       String senderId, String recipientId, NotificationType notificationType);
+
+  void removeNotification(String senderId, String recipientUsername, NotificationType friendReq);
 }

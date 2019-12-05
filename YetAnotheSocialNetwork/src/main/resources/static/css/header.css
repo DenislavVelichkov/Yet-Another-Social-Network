@@ -134,8 +134,5 @@ div.navbar-login-form-field-container:nth-child(3) {
 
 .notification-content-container {
     display: block;
-    background-color: #0b769c24;
     padding: 1em;
-    border-top: 5px solid #0b769c24;
-    border-bottom: 5px solid #0b769c24;
 }

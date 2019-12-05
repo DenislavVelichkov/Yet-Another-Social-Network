@@ -69,6 +69,8 @@ public class ActionApiController extends BaseController {
 
     this.userProfileService.addFriend(senderId, activeUser.getName());
 
+    this.notificationService.removeNotification(
+        senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
   }
 
 }

@@ -8,12 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NotificationRepository extends JpaRepository<Notification, String> {
-  List<Notification> findAllByRecipientId(String id);
 
   List<Notification> findAllByRecipientIdAndSenderId(String recipientId, String senderId);
 
- Optional<Notification> findByRecipientIdAndSenderId(String recipientId, String senderId);
-
- Optional<Notification> findBySenderIdAndNotificationType(String senderId, NotificationType notificationType);
+  Optional<Notification> findByRecipientIdAndSenderIdAndNotificationType(String recipientId, String senderId, NotificationType notificationType);
 
 }

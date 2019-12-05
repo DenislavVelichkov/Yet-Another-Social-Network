@@ -50,13 +50,15 @@ public class HomeController extends BaseController {
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(userProfileServiceModel.getId());
-    activeUserDetails.setFirstName(userProfileServiceModel.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(userProfileServiceModel.getProfilePicture());
-
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
+    activeUserDetails.setId(userProfileView.getId());
+    activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
+    activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
+    activeUserDetails.setNotifications(userProfileView.getNotifications());
+
 
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
 

@@ -47,13 +47,16 @@ public class UserProfileController extends BaseController {
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(profileId);
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(userProfileServiceModel.getId());
-    activeUserDetails.setFirstName(userProfileServiceModel.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(userProfileServiceModel.getProfilePicture());
-
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
+    activeUserDetails.setId(userProfileView.getId());
+    activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
+    activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
+    activeUserDetails.setNotifications(userProfileView.getNotifications());
+
+
 
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);
@@ -119,13 +122,18 @@ public class UserProfileController extends BaseController {
     UserProfileServiceModel activeUserProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(activeUserProfileServiceModel.getId());
-    activeUserDetails.setFirstName(activeUserProfileServiceModel.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(activeUserProfileServiceModel.getProfilePicture());
-
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    UserProfileViewModel activeUserViewModel =
+        this.modelMapper.map(activeUserProfileServiceModel, UserProfileViewModel.class);
+
+    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
+    activeUserDetails.setId(activeUserViewModel.getId());
+    activeUserDetails.setFirstName(activeUserViewModel.getProfileOwner().getFirstName());
+    activeUserDetails.setProfilePicture(activeUserViewModel.getProfilePicture());
+    activeUserDetails.setNotifications(activeUserViewModel.getNotifications());
+
 
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);

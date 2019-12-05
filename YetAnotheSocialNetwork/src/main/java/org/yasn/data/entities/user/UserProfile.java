@@ -65,6 +65,7 @@ public class UserProfile extends BaseEntity {
   @OneToMany(
       targetEntity = Notification.class,
       mappedBy = "recipient",
-      cascade= CascadeType.ALL)
+      cascade= CascadeType.ALL,
+      orphanRemoval = true)
   Set<Notification> notifications;
 }

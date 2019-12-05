@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import org.yasn.common.NotificationMessages;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.entities.Notification;
+import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.NotificationServiceModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.repository.NotificationRepository;
+import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;
 
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
   private final NotificationRepository notificationRepository;
+  private final UserProfileRepository userProfileRepository;
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
 
@@ -76,5 +79,27 @@ public class NotificationServiceImpl implements NotificationService {
         .map(notification -> this.modelMapper.map(
             notification, NotificationServiceModel.class))
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public void removeNotification(String senderId, String recipientUsername, NotificationType friendReq) {
+    UserProfileServiceModel recipient =
+        this.userProfileService.findUserProfileByUsername(recipientUsername);
+
+    NotificationServiceModel notificationToRemove =
+        recipient.getNotifications().stream()
+            .filter(notification ->
+                notification.getRecipient().getId().equals(recipient.getId())
+                && notification.getSenderId().equals(senderId)
+                && notification.getNotificationType().equals(friendReq))
+            .findFirst()
+            .orElse(null);
+
+    if (notificationToRemove != null) {
+      recipient.getNotifications().remove(notificationToRemove);
+      UserProfile userProfile = this.modelMapper.map(recipient, UserProfile.class);
+      this.modelMapper.validate();
+      this.userProfileRepository.saveAndFlush(userProfile);
+    }
   }
 }
