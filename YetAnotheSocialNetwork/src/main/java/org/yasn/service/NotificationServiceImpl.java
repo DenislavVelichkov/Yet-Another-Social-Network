@@ -11,6 +11,9 @@ import org.yasn.repository.NotificationRepository;
 import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
@@ -48,17 +51,15 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public boolean doesNotificationExists(String recipientId,
-                                        String senderUsername,
-                                        NotificationType notificationType) {
-    String senderId =
-        this.userProfileService.findUserProfileByUsername(senderUsername).getId();
+  public List<NotificationServiceModel> findAllByRecipientIdAndSenderId(String recipientId, String senderId) {
 
-    return this.notificationRepository
-        .findAllByRecipientIdAndSenderId(recipientId, senderId)
+    List<Notification> notifications = this.notificationRepository
+        .findAllByRecipientIdAndSenderId(recipientId, senderId);
+
+    return notifications
         .stream()
-        .anyMatch(notification ->
-            notification.getNotificationType().equals(notificationType));
+        .map(notification -> this.modelMapper.map(
+            notification, NotificationServiceModel.class))
+        .collect(Collectors.toList());
   }
-
 }

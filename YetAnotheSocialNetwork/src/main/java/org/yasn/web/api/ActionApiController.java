@@ -55,10 +55,10 @@ public class ActionApiController extends BaseController {
   @PostMapping("/add-friend")
   public void sendFriendRequest(@ModelAttribute(name = "profileId") String profileId,
                                 Principal activeUser) {
-    if (!this.notificationService.doesNotificationExists(
-        profileId, activeUser.getName(), NotificationType.FRIEND_REQ)) {
-      this.notificationService.createNotification(profileId, activeUser.getName());
-    }
+
+      this.notificationService.createNotification(
+          profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
+
   }
 
 }
