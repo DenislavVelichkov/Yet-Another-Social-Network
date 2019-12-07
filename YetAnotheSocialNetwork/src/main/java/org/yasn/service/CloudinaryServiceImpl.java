@@ -13,21 +13,22 @@ import java.util.HashMap;
 @Service
 public class CloudinaryServiceImpl implements CloudinaryService {
 
-  private final Cloudinary cloudinary;
+    private final Cloudinary cloudinary;
 
-  @Autowired
-  public CloudinaryServiceImpl(Cloudinary cloudinary) {
-    this.cloudinary = cloudinary;
-  }
+    @Autowired
+    public CloudinaryServiceImpl(Cloudinary cloudinary) {
+        this.cloudinary = cloudinary;
+    }
 
-  @Override
-  public String uploadImage(MultipartFile multipartFile) throws IOException {
-    File file = File
-        .createTempFile("temp-file", multipartFile.getOriginalFilename());
-    multipartFile.transferTo(file);
+    @Override
+    public String uploadImage(MultipartFile multipartFile) throws IOException {
+        File file = File
+                .createTempFile("temp-file", multipartFile.getOriginalFilename());
+        multipartFile.transferTo(file);
 
-    return this.cloudinary.uploader()
-        .upload(file, new HashMap())
-        .get("url").toString();
-  }
+        return this.cloudinary
+                .uploader()
+                .upload(file, new HashMap())
+                .get("url").toString();
+    }
 }

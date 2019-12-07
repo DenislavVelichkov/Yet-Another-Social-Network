@@ -73,8 +73,6 @@ public class UserServiceImpl implements UserService {
 
     user.setUserProfile(profile);
 
-    this.modelMapper.validate();
-
     return this.modelMapper
         .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
   }

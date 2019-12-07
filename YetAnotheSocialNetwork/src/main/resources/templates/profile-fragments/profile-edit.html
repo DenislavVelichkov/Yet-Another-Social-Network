@@ -16,13 +16,15 @@
         <div id="user-profile-main" class="col-6">
             <div class="user-profile-container">
                 <th:block layout:insert="~{profile-fragments/profile-header}"/>
-                <div  class="profile-edit-container row">
-                    <div class="shadow mb-5 bg-white rounded col-8">
-                        <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
-                        <!--/*@thymesVar id="profileEdit" type="org.yasn.data.models.binding.ProfileEditBindingModel"*/-->
-                        <form th:action="@{'/profile/edit/' + ${activeUserDetails.id}}" th:method="post"
-                              th:object="${profileEdit}"
-                              enctype="multipart/form-data">
+
+                <!--/*@thymesVar id="profileEdit" type="org.yasn.data.models.binding.ProfileEditBindingModel"*/-->
+                <form th:action="@{'/profile/edit/' + ${activeUserDetails.id}}" th:method="post"
+                      th:object="${profileEdit}"
+                      enctype="multipart/form-data">
+                    <div class="profile-edit-container row">
+                        <div class="shadow mb-5 bg-white rounded col-8">
+                            <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                            <!--/*@thymesVar id="profileEdit" type="org.yasn.data.models.binding.ProfileEditBindingModel"*/-->
 
                             <div class="row">
                                 <div class="col-6">
@@ -61,13 +63,26 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    <label class="font-weight-bold" for="password"></label>
+                                    <label class="font-weight-bold" for="oldPassword"></label>
                                     <input aria-describedby="passwordHelpInline" class="form-control"
-                                           id="password" name="password" placeholder="Password..."
-                                           th:value="*{password}"
+                                           id="oldPassword" name="oldPassword" placeholder="Old Password..."
+                                           th:value="*{oldPassword}"
                                            type="password">
-                                    <th:block th:if="${#fields.hasErrors('password')}">
-                                        <small class="error" th:errors="*{password}"></small>
+                                    <th:block th:if="${#fields.hasErrors('oldPassword')}">
+                                        <small class="error" th:errors="*{oldPassword}"></small>
+                                    </th:block>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="font-weight-bold" for="newPassword"></label>
+                                    <input aria-describedby="passwordHelpInline" class="form-control"
+                                           id="newPassword" name="newPassword" placeholder="New Password..."
+                                           th:value="*{newPassword}"
+                                           type="password">
+                                    <th:block th:if="${#fields.hasErrors('newPassword')}">
+                                        <small class="error" th:errors="*{newPassword}"></small>
                                     </th:block>
                                     <small class="text-muted" id="passwordHelpInline">
                                         Must be minimum 8 characters long.
@@ -78,12 +93,12 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    <label class="font-weight-bold" for="confirmPassword"></label>
-                                    <input class="form-control" id="confirmPassword" name="confirmPassword"
-                                           placeholder="Confirm Password..." th:value="*{confirmPassword}"
+                                    <label class="font-weight-bold" for="confirmNewPassword"></label>
+                                    <input class="form-control" id="confirmNewPassword" name="confirmNewPassword"
+                                           placeholder="Confirm The New Password..." th:value="*{confirmNewPassword}"
                                            type="password">
-                                    <th:block th:if="${#fields.hasErrors('password')}">
-                                        <small class="error" th:errors="*{password}"></small>
+                                    <th:block th:if="${#fields.hasErrors('newPassword')}">
+                                        <small class="error" th:errors="*{newPassword}"></small>
                                     </th:block>
                                 </div>
                             </div>
@@ -125,21 +140,28 @@
                                        value="Save">
                             </div>
 
-                        </form>
 
-                    </div>
-                    <div class="edit-profile-upload-container col shadow mb-5 bg-white rounded col-3 offset-1">
-                        <div class="upload-profile-picture">
-                            <i class="text-muted fas fa-portrait"></i>
                         </div>
-                        <p class="text-muted">Upload profile picture</p>
+                        <div class="edit-profile-upload-container col shadow mb-5 bg-white rounded col-3 offset-1">
+                            <div class="upload-profile-picture">
+                                <label for="file-input-portrait">
+                                    <i class="text-muted fas fa-portrait"></i>
+                                </label>
+                            </div>
+                            <input style="display: none" id="file-input-portrait" type="file"
+                                   th:field="*{profilePicture}"/>
+                            <p class="text-muted">Upload profile picture</p>
+                            <div class="upload-cover-img">
+                                <label for="file-input-cover">
+                                    <i class="text-muted far fa-image"></i>
+                                </label>
+                            </div>
+                            <input style="display: none" id="file-input-cover" type="file" th:field="*{coverPicture}"/>
+                            <p class="text-muted">Upload profile cover</p>
+                        </div>
+                    </div>
+                </form>
 
-                        <div class="upload-cover-img">
-                            <i class="text-muted far fa-image"></i>
-                        </div>
-                        <p class="text-muted">Upload profile cover</p>
-                    </div>
-                </div>
             </div>
         </div>
 

@@ -2,8 +2,10 @@ package org.yasn.web.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
@@ -22,7 +24,7 @@ import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.TimeUtil;
-import org.yasn.validation.user.UserRegisterValidator;
+import org.yasn.validation.user.ProfileEditValidator;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -40,8 +42,14 @@ public class UserProfileController extends BaseController {
   private final CloudinaryService cloudinaryService;
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
-  private final UserRegisterValidator userRegisterValidator;
+  private final ProfileEditValidator profileEditValidator;
 
+  @InitBinder
+  public void allowEmptyDateBinding(WebDataBinder binder)
+  {
+    // tell spring to set empty values as null instead of empty string.
+    binder.registerCustomEditor( String.class, new StringTrimmerEditor( true ));
+  }
 
   @GetMapping("/timeline/{profileId}")
   @PageTitle("Profile")
@@ -118,7 +126,7 @@ public class UserProfileController extends BaseController {
   public ModelAndView guestProfile(ModelAndView modelAndView,
                                    @PathVariable String profileId,
                                    Principal activeUser) {
-// TODO: 12/2/19 Create a Timeline
+// TODO: 12/2/19 Create a Timeline Guest Post
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(profileId);
@@ -265,23 +273,31 @@ public class UserProfileController extends BaseController {
   public ModelAndView finalizeEditing(ModelAndView modelAndView,
                                       @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
                                       @PathVariable(name ="id") String id,
-                                      BindingResult bindingResult) {
-    this.userRegisterValidator.validate(profileEdit, bindingResult);
+                                      BindingResult bindingResult) throws IOException {
+
+    if (this.majorChangeAccrue(profileEdit)) {
+      this.profileEditValidator.validate(profileEdit, bindingResult);
+    }
 
     if (bindingResult.hasErrors()) {
-      profileEdit.setPassword(null);
-      profileEdit.setConfirmPassword(null);
-
+      profileEdit.setNewPassword(null);
+      profileEdit.setConfirmNewPassword(null);
       modelAndView.addObject("profileEdit", profileEdit);
-
       return super.view("profile-fragments/profile-edit", modelAndView);
     }
 
     UserProfileServiceModel userProfile =
-        this.modelMapper.map(profileEdit, UserProfileServiceModel.class);
+            this.userProfileService.findUserProfileById(id);
 
-    this.userProfileService.editProfile(userProfile);
+    this.userProfileService.editProfile(userProfile, profileEdit);
 
     return super.redirect("/profile/timeline/" + id);
+  }
+
+  // TODO: 12/7/2019 Add First Name and Last Name to validation
+  private boolean majorChangeAccrue(ProfileEditBindingModel profileEdit) {
+    return profileEdit.getNewPassword() != null
+            || profileEdit.getEmail() != null
+            || profileEdit.getOldPassword() != null;
   }
 }
