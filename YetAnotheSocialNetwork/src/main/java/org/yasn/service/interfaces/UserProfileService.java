@@ -7,5 +7,7 @@ public interface UserProfileService {
 
   UserProfileServiceModel findUserProfileById(String id);
 
-  void addFriend(String senderId, String userName);
+  boolean addFriend(String senderId, String userName);
+
+  boolean editProfile(UserProfileServiceModel userProfile);
 }

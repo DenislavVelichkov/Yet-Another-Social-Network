@@ -77,8 +77,10 @@
                         </a>
                     </li>
                     <li>
-                        <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
-                        <i class="far fa-thumbs-up"></i>
+                        <th:block th:unless="${post.actualLikes.size() == 0}">
+                            <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
+                            <i class="far fa-thumbs-up"></i>
+                        </th:block>
                     </li>
                 </ul>
             </div>

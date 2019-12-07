@@ -3,11 +3,13 @@ package org.yasn.web.controller;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.binding.PostCommentBindingModel;
+import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
@@ -20,6 +22,7 @@ import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.TimeUtil;
+import org.yasn.validation.user.UserRegisterValidator;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -37,6 +40,7 @@ public class UserProfileController extends BaseController {
   private final CloudinaryService cloudinaryService;
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
+  private final UserRegisterValidator userRegisterValidator;
 
 
   @GetMapping("/timeline/{profileId}")
@@ -232,5 +236,52 @@ public class UserProfileController extends BaseController {
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
     return super.redirect("/profile/guest/" + profileId);
+  }
+
+  @GetMapping("/edit/{id}")
+  public ModelAndView profileEdit(ModelAndView modelAndView,
+                                  @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
+                                  @PathVariable(name ="id") String id) {
+
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileById(id);
+
+    UserProfileViewModel userProfileView =
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
+    activeUserDetails.setId(userProfileView.getId());
+    activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
+    activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
+    activeUserDetails.setNotifications(userProfileView.getNotifications());
+
+    modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject("activeUserDetails", activeUserDetails);
+
+    return super.view("profile-fragments/profile-edit", modelAndView);
+  }
+
+  @PostMapping("/edit/{id}")
+  public ModelAndView finalizeEditing(ModelAndView modelAndView,
+                                      @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
+                                      @PathVariable(name ="id") String id,
+                                      BindingResult bindingResult) {
+    this.userRegisterValidator.validate(profileEdit, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      profileEdit.setPassword(null);
+      profileEdit.setConfirmPassword(null);
+
+      modelAndView.addObject("profileEdit", profileEdit);
+
+      return super.view("profile-fragments/profile-edit", modelAndView);
+    }
+
+    UserProfileServiceModel userProfile =
+        this.modelMapper.map(profileEdit, UserProfileServiceModel.class);
+
+    this.userProfileService.editProfile(userProfile);
+
+    return super.redirect("/profile/timeline/" + id);
   }
 }

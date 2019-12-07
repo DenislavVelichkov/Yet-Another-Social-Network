@@ -88,4 +88,18 @@
     padding: 0;
 }
 
+.profile-edit-container {
+    margin: 0;
+}
+
+.upload-profile-picture, .upload-cover-img {
+    font-size: 9rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.edit-profile-upload-container p{
+    text-align: center;
+    font-weight: bold;
+}
 /*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/

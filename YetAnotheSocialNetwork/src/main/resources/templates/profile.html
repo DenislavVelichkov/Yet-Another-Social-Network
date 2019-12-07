@@ -7,6 +7,7 @@
       sec:authorize="isAuthenticated()">
 
 <th:block layout:fragment="main-content">
+
     <div class="row" id="user-profile-body-container">
 
         <div id="user-profile-sidebar-left" class="col-3">
@@ -15,64 +16,9 @@
 
         <div id="user-profile-main" class="col-6">
             <div class="user-profile-container">
-                <div class="user-cover-container">
-                    <div class="shadow mb-5 bg-white rounded">
-                        <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-                        <div class="cover-img-container">
-                            <img class="static" th:src="@{${userProfileView.coverPicture}}"
-                                 alt="cover-profile-image"/>
-                            <img class="img-fluid z-depth-2 rounded profile-picture"
-                                 th:src="@{${userProfileView.profilePicture}}"
-                                 alt="profile-picture"/>
-                            <span th:text="${userProfileView.fullName}"></span>
-                        </div>
-                        <div class="profile-nav-container">
-                            <div class="profile-cover-menu">
-                                <ul>
-                                    <li>
-                                        <a href="">
-                                            Timeline
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            Friends
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            Photos
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="profile-action-buttons">
-                                            <a href="" type="submit">Messages</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <th:block layout:insert="~{profile-fragments/profile-header}"/>
                 <div class="row">
-                    <div class="col-6">
-                        <th:block layout:insert="~{profile-fragments/create-timeline-post}"/>
-                        <th:block layout:insert="~{profile-fragments/profile-post}"/>
-                        <!--todo Fix send buttons to be responsive!-->
-                    </div>
-                    <div class="col-6">
-                        <div class="user-profile-sidebar-container">
-                            <div class="profile-gallery-container shadow p-sm-1 mb-5 bg-white rounded">
-                                <p class="h6 font-weight-bold text-center">Friends</p>
-                                <hr class="post-delimiter">
-                            </div>
-                            <div class="profile-friends-container shadow p-sm-1 mb-5 bg-white rounded">
-                                <p class="h6 font-weight-bold text-center">Photo Gallery</p>
-                                <hr class="post-delimiter">
-                            </div>
-                        </div>
-                    </div>
-
+                    <th:block layout:insert="profile-fragments/profile-timeline"/>
                 </div>
             </div>
         </div>

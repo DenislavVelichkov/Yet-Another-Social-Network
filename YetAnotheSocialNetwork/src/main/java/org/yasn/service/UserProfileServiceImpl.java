@@ -55,7 +55,7 @@ public class UserProfileServiceImpl implements UserProfileService {
   }
 
   @Override
-  public void addFriend(String senderId, String userName) {
+  public boolean addFriend(String senderId, String userName) {
 
     UserProfileServiceModel recipient =
         this.modelMapper.map(this.findUserProfileByUsername(userName), UserProfileServiceModel.class);
@@ -68,9 +68,16 @@ public class UserProfileServiceImpl implements UserProfileService {
     if (recipient.getFriends().stream().noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
       recipient.getFriends().add(sender);
       this.userProfileRepository.saveAndFlush(this.modelMapper.map(recipient, UserProfile.class));
+
+      return true;
     }
 
+    return false;
   }
 
+  @Override
+  public boolean editProfile(UserProfileServiceModel userProfile) {
 
+    return false;
+  }
 }

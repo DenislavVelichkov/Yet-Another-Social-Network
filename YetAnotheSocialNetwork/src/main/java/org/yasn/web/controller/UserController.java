@@ -31,10 +31,8 @@ public class UserController extends BaseController {
 
   @GetMapping("/register")
   @PageTitle("Log In or Sign Up")
-  public ModelAndView index(ModelAndView modelAndView,
-                            @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
-
-    modelAndView.addObject("registerModel", registerModel);
+  public ModelAndView index(
+      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
 
     return super.view("/user/register");
   }

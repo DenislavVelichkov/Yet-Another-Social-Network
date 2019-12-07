@@ -118,7 +118,8 @@
                                     <th:block th:each="notification : ${activeUserDetails.notifications}">
                                         <hr class="post-delimiter">
                                         <div class="notification-content-container">
-                                            <img class="comment-meta-avatar-img" th:src="@{${notification.senderPicture}}">
+                                            <img class="comment-meta-avatar-img"
+                                                 th:src="@{${notification.senderPicture}}">
                                             <a th:href="@{'/profile/guest/' + ${notification.senderId}}">
                                                 [(${notification.senderFullName})]
                                             </a>
@@ -143,11 +144,12 @@
                                     <i class="fas fa-caret-down"></i>
                                 </a>
                                 <ul class="dropdown-menu multi-level" role="menu">
-                                    <li>
+                                    <li sec:authorize="hasAuthority('ADMIN')">
                                         <a th:href="@{/admin}">Admin Panel</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/profile/edit}">Profile Settings</a>
+                                        <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                                        <a th:href="@{'/profile/edit/' + ${activeUserDetails.id}}">Profile Settings</a>
                                     </li>
                                     <li>
                                         <div>
