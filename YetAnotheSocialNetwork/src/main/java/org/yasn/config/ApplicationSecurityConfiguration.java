@@ -17,31 +17,31 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-        .cors().disable()
-        .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
-        .authorizeRequests()
-        .antMatchers("/js/**", "/js/script/**", "/images/**", "/css/**", "/public/resources/**").permitAll()
-        .antMatchers("/", "/user/register", "/user/login").anonymous()
-        .anyRequest().authenticated()
-        .and()
-        .formLogin()
-        .loginPage("/user/login")
-        .loginPage("/user/register")
-        .usernameParameter("email")
-        .passwordParameter("password")
-        .defaultSuccessUrl("/home")
-        .and()
-        .logout()
-        .logoutSuccessUrl("/")
-        .and()
-        .exceptionHandling()
-        .accessDeniedPage("/");
+            .cors().disable()
+            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .and()
+            .authorizeRequests()
+            .antMatchers("/js/**", "/js/script/**", "/images/**", "/css/**", "/public/resources/**").permitAll()
+            .antMatchers("/", "/user/register", "/user/login").anonymous()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/user/login")
+            .loginPage("/user/register")
+            .usernameParameter("email")
+            .passwordParameter("password")
+            .defaultSuccessUrl("/home")
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")
+            .and()
+            .exceptionHandling()
+            .accessDeniedPage("/");
   }
 
   private CsrfTokenRepository csrfTokenRepository() {
     HttpSessionCsrfTokenRepository repository =
-        new HttpSessionCsrfTokenRepository();
+            new HttpSessionCsrfTokenRepository();
     repository.setSessionAttributeName("_csrf");
 
     return repository;

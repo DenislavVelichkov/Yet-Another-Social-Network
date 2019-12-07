@@ -1,8 +1,8 @@
 package org.yasn.data.entities.user;
 
-import org.yasn.data.entities.BaseEntity;
-
 import javax.persistence.*;
+
+import org.yasn.data.entities.BaseEntity;
 
 @Entity
 @Table(name = "gallery")

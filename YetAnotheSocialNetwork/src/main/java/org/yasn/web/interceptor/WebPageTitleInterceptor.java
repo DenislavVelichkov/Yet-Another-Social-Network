@@ -1,13 +1,13 @@
 package org.yasn.web.interceptor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.yasn.common.annotations.interceptor.PageTitle;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class WebPageTitleInterceptor extends HandlerInterceptorAdapter {
@@ -27,11 +27,11 @@ public class WebPageTitleInterceptor extends HandlerInterceptorAdapter {
 
         if (pageTitle != null) {
           modelAndView
-              .addObject("title",
-                  title
-                      + " - "
-                      + pageTitle.value()
-              );
+                  .addObject("title",
+                          title
+                                  + " - "
+                                  + pageTitle.value()
+                  );
         }
       }
     }

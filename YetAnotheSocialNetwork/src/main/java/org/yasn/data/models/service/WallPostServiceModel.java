@@ -1,12 +1,12 @@
 package org.yasn.data.models.service;
 
+import java.sql.Timestamp;
+import java.util.Set;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
-
-import java.sql.Timestamp;
-import java.util.Set;
 
 
 @Getter

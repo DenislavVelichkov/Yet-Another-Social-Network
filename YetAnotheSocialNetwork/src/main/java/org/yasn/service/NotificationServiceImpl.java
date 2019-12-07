@@ -1,5 +1,10 @@
 package org.yasn.service;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,11 +19,6 @@ import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @AllArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
@@ -29,17 +29,17 @@ public class NotificationServiceImpl implements NotificationService {
 
   @Override
   public NotificationServiceModel createNotification(
-      String recipientId, String senderUsername, NotificationType notificationType) {
+          String recipientId, String senderUsername, NotificationType notificationType) {
 
-    UserProfileServiceModel sender  =
-        this.userProfileService
-            .findUserProfileByUsername(senderUsername);
+    UserProfileServiceModel sender =
+            this.userProfileService
+                    .findUserProfileByUsername(senderUsername);
 
     UserProfileServiceModel recipient =
-        this.userProfileService.findUserProfileById(recipientId);
+            this.userProfileService.findUserProfileById(recipientId);
 
     NotificationServiceModel notificationServiceModel =
-        new NotificationServiceModel();
+            new NotificationServiceModel();
 
     notificationServiceModel.setSenderId(sender.getId());
     notificationServiceModel.setRecipient(recipient);
@@ -60,7 +60,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     Notification notification =
-        this.modelMapper.map(notificationServiceModel, Notification.class);
+            this.modelMapper.map(notificationServiceModel, Notification.class);
     this.modelMapper.validate();
     this.notificationRepository.saveAndFlush(notification);
 
@@ -72,28 +72,28 @@ public class NotificationServiceImpl implements NotificationService {
                                                                         String senderId) {
 
     List<Notification> notifications =
-        this.notificationRepository.findAllByRecipientIdAndSenderId(recipientId, senderId);
+            this.notificationRepository.findAllByRecipientIdAndSenderId(recipientId, senderId);
 
     return notifications
-        .stream()
-        .map(notification -> this.modelMapper.map(
-            notification, NotificationServiceModel.class))
-        .collect(Collectors.toList());
+            .stream()
+            .map(notification -> this.modelMapper.map(
+                    notification, NotificationServiceModel.class))
+            .collect(Collectors.toList());
   }
 
   @Override
   public void removeNotification(String senderId, String recipientUsername, NotificationType friendReq) {
     UserProfileServiceModel recipient =
-        this.userProfileService.findUserProfileByUsername(recipientUsername);
+            this.userProfileService.findUserProfileByUsername(recipientUsername);
 
     NotificationServiceModel notificationToRemove =
-        recipient.getNotifications().stream()
-            .filter(notification ->
-                notification.getRecipient().getId().equals(recipient.getId())
-                && notification.getSenderId().equals(senderId)
-                && notification.getNotificationType().equals(friendReq))
-            .findFirst()
-            .orElse(null);
+            recipient.getNotifications().stream()
+                    .filter(notification ->
+                            notification.getRecipient().getId().equals(recipient.getId())
+                                    && notification.getSenderId().equals(senderId)
+                                    && notification.getNotificationType().equals(friendReq))
+                    .findFirst()
+                    .orElse(null);
 
     if (notificationToRemove != null) {
       recipient.getNotifications().remove(notificationToRemove);

@@ -1,12 +1,12 @@
 package org.yasn.data.models.service;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

@@ -1,9 +1,9 @@
 package org.yasn.service.interfaces;
 
-import org.yasn.data.models.service.PostCommentServiceModel;
-
 import java.security.Principal;
 import java.util.List;
+
+import org.yasn.data.models.service.PostCommentServiceModel;
 
 public interface PostCommentService {
 

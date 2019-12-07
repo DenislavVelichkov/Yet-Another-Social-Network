@@ -1,5 +1,8 @@
 package org.yasn.web.controller;
 
+import java.io.IOException;
+import java.security.Principal;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -15,9 +18,6 @@ import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.WallService;
-
-import java.io.IOException;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/home/wall")
@@ -37,11 +37,11 @@ public class WallController extends BaseController {
 // TODO: 11/12/2019 Validations
 
     WallPostServiceModel wallPostServiceModel =
-        this.modelMapper.map(wallPost, WallPostServiceModel.class);
+            this.modelMapper.map(wallPost, WallPostServiceModel.class);
 
     if (!wallPost.getPostPicture().isEmpty()) {
       wallPostServiceModel.setPostPicture(
-          this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
+              this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
     } else {
       wallPostServiceModel.setPostPicture(null);
     }
@@ -61,12 +61,12 @@ public class WallController extends BaseController {
                                         Principal activeUser) throws IOException {
 
     PostCommentServiceModel postCommentServiceModel =
-        this.modelMapper.map(postComment, PostCommentServiceModel.class);
+            this.modelMapper.map(postComment, PostCommentServiceModel.class);
 
     if (!postComment.getCommentPicture().isEmpty()) {
       postCommentServiceModel.setCommentPicture(
-          this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
-    }else {
+              this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+    } else {
       postCommentServiceModel.setCommentPicture(null);
     }
 

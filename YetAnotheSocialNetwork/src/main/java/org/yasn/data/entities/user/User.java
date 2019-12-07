@@ -1,16 +1,16 @@
 package org.yasn.data.entities.user;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.yasn.data.entities.BaseEntity;
-
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -20,33 +20,33 @@ import java.util.Set;
 public class User extends BaseEntity implements UserDetails {
 
   @Column(
-      name = "username",
-      nullable = false,
-      unique = true)
+          name = "username",
+          nullable = false,
+          unique = true)
   private String username;
 
   @Column(
-      name = "first_name",
-      nullable = false)
+          name = "first_name",
+          nullable = false)
   private String firstName;
 
   @Column(
-      name = "last_name",
-      nullable = false)
+          name = "last_name",
+          nullable = false)
   private String lastName;
 
   @Column(name = "password", nullable = false)
   private String password;
 
   @Column(
-      name = "email",
-      nullable = false,
-      unique = true)
+          name = "email",
+          nullable = false,
+          unique = true)
   private String email;
 
   @Column(
-      name = "gender",
-      nullable = false)
+          name = "gender",
+          nullable = false)
   private String gender;
 
   @Column(name = "birthday", nullable = false)
@@ -61,21 +61,21 @@ public class User extends BaseEntity implements UserDetails {
   private Timestamp createdOn;
 
   @OneToOne(mappedBy = "profileOwner",
-      cascade = CascadeType.ALL)
+          cascade = CascadeType.ALL)
   private UserProfile userProfile;
 
   @ManyToMany(targetEntity = Role.class,
-      fetch = FetchType.EAGER)
+          fetch = FetchType.EAGER)
   @JoinTable(
-      name = "users_roles",
-      joinColumns = @JoinColumn(
-          name = "user_id",
-          referencedColumnName = "id"
-      ),
-      inverseJoinColumns = @JoinColumn(
-          name = "role_id",
-          referencedColumnName = "id"
-      )
+          name = "users_roles",
+          joinColumns = @JoinColumn(
+                  name = "user_id",
+                  referencedColumnName = "id"
+          ),
+          inverseJoinColumns = @JoinColumn(
+                  name = "role_id",
+                  referencedColumnName = "id"
+          )
   )
   private Set<Role> authorities;
 

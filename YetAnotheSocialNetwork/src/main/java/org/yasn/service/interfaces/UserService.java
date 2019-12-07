@@ -1,9 +1,9 @@
 package org.yasn.service.interfaces;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.yasn.data.models.service.UserServiceModel;
-
-import java.util.List;
 
 public interface UserService extends UserDetailsService {
 

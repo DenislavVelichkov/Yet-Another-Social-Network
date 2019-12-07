@@ -1,15 +1,15 @@
 package org.yasn.data.models.view;
 
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostCommentViewModel extends BaseViewModel{
+public class PostCommentViewModel extends BaseViewModel {
 
   private WallPostViewModel parentPost;
   private UserProfileViewModel commentOwner;

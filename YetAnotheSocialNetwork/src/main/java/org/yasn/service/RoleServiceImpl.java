@@ -1,5 +1,8 @@
 package org.yasn.service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -8,9 +11,6 @@ import org.yasn.data.entities.user.Role;
 import org.yasn.data.models.service.RoleServiceModel;
 import org.yasn.repository.user.RoleRepository;
 import org.yasn.service.interfaces.RoleService;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,14 +31,14 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public Set<RoleServiceModel> findAllRoles() {
     return this.roleRepository.findAll()
-        .stream()
-        .map(role -> this.modelMapper.map(role, RoleServiceModel.class))
-        .collect(Collectors.toSet());
+            .stream()
+            .map(role -> this.modelMapper.map(role, RoleServiceModel.class))
+            .collect(Collectors.toSet());
   }
 
   @Override
   public RoleServiceModel findByAuthority(String authority) {
     return this.modelMapper
-        .map(this.roleRepository.findByAuthority(authority), RoleServiceModel.class);
+            .map(this.roleRepository.findByAuthority(authority), RoleServiceModel.class);
   }
 }

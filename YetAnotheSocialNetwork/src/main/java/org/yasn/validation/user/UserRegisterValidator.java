@@ -1,14 +1,14 @@
 package org.yasn.validation.user;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.validation.ValidationConstants;
 import org.yasn.validation.Validator;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Validator
 public class UserRegisterValidator implements org.springframework.validation.Validator {
@@ -37,49 +37,49 @@ public class UserRegisterValidator implements org.springframework.validation.Val
 
     if (!firstNameMatcher.matches()) {
       errors.rejectValue(
-          "firstName",
-          ValidationConstants.NAME_ONLY_LETTERS,
-          ValidationConstants.NAME_ONLY_LETTERS
+              "firstName",
+              ValidationConstants.NAME_ONLY_LETTERS,
+              ValidationConstants.NAME_ONLY_LETTERS
       );
     }
 
     if (!lastNameMatcher.matches()) {
       errors.rejectValue(
-          "lastName",
-          ValidationConstants.NAME_ONLY_LETTERS,
-          ValidationConstants.NAME_ONLY_LETTERS
+              "lastName",
+              ValidationConstants.NAME_ONLY_LETTERS,
+              ValidationConstants.NAME_ONLY_LETTERS
       );
     }
 
     if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
       errors.rejectValue(
-          "password",
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH,
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH
+              "password",
+              ValidationConstants.PASSWORDS_DO_NOT_MATCH,
+              ValidationConstants.PASSWORDS_DO_NOT_MATCH
       );
     }
 
     if (!passwordMatcher.matches()) {
       errors.rejectValue(
-          "password",
-          ValidationConstants.PASSWORD_CONDITION,
-          ValidationConstants.PASSWORD_CONDITION
+              "password",
+              ValidationConstants.PASSWORD_CONDITION,
+              ValidationConstants.PASSWORD_CONDITION
       );
     }
 
     if (!userRegisterBindingModel.getEmail().equals(userRegisterBindingModel.getConfirmEmail())) {
       errors.rejectValue(
-          "email",
-          ValidationConstants.EMAIL_DOESNT_MATCH,
-          ValidationConstants.EMAIL_DOESNT_MATCH
+              "email",
+              ValidationConstants.EMAIL_DOESNT_MATCH,
+              ValidationConstants.EMAIL_DOESNT_MATCH
       );
     }
 
     if (this.userRepository.findByEmail(userRegisterBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(
-          "email",
-          ValidationConstants.EMAIL_ALREADY_EXISTS,
-          ValidationConstants.EMAIL_ALREADY_EXISTS
+              "email",
+              ValidationConstants.EMAIL_ALREADY_EXISTS,
+              ValidationConstants.EMAIL_ALREADY_EXISTS
       );
     }
   }

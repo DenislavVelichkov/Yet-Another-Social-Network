@@ -1,5 +1,10 @@
 package org.yasn.web.controller;
 
+import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -26,11 +31,6 @@ import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.TimeUtil;
 import org.yasn.validation.user.ProfileEditValidator;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 @RequestMapping("/profile")
 @AllArgsConstructor
@@ -45,10 +45,9 @@ public class UserProfileController extends BaseController {
   private final ProfileEditValidator profileEditValidator;
 
   @InitBinder
-  public void allowEmptyDateBinding(WebDataBinder binder)
-  {
+  public void allowEmptyDateBinding(WebDataBinder binder) {
     // tell spring to set empty values as null instead of empty string.
-    binder.registerCustomEditor( String.class, new StringTrimmerEditor( true ));
+    binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
   }
 
   @GetMapping("/timeline/{profileId}")
@@ -67,7 +66,6 @@ public class UserProfileController extends BaseController {
     activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
     activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
     activeUserDetails.setNotifications(userProfileView.getNotifications());
-
 
 
     List<WallPostServiceModel> postServiceModels =
@@ -98,7 +96,7 @@ public class UserProfileController extends BaseController {
                                           @ModelAttribute(name = "username") String username,
                                           Principal activeUser) throws IOException {
 
-// TODO: 11/12/2019 Validations
+    // TODO: 11/12/2019 Validations
     String profileId =
         this.userProfileService.findUserProfileByUsername(username).getId();
 
@@ -249,7 +247,7 @@ public class UserProfileController extends BaseController {
   @GetMapping("/edit/{id}")
   public ModelAndView profileEdit(ModelAndView modelAndView,
                                   @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
-                                  @PathVariable(name ="id") String id) {
+                                  @PathVariable(name = "id") String id) {
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(id);
@@ -272,7 +270,7 @@ public class UserProfileController extends BaseController {
   @PostMapping("/edit/{id}")
   public ModelAndView finalizeEditing(ModelAndView modelAndView,
                                       @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
-                                      @PathVariable(name ="id") String id,
+                                      @PathVariable(name = "id") String id,
                                       BindingResult bindingResult) throws IOException {
 
     if (this.majorChangeAccrue(profileEdit)) {
@@ -287,7 +285,7 @@ public class UserProfileController extends BaseController {
     }
 
     UserProfileServiceModel userProfile =
-            this.userProfileService.findUserProfileById(id);
+        this.userProfileService.findUserProfileById(id);
 
     this.userProfileService.editProfile(userProfile, profileEdit);
 
@@ -297,7 +295,7 @@ public class UserProfileController extends BaseController {
   // TODO: 12/7/2019 Add First Name and Last Name to validation
   private boolean majorChangeAccrue(ProfileEditBindingModel profileEdit) {
     return profileEdit.getNewPassword() != null
-            || profileEdit.getEmail() != null
-            || profileEdit.getOldPassword() != null;
+        || profileEdit.getEmail() != null
+        || profileEdit.getOldPassword() != null;
   }
 }

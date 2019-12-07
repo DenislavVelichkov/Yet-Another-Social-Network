@@ -1,5 +1,10 @@
 package org.yasn.service;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +21,6 @@ import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.FileUtil;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @AllArgsConstructor
 public class WallServiceImpl implements WallService {
@@ -35,12 +35,12 @@ public class WallServiceImpl implements WallService {
     // TODO: 11/14/2019 Validations !
 
     wallPostServiceModel.setPostOwner(
-        this.userProfileService.findUserProfileByUsername(username));
+            this.userProfileService.findUserProfileByUsername(username));
 
     wallPostServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
 
     WallPost wallPost =
-        this.modelMapper.map(wallPostServiceModel, WallPost.class);
+            this.modelMapper.map(wallPostServiceModel, WallPost.class);
 
     this.wallPostRepository.saveAndFlush(wallPost);
   }
@@ -48,53 +48,53 @@ public class WallServiceImpl implements WallService {
   @Override
   public WallPostServiceModel findWallPostById(String id) {
     return this.modelMapper.map(
-        this.wallPostRepository.findById(id)
-            .orElseThrow(
-                () -> new UsernameNotFoundException(ExceptionMessages.INCORRECT_ID)),
-        WallPostServiceModel.class);
+            this.wallPostRepository.findById(id)
+                    .orElseThrow(
+                            () -> new UsernameNotFoundException(ExceptionMessages.INCORRECT_ID)),
+            WallPostServiceModel.class);
   }
 
   @Override
   public List<WallPostServiceModel> findAllByUsername(String username) {
     return this.wallPostRepository
-        .findAllByPostOwner_ProfileOwner_Username(username)
-        .stream()
-        .map(wallPost ->
-            this.modelMapper.map(wallPost, WallPostServiceModel.class))
-        .collect(Collectors.toList());
+            .findAllByPostOwner_ProfileOwner_Username(username)
+            .stream()
+            .map(wallPost ->
+                    this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            .collect(Collectors.toList());
   }
 
   @Override
   public List<WallPostServiceModel> findAllByOwnerId(String ownerId) {
 
     return this.wallPostRepository
-        .findAllByPostOwner_Id(ownerId)
-        .stream()
-        .map(wallPost ->
-            this.modelMapper.map(wallPost, WallPostServiceModel.class))
-        .collect(Collectors.toList());
+            .findAllByPostOwner_Id(ownerId)
+            .stream()
+            .map(wallPost ->
+                    this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            .collect(Collectors.toList());
   }
 
   @Override
   public List<WallPostServiceModel> displayAllPosts() {
 
     return this.wallPostRepository
-        .findAll()
-        .stream()
-        .map(wallPost ->
-            this.modelMapper.map(wallPost, WallPostServiceModel.class))
-        .collect(Collectors.toList());
+            .findAll()
+            .stream()
+            .map(wallPost ->
+                    this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            .collect(Collectors.toList());
   }
 
   public void likePost(WallPostServiceModel wallPostServiceModel, String profileId) {
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(profileId);
+            this.userProfileService.findUserProfileByUsername(profileId);
 
     Like like = new Like();
 
     WallPost wallPost =
-        this.modelMapper.map(
-            wallPostServiceModel, WallPost.class);
+            this.modelMapper.map(
+                    wallPostServiceModel, WallPost.class);
 
     LikeId likeId = new LikeId();
     likeId.setPost(wallPost.getId());
@@ -110,19 +110,19 @@ public class WallServiceImpl implements WallService {
   @Override
   public void unlikePost(WallPostServiceModel wallPostServiceModel, String activeUser) {
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(activeUser);
+            this.userProfileService.findUserProfileByUsername(activeUser);
 
-   WallPost wallPost =
-       this.modelMapper.map(wallPostServiceModel, WallPost.class);
+    WallPost wallPost =
+            this.modelMapper.map(wallPostServiceModel, WallPost.class);
 
     Like likeToRemove = wallPost
-        .getActualLikes()
-        .stream()
-        .filter(like ->
-            like.getId().getProfile()
-                .equals(userProfileServiceModel.getId()))
-        .findFirst()
-        .get();
+            .getActualLikes()
+            .stream()
+            .filter(like ->
+                    like.getId().getProfile()
+                            .equals(userProfileServiceModel.getId()))
+            .findFirst()
+            .get();
 
     wallPost.getActualLikes().remove(likeToRemove);
 
@@ -132,9 +132,9 @@ public class WallServiceImpl implements WallService {
   @Override
   public boolean isPostLikedByActiveUser(String activeUser, String postId) {
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(activeUser);
+            this.userProfileService.findUserProfileByUsername(activeUser);
 
     return this.likeRepository
-        .findById_ProfileAndLikeOwner_Id(userProfileServiceModel.getId(), postId).isPresent();
+            .findById_ProfileAndLikeOwner_Id(userProfileServiceModel.getId(), postId).isPresent();
   }
 }

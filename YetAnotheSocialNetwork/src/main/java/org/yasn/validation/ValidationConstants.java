@@ -11,8 +11,8 @@ public class ValidationConstants {
   public final static String WRONG_PASSWORD = "Wrong password!";
 
   public final static String PASSWORD_CONDITION =
-      "Password should be minimum eight characters long, at least one uppercase letter, one lowercase letter and one number";
+          "Password should be minimum eight characters long, at least one uppercase letter, one lowercase letter and one number";
 
   public final static String NAME_ONLY_LETTERS =
-      "Name must start with capital letter example: 'Andrew' and must contain only letters!";
+          "Name must start with capital letter example: 'Andrew' and must contain only letters!";
 }

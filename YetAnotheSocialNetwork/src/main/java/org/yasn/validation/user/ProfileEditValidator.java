@@ -26,34 +26,34 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
     ProfileEditBindingModel profileEditBindingModel = (ProfileEditBindingModel) o;
 
     UserProfile userProfile = this.userProfileRepository
-        .findUserProfileByProfileOwner_Email(((ProfileEditBindingModel) o)
-            .getEmail()).orElse(null);
+            .findUserProfileByProfileOwner_Email(((ProfileEditBindingModel) o)
+                    .getEmail()).orElse(null);
 
     assert userProfile != null;
     if (!this.bCryptPasswordEncoder.matches(
             profileEditBindingModel.getOldPassword(), userProfile.getProfileOwner().getPassword())) {
       errors.rejectValue(
-          "oldPassword",
-          ValidationConstants.WRONG_PASSWORD,
-          ValidationConstants.WRONG_PASSWORD
+              "oldPassword",
+              ValidationConstants.WRONG_PASSWORD,
+              ValidationConstants.WRONG_PASSWORD
       );
     }
 
     if (profileEditBindingModel.getNewPassword() != null
-        && !profileEditBindingModel.getNewPassword().equals(profileEditBindingModel.getConfirmNewPassword())) {
+            && !profileEditBindingModel.getNewPassword().equals(profileEditBindingModel.getConfirmNewPassword())) {
       errors.rejectValue(
-          "newPassword",
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH,
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH
+              "newPassword",
+              ValidationConstants.PASSWORDS_DO_NOT_MATCH,
+              ValidationConstants.PASSWORDS_DO_NOT_MATCH
       );
     }
 
     if (!userProfile.getProfileOwner().getEmail().equals(profileEditBindingModel.getEmail())
-        && this.userProfileRepository.findUserProfileByProfileOwner_Email(profileEditBindingModel.getEmail()).isPresent()) {
+            && this.userProfileRepository.findUserProfileByProfileOwner_Email(profileEditBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(
-          "email",
-          String.format(ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail()),
-          String.format(ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail())
+              "email",
+              String.format(ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail()),
+              String.format(ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail())
       );
     }
   }

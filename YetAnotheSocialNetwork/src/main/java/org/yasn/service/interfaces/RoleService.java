@@ -1,8 +1,8 @@
 package org.yasn.service.interfaces;
 
-import org.yasn.data.models.service.RoleServiceModel;
-
 import java.util.Set;
+
+import org.yasn.data.models.service.RoleServiceModel;
 
 public interface RoleService {
 

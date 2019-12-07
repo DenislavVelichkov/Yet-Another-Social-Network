@@ -63,14 +63,14 @@ const addFriend = function () {
                 body: 'profileId' + '=' + profileId + '&' + '_csrf' + '=' + csrfToken
 
             }).then(() => window.location = '/profile/guest/' + profileId);
-                /*.then((response) => {
-                    alert(response.json());
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log(data);
-                    window.location = '/profile/guest/' + profileId;
-                });*/
+            /*.then((response) => {
+                alert(response.json());
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                window.location = '/profile/guest/' + profileId;
+            });*/
 
             ev.preventDefault();
             return false;

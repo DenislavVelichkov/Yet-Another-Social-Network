@@ -1,5 +1,7 @@
 package org.yasn.web.api;
 
+import java.security.Principal;
+
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,6 @@ import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.web.controller.BaseController;
-
-import java.security.Principal;
 
 
 @RestController
@@ -27,10 +27,10 @@ public class ActionApiController extends BaseController {
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
                          Principal activeUser) {
     WallPostServiceModel wallPostServiceModel =
-        this.wallService.findWallPostById(postId);
+            this.wallService.findWallPostById(postId);
 
     if (this.wallService.isPostLikedByActiveUser(
-        activeUser.getName(), wallPostServiceModel.getId())) {
+            activeUser.getName(), wallPostServiceModel.getId())) {
       this.wallService.unlikePost(wallPostServiceModel, activeUser.getName());
     } else {
       this.wallService.likePost(wallPostServiceModel, activeUser.getName());
@@ -58,19 +58,19 @@ public class ActionApiController extends BaseController {
   public void sendFriendRequest(@ModelAttribute(name = "profileId") String profileId,
                                 Principal activeUser) {
 
-      this.notificationService.createNotification(
-          profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
+    this.notificationService.createNotification(
+            profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
 
   }
 
   @PostMapping("/accept-friend")
   public void acceptFriendRequest(@ModelAttribute(name = "senderId") String senderId,
-                                Principal activeUser) {
+                                  Principal activeUser) {
 
     this.userProfileService.addFriend(senderId, activeUser.getName());
 
     this.notificationService.removeNotification(
-        senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
+            senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
   }
 
 }

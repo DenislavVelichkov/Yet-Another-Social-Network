@@ -1,9 +1,9 @@
 package org.yasn.service.interfaces;
 
-import org.yasn.data.models.service.WallPostServiceModel;
-
 import java.io.IOException;
 import java.util.List;
+
+import org.yasn.data.models.service.WallPostServiceModel;
 
 public interface WallService {
 

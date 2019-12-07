@@ -1,5 +1,8 @@
 package org.yasn.data.models.binding;
 
+import java.sql.Timestamp;
+import java.util.Set;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +11,6 @@ import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.service.LikeServiceModel;
 import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
-
-import java.sql.Timestamp;
-import java.util.Set;
 
 @Getter
 @Setter

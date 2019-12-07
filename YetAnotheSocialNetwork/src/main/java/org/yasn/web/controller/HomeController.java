@@ -1,5 +1,9 @@
 package org.yasn.web.controller;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -19,10 +23,6 @@ import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
 import org.yasn.utils.TimeUtil;
-
-import java.security.Principal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -48,10 +48,10 @@ public class HomeController extends BaseController {
                            Principal activeUser) {
 
     UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(activeUser.getName());
+            this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
     UserProfileViewModel userProfileView =
-        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+            this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
     ActiveUserDetails activeUserDetails = new ActiveUserDetails();
     activeUserDetails.setId(userProfileView.getId());
@@ -63,24 +63,24 @@ public class HomeController extends BaseController {
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
 
     List<WallPostServiceModel> allPostsServiceModels =
-        this.wallService
-            .displayAllPosts();
+            this.wallService
+                    .displayAllPosts();
 
     List<WallPostViewModel> allPosts = allPostsServiceModels
-        .stream()
-        .map(view ->
-            this.modelMapper.map(view, WallPostViewModel.class))
-        .filter(wallPostViewModel ->
-            wallPostViewModel
-                .getPostPrivacy()
-                .equals(PostPrivacy.PUBLIC)
-         || wallPostViewModel
-                .getPostOwner()
-                .getFriends()
-                .contains(this.userProfileService
-                    .findUserProfileByUsername(activeUser.getName())))
-        .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
-        .collect(Collectors.toList());
+            .stream()
+            .map(view ->
+                    this.modelMapper.map(view, WallPostViewModel.class))
+            .filter(wallPostViewModel ->
+                    wallPostViewModel
+                            .getPostPrivacy()
+                            .equals(PostPrivacy.PUBLIC)
+                            || wallPostViewModel
+                            .getPostOwner()
+                            .getFriends()
+                            .contains(this.userProfileService
+                                    .findUserProfileByUsername(activeUser.getName())))
+            .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+            .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("activeUserDetails", activeUserDetails);

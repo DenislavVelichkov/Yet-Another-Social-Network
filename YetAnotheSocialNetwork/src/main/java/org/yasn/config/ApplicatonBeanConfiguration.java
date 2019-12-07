@@ -1,5 +1,8 @@
 package org.yasn.config;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import nz.net.ultraq.thymeleaf.decorators.strategies.GroupingRespectLayoutTitleStrategy;
 import org.modelmapper.ModelMapper;
@@ -11,9 +14,6 @@ import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
 import org.yasn.utils.TimeUtil;
 import org.yasn.utils.TimeUtilImpl;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 @Configuration
 public class ApplicatonBeanConfiguration {
@@ -49,7 +49,7 @@ public class ApplicatonBeanConfiguration {
   }
 
   @Bean
-  public TimeUtil timeUtil(){
+  public TimeUtil timeUtil() {
     return new TimeUtilImpl();
   }
 
