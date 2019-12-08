@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
@@ -33,18 +32,19 @@ public class UserProfileServiceImpl implements UserProfileService {
     v2.3.1 the issue is not fixed*/
 
     UserProfile profile =
-            this.userProfileRepository.findByProfileOwner_Username(username).get();
+        this.userProfileRepository.findByProfileOwner_Username(username).get();
 
     UserProfileServiceModel profileService =
-            this.modelMapper.map(profile, UserProfileServiceModel.class);
+        this.modelMapper.map(profile, UserProfileServiceModel.class);
+    this.modelMapper.validate();
 
     profileService.setId(profile.getId());
     profileService.setFullName(profile.getProfileOwner().getFirstName()
-            + ' '
-            + profile.getProfileOwner().getLastName());
+        + ' '
+        + profile.getProfileOwner().getLastName());
     profileService.setCoverPicture(profile.getCoverPicture());
 
-    this.modelMapper.validate();
+
 
     return profileService;
   }
@@ -54,19 +54,20 @@ public class UserProfileServiceImpl implements UserProfileService {
     /*Model mapper tends to assign false values sometimes since Model Mapper
     v2.3.1 the issue is not fixed*/
 
-    UserProfile profile = this.userProfileRepository.findById(id).get();
+    UserProfile profile =
+        this.userProfileRepository.findById(id).get();
+    UserProfileServiceModel newServiceModel = new UserProfileServiceModel();
 
     UserProfileServiceModel profileService =
-            this.modelMapper.map(profile, UserProfileServiceModel.class);
+        this.modelMapper.map(profile, newServiceModel.getClass());
+    this.modelMapper.validate();
 
     profileService.setId(profile.getId());
     profileService.setFullName(
-            profile.getProfileOwner().getFirstName()
-                    + ' '
-                    + profile.getProfileOwner().getLastName());
+        profile.getProfileOwner().getFirstName()
+            + ' '
+            + profile.getProfileOwner().getLastName());
     profileService.setCoverPicture(profile.getCoverPicture());
-
-    this.modelMapper.validate();
 
     return profileService;
   }
@@ -75,16 +76,16 @@ public class UserProfileServiceImpl implements UserProfileService {
   public boolean addFriend(String senderId, String userName) {
 
     UserProfileServiceModel recipient =
-            this.modelMapper.map(
-                    this.findUserProfileByUsername(userName), UserProfileServiceModel.class);
+        this.modelMapper.map(
+            this.findUserProfileByUsername(userName), UserProfileServiceModel.class);
     this.modelMapper.validate();
 
     UserProfileServiceModel sender =
-            this.modelMapper.map(this.findUserProfileById(senderId), UserProfileServiceModel.class);
+        this.modelMapper.map(this.findUserProfileById(senderId), UserProfileServiceModel.class);
     this.modelMapper.validate();
 
     if (recipient.getFriends().stream()
-            .noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
+        .noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
       recipient.getFriends().add(sender);
       this.userProfileRepository.saveAndFlush(this.modelMapper.map(recipient, UserProfile.class));
       return true;
@@ -108,27 +109,27 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     if (profileEditBindingModel.getNewPassword() != null) {
       userServiceModel.setPassword(
-              this.passwordEncoder.encode(profileEditBindingModel.getNewPassword()));
+          this.passwordEncoder.encode(profileEditBindingModel.getNewPassword()));
     }
 
     if (!profileEditBindingModel.getProfilePicture().isEmpty()) {
       userProfileServiceModel.setProfilePicture(
-              this.cloudinaryService.uploadImage(
-                      profileEditBindingModel.getProfilePicture()));
+          this.cloudinaryService.uploadImage(
+              profileEditBindingModel.getProfilePicture()));
     }
 
     if (!profileEditBindingModel.getCoverPicture().isEmpty()) {
       userProfileServiceModel.setCoverPicture(
-              this.cloudinaryService.uploadImage(
-                      profileEditBindingModel.getCoverPicture()));
+          this.cloudinaryService.uploadImage(
+              profileEditBindingModel.getCoverPicture()));
     }
 
     if (profileEditBindingModel.getBirthday() != null) {
       SimpleDateFormat formatter =
-              new SimpleDateFormat("yyyy-MM-dd");
+          new SimpleDateFormat("yyyy-MM-dd");
       try {
         userServiceModel.setBirthday(
-                formatter.parse(profileEditBindingModel.getBirthday()));
+            formatter.parse(profileEditBindingModel.getBirthday()));
       } catch (ParseException e) {
         e.printStackTrace();
       }
@@ -140,22 +141,21 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     if (profileEditBindingModel.getFirstName() != null
-            || profileEditBindingModel.getLastName() != null) {
+        || profileEditBindingModel.getLastName() != null) {
       userProfileServiceModel.setFullName(
-              profileEditBindingModel.getFirstName()
-                      +
-                      " "
-                      + profileEditBindingModel.getLastName());
+          profileEditBindingModel.getFirstName()
+              +
+              " "
+              + profileEditBindingModel.getLastName());
     }
 
-    userServiceModel.setUserProfile(userProfileServiceModel);
+    userProfileServiceModel.setProfileOwner(userServiceModel);
 
-    User updatedUser =
-            this.modelMapper.map(userServiceModel, User.class);
+    UserProfile updatedUserProfile =
+          this.modelMapper.map(userProfileServiceModel, UserProfile.class);
+      this.modelMapper.validate();
 
-    this.modelMapper.validate();
-
-    this.userRepository.saveAndFlush(updatedUser);
+    this.userProfileRepository.saveAndFlush(updatedUserProfile);
 
     return true;
   }

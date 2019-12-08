@@ -224,10 +224,11 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/guest/comment")
-  public ModelAndView postCommentOnGuestTimelinePost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                                     @ModelAttribute(name = "postId") String postId,
-                                                     @ModelAttribute(name = "profileId") String profileId,
-                                                     Principal activeUser) throws IOException {
+  public ModelAndView postCommentOnGuestTimelinePost(
+      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+      @ModelAttribute(name = "postId") String postId,
+      @ModelAttribute(name = "profileId") String profileId,
+      Principal activeUser) throws IOException {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
@@ -246,7 +247,6 @@ public class UserProfileController extends BaseController {
 
   @GetMapping("/edit/{id}")
   public ModelAndView profileEdit(ModelAndView modelAndView,
-                                  @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
                                   @PathVariable(name = "id") String id) {
 
     UserProfileServiceModel userProfileServiceModel =
@@ -263,6 +263,7 @@ public class UserProfileController extends BaseController {
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("activeUserDetails", activeUserDetails);
+    modelAndView.addObject("profileEdit", new ProfileEditBindingModel());
 
     return super.view("profile-fragments/profile-edit", modelAndView);
   }
@@ -273,7 +274,7 @@ public class UserProfileController extends BaseController {
                                       @PathVariable(name = "id") String id,
                                       BindingResult bindingResult) throws IOException {
 
-    if (this.majorChangeAccrue(profileEdit)) {
+    if (this.isMajorChangeHappened(profileEdit)) {
       this.profileEditValidator.validate(profileEdit, bindingResult);
     }
 
@@ -293,7 +294,7 @@ public class UserProfileController extends BaseController {
   }
 
   // TODO: 12/7/2019 Add First Name and Last Name to validation
-  private boolean majorChangeAccrue(ProfileEditBindingModel profileEdit) {
+  private boolean isMajorChangeHappened(ProfileEditBindingModel profileEdit) {
     return profileEdit.getNewPassword() != null
         || profileEdit.getEmail() != null
         || profileEdit.getOldPassword() != null;

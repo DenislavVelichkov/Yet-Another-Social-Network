@@ -8,7 +8,9 @@
                 <img class="img-fluid z-depth-2 rounded profile-picture"
                      th:src="@{${userProfileView.profilePicture}}"
                      alt="profile-picture"/>
-                <span th:text="${userProfileView.getFullName()}"></span>
+                <div class="profile-name-container">
+                    <p th:text="${userProfileView.fullName}"></p>
+                </div>
             </div>
             <th:block layout:insert="~{guest-profile-fragments/guest-profile-menu}"/>
         </div>
