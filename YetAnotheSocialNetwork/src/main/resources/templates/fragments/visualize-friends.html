@@ -1,0 +1,12 @@
+<th:block>
+    <div class="friend-picture-container">
+        <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+        <th:block th:each="friend : ${userProfileView.getFriends()}">
+            <div class="profile-picture-action">
+                <img class="friend-picture" th:src="@{${friend.profilePicture}}"
+                     alt="friend-picture">
+                <a th:href="@{'/profile/guest/' + ${friend.id}}" class="friend-name">[(${friend.fullName})]</a>
+            </div>
+        </th:block>
+    </div>
+</th:block>
