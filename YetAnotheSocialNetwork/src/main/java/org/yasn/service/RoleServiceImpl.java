@@ -31,14 +31,14 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public Set<RoleServiceModel> findAllRoles() {
     return this.roleRepository.findAll()
-            .stream()
-            .map(role -> this.modelMapper.map(role, RoleServiceModel.class))
-            .collect(Collectors.toSet());
+                              .stream()
+                              .map(role -> this.modelMapper.map(role, RoleServiceModel.class))
+                              .collect(Collectors.toSet());
   }
 
   @Override
   public RoleServiceModel findByAuthority(String authority) {
     return this.modelMapper
-            .map(this.roleRepository.findByAuthority(authority), RoleServiceModel.class);
+        .map(this.roleRepository.findByAuthority(authority), RoleServiceModel.class);
   }
 }

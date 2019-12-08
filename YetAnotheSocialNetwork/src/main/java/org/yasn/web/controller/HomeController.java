@@ -42,16 +42,17 @@ public class HomeController extends BaseController {
 
   @GetMapping("/home")
   @PageTitle("Home")
-  public ModelAndView home(ModelAndView modelAndView,
-                           @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                           @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                           Principal activeUser) {
+  public ModelAndView home(
+      ModelAndView modelAndView,
+      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+      Principal activeUser) {
 
     UserProfileServiceModel userProfileServiceModel =
-            this.userProfileService.findUserProfileByUsername(activeUser.getName());
+        this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
     UserProfileViewModel userProfileView =
-            this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
     ActiveUserDetails activeUserDetails = new ActiveUserDetails();
     activeUserDetails.setId(userProfileView.getId());
@@ -63,24 +64,24 @@ public class HomeController extends BaseController {
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
 
     List<WallPostServiceModel> allPostsServiceModels =
-            this.wallService
-                    .displayAllPosts();
+        this.wallService
+            .displayAllPosts();
 
     List<WallPostViewModel> allPosts = allPostsServiceModels
-            .stream()
-            .map(view ->
-                    this.modelMapper.map(view, WallPostViewModel.class))
-            .filter(wallPostViewModel ->
+        .stream()
+        .map(view ->
+                 this.modelMapper.map(view, WallPostViewModel.class))
+        .filter(wallPostViewModel ->
                     wallPostViewModel
-                            .getPostPrivacy()
-                            .equals(PostPrivacy.PUBLIC)
-                            || wallPostViewModel
-                            .getPostOwner()
-                            .getFriends()
-                            .contains(this.userProfileService
-                                    .findUserProfileByUsername(activeUser.getName())))
-            .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
-            .collect(Collectors.toList());
+                        .getPostPrivacy()
+                        .equals(PostPrivacy.PUBLIC)
+                        || wallPostViewModel
+                        .getPostOwner()
+                        .getFriends()
+                        .contains(this.userProfileService
+                                      .findUserProfileByUsername(activeUser.getName())))
+        .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+        .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("activeUserDetails", activeUserDetails);

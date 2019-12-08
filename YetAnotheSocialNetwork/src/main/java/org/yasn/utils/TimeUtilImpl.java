@@ -17,7 +17,7 @@ public class TimeUtilImpl implements TimeUtil {
     int seconds = (int) (timeAgo / 1000) % 60;
     int minutes = (int) ((timeAgo / (1000 * 60)) % 60);
     int hours = (int) ((timeAgo / (1000 * 60 * 60)) % 24);
-//    int days = (int) (timeAgo / (1000 * 60 * 60 * 24));
+    //    int days = (int) (timeAgo / (1000 * 60 * 60 * 24));
     int days = (int) ((timeAgo / (1000 * 60 * 60 * 24)) % 7);
     int weeks = (int) (timeAgo / (1000 * 60 * 60 * 24 * 7));
 

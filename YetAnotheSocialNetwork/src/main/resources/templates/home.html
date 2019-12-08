@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html lang="en"
+      layout:decorate="~{fragments/default_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      lang="en"
-      layout:decorate="~{fragments/default_layout}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <th:block layout:fragment="main-content">
     <div class="row" id="yasn-home-body-container">
 
-        <div id="sidebar-left" class="col-3">
+        <div class="col-3" id="sidebar-left">
 
         </div>
 
-        <div id="yasn-home-wall" class="col-6">
+        <div class="col-6" id="yasn-home-wall">
 
             <th:block layout:insert="~{wall}"/>
 
         </div>
 
-        <div id="sidebar-right" class="col-3">
+        <div class="col-3" id="sidebar-right">
 
         </div>
     </div>

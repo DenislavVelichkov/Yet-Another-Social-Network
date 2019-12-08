@@ -27,15 +27,15 @@ public class ActionApiController extends BaseController {
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
                          Principal activeUser) {
     WallPostServiceModel wallPostServiceModel =
-            this.wallService.findWallPostById(postId);
+        this.wallService.findWallPostById(postId);
 
     if (this.wallService.isPostLikedByActiveUser(
-            activeUser.getName(), wallPostServiceModel.getId())) {
+        activeUser.getName(), wallPostServiceModel.getId())) {
       this.wallService.unlikePost(wallPostServiceModel, activeUser.getName());
     } else {
       this.wallService.likePost(wallPostServiceModel, activeUser.getName());
     }
-/*
+    /*
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
@@ -59,7 +59,7 @@ public class ActionApiController extends BaseController {
                                 Principal activeUser) {
 
     this.notificationService.createNotification(
-            profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
+        profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
 
   }
 
@@ -70,7 +70,7 @@ public class ActionApiController extends BaseController {
     this.userProfileService.addFriend(senderId, activeUser.getName());
 
     this.notificationService.removeNotification(
-            senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
+        senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
   }
 
 }

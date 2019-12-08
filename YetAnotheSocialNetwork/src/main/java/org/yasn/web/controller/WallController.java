@@ -30,18 +30,19 @@ public class WallController extends BaseController {
   private final CloudinaryService cloudinaryService;
 
   @PostMapping("/post")
-  public ModelAndView postOnWall(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                                 @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-                                 Principal activeUser) throws IOException {
+  public ModelAndView postOnWall(
+      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+      Principal activeUser) throws IOException {
 
-// TODO: 11/12/2019 Validations
+    // TODO: 11/12/2019 Validations
 
     WallPostServiceModel wallPostServiceModel =
-            this.modelMapper.map(wallPost, WallPostServiceModel.class);
+        this.modelMapper.map(wallPost, WallPostServiceModel.class);
 
     if (!wallPost.getPostPicture().isEmpty()) {
       wallPostServiceModel.setPostPicture(
-              this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
+          this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
     } else {
       wallPostServiceModel.setPostPicture(null);
     }
@@ -56,16 +57,17 @@ public class WallController extends BaseController {
   }
 
   @PostMapping("/comment")
-  public ModelAndView postCommentOnPost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                        @ModelAttribute(name = "postId") String postId,
-                                        Principal activeUser) throws IOException {
+  public ModelAndView postCommentOnPost(
+      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+      @ModelAttribute(name = "postId") String postId,
+      Principal activeUser) throws IOException {
 
     PostCommentServiceModel postCommentServiceModel =
-            this.modelMapper.map(postComment, PostCommentServiceModel.class);
+        this.modelMapper.map(postComment, PostCommentServiceModel.class);
 
     if (!postComment.getCommentPicture().isEmpty()) {
       postCommentServiceModel.setCommentPicture(
-              this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+          this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
     } else {
       postCommentServiceModel.setCommentPicture(null);
     }

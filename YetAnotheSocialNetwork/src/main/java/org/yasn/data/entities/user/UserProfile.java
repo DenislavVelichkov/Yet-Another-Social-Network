@@ -19,45 +19,45 @@ import org.yasn.data.entities.wall.WallPost;
 public class UserProfile extends BaseEntity {
 
   @OneToMany(
-          targetEntity = Notification.class,
-          mappedBy = "recipient",
-          cascade = CascadeType.ALL,
-          orphanRemoval = true)
+      targetEntity = Notification.class,
+      mappedBy = "recipient",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
   Set<Notification> notifications;
   @Column(name = "full_name")
   private String fullName;
   @OneToOne
   @JoinColumn(
-          name = "user_id",
-          referencedColumnName = "id")
+      name = "user_id",
+      referencedColumnName = "id")
   private User profileOwner;
   @Column(name = "profile_picture")
   private String profilePicture;
   @Column(name = "cover_picture")
   private String coverPicture;
   @OneToMany(
-          targetEntity = PersonalGallery.class,
-          mappedBy = "photoOwner",
-          cascade = CascadeType.ALL)
+      targetEntity = PersonalGallery.class,
+      mappedBy = "photoOwner",
+      cascade = CascadeType.ALL)
   private Set<PersonalGallery> photoGallery;
   @OneToMany(
-          targetEntity = WallPost.class,
-          mappedBy = "postOwner",
-          cascade = CascadeType.ALL)
+      targetEntity = WallPost.class,
+      mappedBy = "postOwner",
+      cascade = CascadeType.ALL)
   private Set<WallPost> wallPosts;
   @OneToMany(
-          targetEntity = PostComment.class,
-          mappedBy = "commentOwner",
-          cascade = CascadeType.ALL)
+      targetEntity = PostComment.class,
+      mappedBy = "commentOwner",
+      cascade = CascadeType.ALL)
   private Set<PostComment> postComments;
   @ManyToMany(
-          cascade = CascadeType.ALL
+      cascade = CascadeType.ALL
   )
   @JoinTable(
-          name = "user_profiles_friends",
-          joinColumns = @JoinColumn(name = "user_profile_id",
-                  referencedColumnName = "id"),
-          inverseJoinColumns = @JoinColumn(name = "friend_id",
-                  referencedColumnName = "id"))
+      name = "user_profiles_friends",
+      joinColumns = @JoinColumn(name = "user_profile_id",
+          referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "friend_id",
+          referencedColumnName = "id"))
   private Set<UserProfile> friends;
 }

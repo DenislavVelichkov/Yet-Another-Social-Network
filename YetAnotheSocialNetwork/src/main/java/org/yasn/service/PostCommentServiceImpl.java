@@ -30,12 +30,12 @@ public class PostCommentServiceImpl implements PostCommentService {
   public void postComment(PostCommentServiceModel postCommentServiceModel,
                           Principal activeUser, String postId) {
     postCommentServiceModel.setCommentOwner(
-            this.userProfileService.findUserProfileByUsername(activeUser.getName()));
+        this.userProfileService.findUserProfileByUsername(activeUser.getName()));
     postCommentServiceModel.setParentPost(this.wallService.findWallPostById(postId));
     postCommentServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
 
     PostComment postComment =
-            this.modelMapper.map(postCommentServiceModel, PostComment.class);
+        this.modelMapper.map(postCommentServiceModel, PostComment.class);
 
     this.postCommentRepository.saveAndFlush(postComment);
   }
@@ -43,11 +43,11 @@ public class PostCommentServiceImpl implements PostCommentService {
   @Override
   public List<PostCommentServiceModel> displayAllPostComments(String id) {
     return this.postCommentRepository
-            .findAllByParentPost_Id(id)
-            .stream()
-            .map(postComment ->
-                    this.modelMapper.map(
-                            postComment, PostCommentServiceModel.class))
-            .collect(Collectors.toList());
+        .findAllByParentPost_Id(id)
+        .stream()
+        .map(postComment ->
+                 this.modelMapper.map(
+                     postComment, PostCommentServiceModel.class))
+        .collect(Collectors.toList());
   }
 }

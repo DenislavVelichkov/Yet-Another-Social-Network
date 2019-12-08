@@ -118,6 +118,7 @@
 .yasn-post-container ul {
     margin: 0;
 }
+
 .yasn-post-attributes-container textarea {
     display: block;
     width: 100%;
@@ -159,6 +160,6 @@
 }
 
 .emojionearea * {
-    z-index: 0!important;
+    z-index: 0 !important;
 }
 

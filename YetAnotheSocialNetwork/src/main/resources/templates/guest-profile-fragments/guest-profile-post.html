@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 
 <!--/*@thymesVar id="allProfilePosts" type="List<org.yasn.data.models.view.WallPostViewModel>"*/-->
 <th:block th:each="post : ${allProfilePosts}">
@@ -11,12 +11,12 @@
             <div class="post-meta-avatar">
                 <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
                 <!--/*@thymesVar id="postOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-                <img class="user-img"
-                     th:src="@{${post.postOwner.profilePicture}}" alt="avatar">
+                <img alt="avatar"
+                     class="user-img" th:src="@{${post.postOwner.profilePicture}}">
             </div>
             <div class="post-menu">
                 <div class="dropdown">
-                    <a role="button" data-toggle="dropdown" data-target="#">
+                    <a data-target="#" data-toggle="dropdown" role="button">
                         <i class="fas fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu multi-level" role="menu">
@@ -50,8 +50,8 @@
             <div class="post-contents">
                 <p>[(${post.postContent})]</p>
                 <th:block th:unless="${post.postPicture == null}">
-                    <img class="post-content-pic img-fluid"
-                         th:src="@{${post.postPicture}}" alt="post-picture">
+                    <img alt="post-picture"
+                         class="post-content-pic img-fluid" th:src="@{${post.postPicture}}">
                 </th:block>
             </div>
 
@@ -62,8 +62,8 @@
                     </li>
                     <span> - </span>
                     <li>
-                        <a onclick="likeAPost()" href="javascript:void(0)"
-                           id="post-like"
+                        <a href="javascript:void(0)" id="post-like"
+                           onclick="likeAPost()"
                            th:attr="data-post_id = ${post.id}">
                             Like
                         </a>
@@ -78,27 +78,27 @@
             </div>
             <div class="yasn-post-comment">
                 <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
-                <form th:action="@{/profile/guest/comment}"
+                <form enctype="multipart/form-data"
+                      th:action="@{/profile/guest/comment}"
                       th:method="post"
-                      enctype="multipart/form-data"
                       th:object="${postComment}">
                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-                    <img class="comment-meta-avatar-img img-fluid"
-                         th:src="@{${userProfileView.profilePicture}}"
-                         alt="profile-picture"/>
+                    <img alt="profile-picture"
+                         class="comment-meta-avatar-img img-fluid"
+                         th:src="@{${userProfileView.profilePicture}}"/>
                     <label for="yasn-comment-post-textarea"></label>
                     <input class="comment-post-textarea"
-                           id="yasn-comment-post-textarea" type="text"
-                           name="comment-post-textarea"
-                           th:field="*{commentContent}"/>
+                           id="yasn-comment-post-textarea" name="comment-post-textarea"
+                           th:field="*{commentContent}"
+                           type="text"/>
                     <div class="comment-image-upload">
                         <label for="file-input">
                             <i class="fas fa-camera"></i>
                         </label>
-                        <input id="file-input" type="file" th:field="*{commentPicture}"/>
+                        <input id="file-input" th:field="*{commentPicture}" type="file"/>
                     </div>
-                    <input type="hidden" name="postId" th:value="${post.id}"/>
-                    <input type="hidden" name="profileId" th:value="${userProfileView.id}"/>
+                    <input name="postId" th:value="${post.id}" type="hidden"/>
+                    <input name="profileId" th:value="${userProfileView.id}" type="hidden"/>
                     <input class="comment-post-submit-btn" type="submit" value="Send"/>
                 </form>
             </div>

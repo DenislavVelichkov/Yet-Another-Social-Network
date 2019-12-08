@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public @interface Validator {
 
   @AliasFor(
-          annotation = Component.class
+      annotation = Component.class
   )
   String value() default "";
 }

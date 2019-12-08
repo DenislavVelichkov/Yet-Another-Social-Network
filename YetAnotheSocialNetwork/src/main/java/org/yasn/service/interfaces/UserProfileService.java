@@ -12,5 +12,6 @@ public interface UserProfileService {
 
   boolean addFriend(String senderId, String userName);
 
-  boolean editProfile(UserProfileServiceModel userProfile, ProfileEditBindingModel profileEditBindingModel) throws IOException;
+  boolean editProfile(UserProfileServiceModel userProfile,
+                      ProfileEditBindingModel profileEditBindingModel) throws IOException;
 }

@@ -87,7 +87,7 @@
     cursor: pointer;
     width: 65px;
     height: auto;
- }
+}
 
 .comment-post-submit-btn:hover {
     display: inline-block;
@@ -186,8 +186,8 @@
 }
 
 .post-menu .dropdown-menu {
-    min-width: 3rem!important;
-    text-align: center!important;
+    min-width: 3rem !important;
+    text-align: center !important;
 }
 
 

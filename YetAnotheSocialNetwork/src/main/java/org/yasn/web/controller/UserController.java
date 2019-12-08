@@ -32,15 +32,17 @@ public class UserController extends BaseController {
   @GetMapping("/register")
   @PageTitle("Log In or Sign Up")
   public ModelAndView index(
-          @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
+      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
 
     return super.view("/user/register");
   }
 
   @PostMapping("/register")
-  public ModelAndView registerConfirm(ModelAndView modelAndView,
-                                      @ModelAttribute(name = "model") UserRegisterBindingModel model,
-                                      BindingResult bindingResult) {
+  public ModelAndView registerConfirm(
+      ModelAndView modelAndView,
+      @ModelAttribute(name = "model") UserRegisterBindingModel model,
+      BindingResult bindingResult) {
+
     this.userRegisterValidator.validate(model, bindingResult);
 
     if (bindingResult.hasErrors()) {
@@ -52,7 +54,7 @@ public class UserController extends BaseController {
     }
 
     UserServiceModel userServiceModel =
-            this.modelMapper.map(model, UserServiceModel.class);
+        this.modelMapper.map(model, UserServiceModel.class);
 
     this.modelMapper.validate();
 

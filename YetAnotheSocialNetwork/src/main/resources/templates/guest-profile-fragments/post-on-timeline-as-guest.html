@@ -13,16 +13,16 @@
         <div class="yasn-post-attributes-container">
             <!--/*@thymesVar id="timelinePost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
             <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-            <form th:action="@{/profile/guest/post}"
-                  enctype="multipart/form-data"
-                  method="post" th:object="${timelinePost}"
-                  id="yasn-wall-form">
+            <form enctype="multipart/form-data"
+                  id="yasn-wall-form"
+                  method="post" th:action="@{/profile/guest/post}"
+                  th:object="${timelinePost}">
 
                 <label for="comment-text" id="post"></label>
                 <textarea id="comment-text"
                           name="post"
-                          type="text"
-                          th:field="*{postContent}">
+                          th:field="*{postContent}"
+                          type="text">
                     </textarea>
 
                 <div class="yasn-post-extra-tag">
@@ -32,17 +32,17 @@
                 <div class="yasn-post-extra-location">
                     <label for="location"></label>
                     <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.view.WallPostViewModel"*/-->
-                    <input th:field="*{location}"
-                           type="text"
-                           id="location"
+                    <input id="location"
                            name="location"
-                           placeholder="Enter Location...">
+                           placeholder="Enter Location..."
+                           th:field="*{location}"
+                           type="text">
 
                 </div>
 
                 <div class="yasn-post-extra-photo">
                     <label for="pic" id="pic"></label>
-                    <input type="file" name="pic" th:field="*{postPicture}">
+                    <input name="pic" th:field="*{postPicture}" type="file">
                 </div>
 
                 <div class="yasn-post-extra-emojiies"></div>
@@ -61,18 +61,18 @@
                                 <!--todo    Fix radio buttons hover color-->
 
                                 <li th:each="label : ${T(org.yasn.common.enums.PostPrivacy).values()}">
-                                    <input type="radio"
+                                    <input th:field="*{postPrivacy}"
                                            th:id="${{label}}"
                                            th:value="${{label}}"
-                                           th:field="*{postPrivacy}" />
+                                           type="radio"/>
 
                                     <label th:for="${{label}}">[(${label.getLabel()})]</label>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <input type="hidden" name="profileId" th:value="${userProfileView.id}"/>
-                            <input type="hidden" name="activeUserId" th:value="${activeUserDetails.id}"/>
+                            <input name="profileId" th:value="${userProfileView.id}" type="hidden"/>
+                            <input name="activeUserId" th:value="${activeUserDetails.id}" type="hidden"/>
                             <input class="post-submit-btn" type="submit" value="Post">
                         </li>
                     </ul>

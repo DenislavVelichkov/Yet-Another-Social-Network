@@ -9,11 +9,11 @@
     <hr class="post-delimiter">
     <div class="post-comment-container">
         <div class="post-meta-avatar">
-            <img class="user-img" th:src="@{${comment.commentOwner.profilePicture}}" alt="profile-avatar"/>
+            <img alt="profile-avatar" class="user-img" th:src="@{${comment.commentOwner.profilePicture}}"/>
         </div>
         <div class="post-menu">
             <div class="dropdown">
-                <a role="button" data-toggle="dropdown" data-target="#">
+                <a data-target="#" data-toggle="dropdown" role="button">
                     <i class="fas fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu multi-level" role="menu">
@@ -46,8 +46,8 @@
             </div>
             <th:block th:unless="${comment.commentPicture == null}">
                 <div class="img-container">
-                    <img class="post-content-pic img-fluid"
-                         th:src="@{${comment.commentPicture}}" alt="comment-picture">
+                    <img alt="comment-picture"
+                         class="post-content-pic img-fluid" th:src="@{${comment.commentPicture}}">
                 </div>
             </th:block>
         </div>

@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     return this.userRepository
-            .findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
+        .findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
   }
 
   @Override
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     } else {
       userServiceModel.setAuthorities(new LinkedHashSet<>());
       userServiceModel.getAuthorities()
-              .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
+                      .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
     }
 
     String[] usernamePrep = userServiceModel.getEmail().split("@");
@@ -64,9 +64,9 @@ public class UserServiceImpl implements UserService {
     UserProfile profile = new UserProfile();
     profile.setProfileOwner(user);
     profile.setFullName(userServiceModel.getFirstName()
-            +
-            " "
-            + userServiceModel.getLastName());
+                            +
+                            " "
+                            + userServiceModel.getLastName());
 
     profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_IMG_PATH);
     profile.setCoverPicture(WebConstants.DEFAULT_COVER_IMG_PATH);
@@ -74,66 +74,69 @@ public class UserServiceImpl implements UserService {
     user.setUserProfile(profile);
 
     return this.modelMapper
-            .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
+        .map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
   }
 
   @Override
   public UserServiceModel findUserByUsername(String username) {
     return this.userRepository
-            .findByUsername(username)
-            .map(user -> this.modelMapper.map(user, UserServiceModel.class))
-            .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
+        .findByUsername(username)
+        .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USERNAME_NOT_FOUND));
   }
 
   @Override
   public UserServiceModel findUserByEmail(String email) {
     return this.userRepository
-            .findByEmail(email)
-            .map(user -> this.modelMapper.map(user, UserServiceModel.class))
-            .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND));
+        .findByEmail(email)
+        .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND));
   }
 
   @Override
   public List<UserServiceModel> findAllUsers() {
     return this.userRepository
-            .findAll()
-            .stream()
-            .map(user -> this.modelMapper.map(user, UserServiceModel.class))
-            .collect(Collectors.toList());
+        .findAll()
+        .stream()
+        .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+        .collect(Collectors.toList());
   }
 
   @Override
   public void setUserRole(String id, String role) {
     User user = this.userRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.INCORRECT_ID));
+                                   .orElseThrow(() ->
+                                                    new IllegalArgumentException(
+                                                        ExceptionMessages.INCORRECT_ID));
 
-    UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
+    UserServiceModel userServiceModel =
+        this.modelMapper.map(user, UserServiceModel.class);
     userServiceModel.getAuthorities().clear();
 
     switch (role) {
       case "user":
         userServiceModel
-                .getAuthorities()
-                .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
+            .getAuthorities()
+            .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
         break;
       case "moderator":
         userServiceModel
-                .getAuthorities()
-                .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
+            .getAuthorities()
+            .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
         userServiceModel
-                .getAuthorities()
-                .add(this.roleService.findByAuthority(UserRoles.MODERATOR.toString()));
+            .getAuthorities()
+            .add(this.roleService.findByAuthority(UserRoles.MODERATOR.toString()));
         break;
       case "admin":
         userServiceModel
-                .getAuthorities()
-                .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
+            .getAuthorities()
+            .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
         userServiceModel
-                .getAuthorities()
-                .add(this.roleService.findByAuthority(UserRoles.MODERATOR.toString()));
+            .getAuthorities()
+            .add(this.roleService.findByAuthority(UserRoles.MODERATOR.toString()));
         userServiceModel
-                .getAuthorities()
-                .add(this.roleService.findByAuthority(UserRoles.ADMIN.toString()));
+            .getAuthorities()
+            .add(this.roleService.findByAuthority(UserRoles.ADMIN.toString()));
         break;
       default:
         break;

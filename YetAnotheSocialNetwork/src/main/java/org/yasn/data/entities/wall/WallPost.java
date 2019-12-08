@@ -19,7 +19,7 @@ public class WallPost extends BaseEntity {
 
   @ManyToOne(targetEntity = UserProfile.class)
   @JoinColumn(name = "post_owner_id",
-          referencedColumnName = "id")
+      referencedColumnName = "id")
   private UserProfile postOwner;
 
   @Column(name = "post_picture")
@@ -29,9 +29,9 @@ public class WallPost extends BaseEntity {
   private String postContent;
 
   @OneToMany(
-          targetEntity = PostComment.class,
-          mappedBy = "parentPost",
-          cascade = CascadeType.ALL)
+      targetEntity = PostComment.class,
+      mappedBy = "parentPost",
+      cascade = CascadeType.ALL)
   private Set<PostComment> comments;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
@@ -43,10 +43,10 @@ public class WallPost extends BaseEntity {
   private PostPrivacy postPrivacy;
 
   @OneToMany(
-          targetEntity = Like.class,
-          mappedBy = "likeOwner",
-          cascade = CascadeType.ALL,
-          orphanRemoval = true)
+      targetEntity = Like.class,
+      mappedBy = "likeOwner",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
   private Set<Like> actualLikes;
 
   @Column(name = "location")

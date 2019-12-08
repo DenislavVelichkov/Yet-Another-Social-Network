@@ -27,11 +27,10 @@ public class WebPageTitleInterceptor extends HandlerInterceptorAdapter {
 
         if (pageTitle != null) {
           modelAndView
-                  .addObject("title",
-                          title
-                                  + " - "
-                                  + pageTitle.value()
-                  );
+              .addObject("title",
+                         title
+                             + " - "
+                             + pageTitle.value());
         }
       }
     }

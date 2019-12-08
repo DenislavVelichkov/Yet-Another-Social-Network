@@ -7,10 +7,11 @@ import org.yasn.data.models.service.NotificationServiceModel;
 
 public interface NotificationService {
 
-  List<NotificationServiceModel> findAllByRecipientIdAndSenderId(String recipientId, String senderId);
+  List<NotificationServiceModel> findAllByRecipientIdAndSenderId(
+      String recipientId, String senderId);
 
   NotificationServiceModel createNotification(
-          String senderId, String recipientId, NotificationType notificationType);
+      String senderId, String recipientId, NotificationType notificationType);
 
   void removeNotification(String senderId, String recipientUsername, NotificationType friendReq);
 }
