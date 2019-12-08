@@ -61,7 +61,8 @@ public class User extends BaseEntity implements UserDetails {
   private Timestamp createdOn;
 
   @OneToOne(mappedBy = "profileOwner",
-      cascade = CascadeType.ALL)
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
   private UserProfile userProfile;
 
   @ManyToMany(targetEntity = Role.class,

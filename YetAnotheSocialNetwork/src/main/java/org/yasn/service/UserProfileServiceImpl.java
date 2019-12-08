@@ -37,14 +37,15 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     UserProfileServiceModel profileService =
         this.modelMapper.map(profile, UserProfileServiceModel.class);
+    this.modelMapper.validate();
 
     profileService.setId(profile.getId());
     profileService.setFullName(profile.getProfileOwner().getFirstName()
-                                   + ' '
-                                   + profile.getProfileOwner().getLastName());
+        + ' '
+        + profile.getProfileOwner().getLastName());
     profileService.setCoverPicture(profile.getCoverPicture());
 
-    this.modelMapper.validate();
+
 
     return profileService;
   }
@@ -54,10 +55,13 @@ public class UserProfileServiceImpl implements UserProfileService {
     /*Model mapper tends to assign false values sometimes since Model Mapper
     v2.3.1 the issue is not fixed*/
 
-    UserProfile profile = this.userProfileRepository.findById(id).get();
+    UserProfile profile =
+        this.userProfileRepository.findById(id).get();
+    UserProfileServiceModel newServiceModel = new UserProfileServiceModel();
 
     UserProfileServiceModel profileService =
-        this.modelMapper.map(profile, UserProfileServiceModel.class);
+        this.modelMapper.map(profile, newServiceModel.getClass());
+    this.modelMapper.validate();
 
     profileService.setId(profile.getId());
     profileService.setFullName(
@@ -65,8 +69,6 @@ public class UserProfileServiceImpl implements UserProfileService {
             + ' '
             + profile.getProfileOwner().getLastName());
     profileService.setCoverPicture(profile.getCoverPicture());
-
-    this.modelMapper.validate();
 
     return profileService;
   }
@@ -84,7 +86,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     this.modelMapper.validate();
 
     if (recipient.getFriends().stream()
-                 .noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
+        .noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
       recipient.getFriends().add(sender);
       this.userProfileRepository.saveAndFlush(this.modelMapper.map(recipient, UserProfile.class));
       return true;
@@ -146,16 +148,21 @@ public class UserProfileServiceImpl implements UserProfileService {
               +
               " "
               + profileEditBindingModel.getLastName());
+      userServiceModel.setFirstName(profileEditBindingModel.getFirstName());
+      userServiceModel.setLastName(profileEditBindingModel.getLastName());
     }
 
-    userServiceModel.setUserProfile(userProfileServiceModel);
+    userProfileServiceModel.setProfileOwner(userServiceModel);
 
-    User updatedUser =
-        this.modelMapper.map(userServiceModel, User.class);
+    UserProfile updatedUserProfile =
+          this.modelMapper.map(userProfileServiceModel, UserProfile.class);
+      this.modelMapper.validate();
 
+    User user = this.modelMapper.map(userServiceModel, User.class);
     this.modelMapper.validate();
 
-    this.userRepository.saveAndFlush(updatedUser);
+    this.userRepository.save(user);
+    this.userProfileRepository.saveAndFlush(updatedUserProfile);
 
     return true;
   }

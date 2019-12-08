@@ -75,8 +75,8 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                     this.modelMapper.map(
-                         wallPostServiceModel, WallPostViewModel.class))
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
@@ -91,11 +91,10 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/timeline/post")
-  public ModelAndView postOnGuestTimeline(
-      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-      @ModelAttribute(name = "username") String username,
-      Principal activeUser) throws IOException {
+  public ModelAndView postOnGuestTimeline(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+                                          @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+                                          @ModelAttribute(name = "username") String username,
+                                          Principal activeUser) throws IOException {
 
     // TODO: 11/12/2019 Validations
     String profileId =
@@ -125,7 +124,7 @@ public class UserProfileController extends BaseController {
   public ModelAndView guestProfile(ModelAndView modelAndView,
                                    @PathVariable String profileId,
                                    Principal activeUser) {
-    // TODO: 12/2/19 Create a Timeline Guest Post
+// TODO: 12/2/19 Create a Timeline Guest Post
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(profileId);
@@ -153,8 +152,8 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                     this.modelMapper.map(
-                         wallPostServiceModel, WallPostViewModel.class))
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
@@ -169,13 +168,12 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/guest/post")
-  public ModelAndView postOnTimeline(
-      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-      @ModelAttribute(name = "activeUserId") String activeUserId,
-      @ModelAttribute(name = "profileId") String profileId) throws IOException {
+  public ModelAndView postOnTimeline(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+                                     @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+                                     @ModelAttribute(name = "activeUserId") String activeUserId,
+                                     @ModelAttribute(name = "profileId") String profileId) throws IOException {
 
-    // TODO: 11/12/2019 Validations
+// TODO: 11/12/2019 Validations
 
     WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
@@ -193,8 +191,8 @@ public class UserProfileController extends BaseController {
 
     String username =
         this.userProfileService.findUserProfileById(activeUserId)
-                               .getProfileOwner()
-                               .getUsername();
+            .getProfileOwner()
+            .getUsername();
 
     this.wallService.createPost(wallPostServiceModel, username);
 
@@ -202,11 +200,10 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/timeline/comment")
-  public ModelAndView postCommentOnTimelinePost(
-      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-      @ModelAttribute(name = "postId") String postId,
-      @ModelAttribute(name = "username") String username,
-      Principal activeUser) throws IOException {
+  public ModelAndView postCommentOnTimelinePost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+                                                @ModelAttribute(name = "postId") String postId,
+                                                @ModelAttribute(name = "username") String username,
+                                                Principal activeUser) throws IOException {
 
     String profileId =
         this.userProfileService.findUserProfileByUsername(username).getId();
@@ -249,10 +246,8 @@ public class UserProfileController extends BaseController {
   }
 
   @GetMapping("/edit/{id}")
-  public ModelAndView profileEdit(
-      ModelAndView modelAndView,
-      @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
-      @PathVariable(name = "id") String id) {
+  public ModelAndView profileEdit(ModelAndView modelAndView,
+                                  @PathVariable(name = "id") String id) {
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(id);
@@ -268,18 +263,18 @@ public class UserProfileController extends BaseController {
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject("activeUserDetails", activeUserDetails);
+    modelAndView.addObject("profileEdit", new ProfileEditBindingModel());
 
     return super.view("profile-fragments/profile-edit", modelAndView);
   }
 
   @PostMapping("/edit/{id}")
-  public ModelAndView finalizeEditing(
-      ModelAndView modelAndView,
-      @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
-      @PathVariable(name = "id") String id,
-      BindingResult bindingResult) throws IOException {
+  public ModelAndView finalizeEditing(ModelAndView modelAndView,
+                                      @ModelAttribute(name = "profileEdit") ProfileEditBindingModel profileEdit,
+                                      @PathVariable(name = "id") String id,
+                                      BindingResult bindingResult) throws IOException {
 
-    if (this.majorChangeAccrue(profileEdit)) {
+    if (this.isMajorChangeHappened(profileEdit)) {
       this.profileEditValidator.validate(profileEdit, bindingResult);
     }
 
@@ -299,7 +294,7 @@ public class UserProfileController extends BaseController {
   }
 
   // TODO: 12/7/2019 Add First Name and Last Name to validation
-  private boolean majorChangeAccrue(ProfileEditBindingModel profileEdit) {
+  private boolean isMajorChangeHappened(ProfileEditBindingModel profileEdit) {
     return profileEdit.getNewPassword() != null
         || profileEdit.getEmail() != null
         || profileEdit.getOldPassword() != null;
