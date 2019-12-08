@@ -33,6 +33,7 @@ let postCommentPop = function () {
 };
 
 /*Text Area resizer*/
+/*
 let observe;
 if (window.attachEvent) {
     observe = function (element, event, handler) {
@@ -52,7 +53,7 @@ function initTextArea() {
         text.style.height = text.scrollHeight + 'px';
     }
 
-    /* 0-timeout to get the already changed text */
+    /!* 0-timeout to get the already changed text *!/
     function delayedResize() {
         window.setTimeout(resize, 0);
     }
@@ -66,7 +67,7 @@ function initTextArea() {
     text.focus();
     text.select();
     resize();
-}
+}*/
 
 
 /*Emojies config*/

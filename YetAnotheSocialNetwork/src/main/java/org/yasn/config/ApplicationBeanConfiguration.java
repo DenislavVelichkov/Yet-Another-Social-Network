@@ -16,7 +16,7 @@ import org.yasn.utils.TimeUtil;
 import org.yasn.utils.TimeUtilImpl;
 
 @Configuration
-public class ApplicatonBeanConfiguration {
+public class ApplicationBeanConfiguration {
 
   private static ModelMapper modelMapper;
   private static FileUtil fileUtil;
@@ -24,7 +24,8 @@ public class ApplicatonBeanConfiguration {
   static {
     fileUtil = new FileUtilImpl();
     modelMapper = new ModelMapper();
-    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    modelMapper.getConfiguration()
+               .setMatchingStrategy(MatchingStrategies.STRICT);
   }
 
   @Bean
