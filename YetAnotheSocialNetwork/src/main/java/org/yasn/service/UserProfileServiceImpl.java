@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
@@ -147,6 +148,8 @@ public class UserProfileServiceImpl implements UserProfileService {
               +
               " "
               + profileEditBindingModel.getLastName());
+      userServiceModel.setFirstName(profileEditBindingModel.getFirstName());
+      userServiceModel.setLastName(profileEditBindingModel.getLastName());
     }
 
     userProfileServiceModel.setProfileOwner(userServiceModel);
@@ -155,6 +158,10 @@ public class UserProfileServiceImpl implements UserProfileService {
           this.modelMapper.map(userProfileServiceModel, UserProfile.class);
       this.modelMapper.validate();
 
+    User user = this.modelMapper.map(userServiceModel, User.class);
+    this.modelMapper.validate();
+
+    this.userRepository.save(user);
     this.userProfileRepository.saveAndFlush(updatedUserProfile);
 
     return true;

@@ -18,13 +18,13 @@ import org.yasn.data.entities.wall.WallPost;
 @Table(name = "user_profiles")
 public class UserProfile extends BaseEntity {
 
-  @Column(name = "full_name")
+  @Column(name = "full_name", nullable = false)
   private String fullName;
 
   @OneToOne
   @JoinColumn(
           name = "user_id",
-          referencedColumnName = "id")
+          referencedColumnName = "id", nullable = false)
   private User profileOwner;
 
   @Column(name = "profile_picture")

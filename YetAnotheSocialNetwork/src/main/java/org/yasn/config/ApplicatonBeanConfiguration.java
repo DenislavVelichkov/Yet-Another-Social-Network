@@ -24,7 +24,7 @@ public class ApplicatonBeanConfiguration {
   static {
     fileUtil = new FileUtilImpl();
     modelMapper = new ModelMapper();
-    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
   }
 
   @Bean
