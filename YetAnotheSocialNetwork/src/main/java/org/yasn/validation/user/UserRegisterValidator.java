@@ -39,8 +39,7 @@ public class UserRegisterValidator implements org.springframework.validation.Val
       errors.rejectValue(
           "firstName",
           ValidationConstants.NAME_ONLY_LETTERS,
-          ValidationConstants.NAME_ONLY_LETTERS
-                        );
+          ValidationConstants.NAME_ONLY_LETTERS);
     }
 
     if (!lastNameMatcher.matches()) {
