@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <th:block>
     <div class="col-6">
         <th:block layout:insert="~{profile-fragments/create-timeline-post}"/>
@@ -9,6 +14,7 @@
             <div class="profile-gallery-container shadow p-sm-1 mb-5 bg-white rounded">
                 <p class="h6 font-weight-bold text-center">Friends</p>
                 <hr class="post-delimiter">
+                <th:block layout:insert= "~{/fragments/visualize-friends}"/>
             </div>
             <div class="profile-friends-container shadow p-sm-1 mb-5 bg-white rounded">
                 <p class="h6 font-weight-bold text-center">Photo Gallery</p>
@@ -17,3 +23,5 @@
         </div>
     </div>
 </th:block>
+
+</html>

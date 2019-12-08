@@ -94,10 +94,6 @@
 /*Sticky sidebar*/
 .user-profile-sidebar-container {
     position: sticky;
-    top: 8vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 .profile-edit-container {
@@ -113,6 +109,53 @@
 .edit-profile-upload-container p {
     text-align: center;
     font-weight: bold;
+}
+
+.friend-picture-container {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column wrap;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    padding: 0 0.5em 0;
+}
+
+.friend-picture {
+    flex: 0 0 100%;
+    height: auto;
+    border-radius: 0.4em;
+    overflow: hidden;
+}
+
+/*.friend-picture-container:hover .friend-profile-picture span {
+    display: flex;
+    -webkit-transition: 0.50s;
+    -moz-transition: 0.50s;
+    transition: 0.50s;
+}*/
+
+.friend-picture-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.profile-picture-action {
+    display: flex;
+    position: relative;
+    width: 25%;
+}
+
+.friend-picture-container a {
+    display: none;
+}
+
+.friend-name {
+    position: absolute;
+    top: 0;
+    display: block;
+    left: 12%;
+    font-weight: bolder;
+    color: #4e555b;
 }
 
 /*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/

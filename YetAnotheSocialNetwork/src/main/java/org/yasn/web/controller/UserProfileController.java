@@ -91,10 +91,11 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/timeline/post")
-  public ModelAndView postOnGuestTimeline(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                                          @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-                                          @ModelAttribute(name = "username") String username,
-                                          Principal activeUser) throws IOException {
+  public ModelAndView postOnGuestTimeline(
+      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+      @ModelAttribute(name = "username") String username,
+      Principal activeUser) throws IOException {
 
     // TODO: 11/12/2019 Validations
     String profileId =
@@ -168,10 +169,11 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/guest/post")
-  public ModelAndView postOnTimeline(@ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-                                     @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-                                     @ModelAttribute(name = "activeUserId") String activeUserId,
-                                     @ModelAttribute(name = "profileId") String profileId) throws IOException {
+  public ModelAndView postOnTimeline(
+      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
+      @ModelAttribute(name = "activeUserId") String activeUserId,
+      @ModelAttribute(name = "profileId") String profileId) throws IOException {
 
 // TODO: 11/12/2019 Validations
 
@@ -191,8 +193,8 @@ public class UserProfileController extends BaseController {
 
     String username =
         this.userProfileService.findUserProfileById(activeUserId)
-            .getProfileOwner()
-            .getUsername();
+                               .getProfileOwner()
+                               .getUsername();
 
     this.wallService.createPost(wallPostServiceModel, username);
 
@@ -200,10 +202,11 @@ public class UserProfileController extends BaseController {
   }
 
   @PostMapping("/timeline/comment")
-  public ModelAndView postCommentOnTimelinePost(@ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-                                                @ModelAttribute(name = "postId") String postId,
-                                                @ModelAttribute(name = "username") String username,
-                                                Principal activeUser) throws IOException {
+  public ModelAndView postCommentOnTimelinePost(
+      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+      @ModelAttribute(name = "postId") String postId,
+      @ModelAttribute(name = "username") String username,
+      Principal activeUser) throws IOException {
 
     String profileId =
         this.userProfileService.findUserProfileByUsername(username).getId();

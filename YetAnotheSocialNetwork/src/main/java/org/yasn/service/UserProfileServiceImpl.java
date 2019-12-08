@@ -87,7 +87,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     if (recipient.getFriends().stream()
         .noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
+      sender.getFriends().add(recipient);
       recipient.getFriends().add(sender);
+
+      this.userProfileRepository.save(this.modelMapper.map(sender, UserProfile.class));
       this.userProfileRepository.saveAndFlush(this.modelMapper.map(recipient, UserProfile.class));
       return true;
     }
@@ -161,7 +164,6 @@ public class UserProfileServiceImpl implements UserProfileService {
     User user = this.modelMapper.map(userServiceModel, User.class);
     this.modelMapper.validate();
 
-    this.userRepository.save(user);
     this.userProfileRepository.saveAndFlush(updatedUserProfile);
 
     return true;
