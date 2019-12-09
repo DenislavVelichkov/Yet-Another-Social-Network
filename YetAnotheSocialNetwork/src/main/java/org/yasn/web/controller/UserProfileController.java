@@ -139,12 +139,6 @@ public class UserProfileController extends BaseController {
     UserProfileViewModel activeUserViewModel =
         this.modelMapper.map(activeUserProfileServiceModel, UserProfileViewModel.class);
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(activeUserViewModel.getId());
-    activeUserDetails.setFirstName(activeUserViewModel.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(activeUserViewModel.getProfilePicture());
-    activeUserDetails.setNotifications(activeUserViewModel.getNotifications());
-
 
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);
@@ -159,7 +153,8 @@ public class UserProfileController extends BaseController {
             .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
-    modelAndView.addObject("activeUserDetails", activeUserDetails);
+    modelAndView.addObject(
+        "activeUserDetails", super.getActiveUserDetails(userProfileView));
     modelAndView.addObject("allProfilePosts", allPosts);
     modelAndView.addObject("postComment", new PostCommentBindingModel());
     modelAndView.addObject("timelinePost", new WallPostBindingModel());
@@ -258,14 +253,11 @@ public class UserProfileController extends BaseController {
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(userProfileView.getId());
-    activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
-    activeUserDetails.setNotifications(userProfileView.getNotifications());
+
 
     modelAndView.addObject("userProfileView", userProfileView);
-    modelAndView.addObject("activeUserDetails", activeUserDetails);
+    modelAndView.addObject(
+        "activeUserDetails", super.getActiveUserDetails(userProfileView));
     modelAndView.addObject("profileEdit", new ProfileEditBindingModel());
 
     return super.view("profile-fragments/profile-edit", modelAndView);
@@ -279,13 +271,26 @@ public class UserProfileController extends BaseController {
       BindingResult bindingResult) throws IOException {
 
     if (this.isMajorChangeHappened(profileEdit)) {
+      String activeUserEmail =
+          this.userProfileService.findUserProfileById(id).getProfileOwner().getEmail();
+      profileEdit.setEmail(activeUserEmail);
       this.profileEditValidator.validate(profileEdit, bindingResult);
     }
 
     if (bindingResult.hasErrors()) {
       profileEdit.setNewPassword(null);
       profileEdit.setConfirmNewPassword(null);
+
+      UserProfileServiceModel userProfileServiceModel =
+          this.userProfileService.findUserProfileById(id);
+
+      UserProfileViewModel userProfileView =
+          this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
       modelAndView.addObject("profileEdit", profileEdit);
+      modelAndView.addObject("userProfileView", userProfileView);
+      modelAndView.addObject("activeUserDetails", super.getActiveUserDetails(userProfileView));
+
       return super.view("profile-fragments/profile-edit", modelAndView);
     }
 

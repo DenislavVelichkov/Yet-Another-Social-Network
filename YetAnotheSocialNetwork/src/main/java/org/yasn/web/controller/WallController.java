@@ -64,6 +64,7 @@ public class WallController extends BaseController {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
+        this.modelMapper.validate();
 
     if (!postComment.getCommentPicture().isEmpty()) {
       postCommentServiceModel.setCommentPicture(
@@ -72,7 +73,7 @@ public class WallController extends BaseController {
       postCommentServiceModel.setCommentPicture(null);
     }
 
-    this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
+      this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
     return super.redirect("/home");
   }

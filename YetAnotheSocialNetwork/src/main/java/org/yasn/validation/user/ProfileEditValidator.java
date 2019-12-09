@@ -32,72 +32,88 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
         .findUserProfileByProfileOwner_Email(((ProfileEditBindingModel) o)
             .getEmail()).orElse(null);
 
-    if (userProfile == null) { return; }
+    if (userProfile == null) {
+      return;
+    }
 
     Pattern namePattern = Pattern.compile("[A-Z][a-z]+");
     Pattern passwordPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}");
-    Matcher firstNameMatcher =
-        namePattern.matcher(profileEditBindingModel.getFirstName());
-    Matcher lastNameMatcher =
-        namePattern.matcher(profileEditBindingModel.getLastName());
-    Matcher passwordMatcher =
-        passwordPattern.matcher(profileEditBindingModel.getNewPassword());
-
-    if (!this.bCryptPasswordEncoder.matches(
-        profileEditBindingModel.getOldPassword(), userProfile.getProfileOwner().getPassword())) {
-      errors.rejectValue(
-          "oldPassword",
-          ValidationConstants.WRONG_PASSWORD,
-          ValidationConstants.WRONG_PASSWORD
-      );
-    }
-
-    if (!firstNameMatcher.matches()) {
-      errors.rejectValue(
-          "firstName",
-          ValidationConstants.NAME_ONLY_LETTERS,
-          ValidationConstants.NAME_ONLY_LETTERS
-      );
-    }
-
-    if (!lastNameMatcher.matches()) {
-      errors.rejectValue(
-          "lastName",
-          ValidationConstants.NAME_ONLY_LETTERS,
-          ValidationConstants.NAME_ONLY_LETTERS
-      );
-    }
-
-    if (!passwordMatcher.matches()) {
-      errors.rejectValue(
-          "newPassword",
-          ValidationConstants.PASSWORD_CONDITION,
-          ValidationConstants.PASSWORD_CONDITION
-      );
-    }
-
-    if (!passwordMatcher.matches()) {
-      errors.rejectValue(
-          "oldPassword",
-          ValidationConstants.PASSWORD_CONDITION,
-          ValidationConstants.PASSWORD_CONDITION
-      );
-    }
+    Matcher firstNameMatcher = null;
+    Matcher lastNameMatcher = null;
+    Matcher passwordMatcher = null;
 
     if (profileEditBindingModel.getNewPassword() != null
-        && !profileEditBindingModel.getNewPassword()
-                                   .equals(profileEditBindingModel
-                                       .getConfirmNewPassword())) {
-      errors.rejectValue(
-          "newPassword",
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH,
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH
-      );
+        || profileEditBindingModel.getOldPassword() != null) {
+      passwordMatcher =
+          passwordPattern.matcher(profileEditBindingModel.getNewPassword());
+
+      if (!passwordMatcher.matches()) {
+        errors.rejectValue(
+            "newPassword",
+            ValidationConstants.PASSWORD_CONDITION,
+            ValidationConstants.PASSWORD_CONDITION
+        );
+      }
+
+      if (!passwordMatcher.matches()) {
+        errors.rejectValue(
+            "oldPassword",
+            ValidationConstants.PASSWORD_CONDITION,
+            ValidationConstants.PASSWORD_CONDITION
+        );
+      }
+
+      if (profileEditBindingModel.getNewPassword() != null
+          && !profileEditBindingModel.getNewPassword()
+                                     .equals(profileEditBindingModel
+                                         .getConfirmNewPassword())) {
+        errors.rejectValue(
+            "newPassword",
+            ValidationConstants.PASSWORDS_DO_NOT_MATCH,
+            ValidationConstants.PASSWORDS_DO_NOT_MATCH
+        );
+      }
+
+
+      if (!this.bCryptPasswordEncoder.matches(
+          profileEditBindingModel.getOldPassword(), userProfile.getProfileOwner().getPassword())) {
+        errors.rejectValue(
+            "oldPassword",
+            ValidationConstants.WRONG_PASSWORD,
+            ValidationConstants.WRONG_PASSWORD
+        );
+      }
+    }
+    
+    if (profileEditBindingModel.getFirstName() != null){
+      firstNameMatcher =
+          namePattern.matcher(profileEditBindingModel.getFirstName());
+
+      if (!firstNameMatcher.matches()) {
+        errors.rejectValue(
+            "firstName",
+            ValidationConstants.NAME_ONLY_LETTERS,
+            ValidationConstants.NAME_ONLY_LETTERS
+        );
+      }
     }
 
-    if (!userProfile.getProfileOwner().getEmail().equals(profileEditBindingModel.getEmail())
+    if (profileEditBindingModel.getLastName() != null) {
+      lastNameMatcher =
+          namePattern.matcher(profileEditBindingModel.getLastName());
+
+      if (!lastNameMatcher.matches()) {
+        errors.rejectValue(
+            "lastName",
+            ValidationConstants.NAME_ONLY_LETTERS,
+            ValidationConstants.NAME_ONLY_LETTERS
+        );
+      }
+    }
+
+    /*if (!userProfile.getProfileOwner().getEmail().equals(profileEditBindingModel.getEmail())
         && this.userProfileRepository.findUserProfileByProfileOwner_Email(
-            profileEditBindingModel.getEmail()).isPresent()) {
+        profileEditBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(
           "email",
           String.format(
@@ -105,6 +121,6 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
           String.format(
               ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail())
       );
-    }
+    }*/
   }
 }

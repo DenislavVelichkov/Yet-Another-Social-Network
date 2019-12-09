@@ -23,7 +23,7 @@ public class WallPost extends BaseEntity {
   @JoinColumn(
       name = "post_owner_id",
       referencedColumnName = "id",
-      nullable = false, updatable = false)
+      nullable = false)
   private UserProfile postOwner;
 
   @Column(name = "post_picture")
@@ -43,8 +43,7 @@ public class WallPost extends BaseEntity {
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(
       name = "created_on",
-      nullable = false,
-      updatable = false)
+      nullable = false)
   private Timestamp createdOn;
 
   @Enumerated(EnumType.STRING)

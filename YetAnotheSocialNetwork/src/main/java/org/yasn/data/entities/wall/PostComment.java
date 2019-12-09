@@ -20,15 +20,13 @@ public class PostComment extends BaseEntity {
   @ManyToOne(targetEntity = WallPost.class)
   @JoinColumn(
       name = "parent_post_id",
-      referencedColumnName = "id",
-      unique = true, updatable = false, nullable = false)
+      referencedColumnName = "id")
   private WallPost parentPost;
 
   @ManyToOne(targetEntity = UserProfile.class)
   @JoinColumn(
       name = "comment_owner_id",
-      referencedColumnName = "id",
-      updatable = false, nullable = false, unique = true)
+      referencedColumnName = "id")
   private UserProfile commentOwner;
 
   @Column(

@@ -37,8 +37,10 @@ public class PostCommentServiceImpl implements PostCommentService {
 
     PostComment postComment =
         this.modelMapper.map(postCommentServiceModel, PostComment.class);
+      this.modelMapper.validate();
+      postComment.setId(null);
 
-    this.postCommentRepository.saveAndFlush(postComment);
+      this.postCommentRepository.saveAndFlush(postComment);
   }
 
   @Override
