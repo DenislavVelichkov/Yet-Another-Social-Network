@@ -21,11 +21,13 @@
                 <form enctype="multipart/form-data" th:action="@{'/profile/edit/' + ${activeUserDetails.id}}"
                       th:method="post"
                       th:object="${profileEdit}">
+
                     <div class="profile-edit-container row">
                         <div class="shadow mb-5 bg-white rounded col-8">
                             <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                             <!--/*@thymesVar id="profileEdit" type="org.yasn.data.models.binding.ProfileEditBindingModel"*/-->
-
+                            <h3 class="text-muted text-center">Profile Edit</h3>
+                            <hr class="post-delimiter"/>
                             <div class="row">
                                 <div class="col-6">
                                     <label class="font-weight-bold" for="firstName"></label>
@@ -157,7 +159,7 @@
                                 </label>
                             </div>
                             <input id="file-input-cover" style="display: none" th:field="*{coverPicture}" type="file"/>
-                            <p class="text-muted">Upload profile cover</p>
+                            <p class="text-muted">Upload profile cover image</p>
                         </div>
                     </div>
                 </form>

@@ -12,15 +12,36 @@
     width: 100%;
 }
 
+.cover-img-container::before {
+    display: block;
+    content: '';
+    padding-top: 294px;
+}
+
 .cover-img-container {
     overflow: hidden;
     position: relative;
 }
 
-.cover-img-container::before {
-    display: block;
-    content: '';
-    padding-top: 294px;
+.cover-img-caption {
+    display: flex;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.cover-img-caption p {
+    position: relative;
+    top: 0;
+    left: 6%;
+    margin-top: auto;
+    margin-bottom: 0;
+    flex-grow: 1;
+    font-size: 2em;
+    font-weight: bolder;
+    color: #fff;
 }
 
 .static-cover-img {
@@ -30,14 +51,14 @@
     display: block;
     top: 50%;
     left: 50%;
-    transform:translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .profile-picture {
-    width: 15%;
+    flex: 0 1 14%;
+    position: relative;
     height: auto;
     display: block;
-    position: absolute;
     top: 44%;
     left: 5%;
     box-shadow: 0 0 0.6em #fff;
@@ -74,29 +95,6 @@
     padding: 0 1em 0;
 }
 
-.profile-name-container {
-    position: absolute;
-    top: 79%;
-    left: 23%;
-    height: auto;
-    width: 100%;
-    display: block;
-}
-
-.cover-img-container p {
-    display: inline-block;
-    position: absolute;
-    top: 80%;
-    left: 21%;
-    padding: 0;
-    margin: 0;
-    font-size: 2em;
-    font-weight:bolder;
-    color: #fff;
-    width: 100%;
-}
-
-
 /*Sticky sidebar*/
 .user-profile-sidebar-container {
     position: sticky;
@@ -109,6 +107,10 @@
 .upload-profile-picture, .upload-cover-img {
     font-size: 9rem;
     text-align: center;
+}
+
+.upload-profile-picture label:hover,
+.upload-cover-img label:hover{
     cursor: pointer;
 }
 

@@ -5,10 +5,12 @@
             <div class="cover-img-container">
                 <img class="static-cover-img" th:src="@{${userProfileView.coverPicture}}"
                      alt="cover-profile-image"/>
-                <img class="z-depth-2 rounded profile-picture"
-                     th:src="@{${userProfileView.profilePicture}}"
-                     alt="profile-picture"/>
-                <p th:text="${userProfileView.fullName}"></p>
+                <div class="cover-img-caption">
+                    <img class="z-depth-2 rounded profile-picture"
+                        th:src="@{${userProfileView.profilePicture}}"
+                        alt="profile-picture"/>
+                    <p th:text="${userProfileView.fullName}"></p>
+                </div>
             </div>
             <th:block layout:insert="~{profile-fragments/profile-menu}"/>
         </div>
