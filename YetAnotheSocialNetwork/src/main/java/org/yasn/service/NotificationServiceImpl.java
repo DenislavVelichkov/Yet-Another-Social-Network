@@ -22,6 +22,7 @@ import org.yasn.service.interfaces.UserProfileService;
 @Service
 @AllArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
+
   private final NotificationRepository notificationRepository;
   private final UserProfileRepository userProfileRepository;
   private final UserProfileService userProfileService;

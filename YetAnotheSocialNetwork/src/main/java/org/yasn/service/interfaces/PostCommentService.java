@@ -1,5 +1,6 @@
 package org.yasn.service.interfaces;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface PostCommentService {
 
   void postComment(PostCommentServiceModel commentModel,
                    Principal user,
-                   String postId);
+                   String postId) throws IOException;
 
   List<PostCommentServiceModel> displayAllPostComments(String id);
 }

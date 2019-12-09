@@ -50,10 +50,11 @@ public class UserServiceImpl implements UserService {
     } else {
       userServiceModel.setAuthorities(new LinkedHashSet<>());
       userServiceModel.getAuthorities()
-                      .add(this.roleService.findByAuthority(UserRoles.USER.toString()));
+                      .add(this.roleService.findByAuthority("USER"));
     }
 
     String[] usernamePrep = userServiceModel.getEmail().split("@");
+    // TODO: 12/9/19 Implement random generated concat username
 
     userServiceModel.setUsername(usernamePrep[0] + "." + usernamePrep[1]);
     userServiceModel.setActive(true);
@@ -68,7 +69,14 @@ public class UserServiceImpl implements UserService {
                             " "
                             + userServiceModel.getLastName());
 
-    profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_IMG_PATH);
+    if (user.getGender().equals("male")) {
+      profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_MALE_IMG_PATH);
+    } else if (user.getGender().equals("female")) {
+      profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_FEMALE_IMG_PATH);
+    } else {
+      profile.setCoverPicture(WebConstants.DEFAULT_AVATAR_NEUTRAL_IMG_PATH);
+    }
+
     profile.setCoverPicture(WebConstants.DEFAULT_COVER_IMG_PATH);
 
     user.setUserProfile(profile);

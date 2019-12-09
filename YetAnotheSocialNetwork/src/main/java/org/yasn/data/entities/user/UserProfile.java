@@ -23,8 +23,9 @@ public class UserProfile extends BaseEntity {
 
   @OneToOne
   @JoinColumn(
-          name = "user_id",
-          referencedColumnName = "id", nullable = false)
+      name = "user_id",
+      referencedColumnName = "id",
+      nullable = false, unique = true)
   private User profileOwner;
 
   @Column(name = "profile_picture")
@@ -34,32 +35,34 @@ public class UserProfile extends BaseEntity {
   private String coverPicture;
 
   @OneToMany(
-          targetEntity = PersonalGallery.class,
-          mappedBy = "photoOwner",
-          cascade = CascadeType.ALL)
+      targetEntity = PersonalGallery.class,
+      mappedBy = "photoOwner",
+      cascade = CascadeType.ALL)
   private Set<PersonalGallery> photoGallery;
 
   @OneToMany(
-          targetEntity = WallPost.class,
-          mappedBy = "postOwner",
-          cascade = CascadeType.ALL)
+      targetEntity = WallPost.class,
+      mappedBy = "postOwner",
+      cascade = CascadeType.ALL)
   private Set<WallPost> wallPosts;
 
   @OneToMany(
-          targetEntity = PostComment.class,
-          mappedBy = "commentOwner",
-          cascade = CascadeType.ALL)
+      targetEntity = PostComment.class,
+      mappedBy = "commentOwner",
+      cascade = CascadeType.ALL)
   private Set<PostComment> postComments;
 
   @ManyToMany(
-          cascade = CascadeType.ALL
+      cascade = CascadeType.ALL
   )
   @JoinTable(
-          name = "user_profiles_friends",
-          joinColumns = @JoinColumn(name = "user_profile_id",
-                  referencedColumnName = "id"),
-          inverseJoinColumns = @JoinColumn(name = "friend_id",
-                  referencedColumnName = "id"))
+      name = "user_profiles_friends",
+      joinColumns = @JoinColumn(
+          name = "user_profile_id",
+          referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(
+          name = "friend_id",
+          referencedColumnName = "id"))
   private Set<UserProfile> friends;
 
   @OneToMany(

@@ -2,9 +2,15 @@ package org.yasn.data.entities.user;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.yasn.data.entities.BaseEntity;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "gallery")
 public class PersonalGallery extends BaseEntity {
 

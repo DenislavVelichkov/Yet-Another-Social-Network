@@ -1,5 +1,6 @@
 package org.yasn.service;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.repository.wall.PostCommentRepository;
-import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
@@ -20,15 +20,16 @@ import org.yasn.service.interfaces.WallService;
 @Service
 @AllArgsConstructor
 public class PostCommentServiceImpl implements PostCommentService {
+
   private final PostCommentRepository postCommentRepository;
   private final ModelMapper modelMapper;
   private final UserProfileService userProfileService;
   private final WallService wallService;
-  private final CloudinaryService cloudinaryService;
 
   @Override
   public void postComment(PostCommentServiceModel postCommentServiceModel,
-                          Principal activeUser, String postId) {
+                          Principal activeUser, String postId) throws IOException {
+
     postCommentServiceModel.setCommentOwner(
         this.userProfileService.findUserProfileByUsername(activeUser.getName()));
     postCommentServiceModel.setParentPost(this.wallService.findWallPostById(postId));

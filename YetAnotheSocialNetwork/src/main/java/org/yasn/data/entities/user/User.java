@@ -57,10 +57,15 @@ public class User extends BaseEntity implements UserDetails {
   private boolean isActive;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
-  @Column(name = "created_on", updatable = false)
+  @Column(
+      name = "created_on",
+      updatable = false,
+      nullable = false)
   private Timestamp createdOn;
 
-  @OneToOne(mappedBy = "profileOwner",
+  @OneToOne(
+      targetEntity = UserProfile.class,
+      mappedBy = "profileOwner",
       cascade = CascadeType.ALL,
       orphanRemoval = true)
   private UserProfile userProfile;
