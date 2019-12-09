@@ -53,7 +53,7 @@ public class UserProfile extends BaseEntity {
   private Set<PostComment> postComments;
 
   @ManyToMany(
-      cascade = CascadeType.ALL
+      cascade = CascadeType.PERSIST
   )
   @JoinTable(
       name = "user_profiles_friends",

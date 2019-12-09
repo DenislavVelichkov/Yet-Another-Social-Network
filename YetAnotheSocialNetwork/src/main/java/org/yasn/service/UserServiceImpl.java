@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     } else if (user.getGender().equals("female")) {
       profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_FEMALE_IMG_PATH);
     } else {
-      profile.setCoverPicture(WebConstants.DEFAULT_AVATAR_NEUTRAL_IMG_PATH);
+      profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_NEUTRAL_IMG_PATH);
     }
 
     profile.setCoverPicture(WebConstants.DEFAULT_COVER_IMG_PATH);

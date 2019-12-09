@@ -74,24 +74,31 @@ public class UserProfileServiceImpl implements UserProfileService {
   }
 
   @Override
-  public boolean addFriend(String senderId, String userName) {
+  public boolean addFriend(String senderId, String recipientUsername) {
 
     UserProfileServiceModel recipient =
         this.modelMapper.map(
-            this.findUserProfileByUsername(userName), UserProfileServiceModel.class);
+            this.findUserProfileByUsername(
+                recipientUsername), UserProfileServiceModel.class);
     this.modelMapper.validate();
 
     UserProfileServiceModel sender =
-        this.modelMapper.map(this.findUserProfileById(senderId), UserProfileServiceModel.class);
+        this.modelMapper.map(
+            this.findUserProfileById(senderId), UserProfileServiceModel.class);
     this.modelMapper.validate();
 
-    if (recipient.getFriends().stream()
-        .noneMatch(userProfile -> userProfile.getId().equals(sender.getId()))) {
-      sender.getFriends().add(recipient);
-      recipient.getFriends().add(sender);
+    if (sender.getFriends().stream()
+        .noneMatch(userProfile -> userProfile.getId().equals(recipient.getId()))
+    || sender.getId().equals(recipient.getId())) {
 
-      this.userProfileRepository.save(this.modelMapper.map(sender, UserProfile.class));
-      this.userProfileRepository.saveAndFlush(this.modelMapper.map(recipient, UserProfile.class));
+      recipient.getFriends().add(sender);
+      sender.getFriends().add(recipient);
+
+      this.userProfileRepository.saveAndFlush(
+          this.modelMapper.map(sender, UserProfile.class));
+      this.userProfileRepository.saveAndFlush(
+          this.modelMapper.map(recipient, UserProfile.class));
+
       return true;
     }
 

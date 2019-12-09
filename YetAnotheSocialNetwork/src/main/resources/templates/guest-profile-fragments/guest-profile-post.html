@@ -60,11 +60,12 @@
                     <li onclick="postCommentPop()">
                         <a href="javascript:void(0)">Comment</a>
                     </li>
-                    <span> - </span>
+                    <span class="text-muted"> - </span>
                     <li>
-                        <a href="javascript:void(0)" id="post-like"
+                        <a class="post-like"
+                           href="javascript:void(0)"
                            onclick="likeAPost()"
-                           th:attr="data-post_id = ${post.id}">
+                           th:attr="likePostId = ${post.id}">
                             Like
                         </a>
                     </li>
@@ -82,10 +83,10 @@
                       th:action="@{/profile/guest/comment}"
                       th:method="post"
                       th:object="${postComment}">
-                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                     <img alt="profile-picture"
                          class="comment-meta-avatar-img img-fluid"
-                         th:src="@{${userProfileView.profilePicture}}"/>
+                         th:src="@{${activeUserDetails.profilePicture}}"/>
                     <label for="yasn-comment-post-textarea"></label>
                     <input class="comment-post-textarea"
                            id="yasn-comment-post-textarea" name="comment-post-textarea"

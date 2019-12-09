@@ -20,24 +20,25 @@
 .cover-img-container::before {
     display: block;
     content: '';
-    padding-top: 50%;
+    padding-top: 294px;
 }
 
-.cover-img-container .static {
+.static-cover-img {
     position: absolute;
     width: 100%;
     height: auto;
     display: block;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
 }
 
-.cover-img-container .profile-picture {
+.profile-picture {
     width: 15%;
     height: auto;
     display: block;
     position: absolute;
-    top: 60%;
+    top: 44%;
     left: 5%;
     box-shadow: 0 0 0.6em #fff;
 }
@@ -82,12 +83,17 @@
     display: block;
 }
 
-.profile-name-container p {
+.cover-img-container p {
+    display: inline-block;
+    position: absolute;
+    top: 80%;
+    left: 21%;
     padding: 0;
     margin: 0;
     font-size: 2em;
-    font-weight: bold;
+    font-weight:bolder;
     color: #fff;
+    width: 100%;
 }
 
 

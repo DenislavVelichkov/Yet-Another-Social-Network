@@ -36,9 +36,17 @@ const likeAPost = function () {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: 'likePostId' + '=' + postId + '&' + '_csrf' + '=' + csrfToken,
+                body: 'likePostId' + '=' + postId
+                    + '&'
+                    + '_csrf' + '=' + csrfToken
 
-            }).then($(this).html('Unlike'));
+            }).then($(this).toggle(function () {
+                if ($(this).val() === 'Like') {
+                    $(this).html('Unlike');
+                } else {
+                    $(this).html('Like');
+                }
+            }));
 
             ev.preventDefault();
             return false;
@@ -63,14 +71,6 @@ const addFriend = function () {
                 body: 'profileId' + '=' + profileId + '&' + '_csrf' + '=' + csrfToken
 
             }).then(() => window.location = '/profile/guest/' + profileId);
-            /*.then((response) => {
-                alert(response.json());
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                window.location = '/profile/guest/' + profileId;
-            });*/
 
             ev.preventDefault();
             return false;

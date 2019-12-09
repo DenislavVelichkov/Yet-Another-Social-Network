@@ -10,7 +10,7 @@ public interface UserProfileService {
 
   UserProfileServiceModel findUserProfileById(String id);
 
-  boolean addFriend(String senderId, String userName);
+  boolean addFriend(String senderId, String recipientUsername);
 
   boolean editProfile(UserProfileServiceModel userProfile,
                       ProfileEditBindingModel profileEditBindingModel) throws IOException;

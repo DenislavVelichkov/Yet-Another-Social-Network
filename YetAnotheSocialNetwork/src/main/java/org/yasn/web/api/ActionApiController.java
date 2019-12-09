@@ -19,6 +19,7 @@ import org.yasn.web.controller.BaseController;
 @RequestMapping("/api")
 @AllArgsConstructor
 public class ActionApiController extends BaseController {
+
   private final WallService wallService;
   private final NotificationService notificationService;
   private final UserProfileService userProfileService;
@@ -67,11 +68,14 @@ public class ActionApiController extends BaseController {
   public void acceptFriendRequest(@ModelAttribute(name = "senderId") String senderId,
                                   Principal activeUser) {
 
-    this.userProfileService.addFriend(senderId, activeUser.getName());
+    boolean successFullFriendship =
+        this.userProfileService.addFriend(senderId, activeUser.getName());
 
-    this.notificationService.removeNotification(
-        senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
+    if (successFullFriendship) {
+      this.notificationService.removeNotification(
+          senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
+    }
+
   }
-
 }
 
