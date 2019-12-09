@@ -11,14 +11,14 @@
         <div class="post-meta-avatar">
             <img alt="profile-avatar" class="user-img" th:src="@{${comment.commentOwner.profilePicture}}"/>
         </div>
-        <div class="post-menu">
+        <!--<div class="post-menu">
             <div class="dropdown">
                 <a data-target="#" data-toggle="dropdown" role="button">
                     <i class="fas fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu multi-level" role="menu">
                     <li>
-                        <!--     todo  little post menu CRUD operations  -->
+                        &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
                         <a class="post-control-edit"
                            href="">
                             Edit
@@ -26,7 +26,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>-->
         <div>
             <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
             <th:block th:unless="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<th:block>
+    <a role="button" data-toggle="modal" data-target="#">
+        Create Album
+    </a>
+    <div class="modal fade" id="profile-create-album" tabindex="-1" role="dialog" aria-labelledby="profile-create-album"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderFormModalLabel-{{id}}">Order tickets for {{name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-inline d-flex justify-content-between" action="/events/order" method="POST">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="mb-1" for="tickets-{{id}}">Tickets</label>
+                            <input type="number" name="tickets" class="form-control ml-3 w-75" id="tickets-{{id}}"/>
+                            <input type="hidden" name="eventId" value="{{id}}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-eventures">Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

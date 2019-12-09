@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <th:block>
     <div class="profile-nav-container">
         <div class="profile-cover-menu">
@@ -18,6 +24,9 @@
                     </a>
                 </li>
                 <li>
+                    <th:block layout:insert="~{profile-fragments/create-album}"/>
+                </li>
+                <li>
                     <div class="profile-action-buttons">
                         <a href="" type="submit">Messages</a>
                     </div>
@@ -26,3 +35,5 @@
         </div>
     </div>
 </th:block>
+
+</html>

@@ -21,7 +21,6 @@ import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.PostCommentServiceModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.WallPostServiceModel;
-import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.service.interfaces.CloudinaryService;
@@ -61,13 +60,6 @@ public class UserProfileController extends BaseController {
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(userProfileView.getId());
-    activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
-    activeUserDetails.setNotifications(userProfileView.getNotifications());
-
-
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);
 
@@ -75,13 +67,14 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                     this.modelMapper.map(
-                         wallPostServiceModel, WallPostViewModel.class))
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
-    modelAndView.addObject("activeUserDetails", activeUserDetails);
+    modelAndView.addObject(
+        "activeUserDetails", super.getActiveUserDetails(userProfileView));
     modelAndView.addObject("allProfilePosts", allPosts);
     modelAndView.addObject("postComment", new PostCommentBindingModel());
     modelAndView.addObject("timelinePost", new WallPostBindingModel());
@@ -147,8 +140,8 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                     this.modelMapper.map(
-                         wallPostServiceModel, WallPostViewModel.class))
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
@@ -254,7 +247,6 @@ public class UserProfileController extends BaseController {
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
 
-
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails(userProfileView));
@@ -309,5 +301,12 @@ public class UserProfileController extends BaseController {
         || profileEdit.getOldPassword() != null
         || profileEdit.getFirstName() != null
         || profileEdit.getLastName() != null;
+  }
+
+  @GetMapping("/create-album")
+  public ModelAndView createAlbum() {
+
+
+    return super.view("profile-fragments/create-album");
   }
 }
