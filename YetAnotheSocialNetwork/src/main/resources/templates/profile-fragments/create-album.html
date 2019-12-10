@@ -23,13 +23,16 @@
 
                 <div class="modal-body">
                     <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-                    <form th:action="@{'/profile/create-album/' + ${userProfileView.id}}"
-                          th:method="POST"
-                          enctype="multipart/form-data">
+                    <form>
                         <label for="photos">
                         </label>
-                        <input id="photos" type="file" name="photos" data-preview-file-type="text"/>
+                        <input id="photos" type="file" name="photos"/>
+                        <label for="gallery-album-name"></label>
+                        <input id="gallery-album-name" type="text" name="albumName"
+                               placeholder="Enter name for your album..."/>
+                        <input type="hidden" name="profileId" th:value="${userProfileView.id}"/>
                     </form>
+
                 </div>
 
                 <div class="modal-footer">

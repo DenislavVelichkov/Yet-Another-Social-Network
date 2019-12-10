@@ -1,16 +1,19 @@
 package org.yasn.web.api;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;
 import org.yasn.service.interfaces.WallService;
@@ -25,6 +28,7 @@ public class ActionApiController extends BaseController {
   private final WallService wallService;
   private final NotificationService notificationService;
   private final UserProfileService userProfileService;
+  private final CloudinaryService cloudinaryService;
 
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
@@ -92,6 +96,31 @@ public class ActionApiController extends BaseController {
       this.notificationService.removeNotification(
           senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
     }
+
+  }
+
+  @PostMapping("/create-album")
+  public void createAlbum(
+      @RequestParam(name = "profileId") String profileId,
+      @RequestParam(name = "albumName") String albumName,
+      @RequestParam(name = "photos") MultipartFile[] photos) {
+
+
+    Set<String> images =
+        Arrays.stream(photos)
+              .map(multipartFile -> {
+                String convertedImage = null;
+
+                try {
+                  convertedImage =
+                      this.cloudinaryService.uploadImage(multipartFile);
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
+
+                return convertedImage;
+              })
+              .collect(Collectors.toSet());
 
   }
 }

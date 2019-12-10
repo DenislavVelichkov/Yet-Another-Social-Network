@@ -8,11 +8,5 @@ $(document).ready(function () {
             }
         );
     });
-    /*Create Album func*/
-    $("#photos").fileinput({
-        'showUpload':true,
-        'previewFileType':'any',
-        'theme':'fa',
-    });
 });
 

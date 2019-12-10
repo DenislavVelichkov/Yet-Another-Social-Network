@@ -2,9 +2,7 @@ package org.yasn.web.controller;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.common.enums.PostPrivacy;
@@ -296,30 +293,5 @@ public class UserProfileController extends BaseController {
     this.userProfileService.editProfile(userProfileServiceModel, profileEdit);
 
     return super.redirect("/profile/timeline/" + id);
-  }
-
-  @PostMapping("/create-album/{profileId}")
-  public ModelAndView createAlbum(@PathVariable(name = "profileId") String profileId,
-                                  @RequestParam(name = "albumName") String albumName,
-                                  @RequestParam(name = "photos") MultipartFile[] photos) {
-    System.out.println(albumName);
-
-    Set<String> images =
-        Arrays.stream(photos)
-              .map(multipartFile -> {
-                String convertedImage = null;
-
-                try {
-                  convertedImage =
-                      this.cloudinaryService.uploadImage(multipartFile);
-                } catch (IOException e) {
-                  e.printStackTrace();
-                }
-
-                return convertedImage;
-              })
-              .collect(Collectors.toSet());
-
-    return super.redirect("/profile/timeline/" + profileId);
   }
 }

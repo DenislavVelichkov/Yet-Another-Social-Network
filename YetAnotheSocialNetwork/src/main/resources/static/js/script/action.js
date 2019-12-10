@@ -101,3 +101,25 @@ const acceptFriend = function () {
         });
     });
 };
+
+$(document).ready(function () {
+    const url = URLs.createPhotoAlbum;
+
+    $("#photos").fileinput({
+        showUpload: true,
+        previewFileType: "image",
+        theme: "fa",
+        allowedFileExtensions: ["jpg", "JPG", "jpeg", "JPEG", "png", "PNG"],
+        msgInvalidFileExtension: 'Incorrect file type for {name}, please upload one of the following file types: {extensions}',
+        uploadAsync: false,
+        uploadUrl: url,
+        uploadExtraData: function () {
+            return {
+                profileId: $("input[name='profileId']").val(),
+                albumName: $("input[name='albumName']").val(),
+                '_csrf': csrfToken,
+            };
+        }
+    });
+});
+
