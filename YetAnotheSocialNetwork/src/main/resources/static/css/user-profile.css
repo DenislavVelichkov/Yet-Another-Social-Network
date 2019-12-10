@@ -62,7 +62,7 @@
     flex: 0 1 14%;
     position: relative;
     height: auto;
-    display: block;
+    width: 0; /*For Chrome...*/
     top: 44%;
     left: 5%;
     box-shadow: 0 0 0.6em #fff;
@@ -138,14 +138,8 @@
     height: auto;
     border-radius: 0.4em;
     overflow: hidden;
+    width: 100%;
 }
-
-/*.friend-picture-container:hover .friend-profile-picture span {
-    display: flex;
-    -webkit-transition: 0.50s;
-    -moz-transition: 0.50s;
-    transition: 0.50s;
-}*/
 
 .friend-picture-container {
     display: flex;

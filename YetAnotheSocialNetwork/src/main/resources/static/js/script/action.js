@@ -109,10 +109,12 @@ $(document).ready(function () {
         showUpload: true,
         previewFileType: "image",
         theme: "fa",
-        allowedFileExtensions: ["jpg", "JPG", "jpeg", "JPEG", "png", "PNG"],
+        allowedFileExtensions: ["jpg", "jpeg", "png"],
         msgInvalidFileExtension: 'Incorrect file type for {name}, please upload one of the following file types: {extensions}',
-        uploadAsync: false,
+        uploadAsync: true,
         uploadUrl: url,
+        msgPlaceholder: 'Select image {files}...',
+        maxTotalFileCount: 10,
         uploadExtraData: function () {
             return {
                 profileId: $("input[name='profileId']").val(),
