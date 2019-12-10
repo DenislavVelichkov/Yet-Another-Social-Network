@@ -26,16 +26,13 @@
                     <form th:action="@{'/profile/create-album/' + ${userProfileView.id}}"
                           th:method="POST"
                           enctype="multipart/form-data">
-                        <label for="album">
-                            Select 1 or more photos to upload:
+                        <label for="photos">
                         </label>
-                        <input id="album" type="file" name="album" multiple/>
-                        <input type="submit" name="album" value="Upload Images"/>
+                        <input id="photos" type="file" name="photos" data-preview-file-type="text"/>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" data-dismiss="modal">Close</button>
                 </div>
 
             </div>

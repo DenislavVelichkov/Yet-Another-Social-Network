@@ -70,8 +70,8 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                     this.modelMapper.map(
-                         wallPostServiceModel, WallPostViewModel.class))
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
@@ -118,9 +118,10 @@ public class UserProfileController extends BaseController {
 
   @GetMapping("/guest/{profileId}")
   @PageTitle("Profile")
-  public ModelAndView guestProfile(ModelAndView modelAndView,
-                                   @PathVariable String profileId,
-                                   Principal activeUser) {
+  public ModelAndView guestProfile(
+      ModelAndView modelAndView,
+      @PathVariable String profileId,
+      Principal activeUser) {
     // TODO: 12/2/19 Create a Timeline Guest Post
 
     UserProfileServiceModel userProfileServiceModel =
@@ -132,6 +133,8 @@ public class UserProfileController extends BaseController {
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
+    /*Using this -> combined with getActivceUserDetails(), instead of modelMapper because
+     ModelMapper STRICT config doesn't allow mappings with different fields*/
     UserProfileViewModel activeUserViewModel =
         this.modelMapper.map(activeUserProfileServiceModel, UserProfileViewModel.class);
 
@@ -143,14 +146,14 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                     this.modelMapper.map(
-                         wallPostServiceModel, WallPostViewModel.class))
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject(
-        "activeUserDetails", super.getActiveUserDetails(userProfileView));
+        "activeUserDetails", super.getActiveUserDetails(activeUserViewModel));
     modelAndView.addObject("allProfilePosts", allPosts);
     modelAndView.addObject("postComment", new PostCommentBindingModel());
     modelAndView.addObject("timelinePost", new WallPostBindingModel());
@@ -295,24 +298,27 @@ public class UserProfileController extends BaseController {
     return super.redirect("/profile/timeline/" + id);
   }
 
-  @PostMapping(value = "/create-album/{profileId}")
+  @PostMapping("/create-album/{profileId}")
   public ModelAndView createAlbum(@PathVariable(name = "profileId") String profileId,
-                                  @RequestParam(name = "album") MultipartFile[] album) {
+                                  @RequestParam(name = "albumName") String albumName,
+                                  @RequestParam(name = "photos") MultipartFile[] photos) {
+    System.out.println(albumName);
 
     Set<String> images =
-        Arrays.asList(album)
-              .stream()
+        Arrays.stream(photos)
               .map(multipartFile -> {
                 String convertedImage = null;
 
                 try {
-                  convertedImage = this.cloudinaryService.uploadImage(multipartFile);
+                  convertedImage =
+                      this.cloudinaryService.uploadImage(multipartFile);
                 } catch (IOException e) {
                   e.printStackTrace();
                 }
 
                 return convertedImage;
-              }).collect(Collectors.toSet());
+              })
+              .collect(Collectors.toSet());
 
     return super.redirect("/profile/timeline/" + profileId);
   }

@@ -50,8 +50,8 @@ public class WallServiceImpl implements WallService {
     return this.modelMapper.map(
         this.wallPostRepository.findById(id)
                                .orElseThrow(() ->
-                                                new UsernameNotFoundException(
-                                                    ExceptionMessages.INCORRECT_ID)),
+                                   new UsernameNotFoundException(
+                                       ExceptionMessages.INCORRECT_ID)),
         WallPostServiceModel.class);
   }
 
@@ -61,7 +61,7 @@ public class WallServiceImpl implements WallService {
         .findAllByPostOwner_ProfileOwner_Username(username)
         .stream()
         .map(wallPost ->
-                 this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            this.modelMapper.map(wallPost, WallPostServiceModel.class))
         .collect(Collectors.toList());
   }
 
@@ -72,7 +72,7 @@ public class WallServiceImpl implements WallService {
         .findAllByPostOwner_Id(ownerId)
         .stream()
         .map(wallPost ->
-                 this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            this.modelMapper.map(wallPost, WallPostServiceModel.class))
         .collect(Collectors.toList());
   }
 
@@ -83,7 +83,7 @@ public class WallServiceImpl implements WallService {
         .findAll()
         .stream()
         .map(wallPost ->
-                 this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            this.modelMapper.map(wallPost, WallPostServiceModel.class))
         .collect(Collectors.toList());
   }
 
@@ -120,10 +120,13 @@ public class WallServiceImpl implements WallService {
         .getActualLikes()
         .stream()
         .filter(like ->
-                    like.getId().getProfile()
-                        .equals(userProfileServiceModel.getId()))
+            like.getId().getProfile()
+                .equals(userProfileServiceModel.getId()))
         .findFirst()
         .get();
+
+// TODO: 12/10/2019 Idea: Optimize likes that instead of removing like,
+//  set isLiked to false and make controller return a likes count.
 
     wallPost.getActualLikes().remove(likeToRemove);
 

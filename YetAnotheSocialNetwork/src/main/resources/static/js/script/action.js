@@ -2,6 +2,7 @@ const URLs = {
     likes: '/api/likes',
     addFriend: '/api/add-friend',
     acceptFriend: '/api/accept-friend',
+    createPhotoAlbum: '/api/create-album',
 };
 
 function getCookie(name) {
@@ -100,4 +101,3 @@ const acceptFriend = function () {
         });
     });
 };
-

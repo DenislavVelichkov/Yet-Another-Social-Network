@@ -14,4 +14,7 @@ public interface NotificationService {
       String senderId, String recipientId, NotificationType notificationType);
 
   void removeNotification(String senderId, String recipientUsername, NotificationType friendReq);
+
+  NotificationServiceModel findByRecipientIdSenderIdAndNotificationType(
+      String recipientId, String senderId, NotificationType notificationType);
 }

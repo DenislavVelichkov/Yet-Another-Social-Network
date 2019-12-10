@@ -104,4 +104,19 @@ public class NotificationServiceImpl implements NotificationService {
       this.userProfileRepository.saveAndFlush(userProfile);
     }
   }
+
+  @Override
+  public NotificationServiceModel findByRecipientIdSenderIdAndNotificationType(
+      String recipientId, String senderId, NotificationType notificationType) {
+
+    Notification notification =
+        this.notificationRepository.findByRecipientIdAndSenderIdAndNotificationType(
+            recipientId, senderId, notificationType).orElse(null);
+
+    if (notification != null) {
+      return this.modelMapper.map(notification, NotificationServiceModel.class);
+    }
+
+    return null;
+  }
 }

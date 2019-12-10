@@ -6,6 +6,7 @@ import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 
+
 @NoArgsConstructor
 public abstract class BaseController {
 
@@ -40,5 +41,4 @@ public abstract class BaseController {
         || profileEdit.getFirstName() != null
         || profileEdit.getLastName() != null;
   }
-
 }

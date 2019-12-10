@@ -1,12 +1,14 @@
 package org.yasn.web.api;
 
 import java.security.Principal;
+import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.yasn.common.ExceptionMessages;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.models.service.WallPostServiceModel;
 import org.yasn.service.interfaces.NotificationService;
@@ -56,11 +58,26 @@ public class ActionApiController extends BaseController {
   }
 
   @PostMapping("/add-friend")
-  public void sendFriendRequest(@ModelAttribute(name = "profileId") String profileId,
-                                Principal activeUser) {
+  public void sendFriendRequest(@ModelAttribute(name = "profileId") String recipientId,
+                                Principal sender) throws OperationsException {
 
-    this.notificationService.createNotification(
-        profileId, activeUser.getName(), NotificationType.FRIEND_REQ);
+    String senderId =
+        this.userProfileService.findUserProfileByUsername(sender.getName()).getId();
+
+    if (recipientId.equals(senderId)) {
+      throw new OperationsException(ExceptionMessages.FRIEND_REQUEST_ON_YOURSELF);
+    }
+
+    if (this.notificationService
+        .findByRecipientIdSenderIdAndNotificationType(
+            recipientId, senderId, NotificationType.FRIEND_REQ) == null) {
+
+      this.notificationService.createNotification(
+          recipientId, sender.getName(), NotificationType.FRIEND_REQ);
+
+    } else {
+      throw new OperationsException(ExceptionMessages.FRIEND_REQUEST_ALREADY_EXISTS);
+    }
 
   }
 
