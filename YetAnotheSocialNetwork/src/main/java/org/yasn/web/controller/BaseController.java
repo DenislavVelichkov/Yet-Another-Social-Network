@@ -2,6 +2,7 @@ package org.yasn.web.controller;
 
 import lombok.NoArgsConstructor;
 import org.springframework.web.servlet.ModelAndView;
+import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 
@@ -31,4 +32,13 @@ public abstract class BaseController {
 
     return activeUserDetails;
   }
+
+  protected boolean isMajorProfileEditHappened(ProfileEditBindingModel profileEdit) {
+    return profileEdit.getNewPassword() != null
+        || profileEdit.getEmail() != null
+        || profileEdit.getOldPassword() != null
+        || profileEdit.getFirstName() != null
+        || profileEdit.getLastName() != null;
+  }
+
 }

@@ -3,7 +3,6 @@ package org.yasn.web.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -266,19 +265,20 @@ public class UserProfileController extends BaseController {
       @PathVariable(name = "id") String id,
       BindingResult bindingResult) throws IOException {
 
-    if (this.isMajorChangeHappened(profileEdit)) {
-      String activeUserEmail =
-          this.userProfileService.findUserProfileById(id).getProfileOwner().getEmail();
-      profileEdit.setEmail(activeUserEmail);
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileById(id);
+
+    if (super.isMajorProfileEditHappened(profileEdit)) {
+      String username =
+          userProfileServiceModel.getProfileOwner().getUsername();
+      profileEdit.setUsername(username);
+
       this.profileEditValidator.validate(profileEdit, bindingResult);
     }
 
     if (bindingResult.hasErrors()) {
       profileEdit.setNewPassword(null);
       profileEdit.setConfirmNewPassword(null);
-
-      UserProfileServiceModel userProfileServiceModel =
-          this.userProfileService.findUserProfileById(id);
 
       UserProfileViewModel userProfileView =
           this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
@@ -290,38 +290,29 @@ public class UserProfileController extends BaseController {
       return super.view("profile-fragments/profile-edit", modelAndView);
     }
 
-    UserProfileServiceModel userProfile =
-        this.userProfileService.findUserProfileById(id);
-
-    this.userProfileService.editProfile(userProfile, profileEdit);
+    this.userProfileService.editProfile(userProfileServiceModel, profileEdit);
 
     return super.redirect("/profile/timeline/" + id);
-  }
-
-  private boolean isMajorChangeHappened(ProfileEditBindingModel profileEdit) {
-    return profileEdit.getNewPassword() != null
-        || profileEdit.getEmail() != null
-        || profileEdit.getOldPassword() != null
-        || profileEdit.getFirstName() != null
-        || profileEdit.getLastName() != null;
   }
 
   @PostMapping(value = "/create-album/{profileId}")
   public ModelAndView createAlbum(@PathVariable(name = "profileId") String profileId,
                                   @RequestParam(name = "album") MultipartFile[] album) {
 
-    Set<String> images = new HashSet<>();
-    Arrays.stream(album).forEach(multipartFile -> {
-      String convertedImage = null;
+    Set<String> images =
+        Arrays.asList(album)
+              .stream()
+              .map(multipartFile -> {
+                String convertedImage = null;
 
-      try {
-        convertedImage = this.cloudinaryService.uploadImage(multipartFile);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+                try {
+                  convertedImage = this.cloudinaryService.uploadImage(multipartFile);
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
 
-      images.add(convertedImage);
-    });
+                return convertedImage;
+              }).collect(Collectors.toSet());
 
     return super.redirect("/profile/timeline/" + profileId);
   }

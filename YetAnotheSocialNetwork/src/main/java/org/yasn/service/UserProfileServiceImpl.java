@@ -166,12 +166,13 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     UserProfile updatedUserProfile =
           this.modelMapper.map(userProfileServiceModel, UserProfile.class);
-      this.modelMapper.validate();
+    this.modelMapper.validate();
 
     User user = this.modelMapper.map(userServiceModel, User.class);
     this.modelMapper.validate();
 
     this.userProfileRepository.saveAndFlush(updatedUserProfile);
+    this.userRepository.saveAndFlush(user);
 
     return true;
   }

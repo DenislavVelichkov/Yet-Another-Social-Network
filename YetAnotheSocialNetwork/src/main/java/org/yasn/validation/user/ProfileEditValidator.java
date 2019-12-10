@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
+import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.repository.user.UserProfileRepository;
@@ -29,12 +30,9 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
     ProfileEditBindingModel profileEditBindingModel = (ProfileEditBindingModel) o;
 
     UserProfile userProfile = this.userProfileRepository
-        .findUserProfileByProfileOwner_Email(((ProfileEditBindingModel) o)
-            .getEmail()).orElse(null);
-
-    if (userProfile == null) {
-      return;
-    }
+        .findByProfileOwner_Username(((ProfileEditBindingModel) o).getUsername())
+        .orElseThrow(() ->
+                         new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
     Pattern namePattern = Pattern.compile("[A-Z][a-z]+");
     Pattern passwordPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}");
@@ -52,7 +50,7 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
             "newPassword",
             ValidationConstants.PASSWORD_CONDITION,
             ValidationConstants.PASSWORD_CONDITION
-        );
+                          );
       }
 
       if (!passwordMatcher.matches()) {
@@ -60,18 +58,18 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
             "oldPassword",
             ValidationConstants.PASSWORD_CONDITION,
             ValidationConstants.PASSWORD_CONDITION
-        );
+                          );
       }
 
       if (profileEditBindingModel.getNewPassword() != null
           && !profileEditBindingModel.getNewPassword()
                                      .equals(profileEditBindingModel
-                                         .getConfirmNewPassword())) {
+                                                 .getConfirmNewPassword())) {
         errors.rejectValue(
             "newPassword",
             ValidationConstants.PASSWORDS_DO_NOT_MATCH,
             ValidationConstants.PASSWORDS_DO_NOT_MATCH
-        );
+                          );
       }
 
 
@@ -81,11 +79,11 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
             "oldPassword",
             ValidationConstants.WRONG_PASSWORD,
             ValidationConstants.WRONG_PASSWORD
-        );
+                          );
       }
     }
-    
-    if (profileEditBindingModel.getFirstName() != null){
+
+    if (profileEditBindingModel.getFirstName() != null) {
       firstNameMatcher =
           namePattern.matcher(profileEditBindingModel.getFirstName());
 
@@ -94,7 +92,7 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
             "firstName",
             ValidationConstants.NAME_ONLY_LETTERS,
             ValidationConstants.NAME_ONLY_LETTERS
-        );
+                          );
       }
     }
 
@@ -107,7 +105,7 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
             "lastName",
             ValidationConstants.NAME_ONLY_LETTERS,
             ValidationConstants.NAME_ONLY_LETTERS
-        );
+                          );
       }
     }
 
