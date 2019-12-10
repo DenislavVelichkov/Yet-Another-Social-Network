@@ -171,4 +171,15 @@
     color: #4e555b;
 }
 
+.album-modal-button {
+    font-weight: bold;
+    color: #4e555b !important;
+    cursor: pointer;
+}
+
+.album-modal-button:hover {
+    text-decoration: underline !important;
+    color: #4e555b;
+}
+
 /*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/

@@ -2,7 +2,10 @@ package org.yasn.web.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.common.enums.PostPrivacy;
@@ -67,8 +71,8 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                this.modelMapper.map(
-                    wallPostServiceModel, WallPostViewModel.class))
+                     this.modelMapper.map(
+                         wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
@@ -140,8 +144,8 @@ public class UserProfileController extends BaseController {
         postServiceModels
             .stream()
             .map(wallPostServiceModel ->
-                this.modelMapper.map(
-                    wallPostServiceModel, WallPostViewModel.class))
+                     this.modelMapper.map(
+                         wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
@@ -294,7 +298,6 @@ public class UserProfileController extends BaseController {
     return super.redirect("/profile/timeline/" + id);
   }
 
-  // TODO: 12/7/2019 Add First Name and Last Name to validation
   private boolean isMajorChangeHappened(ProfileEditBindingModel profileEdit) {
     return profileEdit.getNewPassword() != null
         || profileEdit.getEmail() != null
@@ -303,10 +306,23 @@ public class UserProfileController extends BaseController {
         || profileEdit.getLastName() != null;
   }
 
-  @GetMapping("/create-album")
-  public ModelAndView createAlbum() {
+  @PostMapping(value = "/create-album/{profileId}")
+  public ModelAndView createAlbum(@PathVariable(name = "profileId") String profileId,
+                                  @RequestParam(name = "album") MultipartFile[] album) {
 
+    Set<String> images = new HashSet<>();
+    Arrays.stream(album).forEach(multipartFile -> {
+      String convertedImage = null;
 
-    return super.view("profile-fragments/create-album");
+      try {
+        convertedImage = this.cloudinaryService.uploadImage(multipartFile);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      images.add(convertedImage);
+    });
+
+    return super.redirect("/profile/timeline/" + profileId);
   }
 }

@@ -4,33 +4,40 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <th:block>
-    <a role="button" data-toggle="modal" data-target="#">
+    <!-- Large modal -->
+    <a role="button"
+       class="album-modal-button"
+       data-toggle="modal"
+       data-target="#create-album-modal">
         Create Album
     </a>
-    <div class="modal fade" id="profile-create-album" tabindex="-1" role="dialog" aria-labelledby="profile-create-album"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="orderFormModalLabel-{{id}}">Order tickets for {{name}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="form-inline d-flex justify-content-between" action="/events/order" method="POST">
-                    <div class="modal-body">
 
-                        <div class="form-group">
-                            <label class="mb-1" for="tickets-{{id}}">Tickets</label>
-                            <input type="number" name="tickets" class="form-control ml-3 w-75" id="tickets-{{id}}"/>
-                            <input type="hidden" name="eventId" value="{{id}}">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn bg-eventures">Order</button>
-                    </div>
-                </form>
+    <div class="modal" id="create-album-modal">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Photo Album</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                    <form th:action="@{'/profile/create-album/' + ${userProfileView.id}}"
+                          th:method="POST"
+                          enctype="multipart/form-data">
+                        <label for="album">
+                            Select 1 or more photos to upload:
+                        </label>
+                        <input id="album" type="file" name="album" multiple/>
+                        <input type="submit" name="album" value="Upload Images"/>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+
             </div>
         </div>
     </div>
