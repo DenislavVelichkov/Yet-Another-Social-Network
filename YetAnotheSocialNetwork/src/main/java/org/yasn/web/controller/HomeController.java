@@ -48,44 +48,63 @@ public class HomeController extends BaseController {
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
       Principal activeUser) {
 
+    System.out.println(this.modelMapper.getConfiguration().isAmbiguityIgnored());
+    System.out.println(this.modelMapper.getConfiguration().isFullTypeMatchingRequired());
+    System.out.println(this.modelMapper.getConfiguration().isFieldMatchingEnabled());
+    System.out.println(this.modelMapper.getConfiguration().isCollectionsMergeEnabled());
+    System.out.println(this.modelMapper.getConfiguration().isUseOSGiClassLoaderBridging());
+    System.out.println(this.modelMapper.getConfiguration().isDeepCopyEnabled());
+    System.out.println(this.modelMapper.getConfiguration().isImplicitMappingEnabled());
+    System.out.println(this.modelMapper.getConfiguration().isSkipNullEnabled());
+
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
-    ActiveUserDetails activeUserDetails = new ActiveUserDetails();
-    activeUserDetails.setId(userProfileView.getId());
-    activeUserDetails.setFirstName(userProfileView.getProfileOwner().getFirstName());
-    activeUserDetails.setProfilePicture(userProfileView.getProfilePicture());
-    activeUserDetails.setNotifications(userProfileView.getNotifications());
+    this.modelMapper.validate();
 
+    ActiveUserDetails activeUserDetails =
+        super.getActiveUserDetails(userProfileView);
 
     // TODO: 11/14/2019 Optimize display with some kind of Cache method
 
-    List<WallPostServiceModel> allPostsServiceModels =
-        this.wallService
-            .displayAllPosts();
+    List<WallPostServiceModel> allPostsServiceModels = this.wallService.displayAllPosts();
 
-    List<WallPostViewModel> allPosts = allPostsServiceModels
-        .stream()
-        .map(view ->
-                 this.modelMapper.map(view, WallPostViewModel.class))
-        .filter(wallPostViewModel ->
-                    wallPostViewModel
-                        .getPostPrivacy()
-                        .equals(PostPrivacy.PUBLIC)
-                        || wallPostViewModel
-                        .getPostOwner()
-                        .getFriends()
-                        .contains(this.userProfileService
-                                      .findUserProfileByUsername(activeUser.getName())))
+    List<WallPostViewModel> allPostsViewModels =
+        allPostsServiceModels.stream()
+                             .map(view ->
+                                 this.modelMapper.map(
+                                     view, WallPostViewModel.class))
+                             .collect(Collectors.toList());
+    this.modelMapper.validate();
+
+    List<WallPostViewModel> allPostsViewModelsSorted =
+        allPostsViewModels.stream().filter(wallPostViewModel ->
+        wallPostViewModel
+            .getPostPrivacy()
+            .equals(PostPrivacy.PUBLIC)
+            || wallPostViewModel
+            .getPostOwner().getId()
+            .equals(
+                activeUserDetails.getId())
+            || wallPostViewModel
+            .getPostOwner()
+            .getFriends()
+            .stream()
+            .anyMatch(
+                profile ->
+                    profile.getId().equals(activeUserDetails.getId())))
         .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
         .collect(Collectors.toList());
 
+    this.modelMapper.validate();
+
     modelAndView.addObject("userProfileView", userProfileView);
-    modelAndView.addObject("activeUserDetails", activeUserDetails);
-    modelAndView.addObject("allWallPosts", allPosts);
+    modelAndView.addObject(
+        "activeUserDetails", activeUserDetails);
+    modelAndView.addObject("allWallPosts", allPostsViewModelsSorted);
     modelAndView.addObject("time", timeUtil);
 
     return super.view("home", modelAndView);

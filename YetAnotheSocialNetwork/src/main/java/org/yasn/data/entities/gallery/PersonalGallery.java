@@ -16,10 +16,10 @@ import org.yasn.data.entities.user.UserProfile;
 @Table(name = "galleries")
 public class PersonalGallery extends BaseEntity {
 
-  @Column(name = "albums")
+  @Column(name = "photo_albums")
   @OneToMany(targetEntity = PhotoAlbum.class,
       cascade = CascadeType.ALL,
-      mappedBy = "albumGallery")
+      mappedBy = "personalGallery")
   Set<PhotoAlbum> photoAlbums;
 
   @OneToOne(targetEntity = UserProfile.class)

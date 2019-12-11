@@ -55,7 +55,6 @@ public class UserController extends BaseController {
 
     UserServiceModel userServiceModel =
         this.modelMapper.map(model, UserServiceModel.class);
-
     this.modelMapper.validate();
 
     this.userService.registerUser(userServiceModel);

@@ -47,12 +47,16 @@ public class WallServiceImpl implements WallService {
 
   @Override
   public WallPostServiceModel findWallPostById(String id) {
-    return this.modelMapper.map(
-        this.wallPostRepository.findById(id)
-                               .orElseThrow(() ->
-                                   new UsernameNotFoundException(
-                                       ExceptionMessages.INCORRECT_ID)),
-        WallPostServiceModel.class);
+    WallPost post = this.wallPostRepository.findById(id)
+                                           .orElseThrow(
+                                               () -> new UsernameNotFoundException(
+                                                   ExceptionMessages.INCORRECT_ID));
+    WallPostServiceModel wallPostServiceModel =
+        this.modelMapper.map(post, WallPostServiceModel.class);
+
+    this.modelMapper.validate();
+
+    return wallPostServiceModel;
   }
 
   @Override

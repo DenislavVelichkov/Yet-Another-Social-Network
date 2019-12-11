@@ -1,5 +1,5 @@
 package org.yasn.common.enums;
 
-public enum UserRoles {
+public enum Authorities {
   USER, MODERATOR, ADMIN, ROOT
 }

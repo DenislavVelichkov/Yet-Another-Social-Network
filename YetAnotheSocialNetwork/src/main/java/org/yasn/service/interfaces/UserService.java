@@ -7,7 +7,7 @@ import org.yasn.data.models.service.UserServiceModel;
 
 public interface UserService extends UserDetailsService {
 
-  UserServiceModel registerUser(UserServiceModel userServiceModel);
+  void registerUser(UserServiceModel userServiceModel);
 
   UserServiceModel findUserByUsername(String username);
 

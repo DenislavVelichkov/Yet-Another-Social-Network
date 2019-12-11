@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.yasn.common.enums.UserRoles;
+import org.yasn.common.enums.Authorities;
 import org.yasn.data.entities.user.Role;
 import org.yasn.data.models.service.RoleServiceModel;
 import org.yasn.repository.user.RoleRepository;
@@ -21,10 +21,10 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public void seedRolesInDb() {
     if (this.roleRepository.count() == 0) {
-      this.roleRepository.saveAndFlush(new Role(UserRoles.ADMIN.toString()));
-      this.roleRepository.saveAndFlush(new Role(UserRoles.MODERATOR.toString()));
-      this.roleRepository.saveAndFlush(new Role(UserRoles.ROOT.toString()));
-      this.roleRepository.saveAndFlush(new Role(UserRoles.USER.toString()));
+      this.roleRepository.saveAndFlush(new Role(Authorities.ADMIN));
+      this.roleRepository.saveAndFlush(new Role(Authorities.MODERATOR));
+      this.roleRepository.saveAndFlush(new Role(Authorities.ROOT));
+      this.roleRepository.saveAndFlush(new Role(Authorities.USER));
     }
   }
 
@@ -37,7 +37,7 @@ public class RoleServiceImpl implements RoleService {
   }
 
   @Override
-  public RoleServiceModel findByAuthority(String authority) {
+  public RoleServiceModel findByAuthority(Authorities authority) {
     return this.modelMapper
         .map(this.roleRepository.findByAuthority(authority), RoleServiceModel.class);
   }

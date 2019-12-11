@@ -8,11 +8,13 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.UserProfileServiceModel;
 import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.repository.gallery.PhotoAlbumRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.service.interfaces.CloudinaryService;
@@ -26,6 +28,7 @@ public class UserProfileServiceImpl implements UserProfileService {
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
   private final CloudinaryService cloudinaryService;
+  private final PhotoAlbumRepository photoAlbumRepository;
 
   @Override
   public UserProfileServiceModel findUserProfileByUsername(String username) {
@@ -33,21 +36,23 @@ public class UserProfileServiceImpl implements UserProfileService {
     v2.3.1 the issue is not fixed*/
 
     UserProfile profile =
-        this.userProfileRepository.findByProfileOwner_Username(username).get();
+        this.userProfileRepository.findByProfileOwner_Username(username).orElseThrow(() ->
+            new IllegalArgumentException(
+                String.format(ExceptionMessages.PROFILE_DOESNT_EXISTS, username)));
 
-    UserProfileServiceModel profileService =
+    UserProfileServiceModel profileServiceModel =
         this.modelMapper.map(profile, UserProfileServiceModel.class);
+
     this.modelMapper.validate();
 
-    profileService.setId(profile.getId());
-    profileService.setFullName(profile.getProfileOwner().getFirstName()
+    profileServiceModel.setId(profile.getId());
+    profileServiceModel.setFullName(profile.getProfileOwner().getFirstName()
         + ' '
         + profile.getProfileOwner().getLastName());
-    profileService.setCoverPicture(profile.getCoverPicture());
+    profileServiceModel.setCoverPicture(profile.getCoverPicture());
 
 
-
-    return profileService;
+    return profileServiceModel;
   }
 
   @Override
@@ -57,6 +62,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     UserProfile profile =
         this.userProfileRepository.findById(id).get();
+
     UserProfileServiceModel newServiceModel = new UserProfileServiceModel();
 
     UserProfileServiceModel profileService =

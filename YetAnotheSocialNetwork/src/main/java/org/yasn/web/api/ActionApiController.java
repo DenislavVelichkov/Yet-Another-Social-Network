@@ -33,6 +33,7 @@ public class ActionApiController extends BaseController {
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
                          Principal activeUser) {
+
     WallPostServiceModel wallPostServiceModel =
         this.wallService.findWallPostById(postId);
 

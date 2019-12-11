@@ -8,4 +8,5 @@ public class ExceptionMessages {
   public static String POST_DOES_NOT_EXIST = "Post with id: %s doesn't exist.";
   public static String FRIEND_REQUEST_ALREADY_EXISTS = "You already have sent a friends request.";
   public static String FRIEND_REQUEST_ON_YOURSELF = "You can't send friend request on yourself.";
+  public static String PROFILE_DOESNT_EXISTS = "Profile with username %s doesn't exists.";
 }

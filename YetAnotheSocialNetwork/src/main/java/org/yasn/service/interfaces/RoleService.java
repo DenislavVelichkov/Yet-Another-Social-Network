@@ -2,6 +2,7 @@ package org.yasn.service.interfaces;
 
 import java.util.Set;
 
+import org.yasn.common.enums.Authorities;
 import org.yasn.data.models.service.RoleServiceModel;
 
 public interface RoleService {
@@ -10,5 +11,5 @@ public interface RoleService {
 
   Set<RoleServiceModel> findAllRoles();
 
-  RoleServiceModel findByAuthority(String authority);
+  RoleServiceModel findByAuthority(Authorities authority);
 }

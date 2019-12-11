@@ -18,7 +18,7 @@ public class PhotoAlbum extends BaseEntity {
 
   @ManyToOne(targetEntity = PersonalGallery.class)
   @JoinColumn(name = "gallery_id", referencedColumnName = "id")
-  private PersonalGallery albumGallery;
+  private PersonalGallery personalGallery;
 
   @OneToMany(targetEntity = Picture.class,
       mappedBy = "album",

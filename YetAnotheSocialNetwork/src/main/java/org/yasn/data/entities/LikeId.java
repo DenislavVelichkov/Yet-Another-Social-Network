@@ -16,14 +16,4 @@ import lombok.Setter;
 public class LikeId implements Serializable {
   private String post;
   private String profile;
-
-  @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return super.equals(obj);
-  }
 }
