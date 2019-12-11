@@ -15,8 +15,8 @@ import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
-import org.yasn.data.models.service.UserProfileServiceModel;
-import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.service.user.UserProfileServiceModel;
+import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
@@ -47,15 +47,6 @@ public class HomeController extends BaseController {
       @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
       Principal activeUser) {
-
-    System.out.println(this.modelMapper.getConfiguration().isAmbiguityIgnored());
-    System.out.println(this.modelMapper.getConfiguration().isFullTypeMatchingRequired());
-    System.out.println(this.modelMapper.getConfiguration().isFieldMatchingEnabled());
-    System.out.println(this.modelMapper.getConfiguration().isCollectionsMergeEnabled());
-    System.out.println(this.modelMapper.getConfiguration().isUseOSGiClassLoaderBridging());
-    System.out.println(this.modelMapper.getConfiguration().isDeepCopyEnabled());
-    System.out.println(this.modelMapper.getConfiguration().isImplicitMappingEnabled());
-    System.out.println(this.modelMapper.getConfiguration().isSkipNullEnabled());
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileByUsername(activeUser.getName());

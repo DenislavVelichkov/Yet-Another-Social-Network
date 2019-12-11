@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
-import org.yasn.data.models.service.PostCommentServiceModel;
+import org.yasn.data.models.service.wall.PostCommentServiceModel;
 
 public interface PostCommentService {
 

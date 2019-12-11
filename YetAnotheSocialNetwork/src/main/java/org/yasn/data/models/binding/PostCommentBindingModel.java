@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
-import org.yasn.data.models.service.UserProfileServiceModel;
-import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.service.user.UserProfileServiceModel;
+import org.yasn.data.models.service.wall.WallPostServiceModel;
 
 @Getter
 @Setter

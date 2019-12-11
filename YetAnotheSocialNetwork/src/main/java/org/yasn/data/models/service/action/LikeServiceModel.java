@@ -1,4 +1,4 @@
-package org.yasn.data.models.service;
+package org.yasn.data.models.service.action;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

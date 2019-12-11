@@ -3,7 +3,7 @@ package org.yasn.service.interfaces;
 import java.util.Set;
 
 import org.yasn.common.enums.Authorities;
-import org.yasn.data.models.service.RoleServiceModel;
+import org.yasn.data.models.service.user.RoleServiceModel;
 
 public interface RoleService {
 

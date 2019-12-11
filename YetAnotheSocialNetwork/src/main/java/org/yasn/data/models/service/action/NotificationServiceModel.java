@@ -1,4 +1,4 @@
-package org.yasn.data.models.service;
+package org.yasn.data.models.service.action;
 
 import java.sql.Timestamp;
 
@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.NotificationType;
+import org.yasn.data.models.service.BaseServiceModel;
+import org.yasn.data.models.service.user.UserProfileServiceModel;
 
 @Getter
 @Setter

@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.yasn.data.entities.wall.PostComment;
-import org.yasn.data.models.service.PostCommentServiceModel;
+import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.repository.wall.PostCommentRepository;
 import org.yasn.service.interfaces.PostCommentService;
 import org.yasn.service.interfaces.UserProfileService;

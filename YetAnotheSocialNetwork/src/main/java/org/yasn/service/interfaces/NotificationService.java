@@ -3,7 +3,7 @@ package org.yasn.service.interfaces;
 import java.util.List;
 
 import org.yasn.common.enums.NotificationType;
-import org.yasn.data.models.service.NotificationServiceModel;
+import org.yasn.data.models.service.action.NotificationServiceModel;
 
 public interface NotificationService {
 

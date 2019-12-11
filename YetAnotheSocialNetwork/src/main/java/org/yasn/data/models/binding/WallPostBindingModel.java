@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.data.models.service.LikeServiceModel;
-import org.yasn.data.models.service.PostCommentServiceModel;
-import org.yasn.data.models.service.UserProfileServiceModel;
+import org.yasn.data.models.service.action.LikeServiceModel;
+import org.yasn.data.models.service.user.UserProfileServiceModel;
+import org.yasn.data.models.service.wall.PostCommentServiceModel;
 
 @Getter
 @Setter

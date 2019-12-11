@@ -1,7 +1,5 @@
 package org.yasn.data.models.service;
 
-import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-abstract class BaseServiceModel implements Serializable {
+public abstract class BaseServiceModel {
 
   private String id;
 }

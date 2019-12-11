@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.data.models.service.LikeServiceModel;
+import org.yasn.data.models.service.action.LikeServiceModel;
 
 @Getter
 @Setter

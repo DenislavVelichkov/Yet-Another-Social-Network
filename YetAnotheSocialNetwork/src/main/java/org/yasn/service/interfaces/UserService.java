@@ -3,7 +3,7 @@ package org.yasn.service.interfaces;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.data.models.service.user.UserServiceModel;
 
 public interface UserService extends UserDetailsService {
 

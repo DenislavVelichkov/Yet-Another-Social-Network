@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.enums.NotificationType;
-import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.NotificationService;
 import org.yasn.service.interfaces.UserProfileService;

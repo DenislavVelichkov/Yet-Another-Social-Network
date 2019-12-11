@@ -6,11 +6,12 @@ import javax.validation.Validator;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import nz.net.ultraq.thymeleaf.decorators.strategies.GroupingRespectLayoutTitleStrategy;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
-import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
 import org.yasn.utils.TimeUtil;
@@ -26,7 +27,7 @@ public class ApplicationBeanConfiguration {
     fileUtil = new FileUtilImpl();
     modelMapper = new ModelMapper();
     modelMapper.getConfiguration()
-               .setFieldMatchingEnabled(true)
+               .setMatchingStrategy(MatchingStrategies.STRICT)
                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
                .setSkipNullEnabled(true);
 
@@ -35,7 +36,6 @@ public class ApplicationBeanConfiguration {
                .addMappings(mapper -> mapper.skip(UserServiceModel::setId))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setUsername))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setActive))
-               .addMappings(mapper -> mapper.skip(UserServiceModel::setCreatedOn))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setCreatedOn))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setUserProfile))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setAuthorities));

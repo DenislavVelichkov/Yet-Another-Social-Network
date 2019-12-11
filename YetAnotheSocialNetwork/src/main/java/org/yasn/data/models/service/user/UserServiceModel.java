@@ -1,4 +1,4 @@
-package org.yasn.data.models.service;
+package org.yasn.data.models.service.user;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -7,6 +7,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.yasn.data.models.service.BaseServiceModel;
 
 @Getter
 @Setter

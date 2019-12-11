@@ -12,8 +12,8 @@ import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
-import org.yasn.data.models.service.UserProfileServiceModel;
-import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.data.models.service.user.UserProfileServiceModel;
+import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.repository.gallery.PhotoAlbumRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
@@ -36,9 +36,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     v2.3.1 the issue is not fixed*/
 
     UserProfile profile =
-        this.userProfileRepository.findByProfileOwner_Username(username).orElseThrow(() ->
-            new IllegalArgumentException(
-                String.format(ExceptionMessages.PROFILE_DOESNT_EXISTS, username)));
+        this.userProfileRepository.findByProfileOwner_Username(username)
+                                  .orElseThrow(() ->
+                                      new IllegalArgumentException(
+                                          String.format(
+                                              ExceptionMessages.PROFILE_DOESNT_EXISTS, username)));
 
     UserProfileServiceModel profileServiceModel =
         this.modelMapper.map(profile, UserProfileServiceModel.class);
@@ -94,8 +96,8 @@ public class UserProfileServiceImpl implements UserProfileService {
     this.modelMapper.validate();
 
     if (sender.getFriends().stream()
-        .noneMatch(userProfile -> userProfile.getId().equals(recipient.getId()))
-    || sender.getId().equals(recipient.getId())) {
+              .noneMatch(userProfile -> userProfile.getId().equals(recipient.getId()))
+        || sender.getId().equals(recipient.getId())) {
 
       recipient.getFriends().add(sender);
       sender.getFriends().add(recipient);
@@ -171,7 +173,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     userProfileServiceModel.setProfileOwner(userServiceModel);
 
     UserProfile updatedUserProfile =
-          this.modelMapper.map(userProfileServiceModel, UserProfile.class);
+        this.modelMapper.map(userProfileServiceModel, UserProfile.class);
     this.modelMapper.validate();
 
     User user = this.modelMapper.map(userServiceModel, User.class);

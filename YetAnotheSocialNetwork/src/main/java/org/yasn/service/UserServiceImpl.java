@@ -18,7 +18,7 @@ import org.yasn.common.enums.Authorities;
 import org.yasn.data.entities.gallery.PersonalGallery;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
-import org.yasn.data.models.service.UserServiceModel;
+import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.repository.gallery.PersonalGalleryRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
@@ -71,8 +71,9 @@ public class UserServiceImpl implements UserService {
     PersonalGallery personalGallery = new PersonalGallery();
     personalGallery.setGalleryOwner(profile);
 
+    this.personalGalleryRepository.saveAndFlush(personalGallery);
+
     profile.setProfileOwner(user);
-    profile.setPersonalGallery(personalGallery);
     profile.setFullName(userServiceModel.getFirstName()
         +
         " "

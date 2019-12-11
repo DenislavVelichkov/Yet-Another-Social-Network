@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.yasn.common.enums.Authorities;
 import org.yasn.data.entities.user.Role;
-import org.yasn.data.models.service.RoleServiceModel;
+import org.yasn.data.models.service.user.RoleServiceModel;
 import org.yasn.repository.user.RoleRepository;
 import org.yasn.service.interfaces.RoleService;
 

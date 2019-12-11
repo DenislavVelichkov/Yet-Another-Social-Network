@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.data.entities.BaseEntity;
 import org.yasn.data.entities.Notification;
-import org.yasn.data.entities.gallery.PersonalGallery;
 import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.entities.wall.WallPost;
 
@@ -34,13 +33,6 @@ public class UserProfile extends BaseEntity {
 
   @Column(name = "cover_picture")
   private String coverPicture;
-
-  @OneToOne(
-      targetEntity = PersonalGallery.class,
-      mappedBy = "galleryOwner",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true)
-  private PersonalGallery personalGallery;
 
   @OneToMany(
       targetEntity = WallPost.class,

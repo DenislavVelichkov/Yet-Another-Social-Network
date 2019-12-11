@@ -3,7 +3,7 @@ package org.yasn.service.interfaces;
 import java.io.IOException;
 import java.util.List;
 
-import org.yasn.data.models.service.WallPostServiceModel;
+import org.yasn.data.models.service.wall.WallPostServiceModel;
 
 public interface WallService {
 
