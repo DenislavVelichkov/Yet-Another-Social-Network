@@ -18,9 +18,8 @@ import org.yasn.common.enums.UserRoles;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.UserServiceModel;
-import org.yasn.repository.user.UserProfileRepository;
+import org.yasn.repository.gallery.PersonalGalleryRepository;
 import org.yasn.repository.user.UserRepository;
-import org.yasn.service.interfaces.CloudinaryService;
 import org.yasn.service.interfaces.RoleService;
 import org.yasn.service.interfaces.UserService;
 
@@ -28,11 +27,10 @@ import org.yasn.service.interfaces.UserService;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
-  private final UserProfileRepository userProfileRepository;
   private final RoleService roleService;
-  private final CloudinaryService cloudinaryService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
+  private final PersonalGalleryRepository personalGalleryRepository;
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

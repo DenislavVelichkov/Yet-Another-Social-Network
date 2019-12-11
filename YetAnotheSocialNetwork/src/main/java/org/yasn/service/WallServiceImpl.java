@@ -103,7 +103,7 @@ public class WallServiceImpl implements WallService {
 
     like.setLikeOwner(wallPost);
     like.setId(likeId);
-    like.setLiked(true);
+
 
     this.likeRepository.saveAndFlush(like);
   }

@@ -16,7 +16,7 @@ public class UserProfileViewModel extends BaseViewModel {
   private UserServiceModel profileOwner;
   private String profilePicture;
   private String coverPicture;
-  private Set<PersonalGalleryViewModel> photoGallery;
+  private PersonalGalleryViewModel personalGallery;
   private Set<PostCommentViewModel> postComments;
   private Set<WallPostViewModel> wallPosts;
   private Set<UserProfileViewModel> friends;

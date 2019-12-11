@@ -12,5 +12,4 @@ import org.yasn.data.entities.wall.WallPost;
 public class LikeServiceModel {
   LikeId id;
   WallPost likeOwner;
-  boolean isLiked;
 }

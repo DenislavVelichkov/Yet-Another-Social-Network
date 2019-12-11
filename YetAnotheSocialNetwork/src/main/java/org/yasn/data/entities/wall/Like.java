@@ -20,8 +20,6 @@ public class Like {
 
   @ManyToOne(targetEntity = WallPost.class)
   WallPost likeOwner;
-
-  boolean isLiked;
 }
 
 
