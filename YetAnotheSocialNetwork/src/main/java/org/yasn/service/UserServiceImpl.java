@@ -71,8 +71,6 @@ public class UserServiceImpl implements UserService {
     PersonalGallery personalGallery = new PersonalGallery();
     personalGallery.setGalleryOwner(profile);
 
-    this.personalGalleryRepository.saveAndFlush(personalGallery);
-
     profile.setProfileOwner(user);
     profile.setFullName(userServiceModel.getFirstName()
         +
