@@ -3,6 +3,7 @@ const URLs = {
     addFriend: '/api/add-friend',
     acceptFriend: '/api/accept-friend',
     createPhotoAlbum: '/api/create-album',
+    getPhotoAlbum: '/api/photo-album',
 };
 
 function getCsrfCookie(name) {
@@ -98,6 +99,29 @@ const acceptFriend = function () {
 
             ev.preventDefault();
             return false;
+        });
+    });
+};
+
+const getPhotoAlbum = function () {
+    const albumModal = `
+    
+    `;
+
+    $(document).ready(function () {
+        $('.album-name').on('click', 'album-name', function () {
+            fetch(URLs.getPhotoAlbum, {method: 'GET'})
+                .then(response => response.json())
+                .then(items => {
+                    let result = '';
+                    items.forEach(item => {
+                        const itemString = toString(item);
+                        result += itemString;
+                    });
+
+                    $('#items-table').html(result);
+                    loader.hide();
+                });
         });
     });
 };

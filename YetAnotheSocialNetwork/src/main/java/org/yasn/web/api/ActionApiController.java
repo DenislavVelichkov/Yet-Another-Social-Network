@@ -6,8 +6,11 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.management.OperationsException;
+import javax.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +20,10 @@ import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.service.CloudinaryService;
 import org.yasn.service.action.NotificationService;
 import org.yasn.service.gallery.PersonalGalleryService;
+import org.yasn.service.gallery.PhotoAlbumService;
 import org.yasn.service.user.UserProfileService;
 import org.yasn.service.wall.WallService;
+import org.yasn.web.api.models.AlbumResponseModel;
 import org.yasn.web.controller.BaseController;
 
 @RestController
@@ -30,7 +35,9 @@ public class ActionApiController extends BaseController {
   private final NotificationService notificationService;
   private final UserProfileService profileService;
   private final PersonalGalleryService galleryService;
+  private final PhotoAlbumService albumService;
   private final CloudinaryService cloudinaryService;
+  private final ModelMapper modelMapper;
 
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
@@ -87,10 +94,11 @@ public class ActionApiController extends BaseController {
   }
 
   @PostMapping("/create-album")
-  public ResponseEntity<?> createAlbum(
+  public void createAlbum(
       @RequestParam(name = "profileId") String profileId,
       @RequestParam(name = "albumName") String albumName,
-      @RequestParam(name = "photos") MultipartFile[] photos) {
+      @RequestParam(name = "photos") MultipartFile[] photos,
+      HttpServletResponse response) throws IOException {
 
     Set<String> images =
         Arrays.stream(photos)
@@ -110,9 +118,17 @@ public class ActionApiController extends BaseController {
 
     this.galleryService.uploadImages(images, profileId, albumName);
 
-    return ResponseEntity.accepted().body(
-        redirect("/profile/timeline/" + profileId));
+    response.sendRedirect("/profile/timeline/" + profileId);
   }
 
+  @PostMapping("/photo-album/{albumId}")
+  public ResponseEntity<AlbumResponseModel> getPhotoAlbum(@PathVariable String albumId) {
+    AlbumResponseModel album =
+        this.modelMapper.map(
+            this.albumService.getAlbumById(albumId), AlbumResponseModel.class);
+    this.modelMapper.validate();
+
+    return new ResponseEntity<>(album, HttpStatus.FOUND);
+  }
 }
 

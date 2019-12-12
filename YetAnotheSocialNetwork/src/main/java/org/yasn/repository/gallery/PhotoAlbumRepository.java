@@ -10,4 +10,6 @@ import org.yasn.data.entities.gallery.PhotoAlbum;
 public interface PhotoAlbumRepository extends JpaRepository<PhotoAlbum, String> {
 
   Optional<PhotoAlbum> findByNameAndPersonalGallery_GalleryOwner_Id(String albumName, String albumOwnerId);
+
+  Optional<PhotoAlbum> findById(String id);
 }

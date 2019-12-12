@@ -6,6 +6,10 @@
     padding: 0 0.5em 0;
 }
 
+.album-picture-container a {
+    display: none;
+}
+
 .album-picture-container {
     display: inline-block;
     width: 100%;
