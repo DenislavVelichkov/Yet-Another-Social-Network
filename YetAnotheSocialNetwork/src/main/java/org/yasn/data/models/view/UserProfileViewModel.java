@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.data.models.service.user.UserServiceModel;
+import org.yasn.data.models.view.action.NotificationViewModel;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package org.yasn.data.models.view;
+package org.yasn.data.models.view.gallery;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -11,7 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PhotoAlbumViewModel {
+  private PersonalGalleryViewModel personalGallery;
   private Set<PictureViewModel> pictures;
+  private String name;
   private Timestamp createdOn;
   private String albumImg;
 }

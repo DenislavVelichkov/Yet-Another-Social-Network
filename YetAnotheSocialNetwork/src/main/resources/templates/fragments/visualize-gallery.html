@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
 >
 <div class="yasn-profile-gallery-container">
-    <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.PersonalGalleryViewModel"*/-->
+    <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.gallery.PersonalGalleryViewModel"*/-->
     <th:block th:each="album : ${gallery.photoAlbums}">
         <img class="album-pic" th:src="@{${album.albumImg}}" alt="albums">
+        <a th:href="@{'/profile/photo-gallery/' + ${album.id}}" class="album-name">[(${album.albumName})]</a>
     </th:block>
 </div>
 

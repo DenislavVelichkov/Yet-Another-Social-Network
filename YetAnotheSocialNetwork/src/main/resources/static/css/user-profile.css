@@ -134,11 +134,9 @@
 }
 
 .friend-picture {
-    flex: 0 0 100%;
+    flex: 0 0 20%;
     height: auto;
     border-radius: 0.4em;
-    overflow: hidden;
-    width: 100%;
 }
 
 .friend-picture-container {
@@ -149,7 +147,8 @@
 .profile-picture-action {
     display: flex;
     position: relative;
-    width: 25%;
+    overflow: hidden;
+    justify-content: center;
 }
 
 .friend-picture-container a {

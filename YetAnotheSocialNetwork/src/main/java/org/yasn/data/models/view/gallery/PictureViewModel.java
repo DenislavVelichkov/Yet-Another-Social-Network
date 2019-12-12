@@ -1,4 +1,4 @@
-package org.yasn.data.models.view;
+package org.yasn.data.models.view.gallery;
 
 import java.sql.Timestamp;
 

@@ -1,4 +1,4 @@
-package org.yasn.data.models.view;
+package org.yasn.data.models.view.action;
 
 import java.sql.Timestamp;
 
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.yasn.common.enums.NotificationType;
+import org.yasn.data.models.view.BaseViewModel;
 
 @Getter
 @Setter

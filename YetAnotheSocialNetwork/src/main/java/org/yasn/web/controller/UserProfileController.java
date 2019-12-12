@@ -22,9 +22,9 @@ import org.yasn.data.models.service.gallery.PersonalGalleryServiceModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
-import org.yasn.data.models.view.PersonalGalleryViewModel;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
+import org.yasn.data.models.view.gallery.PersonalGalleryViewModel;
 import org.yasn.service.CloudinaryService;
 import org.yasn.service.gallery.PersonalGalleryService;
 import org.yasn.service.user.UserProfileService;
@@ -257,6 +257,7 @@ public class UserProfileController extends BaseController {
   }
 
   @GetMapping("/edit/{id}")
+  @PageTitle("Profile - Edit")
   public ModelAndView profileEdit(ModelAndView modelAndView,
                                   @PathVariable(name = "id") String id) {
 
