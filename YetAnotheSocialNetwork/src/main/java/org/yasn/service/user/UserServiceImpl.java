@@ -1,4 +1,4 @@
-package org.yasn.service;
+package org.yasn.service.user;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -22,8 +22,6 @@ import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.repository.gallery.PersonalGalleryRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
-import org.yasn.service.interfaces.RoleService;
-import org.yasn.service.interfaces.UserService;
 
 @Service
 @AllArgsConstructor
@@ -68,8 +66,6 @@ public class UserServiceImpl implements UserService {
     this.modelMapper.validate();
 
     UserProfile profile = new UserProfile();
-    PersonalGallery personalGallery = new PersonalGallery();
-    personalGallery.setGalleryOwner(profile);
 
     profile.setProfileOwner(user);
     profile.setFullName(userServiceModel.getFirstName()
@@ -84,11 +80,21 @@ public class UserServiceImpl implements UserService {
     } else {
       profile.setProfilePicture(WebConstants.DEFAULT_AVATAR_NEUTRAL_IMG_PATH);
     }
+
     profile.setCoverPicture(WebConstants.DEFAULT_COVER_IMG_PATH);
 
     user.setUserProfile(profile);
 
     this.userRepository.saveAndFlush(user);
+
+    PersonalGallery personalGallery = new PersonalGallery();
+
+    UserProfile userProfile =
+        this.userProfileRepository.findById(profile.getId()).get();
+
+    personalGallery.setGalleryOwner(userProfile);
+    this.personalGalleryRepository.saveAndFlush(personalGallery);
+
   }
 
   @Override

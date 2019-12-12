@@ -20,8 +20,8 @@ import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
-import org.yasn.service.interfaces.UserProfileService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.user.UserProfileService;
+import org.yasn.service.wall.WallService;
 import org.yasn.utils.TimeUtil;
 
 @Controller
@@ -73,22 +73,22 @@ public class HomeController extends BaseController {
 
     List<WallPostViewModel> allPostsViewModelsSorted =
         allPostsViewModels.stream().filter(wallPostViewModel ->
-        wallPostViewModel
-            .getPostPrivacy()
-            .equals(PostPrivacy.PUBLIC)
-            || wallPostViewModel
-            .getPostOwner().getId()
-            .equals(
-                activeUserDetails.getId())
-            || wallPostViewModel
-            .getPostOwner()
-            .getFriends()
-            .stream()
-            .anyMatch(
-                profile ->
-                    profile.getId().equals(activeUserDetails.getId())))
-        .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
-        .collect(Collectors.toList());
+            wallPostViewModel
+                .getPostPrivacy()
+                .equals(PostPrivacy.PUBLIC)
+                || wallPostViewModel
+                .getPostOwner().getId()
+                .equals(
+                    activeUserDetails.getId())
+                || wallPostViewModel
+                .getPostOwner()
+                .getFriends()
+                .stream()
+                .anyMatch(
+                    profile ->
+                        profile.getId().equals(activeUserDetails.getId())))
+                          .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+                          .collect(Collectors.toList());
 
     this.modelMapper.validate();
 

@@ -109,7 +109,7 @@
                                     <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                                     <th:block th:unless="${activeUserDetails.notifications.size() == 0}">
                                         <span class="yasn-notification-container-hidden">
-                                            [(${userProfileView.notifications.size()})]
+                                            [(${activeUserDetails.notifications.size()})]
                                         </span>
                                     </th:block>
                                 </div>

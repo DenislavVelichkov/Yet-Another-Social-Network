@@ -1,4 +1,4 @@
-package org.yasn.service.interfaces;
+package org.yasn.service.wall;
 
 import java.io.IOException;
 import java.util.List;

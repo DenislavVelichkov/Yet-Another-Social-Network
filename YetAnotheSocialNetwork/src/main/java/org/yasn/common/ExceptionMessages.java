@@ -9,4 +9,5 @@ public class ExceptionMessages {
   public static String FRIEND_REQUEST_ALREADY_EXISTS = "You already have sent a friends request.";
   public static String FRIEND_REQUEST_ON_YOURSELF = "You can't send friend request on yourself.";
   public static String PROFILE_DOESNT_EXISTS = "Profile with username %s doesn't exists.";
+  public static String GALLERY_DOESNT_EXISTS = "There is no gallery found with owner id %s";
 }

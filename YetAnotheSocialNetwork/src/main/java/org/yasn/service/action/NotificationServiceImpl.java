@@ -1,4 +1,4 @@
-package org.yasn.service;
+package org.yasn.service.action;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -14,10 +14,9 @@ import org.yasn.data.entities.Notification;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.action.NotificationServiceModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
-import org.yasn.repository.NotificationRepository;
+import org.yasn.repository.action.NotificationRepository;
 import org.yasn.repository.user.UserProfileRepository;
-import org.yasn.service.interfaces.NotificationService;
-import org.yasn.service.interfaces.UserProfileService;
+import org.yasn.service.user.UserProfileService;
 
 @Service
 @AllArgsConstructor
@@ -91,9 +90,9 @@ public class NotificationServiceImpl implements NotificationService {
     NotificationServiceModel notificationToRemove =
         recipient.getNotifications().stream()
                  .filter(notification ->
-                             notification.getRecipient().getId().equals(recipient.getId())
-                                 && notification.getSenderId().equals(senderId)
-                                 && notification.getNotificationType().equals(friendReq))
+                     notification.getRecipient().getId().equals(recipient.getId())
+                         && notification.getSenderId().equals(senderId)
+                         && notification.getNotificationType().equals(friendReq))
                  .findFirst()
                  .orElse(null);
 

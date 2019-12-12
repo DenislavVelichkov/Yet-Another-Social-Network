@@ -14,4 +14,5 @@ import org.yasn.data.models.service.BaseServiceModel;
 public class PhotoAlbumServiceModel extends BaseServiceModel {
   private Set<PictureServiceModel> pictures;
   private Timestamp createdOn;
+  private String albumImg;
 }

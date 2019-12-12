@@ -1,4 +1,4 @@
-package org.yasn.service;
+package org.yasn.service.wall;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.yasn.data.entities.wall.PostComment;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.repository.wall.PostCommentRepository;
-import org.yasn.service.interfaces.PostCommentService;
-import org.yasn.service.interfaces.UserProfileService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.user.UserProfileService;
 
 @Service
 @AllArgsConstructor
@@ -37,10 +35,10 @@ public class PostCommentServiceImpl implements PostCommentService {
 
     PostComment postComment =
         this.modelMapper.map(postCommentServiceModel, PostComment.class);
-      this.modelMapper.validate();
-      postComment.setId(null);
+    this.modelMapper.validate();
+    postComment.setId(null);
 
-      this.postCommentRepository.saveAndFlush(postComment);
+    this.postCommentRepository.saveAndFlush(postComment);
   }
 
   @Override
@@ -49,8 +47,8 @@ public class PostCommentServiceImpl implements PostCommentService {
         .findAllByParentPost_Id(id)
         .stream()
         .map(postComment ->
-                 this.modelMapper.map(
-                     postComment, PostCommentServiceModel.class))
+            this.modelMapper.map(
+                postComment, PostCommentServiceModel.class))
         .collect(Collectors.toList());
   }
 }

@@ -1,4 +1,4 @@
-package org.yasn.repository;
+package org.yasn.repository.action;
 
 import java.util.List;
 import java.util.Optional;

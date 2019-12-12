@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<div class="yasn-profile-gallery-container">
+    <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.PersonalGalleryViewModel"*/-->
+    <th:block th:each="album : ${gallery.photoAlbums}">
+        <img class="album-pic" th:src="@{${album.albumImg}}" alt="albums">
+    </th:block>
+</div>
+
+</html>

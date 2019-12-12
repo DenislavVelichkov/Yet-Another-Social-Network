@@ -8,17 +8,18 @@ import java.util.stream.Collectors;
 import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
-import org.yasn.service.interfaces.CloudinaryService;
-import org.yasn.service.interfaces.NotificationService;
-import org.yasn.service.interfaces.UserProfileService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.CloudinaryService;
+import org.yasn.service.action.NotificationService;
+import org.yasn.service.gallery.PersonalGalleryService;
+import org.yasn.service.user.UserProfileService;
+import org.yasn.service.wall.WallService;
 import org.yasn.web.controller.BaseController;
-
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +28,8 @@ public class ActionApiController extends BaseController {
 
   private final WallService wallService;
   private final NotificationService notificationService;
-  private final UserProfileService userProfileService;
+  private final UserProfileService profileService;
+  private final PersonalGalleryService galleryService;
   private final CloudinaryService cloudinaryService;
 
   @PostMapping("/likes")
@@ -43,23 +45,7 @@ public class ActionApiController extends BaseController {
     } else {
       this.wallService.likePost(wallPostServiceModel, activeUser.getName());
     }
-    /*
-    UserProfileServiceModel userProfileServiceModel =
-        this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
-    LikeServiceModel likeServiceModel = this.wallService
-        .findWallPostById(postId)
-        .getActualLikes()
-        .stream()
-        .filter(likeModel ->
-            likeModel
-                .getId()
-                .getProfile().equals(userProfileServiceModel.getId())
-            && likeModel
-                .getId()
-                .getPost().equals(postId))
-        .findFirst()
-        .orElse(null);*/
   }
 
   @PostMapping("/add-friend")
@@ -67,7 +53,7 @@ public class ActionApiController extends BaseController {
                                 Principal sender) throws OperationsException {
 
     String senderId =
-        this.userProfileService.findUserProfileByUsername(sender.getName()).getId();
+        this.profileService.findUserProfileByUsername(sender.getName()).getId();
 
     if (recipientId.equals(senderId)) {
       throw new OperationsException(ExceptionMessages.FRIEND_REQUEST_ON_YOURSELF);
@@ -90,10 +76,10 @@ public class ActionApiController extends BaseController {
   public void acceptFriendRequest(@ModelAttribute(name = "senderId") String senderId,
                                   Principal activeUser) {
 
-    boolean successFullFriendship =
-        this.userProfileService.addFriend(senderId, activeUser.getName());
+    boolean successfulFriendship =
+        this.profileService.addFriend(senderId, activeUser.getName());
 
-    if (successFullFriendship) {
+    if (successfulFriendship) {
       this.notificationService.removeNotification(
           senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
     }
@@ -101,20 +87,19 @@ public class ActionApiController extends BaseController {
   }
 
   @PostMapping("/create-album")
-  public void createAlbum(
+  public ResponseEntity<?> createAlbum(
       @RequestParam(name = "profileId") String profileId,
       @RequestParam(name = "albumName") String albumName,
       @RequestParam(name = "photos") MultipartFile[] photos) {
 
-
     Set<String> images =
         Arrays.stream(photos)
-              .map(multipartFile -> {
+              .map(img -> {
                 String convertedImage = null;
 
                 try {
                   convertedImage =
-                      this.cloudinaryService.uploadImage(multipartFile);
+                      this.cloudinaryService.uploadImage(img);
                 } catch (IOException e) {
                   e.printStackTrace();
                 }
@@ -123,6 +108,11 @@ public class ActionApiController extends BaseController {
               })
               .collect(Collectors.toSet());
 
+    this.galleryService.uploadImages(images, profileId, albumName);
+
+    return ResponseEntity.accepted().body(
+        redirect("/profile/timeline/" + profileId));
   }
+
 }
 

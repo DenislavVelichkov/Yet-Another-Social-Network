@@ -1,4 +1,4 @@
-package org.yasn.service;
+package org.yasn.service.user;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,8 +17,7 @@ import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.repository.gallery.PhotoAlbumRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
-import org.yasn.service.interfaces.CloudinaryService;
-import org.yasn.service.interfaces.UserProfileService;
+import org.yasn.service.CloudinaryService;
 
 @Service
 @AllArgsConstructor

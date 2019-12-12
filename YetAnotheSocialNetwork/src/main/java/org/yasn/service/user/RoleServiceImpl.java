@@ -1,4 +1,4 @@
-package org.yasn.service;
+package org.yasn.service.user;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,7 +10,6 @@ import org.yasn.common.enums.Authorities;
 import org.yasn.data.entities.user.Role;
 import org.yasn.data.models.service.user.RoleServiceModel;
 import org.yasn.repository.user.RoleRepository;
-import org.yasn.service.interfaces.RoleService;
 
 @Service
 @AllArgsConstructor

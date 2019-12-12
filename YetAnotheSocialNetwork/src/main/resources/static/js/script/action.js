@@ -5,7 +5,7 @@ const URLs = {
     createPhotoAlbum: '/api/create-album',
 };
 
-function getCookie(name) {
+function getCsrfCookie(name) {
 
     if (!document.cookie) {
         return null;
@@ -22,7 +22,7 @@ function getCookie(name) {
     return decodeURIComponent(xsrfCookies[0].split('=')[1]);
 }
 
-let csrfToken = getCookie('XSRF-TOKEN');
+let csrfToken = getCsrfCookie('XSRF-TOKEN');
 
 const likeAPost = function () {
     $(document).ready(function () {
@@ -109,9 +109,9 @@ $(document).ready(function () {
         showUpload: true,
         previewFileType: "image",
         theme: "fa",
-        allowedFileExtensions: ["jpg", "jpeg", "png"],
+        allowedFileExtensions: ["jpg", "JPG", "jpeg", "JPEG", "png", "PNG"],
         msgInvalidFileExtension: 'Incorrect file type for {name}, please upload one of the following file types: {extensions}',
-        uploadAsync: true,
+        uploadAsync: false,
         uploadUrl: url,
         msgPlaceholder: 'Select image {files}...',
         maxTotalFileCount: 10,
@@ -121,7 +121,7 @@ $(document).ready(function () {
                 albumName: $("input[name='albumName']").val(),
                 '_csrf': csrfToken,
             };
-        }
+        },
     });
 });
 

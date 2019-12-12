@@ -1,0 +1,16 @@
+.yasn-profile-gallery-container {
+    margin: 1em 0 1em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.album-pic {
+    flex: 0 0 20%;
+    margin: auto;
+    border-radius: 0.33em;
+}
+
+
+

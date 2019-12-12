@@ -18,6 +18,13 @@ import org.yasn.data.entities.wall.WallPost;
 @Table(name = "user_profiles")
 public class UserProfile extends BaseEntity {
 
+  @OneToMany(
+      targetEntity = Notification.class,
+      mappedBy = "recipient",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
+  Set<Notification> notifications;
+
   @Column(name = "full_name", nullable = false)
   private String fullName;
 
@@ -59,10 +66,4 @@ public class UserProfile extends BaseEntity {
           referencedColumnName = "id"))
   private Set<UserProfile> friends;
 
-  @OneToMany(
-      targetEntity = Notification.class,
-      mappedBy = "recipient",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true)
-  Set<Notification> notifications;
 }

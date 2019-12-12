@@ -25,7 +25,14 @@ public class PhotoAlbum extends BaseEntity {
       cascade = CascadeType.ALL)
   private Set<Picture> pictures;
 
+  @Column(nullable = false)
+  private String name;
+
   @Column(name = "created_on")
   private Timestamp createdOn;
+
+  @Column(name = "album_image",
+  nullable = false)
+  private String albumImg;
 
 }

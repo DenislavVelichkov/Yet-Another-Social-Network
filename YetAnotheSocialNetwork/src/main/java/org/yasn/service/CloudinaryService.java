@@ -1,4 +1,4 @@
-package org.yasn.service.interfaces;
+package org.yasn.service;
 
 import java.io.IOException;
 

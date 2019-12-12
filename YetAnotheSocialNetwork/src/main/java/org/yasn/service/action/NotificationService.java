@@ -1,4 +1,4 @@
-package org.yasn.service.interfaces;
+package org.yasn.service.action;
 
 import java.util.List;
 

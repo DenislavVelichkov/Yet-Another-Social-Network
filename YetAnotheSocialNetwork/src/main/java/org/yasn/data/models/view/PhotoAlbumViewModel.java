@@ -13,4 +13,5 @@ import lombok.Setter;
 public class PhotoAlbumViewModel {
   private Set<PictureViewModel> pictures;
   private Timestamp createdOn;
+  private String albumImg;
 }

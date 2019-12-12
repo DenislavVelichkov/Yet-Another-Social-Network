@@ -15,9 +15,9 @@ import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
-import org.yasn.service.interfaces.CloudinaryService;
-import org.yasn.service.interfaces.PostCommentService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.CloudinaryService;
+import org.yasn.service.wall.PostCommentService;
+import org.yasn.service.wall.WallService;
 
 @Controller
 @RequestMapping("/home/wall")
@@ -64,7 +64,7 @@ public class WallController extends BaseController {
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);
-        this.modelMapper.validate();
+    this.modelMapper.validate();
 
     if (!postComment.getCommentPicture().isEmpty()) {
       postCommentServiceModel.setCommentPicture(
@@ -73,7 +73,7 @@ public class WallController extends BaseController {
       postCommentServiceModel.setCommentPicture(null);
     }
 
-      this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
+    this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
     return super.redirect("/home");
   }

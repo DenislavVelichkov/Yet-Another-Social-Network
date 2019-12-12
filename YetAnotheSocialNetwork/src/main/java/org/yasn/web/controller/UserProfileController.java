@@ -18,15 +18,18 @@ import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
+import org.yasn.data.models.service.gallery.PersonalGalleryServiceModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
+import org.yasn.data.models.view.PersonalGalleryViewModel;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
-import org.yasn.service.interfaces.CloudinaryService;
-import org.yasn.service.interfaces.PostCommentService;
-import org.yasn.service.interfaces.UserProfileService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.CloudinaryService;
+import org.yasn.service.gallery.PersonalGalleryService;
+import org.yasn.service.user.UserProfileService;
+import org.yasn.service.wall.PostCommentService;
+import org.yasn.service.wall.WallService;
 import org.yasn.utils.TimeUtil;
 import org.yasn.validation.user.ProfileEditValidator;
 
@@ -40,6 +43,7 @@ public class UserProfileController extends BaseController {
   private final TimeUtil timeUtil;
   private final CloudinaryService cloudinaryService;
   private final PostCommentService postCommentService;
+  private final PersonalGalleryService personalGallery;
   private final ModelMapper modelMapper;
   private final ProfileEditValidator profileEditValidator;
 
@@ -72,6 +76,13 @@ public class UserProfileController extends BaseController {
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
+    PersonalGalleryServiceModel galleryServiceModel =
+        this.personalGallery.findByOwnerId(profileId);
+
+    PersonalGalleryViewModel galleryViewModel =
+        this.modelMapper.map(galleryServiceModel, PersonalGalleryViewModel.class);
+
+    modelAndView.addObject("gallery", galleryViewModel);
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails(userProfileView));
@@ -91,6 +102,8 @@ public class UserProfileController extends BaseController {
       Principal activeUser) throws IOException {
 
     // TODO: 11/12/2019 Validations
+    // TODO: 12/2/19 Create a Timeline Guest Post
+
     String profileId =
         this.userProfileService.findUserProfileByUsername(username).getId();
 
@@ -119,7 +132,6 @@ public class UserProfileController extends BaseController {
       ModelAndView modelAndView,
       @PathVariable String profileId,
       Principal activeUser) {
-    // TODO: 12/2/19 Create a Timeline Guest Post
 
     UserProfileServiceModel userProfileServiceModel =
         this.userProfileService.findUserProfileById(profileId);
@@ -130,8 +142,6 @@ public class UserProfileController extends BaseController {
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
 
-    /*Using this -> combined with getActivceUserDetails(), instead of modelMapper because
-     ModelMapper STRICT config doesn't allow mappings with different fields*/
     UserProfileViewModel activeUserViewModel =
         this.modelMapper.map(activeUserProfileServiceModel, UserProfileViewModel.class);
 
@@ -148,6 +158,13 @@ public class UserProfileController extends BaseController {
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
 
+    PersonalGalleryServiceModel galleryServiceModel =
+        this.personalGallery.findByOwnerId(profileId);
+
+    PersonalGalleryViewModel galleryViewModel =
+        this.modelMapper.map(galleryServiceModel, PersonalGalleryViewModel.class);
+
+    modelAndView.addObject("gallery", galleryViewModel);
     modelAndView.addObject("userProfileView", userProfileView);
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails(activeUserViewModel));

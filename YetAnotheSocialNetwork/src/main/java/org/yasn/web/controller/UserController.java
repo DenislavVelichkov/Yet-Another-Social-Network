@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.data.models.service.user.UserServiceModel;
-import org.yasn.service.interfaces.UserService;
+import org.yasn.service.user.UserService;
 import org.yasn.validation.user.UserRegisterValidator;
 
 @Controller

@@ -1,4 +1,4 @@
-package org.yasn.service;
+package org.yasn.service.wall;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -17,8 +17,7 @@ import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.repository.wall.LikeRepository;
 import org.yasn.repository.wall.WallPostRepository;
-import org.yasn.service.interfaces.UserProfileService;
-import org.yasn.service.interfaces.WallService;
+import org.yasn.service.user.UserProfileService;
 import org.yasn.utils.FileUtil;
 
 @Service
