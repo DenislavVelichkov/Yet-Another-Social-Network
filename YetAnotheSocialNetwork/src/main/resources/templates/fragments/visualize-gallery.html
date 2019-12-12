@@ -2,11 +2,47 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
 >
+
 <div class="yasn-profile-gallery-container">
     <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.gallery.PersonalGalleryViewModel"*/-->
-    <th:block th:each="album : ${gallery.photoAlbums}">
-        <img class="album-pic" th:src="@{${album.albumImg}}" alt="albums">
-        <a th:href="@{'/profile/photo-gallery/' + ${album.id}}" class="album-name">[(${album.albumName})]</a>
+    <th:block th:each="album: ${gallery.photoAlbums}">
+        <div class="album-picture-container">
+            <img class="album-pic" th:src="@{${album.albumImg}}" alt="album-img">
+            <a href="#album-modal"
+               class="album-name"
+               data-toggle="modal"
+               data-target="#album-modal">
+                [(${album.name})]
+            </a>
+        </div>
+        <!--modal window-->
+        <div id="album-modal" class="modal">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <span class="pull-left">[(${album.name})]</span>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div id="gallery-showcase">
+                            <ul>
+                                <th:block th:each="picture : ${album.getPictures()}">
+                                    <li>
+                                        <img class="picture-showcase" th:src="@{${picture.pictureUrl}}" alt="picture">
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-sm close" type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of modal window-->
     </th:block>
 </div>
 

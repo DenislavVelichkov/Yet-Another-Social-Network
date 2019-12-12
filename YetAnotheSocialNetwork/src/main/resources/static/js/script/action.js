@@ -123,5 +123,21 @@ $(document).ready(function () {
             };
         },
     });
+
+    /*Album Modal fix. Avoiding screen freeze.*/
+    $('.album-name').on('click', function () {
+        $('.modal').appendTo("body")
+    });
+
+    /*Init Gallery features*/
+    const opts = {
+        "classes": "col-lg-2 col-md-4 col-sm-3 col-xs-12",
+        "hasModal": true,
+        "showControl": false,
+        "shortText": false,
+
+    };
+
+    $('#gallery-showcase').bsPhotoGallery(opts);
 });
 

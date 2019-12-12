@@ -63,6 +63,7 @@ public class UserProfileController extends BaseController {
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+    this.modelMapper.validate();
 
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);
@@ -75,12 +76,14 @@ public class UserProfileController extends BaseController {
                     wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
+    this.modelMapper.validate();
 
     PersonalGalleryServiceModel galleryServiceModel =
         this.personalGallery.findByOwnerId(profileId);
 
     PersonalGalleryViewModel galleryViewModel =
         this.modelMapper.map(galleryServiceModel, PersonalGalleryViewModel.class);
+    this.modelMapper.validate();
 
     modelAndView.addObject("gallery", galleryViewModel);
     modelAndView.addObject("userProfileView", userProfileView);
@@ -109,6 +112,7 @@ public class UserProfileController extends BaseController {
 
     WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
+    this.modelMapper.validate();
 
     if (!wallPost.getPostPicture().isEmpty()) {
       wallPostServiceModel.setPostPicture(
@@ -141,10 +145,11 @@ public class UserProfileController extends BaseController {
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+    this.modelMapper.validate();
 
     UserProfileViewModel activeUserViewModel =
         this.modelMapper.map(activeUserProfileServiceModel, UserProfileViewModel.class);
-
+    this.modelMapper.validate();
 
     List<WallPostServiceModel> postServiceModels =
         this.wallService.findAllByOwnerId(profileId);
@@ -157,12 +162,15 @@ public class UserProfileController extends BaseController {
                     wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
+    this.modelMapper.validate();
+
 
     PersonalGalleryServiceModel galleryServiceModel =
         this.personalGallery.findByOwnerId(profileId);
 
     PersonalGalleryViewModel galleryViewModel =
         this.modelMapper.map(galleryServiceModel, PersonalGalleryViewModel.class);
+    this.modelMapper.validate();
 
     modelAndView.addObject("gallery", galleryViewModel);
     modelAndView.addObject("userProfileView", userProfileView);
@@ -209,31 +217,6 @@ public class UserProfileController extends BaseController {
     return super.redirect("/profile/guest/" + profileId);
   }
 
-  @PostMapping("/timeline/comment")
-  public ModelAndView postCommentOnTimelinePost(
-      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
-      @ModelAttribute(name = "postId") String postId,
-      @ModelAttribute(name = "username") String username,
-      Principal activeUser) throws IOException {
-
-    String profileId =
-        this.userProfileService.findUserProfileByUsername(username).getId();
-
-    PostCommentServiceModel postCommentServiceModel =
-        this.modelMapper.map(postComment, PostCommentServiceModel.class);
-
-    if (!postComment.getCommentPicture().isEmpty()) {
-      postCommentServiceModel.setCommentPicture(
-          this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
-    } else {
-      postCommentServiceModel.setCommentPicture(null);
-    }
-
-    this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
-
-    return super.redirect("/profile/timeline/" + profileId);
-  }
-
   @PostMapping("/guest/comment")
   public ModelAndView postCommentOnGuestTimelinePost(
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
@@ -254,6 +237,32 @@ public class UserProfileController extends BaseController {
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
     return super.redirect("/profile/guest/" + profileId);
+  }
+
+  @PostMapping("/timeline/comment")
+  public ModelAndView postCommentOnTimelinePost(
+      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
+      @ModelAttribute(name = "postId") String postId,
+      @ModelAttribute(name = "username") String username,
+      Principal activeUser) throws IOException {
+
+    String profileId =
+        this.userProfileService.findUserProfileByUsername(username).getId();
+
+    PostCommentServiceModel postCommentServiceModel =
+        this.modelMapper.map(postComment, PostCommentServiceModel.class);
+    this.modelMapper.validate();
+
+    if (!postComment.getCommentPicture().isEmpty()) {
+      postCommentServiceModel.setCommentPicture(
+          this.cloudinaryService.uploadImage(postComment.getCommentPicture()));
+    } else {
+      postCommentServiceModel.setCommentPicture(null);
+    }
+
+    this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
+
+    return super.redirect("/profile/timeline/" + profileId);
   }
 
   @GetMapping("/edit/{id}")

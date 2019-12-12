@@ -102,7 +102,7 @@
 /*Sticky sidebar*/
 .user-profile-sidebar-container {
     position: sticky;
-    top:6vh;
+    top: 6vh;
 }
 
 .profile-edit-container {
@@ -124,44 +124,47 @@
     font-weight: bold;
 }
 
-.friend-picture-container {
+.yasn-friend-picture-container {
     display: flex;
     justify-content: space-around;
     flex-flow: column wrap;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
+    margin: 0 0 1em;
     padding: 0 0.5em 0;
 }
 
 .friend-picture {
-    flex: 0 0 20%;
+    display: flex;
+    max-width: 100%;
+    margin: auto;
     height: auto;
     border-radius: 0.4em;
 }
 
-.friend-picture-container {
+.yasn-friend-picture-container {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 }
 
 .profile-picture-action {
-    display: flex;
+    display: inline-block;
+    width: 100%;
+    padding-top: 2.8em;
     position: relative;
-    overflow: hidden;
-    justify-content: center;
+    margin: 0 1em 0;
 }
 
-.friend-picture-container a {
+.yasn-friend-picture-container a {
     display: none;
 }
 
 .friend-name {
-    position: absolute;
-    top: 0;
-    display: block;
-    left: 12%;
     font-weight: bolder;
     color: #4e555b;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .album-modal-button {
