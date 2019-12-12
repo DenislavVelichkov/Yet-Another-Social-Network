@@ -27,7 +27,7 @@
 
                     <div class="modal-body">
                         <div id="gallery-showcase">
-                            <ul>
+                            <ul class="modal-img-wrapper">
                                 <th:block th:each="picture : ${album.getPictures()}">
                                     <li>
                                         <img class="picture-showcase" th:src="@{${picture.pictureUrl}}" alt="picture">
