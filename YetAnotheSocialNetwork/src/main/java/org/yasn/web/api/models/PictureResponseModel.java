@@ -1,7 +1,5 @@
 package org.yasn.web.api.models;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumResponseModel {
-  private String id;
-  private List<PictureResponseModel> pictures;
-  private String name;
+public class PictureResponseModel {
+  private String pictureUrl;
 }

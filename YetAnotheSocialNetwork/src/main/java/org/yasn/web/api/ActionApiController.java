@@ -121,7 +121,7 @@ public class ActionApiController extends BaseController {
     response.sendRedirect("/profile/timeline/" + profileId);
   }
 
-  @PostMapping("/photo-album/{albumId}")
+  @GetMapping("/photo-album/{albumId}")
   public ResponseEntity<AlbumResponseModel> getPhotoAlbum(@PathVariable String albumId) {
     AlbumResponseModel album =
         this.modelMapper.map(

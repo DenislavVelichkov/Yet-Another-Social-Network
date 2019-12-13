@@ -3,7 +3,7 @@ const URLs = {
     addFriend: '/api/add-friend',
     acceptFriend: '/api/accept-friend',
     createPhotoAlbum: '/api/create-album',
-    getPhotoAlbum: '/api/photo-album',
+    getPhotoAlbum: '/api/photo-album/',
 };
 
 function getCsrfCookie(name) {
@@ -103,29 +103,26 @@ const acceptFriend = function () {
     });
 };
 
-const getPhotoAlbum = function () {
-    const albumModal = `
-    
-    `;
+/*Gallery Modals freeze fix*/
+$(document).ready(function () {
+    let id = '';
+    /*Init Gallery features*/
+    const opts = {
+        "classes": "col-lg-2 col-md-4 col-sm-3 col-xs-12",
+        "hasModal": true,
+        "showControl": false,
+        "shortText": false,
+    };
 
-    $(document).ready(function () {
-        $('.album-name').on('click', 'album-name', function () {
-            fetch(URLs.getPhotoAlbum, {method: 'GET'})
-                .then(response => response.json())
-                .then(items => {
-                    let result = '';
-                    items.forEach(item => {
-                        const itemString = toString(item);
-                        result += itemString;
-                    });
-
-                    $('#items-table').html(result);
-                    loader.hide();
-                });
-        });
+    $('a.album-name').each(function (index, element) {
+        id = $(this).attr('data-target');
+        $(this).prop('href', id);
+        $(id).prependTo('body');
+        $('#gallery-showcase').bsPhotoGallery(opts);
     });
-};
+});
 
+/*Create Album functionality*/
 $(document).ready(function () {
     const url = URLs.createPhotoAlbum;
 
@@ -147,21 +144,6 @@ $(document).ready(function () {
             };
         },
     });
-
-    /*Album Modal fix. Avoiding screen freeze.*/
-    $('.album-name').on('click', function () {
-        $('.modal').appendTo("body")
-    });
-
-    /*Init Gallery features*/
-    const opts = {
-        "classes": "col-lg-2 col-md-4 col-sm-3 col-xs-12",
-        "hasModal": true,
-        "showControl": false,
-        "shortText": false,
-
-    };
-
-    $('#gallery-showcase').bsPhotoGallery(opts);
 });
+
 
