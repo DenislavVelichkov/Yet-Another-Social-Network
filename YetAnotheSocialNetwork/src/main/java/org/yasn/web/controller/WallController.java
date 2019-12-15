@@ -6,6 +6,7 @@ import java.security.Principal;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.service.CloudinaryService;
 import org.yasn.service.wall.PostCommentService;
 import org.yasn.service.wall.WallService;
+import org.yasn.validation.wall.CommentValidator;
+import org.yasn.validation.wall.PostValidator;
 
 @Controller
 @RequestMapping("/home/wall")
@@ -28,14 +31,21 @@ public class WallController extends BaseController {
   private final PostCommentService postCommentService;
   private final ModelMapper modelMapper;
   private final CloudinaryService cloudinaryService;
+  private final PostValidator postValidator;
+  private final CommentValidator commentValidator;
 
   @PostMapping("/post")
   public ModelAndView postOnWall(
       @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
       @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
-      Principal activeUser) throws IOException {
+      Principal activeUser,
+      BindingResult bindingResult) throws IOException {
 
-    // TODO: 11/12/2019 Validations
+    this.postValidator.validate(wallPost, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      return super.redirect("/home");
+    }
 
     WallPostServiceModel wallPostServiceModel =
         this.modelMapper.map(wallPost, WallPostServiceModel.class);
@@ -60,7 +70,14 @@ public class WallController extends BaseController {
   public ModelAndView postCommentOnPost(
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
       @ModelAttribute(name = "postId") String postId,
-      Principal activeUser) throws IOException {
+      Principal activeUser,
+      BindingResult bindingResult) throws IOException {
+
+    this.postValidator.validate(postComment, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      return super.redirect("/home");
+    }
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);

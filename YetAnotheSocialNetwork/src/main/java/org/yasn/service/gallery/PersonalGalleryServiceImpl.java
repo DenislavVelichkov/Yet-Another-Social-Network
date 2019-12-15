@@ -51,28 +51,28 @@ public class PersonalGalleryServiceImpl implements PersonalGalleryService {
     if (album == null) {
       album = new PhotoAlbum();
     }
-      PhotoAlbum finalAlbum = album;
-      Set<Picture> pictures = images.stream()
-                                    .map(img -> new Picture() {{
-                                      setAlbum(finalAlbum);
-                                      setPictureUrl(img);
-                                      setUploadedOn(new Timestamp(new Date().getTime()));
-                                    }})
-                                    .collect(Collectors.toSet());
+    PhotoAlbum finalAlbum = album;
+    Set<Picture> pictures = images.stream()
+                                  .map(img -> new Picture() {{
+                                    setAlbum(finalAlbum);
+                                    setPictureUrl(img);
+                                    setUploadedOn(new Timestamp(new Date().getTime()));
+                                  }})
+                                  .collect(Collectors.toSet());
 
-      try {
-        album.setPictures(pictures);
-        album.setAlbumImg(pictures.iterator().next().getPictureUrl());
-        album.setCreatedOn(new Timestamp(new Date().getTime()));
-        album.setName(albumName);
-        album.setPersonalGallery(gallery);
-        gallery.getPhotoAlbums().add(album);
-        this.albumRepository.saveAndFlush(album);
+    try {
+      album.setPictures(pictures);
+      album.setAlbumImg(pictures.iterator().next().getPictureUrl());
+      album.setCreatedOn(new Timestamp(new Date().getTime()));
+      album.setName(albumName);
+      album.setPersonalGallery(gallery);
+      gallery.getPhotoAlbums().add(album);
+      this.albumRepository.saveAndFlush(album);
 
-        return true;
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     return false;
   }

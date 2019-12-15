@@ -32,7 +32,7 @@ public class PhotoAlbum extends BaseEntity {
   private Timestamp createdOn;
 
   @Column(name = "album_image",
-  nullable = false)
+      nullable = false)
   private String albumImg;
 
 }
