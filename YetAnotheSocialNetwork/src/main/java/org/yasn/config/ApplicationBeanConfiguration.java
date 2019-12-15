@@ -26,6 +26,10 @@ public class ApplicationBeanConfiguration {
   static {
     fileUtil = new FileUtilImpl();
     modelMapper = new ModelMapper();
+    initMapper(modelMapper);
+  }
+
+  private static void initMapper(ModelMapper modelMapper) {
     modelMapper.getConfiguration()
                .setMatchingStrategy(MatchingStrategies.STRICT)
                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)

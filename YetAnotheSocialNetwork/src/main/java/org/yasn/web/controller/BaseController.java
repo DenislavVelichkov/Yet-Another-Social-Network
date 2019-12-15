@@ -1,13 +1,10 @@
 package org.yasn.web.controller;
 
-import lombok.NoArgsConstructor;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 
-
-@NoArgsConstructor
 public abstract class BaseController {
 
   protected ModelAndView view(String viewName, ModelAndView modelAndView) {

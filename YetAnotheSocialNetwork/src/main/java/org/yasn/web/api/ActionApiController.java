@@ -20,12 +20,11 @@ import org.yasn.service.gallery.PersonalGalleryService;
 import org.yasn.service.gallery.PhotoAlbumService;
 import org.yasn.service.user.UserProfileService;
 import org.yasn.service.wall.WallService;
-import org.yasn.web.controller.BaseController;
 
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-public class ActionApiController extends BaseController {
+public class ActionApiController {
 
   private final WallService wallService;
   private final NotificationService notificationService;
