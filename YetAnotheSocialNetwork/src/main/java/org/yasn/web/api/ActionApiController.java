@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
@@ -17,7 +16,6 @@ import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.service.CloudinaryService;
 import org.yasn.service.action.NotificationService;
 import org.yasn.service.gallery.PersonalGalleryService;
-import org.yasn.service.gallery.PhotoAlbumService;
 import org.yasn.service.user.UserProfileService;
 import org.yasn.service.wall.WallService;
 
@@ -30,9 +28,7 @@ public class ActionApiController {
   private final NotificationService notificationService;
   private final UserProfileService profileService;
   private final PersonalGalleryService galleryService;
-  private final PhotoAlbumService albumService;
   private final CloudinaryService cloudinaryService;
-  private final ModelMapper modelMapper;
 
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
@@ -112,15 +108,5 @@ public class ActionApiController {
 
     this.galleryService.uploadImages(images, profileId, albumName);
   }
-
-  /*@GetMapping("/photo-album/{albumId}")
-  public ResponseEntity<AlbumResponseModel> getPhotoAlbum(@PathVariable String albumId) {
-    AlbumResponseModel album =
-        this.modelMapper.map(
-            this.albumService.getAlbumById(albumId), AlbumResponseModel.class);
-    this.modelMapper.validate();
-
-    return new ResponseEntity<>(album, HttpStatus.FOUND);
-  }*/
 }
 

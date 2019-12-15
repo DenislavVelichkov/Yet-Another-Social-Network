@@ -22,6 +22,7 @@ import org.yasn.data.models.service.gallery.PersonalGalleryServiceModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
+import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.data.models.view.gallery.PersonalGalleryViewModel;
@@ -323,11 +324,25 @@ public class UserProfileController extends BaseController {
   }
 
   @GetMapping("/friends")
-  public ModelAndView friends() {
+  public ModelAndView friends(ModelAndView modelAndView,
+                              Principal activeUser) {
 
-    return super.view("friends");
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(activeUser.getName());
+
+    UserProfileViewModel userProfileView =
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    this.modelMapper.validate();
+
+    ActiveUserDetails activeUserDetails =
+        super.getActiveUserDetails(userProfileView);
+
+    modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject(
+        "activeUserDetails", activeUserDetails);
+    return super.view("friends", modelAndView);
   }
-
 }
 
 

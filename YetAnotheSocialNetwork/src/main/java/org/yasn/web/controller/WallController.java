@@ -37,7 +37,6 @@ public class WallController extends BaseController {
   @PostMapping("/post")
   public ModelAndView postOnWall(
       @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-      @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
       Principal activeUser,
       BindingResult bindingResult) throws IOException {
 
@@ -73,7 +72,7 @@ public class WallController extends BaseController {
       Principal activeUser,
       BindingResult bindingResult) throws IOException {
 
-    this.postValidator.validate(postComment, bindingResult);
+    this.commentValidator.validate(postComment, bindingResult);
 
     if (bindingResult.hasErrors()) {
       return super.redirect("/home");

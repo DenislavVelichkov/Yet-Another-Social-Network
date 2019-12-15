@@ -100,4 +100,31 @@ public class HomeController extends BaseController {
 
     return super.view("home", modelAndView);
   }
+
+  @GetMapping("/admin")
+  public ModelAndView adminPanel(ModelAndView modelAndView,
+                                 Principal activeUser) {
+
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(activeUser.getName());
+
+    UserProfileViewModel userProfileView =
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    this.modelMapper.validate();
+
+    ActiveUserDetails activeUserDetails =
+        super.getActiveUserDetails(userProfileView);
+    modelAndView.addObject("userProfileView", userProfileView);
+    modelAndView.addObject(
+        "activeUserDetails", activeUserDetails);
+    return super.view("admin-panel", modelAndView);
+  }
+
+  @GetMapping("/chat")
+  public ModelAndView chat(ModelAndView modelAndView) {
+
+
+    return super.view("chat", modelAndView);
+  }
 }
