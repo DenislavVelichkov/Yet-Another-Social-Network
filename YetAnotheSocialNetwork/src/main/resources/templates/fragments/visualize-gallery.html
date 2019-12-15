@@ -5,30 +5,32 @@
 
 <div class="yasn-profile-gallery-container">
     <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.gallery.PersonalGalleryViewModel"*/-->
-    <th:block th:each="album: ${gallery.photoAlbums}">
-        <div class="album-picture-container">
-            <img class="album-pic" th:src="@{${album.albumImg}}" alt="album-img">
-            <a href=""
-               class="album-name"
-               th:attr="data-target='#album-modal-'+ ${album.id}"
-               data-toggle="modal"
-            >
-                [(${album.name})]
-            </a>
-        </div>
-        <!--modal window-->
-        <div th:attr="id = 'album-modal-' + ${album.id}" class="modal">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
+    <ul class="album-picture-container">
+        <th:block th:each="album: ${gallery.photoAlbums}">
 
-                    <div class="modal-header">
-                        <span class="pull-left">[(${album.name})]</span>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+            <li>
+                <img class="album-pic" th:src="@{${album.albumImg}}" alt="album-img">
+                <a href=""
+                   class="album-name"
+                   th:attr="data-target='#album-modal-'+ ${album.id}"
+                   data-toggle="modal"
+                >
+                    [(${album.name})]
+                </a>
+            </li>
 
-                    <div class="modal-body">
-                        <div id="gallery-showcase">
-                            <ul class="modal-img-wrapper">
+
+            <div th:attr="id = 'album-modal-' + ${album.id}" class="modal">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <span class="pull-left">[(${album.name})]</span>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <ul id="gallery-showcase">
                                 <th:block th:each="picture : ${album.getPictures()}">
                                     <li>
                                         <img class="picture-showcase" th:src="@{${picture.pictureUrl}}" alt="picture">
@@ -36,15 +38,15 @@
                                 </th:block>
                             </ul>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn-sm close" type="button" data-dismiss="modal">Close</button>
+                        <div class="modal-footer">
+                            <button class="btn-sm close" type="button" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--end of modal window-->
-    </th:block>
+
+        </th:block>
+    </ul>
 </div>
 
 </html>

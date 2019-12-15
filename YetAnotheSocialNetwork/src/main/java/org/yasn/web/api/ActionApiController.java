@@ -6,12 +6,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.management.OperationsException;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
@@ -23,7 +20,6 @@ import org.yasn.service.gallery.PersonalGalleryService;
 import org.yasn.service.gallery.PhotoAlbumService;
 import org.yasn.service.user.UserProfileService;
 import org.yasn.service.wall.WallService;
-import org.yasn.web.api.models.AlbumResponseModel;
 import org.yasn.web.controller.BaseController;
 
 @RestController
@@ -97,8 +93,7 @@ public class ActionApiController extends BaseController {
   public void createAlbum(
       @RequestParam(name = "profileId") String profileId,
       @RequestParam(name = "albumName") String albumName,
-      @RequestParam(name = "photos") MultipartFile[] photos,
-      HttpServletResponse response) throws IOException {
+      @RequestParam(name = "photos") MultipartFile[] photos) throws IOException {
 
     Set<String> images =
         Arrays.stream(photos)
@@ -117,11 +112,9 @@ public class ActionApiController extends BaseController {
               .collect(Collectors.toSet());
 
     this.galleryService.uploadImages(images, profileId, albumName);
-
-    response.sendRedirect("/profile/timeline/" + profileId);
   }
 
-  @GetMapping("/photo-album/{albumId}")
+  /*@GetMapping("/photo-album/{albumId}")
   public ResponseEntity<AlbumResponseModel> getPhotoAlbum(@PathVariable String albumId) {
     AlbumResponseModel album =
         this.modelMapper.map(
@@ -129,6 +122,6 @@ public class ActionApiController extends BaseController {
     this.modelMapper.validate();
 
     return new ResponseEntity<>(album, HttpStatus.FOUND);
-  }
+  }*/
 }
 

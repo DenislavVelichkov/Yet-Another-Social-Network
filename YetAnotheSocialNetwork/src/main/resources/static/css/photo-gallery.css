@@ -1,45 +1,58 @@
 .yasn-profile-gallery-container {
-    display: flex;
-    justify-content: space-around;
-    flex-flow: row nowrap;
+    display: block;
+    width: 100%;
     margin: 0 0 1em;
     padding: 0 0.5em 0;
+}
+
+.album-picture-container li,
+.album-picture-container img {
+    display: block;
+}
+
+#gallery-showcase {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    margin: 0;
 }
 
 .album-picture-container a {
     display: none;
 }
 
-.album-picture-container {
-    display: inline-block;
-    width: 100%;
-    padding-top: 2.8em;
-    position: relative;
-    margin: 0 1em 0;
-}
-
-.album-pic {
-    display: flex;
-    max-width: 100%;
-    margin: auto;
-    height: auto;
-    border-radius: 0.4em;
-}
-
 .album-name {
     font-weight: bolder;
-    color: #4e555b;
-    display: inline-block;
+    color: #ffffff;
     position: absolute;
     top: 0;
     left: 0;
 }
 
-.modal-img-wrapper {
+.album-picture-container {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
-    margin: 1em;
+    overflow: hidden;
+    justify-content: space-between;
 }
+
+.album-picture-container li:before,
+.album-picture-container li:after,
+.album-picture-container li {
+    position: relative;
+    flex: 0 0 31%;
+    overflow: hidden;
+    margin: 1%;
+}
+
+.album-pic {
+    backdrop-filter: blur(1em);
+    width: 100%;
+    height: auto;
+    border-radius: 0.4em;
+    max-height: 100%;
+}
+
+
 
 
