@@ -7,7 +7,6 @@
     <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.gallery.PersonalGalleryViewModel"*/-->
     <ul class="album-pictures-container">
         <th:block th:each="album: ${gallery.photoAlbums}">
-
             <li>
                 <span><img th:src="@{${album.albumImg}}" alt="album-img">
                     <a href=""
@@ -18,7 +17,6 @@
                         [(${album.name})]
                     </a></span>
             </li>
-
 
             <div th:attr="id = 'album-modal-' + ${album.id}" class="modal">
                 <div class="modal-dialog modal-xl modal-dialog-centered">

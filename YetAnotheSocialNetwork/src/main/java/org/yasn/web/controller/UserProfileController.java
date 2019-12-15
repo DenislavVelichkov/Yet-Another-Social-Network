@@ -321,4 +321,13 @@ public class UserProfileController extends BaseController {
 
     return super.redirect("/profile/timeline/" + id);
   }
+
+  @GetMapping("/friends")
+  public ModelAndView friends() {
+
+    return super.view("friends");
+  }
+
 }
+
+
