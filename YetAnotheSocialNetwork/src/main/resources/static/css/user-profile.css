@@ -124,48 +124,63 @@
     font-weight: bold;
 }
 
-.yasn-friend-picture-container {
-    display: flex;
-    justify-content: space-around;
-    flex-flow: column wrap;
+.yasn-friends {
+    display: block;
+    width: 100%;
     margin: 0 0 1em;
     padding: 0 0.5em 0;
 }
 
-.friend-picture {
-    display: flex;
-    max-width: 100%;
-    margin: auto;
-    height: auto;
-    border-radius: 0.4em;
-    width: 77px;
+.yasn-friends li,
+.yasn-friends span,
+.yasn-friends img,
+.yasn-friends span:before,
+.yasn-friends span {
+    display: block;
 }
 
-.yasn-friend-picture-container {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-}
-
-.profile-picture-action {
-    display: inline-block;
-    width: 100%;
-    padding-top: 2.8em;
-    position: relative;
-    margin: 0 1em 0;
-}
-
-.yasn-friend-picture-container a {
+.yasn-friends a {
     display: none;
 }
 
 .friend-name {
+    display: block;
     font-weight: bolder;
-    color: #4e555b;
-    display: inline-block;
+    color: #ffffff;
     position: absolute;
     top: 0;
     left: 0;
+    text-decoration: none;
+}
+
+.friends-pictures-container {
+    display: flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+    justify-content: space-between;
+    margin: 1em 0 0;
+}
+
+.yasn-friends li {
+    position: relative;
+    flex: 0 0 27%;
+    overflow: hidden;
+    margin: 1%;
+    border-radius: 8%;
+}
+
+.yasn-friends img {
+    position: absolute;
+    max-height: 100%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.yasn-friends span:before {
+    content: "";
+    padding-top: 100%;
 }
 
 .album-modal-button {

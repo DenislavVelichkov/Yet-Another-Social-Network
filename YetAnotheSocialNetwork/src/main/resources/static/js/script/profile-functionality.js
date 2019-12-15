@@ -1,14 +1,14 @@
+/*Profile page sidebar functionality*/
 $(document).ready(function () {
-    /*Profile page sidebar functionality*/
     $(function () {
-        $('.profile-picture-action').hover(function () {
+        $('.friends-pictures-container li').hover(function () {
                 $(this).find('.friend-name').show();
             }, function () {
                 $(this).find('.friend-name').hide();
             }
         );
 
-        $('.album-picture-container').hover(function () {
+        $('.album-pictures-container li').hover(function () {
                 $(this).find('.album-name').show();
             }, function () {
                 $(this).find('.album-name').hide();

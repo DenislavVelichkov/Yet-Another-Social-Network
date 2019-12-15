@@ -3,20 +3,20 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 
-<div class="yasn-profile-gallery-container">
+<div class="yasn-profile-gallery">
     <!--/*@thymesVar id="gallery" type="org.yasn.data.models.view.gallery.PersonalGalleryViewModel"*/-->
-    <ul class="album-picture-container">
+    <ul class="album-pictures-container">
         <th:block th:each="album: ${gallery.photoAlbums}">
 
             <li>
-                <img class="album-pic" th:src="@{${album.albumImg}}" alt="album-img">
-                <a href=""
-                   class="album-name"
-                   th:attr="data-target='#album-modal-'+ ${album.id}"
-                   data-toggle="modal"
-                >
-                    [(${album.name})]
-                </a>
+                <span><img th:src="@{${album.albumImg}}" alt="album-img">
+                    <a href=""
+                       class="album-name"
+                       th:attr="data-target='#album-modal-'+ ${album.id}"
+                       data-toggle="modal"
+                    >
+                        [(${album.name})]
+                    </a></span>
             </li>
 
 

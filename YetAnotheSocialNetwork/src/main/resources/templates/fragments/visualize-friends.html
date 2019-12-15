@@ -2,15 +2,19 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 
-    <div class="yasn-friend-picture-container">
+    <div class="yasn-friends">
         <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
-        <th:block th:each="friend : ${userProfileView.friends}">
-            <div class="profile-picture-action">
-                <img class="friend-picture" th:src="@{${friend.profilePicture}}"
-                     alt="friend-picture">
-                <a th:href="@{'/profile/guest/' + ${friend.id}}" class="friend-name">[(${friend.fullName})]</a>
-            </div>
-        </th:block>
+        <ul class="friends-pictures-container">
+            <th:block th:each="friend : ${userProfileView.friends}">
+                <li>
+                    <span>
+                        <img class="friend-picture" th:src="@{${friend.profilePicture}}"
+                             alt="friend-picture">
+                        <a th:href="@{'/profile/guest/' + ${friend.id}}" class="friend-name">[(${friend.fullName})]</a>
+                    </span>
+                </li>
+            </th:block>
+        </ul>
     </div>
 
 </html>
