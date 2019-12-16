@@ -1,4 +1,4 @@
-package org.yasn.web.controller;
+package org.yasn.web.api.chat;
 
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;

@@ -1,7 +1,17 @@
 'use strict';
 
-var usernamePage = document.querySelector('#username-page');
-var chatPage = document.querySelector('#chat-page');
+window.emojioneVersion = "3.1.2";
+$(document).ready(function () {
+    $("#message").emojioneArea({
+        buttonTitle: "Use the TAB key to insert emoji faster",
+        recentEmojies: true,
+        pickerPosition: "right",
+        filtersPosition: "top",
+        hidePickerOnBlur: true,
+        search: false
+    });
+});
+
 var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
@@ -15,22 +25,18 @@ var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
+messageForm.addEventListener('submit', sendMessage, true);
+
+connect();
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
-    if (username) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
+    var socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
 
-        var socket = new SockJS('/ws');
-        stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, onConnected, onError);
-    }
-    event.preventDefault();
+    stompClient.connect({}, onConnected, onError);
 }
-
 
 function onConnected() {
     // Subscribe to the Public Topic
@@ -40,7 +46,7 @@ function onConnected() {
     stompClient.send("/app/chat.addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
-    )
+    );
 
     connectingElement.classList.add('hidden');
 }
@@ -51,8 +57,8 @@ function onError(error) {
     connectingElement.style.color = 'red';
 }
 
-
 function sendMessage(event) {
+
     var messageContent = messageInput.value.trim();
 
     if (messageContent && stompClient) {
@@ -63,16 +69,24 @@ function sendMessage(event) {
         };
 
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+
+
         messageInput.value = '';
+        document.querySelector('.emonionearea-editor').textContent = '';
     }
+
     event.preventDefault();
 }
 
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
-
     var messageElement = document.createElement('li');
+
+    let avatarPictureURL = document.querySelector('#chat-avatar-pic').value;
+    let avatarPicture = document.createElement('img');
+    avatarPicture.classList.add('chat-avatar-picture');
+    avatarPicture.setAttribute('src', avatarPictureURL);
 
     if (message.type === 'JOIN') {
         messageElement.classList.add('event-message');
@@ -84,8 +98,7 @@ function onMessageReceived(payload) {
         messageElement.classList.add('chat-message');
 
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
+        avatarElement.appendChild(avatarPicture);
         avatarElement.style['background-color'] = getAvatarColor(message.sender);
 
         messageElement.appendChild(avatarElement);

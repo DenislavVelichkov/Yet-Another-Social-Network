@@ -13,7 +13,6 @@ import org.yasn.data.models.binding.WallPostBindingModel;
 @RequestMapping("/")
 public class HomeController extends BaseController {
 
-
   @GetMapping("/")
   public ModelAndView index() {
 
@@ -45,14 +44,5 @@ public class HomeController extends BaseController {
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
     return super.view("admin-panel", modelAndView);
-  }
-
-  @GetMapping("/chat")
-  public ModelAndView chat(ModelAndView modelAndView) {
-
-
-    modelAndView.addObject(
-        "activeUserDetails", super.getActiveUserDetails());
-    return super.view("chat", modelAndView);
   }
 }

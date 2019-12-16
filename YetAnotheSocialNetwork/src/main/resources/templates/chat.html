@@ -4,7 +4,7 @@
         sec:authorize="isAuthenticated()"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-        xmlns:th="http://www.w3.org/1999/html">
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/chat.css"/>
 </head>
@@ -15,46 +15,40 @@
 </noscript>
 
 <th:block layout:fragment="main-content">
-    <div id="username-page">
-        <div class="username-page-container">
-            <h1 class="title">Type your username</h1>
-            <form id="usernameForm" name="usernameForm">
-                <div class="form-group">
-                    <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="accent username-submit">Start Chatting</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+    <input type="hidden" th:value="${username}" id="name"/>
+    <input type="hidden" th:value="${activeUserDetails.profilePicture}" id="chat-avatar-pic"/>
 
-    <div id="chat-page" class="hidden">
-        <div class="chat-container">
+    <div id="chat-page">
+        <div class="chat-container shadow p-3 mb-5 bg-white rounded">
             <div class="chat-header">
-                <h2>Spring WebSocket Chat Demo</h2>
+                <h2>YASN Public Chat</h2>
             </div>
             <div class="connecting">
                 Connecting...
             </div>
+
             <ul id="messageArea">
 
             </ul>
-            <form id="messageForm" name="messageForm" nameForm="messageForm">
+
+            <div id="messageForm" name="messageForm">
+
                 <div class="form-group">
                     <div class="input-group clearfix">
                         <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
                                class="form-control"/>
-                        <button type="submit" class="primary">Send</button>
+                        <input class="chat-submit-btn" onclick="sendMessage()" value="Send"/>
                     </div>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="/js/script/chat-app.js"></script>
+    <script type="text/javascript" src="js/stomp.min.js"></script>
+    <script type="text/javascript" src="js/sockjs.min.js"></script>
+    <script type="text/javascript" src="/js/script/chat-app.js"></script>
 </th:block>
 
 </html>
