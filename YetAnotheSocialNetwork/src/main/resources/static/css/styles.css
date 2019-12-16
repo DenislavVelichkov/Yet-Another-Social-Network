@@ -6,16 +6,16 @@
 @import url("back-to-top.css");
 @import url("user-profile.css");
 @import url("photo-gallery.css");
-@import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
+/*@import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');*/
 
 /*TODO optimize Icons Fonts in Production , use iconmood.io to extract and save locally icon DB*/
 
 :root {
     /*Font Size*/
-    --sizing-font-size-small: 12px/1.5;
-    --sizing-font-size-medium: 14px/1.5;
-    --sizing-font-size-large: 16px/1.5;
-    --sizing-font-size-huge: 18px/1.5;
+    --sizing-font-size-phone: 12px/1.5;
+    --sizing-font-size-tablet: 14px/1.5;
+    --sizing-font-size-laptop: 16px/1.5;
+    --sizing-font-size-desktop: 18px/1.5;
 }
 
 * {
@@ -29,12 +29,13 @@
 
 html {
     box-sizing: border-box;
-    font-family: 'Patua One', cursive, Monospaced;
+    /* font-family: 'Patua One', cursive, Monospaced;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (max-width: 575.98px) {
     html {
-        font-size: var(--sizing-font-size-small);
+        font-size: var(--sizing-font-size-phone);
     }
 
     .index-header-right {
@@ -53,7 +54,7 @@ html {
 
 @media (min-width: 576px) and (max-width: 767.98px) {
     html {
-        font-size: var(--sizing-font-size-small);
+        font-size: var(--sizing-font-size-phone);
     }
 
     .index-header-right {
@@ -72,13 +73,13 @@ html {
 
 @media (min-width: 768px) and (max-width: 991.98px) {
     html {
-        font-size: var(--sizing-font-size-medium);
+        font-size: var(--sizing-font-size-tablet);
     }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
     html {
-        font-size: var(--sizing-font-size-large);
+        font-size: var(--sizing-font-size-laptop);
     }
 }
 
@@ -88,7 +89,7 @@ html {
 
 @media (min-width: 1200px) {
     html {
-        font-size: var(--sizing-font-size-huge);
+        font-size: var(--sizing-font-size-desktop);
     }
 }
 

@@ -48,7 +48,6 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
       if (!passwordMatcher.matches()) {
         errors.rejectValue(
             "newPassword",
-            ValidationConstants.PASSWORD_CONDITION,
             ValidationConstants.PASSWORD_CONDITION
         );
       }
@@ -56,7 +55,6 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
       if (!passwordMatcher.matches()) {
         errors.rejectValue(
             "oldPassword",
-            ValidationConstants.PASSWORD_CONDITION,
             ValidationConstants.PASSWORD_CONDITION
         );
       }
@@ -67,7 +65,6 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
                                          .getConfirmNewPassword())) {
         errors.rejectValue(
             "newPassword",
-            ValidationConstants.PASSWORDS_DO_NOT_MATCH,
             ValidationConstants.PASSWORDS_DO_NOT_MATCH
         );
       }
@@ -77,7 +74,6 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
           profileEditBindingModel.getOldPassword(), userProfile.getProfileOwner().getPassword())) {
         errors.rejectValue(
             "oldPassword",
-            ValidationConstants.WRONG_PASSWORD,
             ValidationConstants.WRONG_PASSWORD
         );
       }
@@ -90,7 +86,6 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
       if (!firstNameMatcher.matches()) {
         errors.rejectValue(
             "firstName",
-            ValidationConstants.NAME_ONLY_LETTERS,
             ValidationConstants.NAME_ONLY_LETTERS
         );
       }
@@ -103,22 +98,10 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
       if (!lastNameMatcher.matches()) {
         errors.rejectValue(
             "lastName",
-            ValidationConstants.NAME_ONLY_LETTERS,
             ValidationConstants.NAME_ONLY_LETTERS
         );
       }
     }
 
-    /*if (!userProfile.getProfileOwner().getEmail().equals(profileEditBindingModel.getEmail())
-        && this.userProfileRepository.findUserProfileByProfileOwner_Email(
-        profileEditBindingModel.getEmail()).isPresent()) {
-      errors.rejectValue(
-          "email",
-          String.format(
-              ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail()),
-          String.format(
-              ValidationConstants.EMAIL_ALREADY_EXISTS, profileEditBindingModel.getEmail())
-      );
-    }*/
   }
 }

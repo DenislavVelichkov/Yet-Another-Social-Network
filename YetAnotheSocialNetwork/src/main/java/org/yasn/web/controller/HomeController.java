@@ -115,16 +115,31 @@ public class HomeController extends BaseController {
 
     ActiveUserDetails activeUserDetails =
         super.getActiveUserDetails(userProfileView);
-    modelAndView.addObject("userProfileView", userProfileView);
+
+    modelAndView.addObject(
+        "userProfileView", userProfileView);
     modelAndView.addObject(
         "activeUserDetails", activeUserDetails);
     return super.view("admin-panel", modelAndView);
   }
 
   @GetMapping("/chat")
-  public ModelAndView chat(ModelAndView modelAndView) {
+  public ModelAndView chat(ModelAndView modelAndView,
+                           Principal activeUser) {
 
+    UserProfileServiceModel userProfileServiceModel =
+        this.userProfileService.findUserProfileByUsername(activeUser.getName());
 
+    UserProfileViewModel userProfileView =
+        this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
+
+    this.modelMapper.validate();
+
+    ActiveUserDetails activeUserDetails =
+        super.getActiveUserDetails(userProfileView);
+
+    modelAndView.addObject(
+        "activeUserDetails", activeUserDetails);
     return super.view("chat", modelAndView);
   }
 }

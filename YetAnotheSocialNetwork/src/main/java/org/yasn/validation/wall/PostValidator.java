@@ -15,13 +15,12 @@ public class PostValidator implements org.springframework.validation.Validator {
 
   @Override
   public void validate(Object o, Errors errors) {
-    WallPostBindingModel postBind = ((WallPostBindingModel) o);
+    WallPostBindingModel postBind = (WallPostBindingModel) o;
 
     if (postBind.getPostContent().isBlank()) {
 
       errors.rejectValue(
           "postContent",
-          ValidationConstants.POST_IS_EMPTY,
           ValidationConstants.POST_IS_EMPTY);
     }
   }
