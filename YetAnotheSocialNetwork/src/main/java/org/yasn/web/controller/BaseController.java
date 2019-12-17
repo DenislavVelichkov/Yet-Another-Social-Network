@@ -15,10 +15,10 @@ import org.yasn.data.models.view.ActiveUserDetails;
 import org.yasn.data.models.view.UserProfileViewModel;
 import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.data.models.view.gallery.PersonalGalleryViewModel;
-import org.yasn.service.AuthenticatedUserService;
-import org.yasn.service.gallery.PersonalGalleryService;
-import org.yasn.service.user.UserProfileService;
-import org.yasn.service.wall.WallService;
+import org.yasn.services.AuthenticatedUserService;
+import org.yasn.services.gallery.PersonalGalleryService;
+import org.yasn.services.user.UserProfileService;
+import org.yasn.services.wall.WallService;
 import org.yasn.utils.TimeUtil;
 
 public abstract class BaseController {

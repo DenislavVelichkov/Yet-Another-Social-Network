@@ -13,11 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.common.enums.NotificationType;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
-import org.yasn.service.CloudinaryService;
-import org.yasn.service.action.NotificationService;
-import org.yasn.service.gallery.PersonalGalleryService;
-import org.yasn.service.user.UserProfileService;
-import org.yasn.service.wall.WallService;
+import org.yasn.services.CloudinaryService;
+import org.yasn.services.action.NotificationService;
+import org.yasn.services.gallery.PersonalGalleryService;
+import org.yasn.services.user.UserProfileService;
+import org.yasn.services.wall.WallService;
 
 @RestController
 @RequestMapping("/api")
