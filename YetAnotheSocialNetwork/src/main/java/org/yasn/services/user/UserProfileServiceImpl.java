@@ -14,7 +14,6 @@ import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.user.UserServiceModel;
-import org.yasn.repository.gallery.PhotoAlbumRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.services.CloudinaryService;
@@ -27,7 +26,6 @@ public class UserProfileServiceImpl implements UserProfileService {
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
   private final CloudinaryService cloudinaryService;
-  private final PhotoAlbumRepository photoAlbumRepository;
 
   @Override
   public UserProfileServiceModel findUserProfileByUsername(String username) {
@@ -53,17 +51,17 @@ public class UserProfileServiceImpl implements UserProfileService {
   public UserProfileServiceModel findUserProfileById(String id) {
     /*Model mapper tends to assign false values sometimes since Model Mapper
     v2.3.1 the issue is not fixed*/
-
     UserProfile profile =
-        this.userProfileRepository.findById(id).get();
+        this.userProfileRepository.findById(id)
+                                  .orElseThrow(
+                                      () -> new IllegalArgumentException(
+                                          ExceptionMessages.USER_PROFILE_NOT_FOUND));
 
-    UserProfileServiceModel newServiceModel = new UserProfileServiceModel();
-
-    UserProfileServiceModel profileService =
-        this.modelMapper.map(profile, newServiceModel.getClass());
+    UserProfileServiceModel profileServiceModel =
+        this.modelMapper.map(profile, UserProfileServiceModel.class);
     this.modelMapper.validate();
 
-    return profileService;
+    return profileServiceModel;
   }
 
   @Override

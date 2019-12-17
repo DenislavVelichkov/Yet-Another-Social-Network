@@ -4,10 +4,10 @@ import java.util.HashSet;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.yasn.base.TestBase;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
@@ -23,10 +23,10 @@ public class UserProfileServiceImplTest extends TestBase {
   UserServiceModel userServiceModelExpected;
   UserProfileServiceModel userProfileServiceModelExpected;
 
-  @Mock
+  @MockBean
   UserProfileRepository profileRepositoryMock;
 
-  @Mock
+  @Autowired
   UserProfileService userProfileServiceMock;
 
   @Autowired
@@ -72,13 +72,16 @@ public class UserProfileServiceImplTest extends TestBase {
       setNotifications(new HashSet<>());
       setFriends(new HashSet<>());
     }};
+
+    Mockito.when(this.profileRepositoryMock.findByProfileOwner_Username(USERNAME_EXPECTED))
+           .thenReturn(java.util.Optional.ofNullable(this.userProfileExpected));
+
+    Mockito.when(this.profileRepositoryMock.findById(TEST_PROFILE_UUID_EXPECTED))
+           .thenReturn(java.util.Optional.ofNullable(this.userProfileExpected));
   }
 
   @Test
   void userProfileService_ShouldReturnCorrectProfile_OnGivenUsername() {
-    Mockito.when(this.userProfileServiceMock.findUserProfileByUsername(USERNAME_EXPECTED))
-           .thenReturn(this.userProfileServiceModelExpected);
-
     UserProfileServiceModel expected = this.userProfileServiceModelExpected;
     UserProfileServiceModel actual =
         this.userProfileServiceMock.findUserProfileByUsername(USERNAME_EXPECTED);
@@ -94,9 +97,6 @@ public class UserProfileServiceImplTest extends TestBase {
 
   @Test
   void userProfileService_ShouldReturnCorrectProfile_OnGivenId() {
-    Mockito.when(this.userProfileServiceMock.findUserProfileById(TEST_PROFILE_UUID_EXPECTED))
-           .thenReturn(this.userProfileServiceModelExpected);
-
     UserProfileServiceModel expected = this.userProfileServiceModelExpected;
     UserProfileServiceModel actual =
         this.userProfileServiceMock.findUserProfileById(TEST_PROFILE_UUID_EXPECTED);
