@@ -46,13 +46,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     this.modelMapper.validate();
 
-    profileServiceModel.setId(profile.getId());
-    profileServiceModel.setFullName(profile.getProfileOwner().getFirstName()
-        + ' '
-        + profile.getProfileOwner().getLastName());
-    profileServiceModel.setCoverPicture(profile.getCoverPicture());
-
-
     return profileServiceModel;
   }
 
@@ -69,13 +62,6 @@ public class UserProfileServiceImpl implements UserProfileService {
     UserProfileServiceModel profileService =
         this.modelMapper.map(profile, newServiceModel.getClass());
     this.modelMapper.validate();
-
-    profileService.setId(profile.getId());
-    profileService.setFullName(
-        profile.getProfileOwner().getFirstName()
-            + ' '
-            + profile.getProfileOwner().getLastName());
-    profileService.setCoverPicture(profile.getCoverPicture());
 
     return profileService;
   }
@@ -178,8 +164,13 @@ public class UserProfileServiceImpl implements UserProfileService {
     User user = this.modelMapper.map(userServiceModel, User.class);
     this.modelMapper.validate();
 
-    this.userProfileRepository.saveAndFlush(updatedUserProfile);
-    this.userRepository.saveAndFlush(user);
+    try {
+      this.userProfileRepository.saveAndFlush(updatedUserProfile);
+      this.userRepository.saveAndFlush(user);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
 
     return true;
   }

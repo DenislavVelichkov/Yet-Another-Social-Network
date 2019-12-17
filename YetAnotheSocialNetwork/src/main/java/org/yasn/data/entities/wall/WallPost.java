@@ -35,6 +35,7 @@ public class WallPost extends BaseEntity {
   private String postContent;
 
   @OneToMany(
+      fetch = FetchType.EAGER,
       targetEntity = PostComment.class,
       mappedBy = "parentPost",
       cascade = CascadeType.ALL)
@@ -51,6 +52,7 @@ public class WallPost extends BaseEntity {
   private PostPrivacy postPrivacy;
 
   @OneToMany(
+      fetch = FetchType.EAGER,
       targetEntity = Like.class,
       mappedBy = "likeOwner",
       cascade = CascadeType.ALL,
