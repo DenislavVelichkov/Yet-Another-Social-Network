@@ -35,7 +35,6 @@ public class WallServiceImpl implements WallService {
 
   @Override
   public void createPost(WallPostServiceModel wallPostServiceModel, String username) {
-    // TODO: 11/14/2019 Validations !
 
     wallPostServiceModel.setPostOwner(
         this.userProfileService.findUserProfileByUsername(username));

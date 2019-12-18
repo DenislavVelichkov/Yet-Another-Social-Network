@@ -17,7 +17,7 @@ public class CommentValidator implements org.springframework.validation.Validato
   public void validate(Object o, Errors errors) {
     PostCommentBindingModel commentBind = (PostCommentBindingModel) o;
 
-    if (commentBind.getCommentContent().isBlank()) {
+    if (commentBind.getCommentContent().isEmpty()) {
 
       errors.rejectValue(
           "commentContent",

@@ -121,7 +121,7 @@ public class ActionApiController {
     restResponse.put("initialPreviewThumbTags", "");
     restResponse.put("append", false);
 
-    var response =
+    String response =
         JSONObject.toJSONString(restResponse);
 
     return new ResponseEntity<>(response, HttpStatus.CREATED);

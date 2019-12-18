@@ -1,11 +1,11 @@
-package com.minkov.heroes.web.view.controllers;
+package org.yasn.web.controller;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
-public class HandleAllExceptions {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     public ModelAndView handleException(Throwable exception) {

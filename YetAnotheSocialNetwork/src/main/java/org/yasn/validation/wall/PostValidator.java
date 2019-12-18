@@ -17,7 +17,7 @@ public class PostValidator implements org.springframework.validation.Validator {
   public void validate(Object o, Errors errors) {
     WallPostBindingModel postBind = (WallPostBindingModel) o;
 
-    if (postBind.getPostContent().isBlank()) {
+    if (postBind.getPostContent().isEmpty()) {
 
       errors.rejectValue(
           "postContent",

@@ -43,7 +43,7 @@ public class PersonalGalleryServiceImpl implements PersonalGalleryService {
         this.albumRepository
             .findByNameAndPersonalGallery_GalleryOwner_Id(albumName, albumOwnerId)
             .orElse(null);
-    if (albumName.isBlank()) {
+    if (albumName.isEmpty()) {
       int albumsCount = gallery.getPhotoAlbums().size() + 1;
       albumName = "Album" + "(" + albumsCount + ")";
     }

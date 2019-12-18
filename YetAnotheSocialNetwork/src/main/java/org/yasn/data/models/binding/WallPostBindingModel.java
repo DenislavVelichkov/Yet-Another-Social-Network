@@ -10,6 +10,7 @@ import org.yasn.common.enums.PostPrivacy;
 @Setter
 @NoArgsConstructor
 public class WallPostBindingModel {
+
   private MultipartFile postPicture;
   private String postContent;
   private PostPrivacy postPrivacy;

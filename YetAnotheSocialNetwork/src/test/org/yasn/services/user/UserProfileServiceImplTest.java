@@ -14,7 +14,7 @@ import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.repository.user.UserProfileRepository;
-import static org.yasn.testConstants.TestConstants.*;
+import static org.yasn.testConstants.UserAndProfileConstants.*;
 
 public class UserProfileServiceImplTest extends TestBase {
 
@@ -109,5 +109,6 @@ public class UserProfileServiceImplTest extends TestBase {
     Assert.assertEquals("FAILED...", expected.getProfileOwner().getEmail(), actual.getProfileOwner().getEmail());
     Assert.assertEquals("FAILED...", expected.getProfileOwner().getUsername(), actual.getProfileOwner().getUsername());
   }
+
 
 }

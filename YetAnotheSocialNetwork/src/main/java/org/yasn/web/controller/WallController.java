@@ -3,6 +3,8 @@ package org.yasn.web.controller;
 import java.io.IOException;
 import java.security.Principal;
 
+import javax.validation.Valid;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.yasn.data.models.service.wall.WallPostServiceModel;
 import org.yasn.services.CloudinaryService;
 import org.yasn.services.wall.PostCommentService;
 import org.yasn.services.wall.WallService;
+import org.yasn.validation.wall.CommentValidator;
 import org.yasn.validation.wall.PostValidator;
 
 @Controller
@@ -31,6 +34,7 @@ public class WallController extends BaseController {
   private final ModelMapper modelMapper;
   private final CloudinaryService cloudinaryService;
   private final PostValidator postValidator;
+  private final CommentValidator commentValidator;
 
   @PostMapping("/post")
   public ModelAndView postOnWall(
@@ -67,7 +71,14 @@ public class WallController extends BaseController {
   public ModelAndView postCommentOnPost(
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
       @ModelAttribute(name = "postId") String postId,
-      Principal activeUser) throws IOException {
+      Principal activeUser,
+      BindingResult bindingResult) throws IOException {
+
+//    this.commentValidator.validate(postComment, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      return super.redirect("/home");
+    }
 
     PostCommentServiceModel postCommentServiceModel =
         this.modelMapper.map(postComment, PostCommentServiceModel.class);

@@ -12,27 +12,21 @@ $(document).ready(function () {
     });
 });
 
-var usernameForm = document.querySelector('#usernameForm');
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
+let usernameForm = document.querySelector('#usernameForm');
+let messageForm = document.querySelector('#messageForm');
+let messageInput = document.querySelector('#message');
+let messageArea = document.querySelector('#messageArea');
+let connectingElement = document.querySelector('.connecting');
 
-var stompClient = null;
-var username = null;
-
-var colors = [
-    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-];
-
+let stompClient = null;
+let username = null;
 
 connect();
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
-    var socket = new SockJS('/ws');
+    let socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, onConnected, onError);
@@ -60,10 +54,10 @@ function onError(error) {
 function sendMessage(event) {
     let avatarPictureURL = document.querySelector('#chat-avatar-pic').value;
 
-    var messageContent = messageInput.value.trim();
+    let messageContent = messageInput.value.trim();
 
     if (messageContent && stompClient) {
-        var chatMessage = {
+        let chatMessage = {
             sender: username,
             avatarPictureURL: avatarPictureURL,
             content: messageInput.value,
@@ -100,18 +94,18 @@ function onMessageReceived(payload) {
     } else {
         messageElement.classList.add('chat-message');
 
-        var avatarElement = document.createElement('i');
+        let avatarElement = document.createElement('i');
         avatarElement.appendChild(avatarPicture);
         messageElement.appendChild(avatarElement);
 
-        var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
+        let usernameElement = document.createElement('span');
+        let usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
 
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
+    let textElement = document.createElement('p');
+    let messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
 
     messageElement.appendChild(textElement);
