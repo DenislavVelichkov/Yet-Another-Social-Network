@@ -17,8 +17,9 @@
         </div>
         <div class="text-center">
             <img alt="robot-image" class="img-fluid"
-                 th:src="@{https://res.cloudinary.com/yet-another-social-network/image/upload/v1569550986/yet-another-social-network/error_messages/404}">
-            <!--        ${statusCode}-->
+                 th:src="@{'https://res.cloudinary.com/yet-another-social-network/image/upload/v1569550986/yet-another-social-network/error_messages/404'
+                 + ${statusCode}}">
+
         </div>
     </div>
 </main>

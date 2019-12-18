@@ -10,13 +10,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
+import org.yasn.common.enums.PostPrivacy;
 import org.yasn.data.entities.LikeId;
 import org.yasn.data.entities.wall.Like;
 import org.yasn.data.entities.wall.WallPost;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
+import org.yasn.data.models.view.WallPostViewModel;
 import org.yasn.repository.wall.LikeRepository;
 import org.yasn.repository.wall.WallPostRepository;
+import org.yasn.services.AuthenticatedUserService;
 import org.yasn.services.user.UserProfileService;
 import org.yasn.utils.FileUtil;
 
@@ -28,6 +31,7 @@ public class WallServiceImpl implements WallService {
   private final ModelMapper modelMapper;
   private final LikeRepository likeRepository;
   private final FileUtil fileUtil;
+  private final AuthenticatedUserService authUserService;
 
   @Override
   public void createPost(WallPostServiceModel wallPostServiceModel, String username) {
@@ -69,25 +73,72 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public List<WallPostServiceModel> findAllByOwnerId(String ownerId) {
+  public List<WallPostViewModel> findAllByOwnerId(String ownerId) {
+    List<WallPostServiceModel> postServiceModels =
+        this.wallPostRepository
+            .findAllByPostOwner_Id(ownerId)
+            .stream()
+            .map(wallPost ->
+                this.modelMapper.map(wallPost, WallPostServiceModel.class))
+            .collect(Collectors.toList());
+    this.modelMapper.validate();
 
-    return this.wallPostRepository
-        .findAllByPostOwner_Id(ownerId)
-        .stream()
-        .map(wallPost ->
-            this.modelMapper.map(wallPost, WallPostServiceModel.class))
-        .collect(Collectors.toList());
+    List<WallPostViewModel> allPostsSorted =
+        postServiceModels
+            .stream()
+            .map(wallPostServiceModel ->
+                this.modelMapper.map(
+                    wallPostServiceModel, WallPostViewModel.class))
+            .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+            .collect(Collectors.toList());
+    this.modelMapper.validate();
+
+    return allPostsSorted;
   }
 
   @Override
-  public List<WallPostServiceModel> displayAllPosts() {
+  public List<WallPostViewModel> displayAllPosts() {
+    String activeUserId =
+        this.userProfileService.findUserProfileByUsername(
+            authUserService.getUsername()).getId();
 
-    return this.wallPostRepository
+    List<WallPostServiceModel> allPostsServiceModels = this.wallPostRepository
         .findAll()
         .stream()
         .map(wallPost ->
             this.modelMapper.map(wallPost, WallPostServiceModel.class))
         .collect(Collectors.toList());
+    this.modelMapper.validate();
+
+    List<WallPostViewModel> allPostsViewModels =
+        allPostsServiceModels.stream()
+                             .map(view ->
+                                 this.modelMapper.map(
+                                     view, WallPostViewModel.class))
+                             .collect(Collectors.toList());
+    this.modelMapper.validate();
+
+    List<WallPostViewModel> allPostsViewModelsSorted =
+        allPostsViewModels.stream().filter(wallPostViewModel ->
+            wallPostViewModel
+                .getPostPrivacy()
+                .equals(PostPrivacy.PUBLIC)
+                || wallPostViewModel
+                .getPostOwner().getId()
+                .equals(
+                    activeUserId)
+                || wallPostViewModel
+                .getPostOwner()
+                .getFriends()
+                .stream()
+                .anyMatch(
+                    profile ->
+                        profile.getId().equals(activeUserId)))
+                          .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
+                          .collect(Collectors.toList());
+    this.modelMapper.validate();
+
+    return allPostsViewModelsSorted;
   }
 
   public void likePost(WallPostServiceModel wallPostServiceModel, String profileId) {

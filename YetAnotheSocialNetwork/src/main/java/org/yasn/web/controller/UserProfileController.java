@@ -59,7 +59,7 @@ public class UserProfileController extends BaseController {
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
     modelAndView.addObject(
-        "allProfilePosts", super.getAllPostsByOwnerId(profileId));
+        "allProfilePosts", this.wallService.findAllByOwnerId(profileId));
     modelAndView.addObject(
         "postComment", new PostCommentBindingModel());
     modelAndView.addObject(
@@ -113,7 +113,8 @@ public class UserProfileController extends BaseController {
         "userProfileView", super.getUserProfileViewById(profileId));
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
-    modelAndView.addObject("allProfilePosts", super.getAllPostsByOwnerId(profileId));
+    modelAndView.addObject(
+        "allProfilePosts", this.wallService.findAllByOwnerId(profileId));
     modelAndView.addObject("postComment", new PostCommentBindingModel());
 
     return super.view("guest-profile", modelAndView);

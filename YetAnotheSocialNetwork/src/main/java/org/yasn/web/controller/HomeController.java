@@ -1,5 +1,6 @@
 package org.yasn.web.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,10 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
+import org.yasn.services.wall.WallService;
 
 @Controller
 @RequestMapping("/")
+@AllArgsConstructor
 public class HomeController extends BaseController {
+  private final WallService wallService;
 
   @GetMapping("/")
   public ModelAndView index() {
@@ -32,7 +36,8 @@ public class HomeController extends BaseController {
     modelAndView.addObject("userProfileView", super.getUserProfileView());
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
-    modelAndView.addObject("allWallPosts", super.getAllPosts());
+    modelAndView.addObject(
+        "allWallPosts", this.wallService.displayAllPosts());
     return super.view("home", modelAndView);
   }
 

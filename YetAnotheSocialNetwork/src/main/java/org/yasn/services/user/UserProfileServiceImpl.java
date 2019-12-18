@@ -51,6 +51,7 @@ public class UserProfileServiceImpl implements UserProfileService {
   public UserProfileServiceModel findUserProfileById(String id) {
     /*Model mapper tends to assign false values sometimes since Model Mapper
     v2.3.1 the issue is not fixed*/
+
     UserProfile profile =
         this.userProfileRepository.findById(id)
                                   .orElseThrow(
