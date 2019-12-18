@@ -16,9 +16,9 @@ import org.yasn.data.models.binding.PostCommentBindingModel;
 import org.yasn.data.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
-import org.yasn.service.CloudinaryService;
-import org.yasn.service.wall.PostCommentService;
-import org.yasn.service.wall.WallService;
+import org.yasn.services.CloudinaryService;
+import org.yasn.services.wall.PostCommentService;
+import org.yasn.services.wall.WallService;
 import org.yasn.validation.wall.CommentValidator;
 import org.yasn.validation.wall.PostValidator;
 

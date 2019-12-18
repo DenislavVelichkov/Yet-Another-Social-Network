@@ -19,6 +19,7 @@ import org.yasn.data.entities.wall.WallPost;
 public class UserProfile extends BaseEntity {
 
   @OneToMany(
+      fetch = FetchType.EAGER,
       targetEntity = Notification.class,
       mappedBy = "recipient",
       cascade = CascadeType.ALL,
@@ -42,18 +43,21 @@ public class UserProfile extends BaseEntity {
   private String coverPicture;
 
   @OneToMany(
+      fetch = FetchType.EAGER,
       targetEntity = WallPost.class,
       mappedBy = "postOwner",
       cascade = CascadeType.ALL)
   private Set<WallPost> wallPosts;
 
   @OneToMany(
+      fetch = FetchType.EAGER,
       targetEntity = PostComment.class,
       mappedBy = "commentOwner",
       cascade = CascadeType.ALL)
   private Set<PostComment> postComments;
 
   @ManyToMany(
+      fetch = FetchType.EAGER,
       cascade = CascadeType.PERSIST
   )
   @JoinTable(
