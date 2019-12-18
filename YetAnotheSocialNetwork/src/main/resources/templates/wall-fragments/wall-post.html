@@ -92,7 +92,7 @@
                 <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
                 <form enctype="multipart/form-data"
                       th:action="@{/home/wall/comment}"
-                      th:method="post"
+                      method="post"
                       th:object="${postComment}">
                     <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                     <img alt="profile-picture"

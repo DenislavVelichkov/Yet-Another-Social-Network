@@ -13,7 +13,7 @@
                         Timeline
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="">
                         Friends
                     </a>
@@ -22,13 +22,16 @@
                     <a href="">
                         Photos
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <th:block layout:insert="~{profile-fragments/create-album}"/>
                 </li>
                 <li>
                     <div class="profile-action-buttons">
-                        <a href="" type="submit">Messages</a>
+                        <!--<a href="" type="submit">Messages</a>-->
+                        <a th:href="@{'/profile/edit/' + ${activeUserDetails.id}}" type="submit">
+                            Edit Profile
+                        </a>
                     </div>
                 </li>
             </ul>

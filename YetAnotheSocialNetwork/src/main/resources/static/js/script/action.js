@@ -128,7 +128,8 @@ $(document).ready(function () {
 
     $("#photos").fileinput({
         showUpload: true,
-        previewFileType: "image",
+        layoutTemplates: "percent",
+        previewFileType: "all",
         theme: "fa",
         allowedFileExtensions: ["jpg", "JPG", "jpeg", "JPEG", "png", "PNG"],
         msgInvalidFileExtension: 'Incorrect file type for {name}, please upload one of the following file types: {extensions}',

@@ -93,7 +93,6 @@ public abstract class BaseController {
 
     UserProfileViewModel userProfileView =
         this.modelMapper.map(userProfileServiceModel, UserProfileViewModel.class);
-
     this.modelMapper.validate();
 
     return userProfileView;

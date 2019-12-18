@@ -47,9 +47,13 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .logout()
         .logoutSuccessUrl("/")
         .permitAll()
+        .deleteCookies("JSESSIONID")
         .and()
         .exceptionHandling()
-        .accessDeniedPage("/");
+        .accessDeniedPage("/")
+        .and()
+        .sessionManagement()
+        .maximumSessions(1);
   }
 
   private CsrfTokenRepository csrfTokenRepository() {

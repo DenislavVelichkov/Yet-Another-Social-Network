@@ -26,8 +26,6 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-usernameForm.addEventListener('submit', connect, true);
-messageForm.addEventListener('submit', sendMessage, true);
 
 connect();
 
@@ -60,12 +58,14 @@ function onError(error) {
 }
 
 function sendMessage(event) {
+    let avatarPictureURL = document.querySelector('#chat-avatar-pic').value;
 
     var messageContent = messageInput.value.trim();
 
     if (messageContent && stompClient) {
         var chatMessage = {
             sender: username,
+            avatarPictureURL: avatarPictureURL,
             content: messageInput.value,
             type: 'CHAT'
         };
@@ -81,14 +81,15 @@ function sendMessage(event) {
 }
 
 
-function onMessageReceived(payload) {
-    var message = JSON.parse(payload.body);
-    var messageElement = document.createElement('li');
 
-    let avatarPictureURL = document.querySelector('#chat-avatar-pic').value;
+function onMessageReceived(payload) {
+    let message = JSON.parse(payload.body);
+    let messageElement = document.createElement('li');
+    let avatarPictureUrl = message.avatarPictureURL;
+
     let avatarPicture = document.createElement('img');
     avatarPicture.classList.add('chat-avatar-picture');
-    avatarPicture.setAttribute('src', avatarPictureURL);
+    avatarPicture.setAttribute('src', avatarPictureUrl);
 
     if (message.type === 'JOIN') {
         messageElement.classList.add('event-message');
@@ -118,3 +119,7 @@ function onMessageReceived(payload) {
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
+
+usernameForm.addEventListener('submit', connect, true);
+messageForm.addEventListener('submit', sendMessage, true);
+

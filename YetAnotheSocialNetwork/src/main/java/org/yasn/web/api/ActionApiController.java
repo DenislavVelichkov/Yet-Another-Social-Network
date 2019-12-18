@@ -3,11 +3,16 @@ package org.yasn.web.api;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.yasn.common.ExceptionMessages;
@@ -29,6 +34,7 @@ public class ActionApiController {
   private final UserProfileService profileService;
   private final PersonalGalleryService galleryService;
   private final CloudinaryService cloudinaryService;
+
 
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
@@ -85,10 +91,10 @@ public class ActionApiController {
   }
 
   @PostMapping("/create-album")
-  public void createAlbum(
+  public ResponseEntity<?> createAlbum(
       @RequestParam(name = "profileId") String profileId,
       @RequestParam(name = "albumName") String albumName,
-      @RequestParam(name = "photos") MultipartFile[] photos) throws IOException {
+      @RequestParam(name = "photos") MultipartFile[] photos) {
 
     Set<String> images =
         Arrays.stream(photos)
@@ -107,6 +113,18 @@ public class ActionApiController {
               .collect(Collectors.toSet());
 
     this.galleryService.uploadImages(images, profileId, albumName);
+
+    Map<String, Object> restResponse = new LinkedHashMap<>();
+    restResponse.put("error", "");
+    restResponse.put("errorkeys", "");
+    restResponse.put("initial preview configuration", "");
+    restResponse.put("initialPreviewThumbTags", "");
+    restResponse.put("append", false);
+
+    var response =
+        JSONObject.toJSONString(restResponse);
+
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
 }
 

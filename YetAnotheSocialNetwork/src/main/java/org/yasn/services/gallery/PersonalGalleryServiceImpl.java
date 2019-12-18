@@ -43,9 +43,9 @@ public class PersonalGalleryServiceImpl implements PersonalGalleryService {
         this.albumRepository
             .findByNameAndPersonalGallery_GalleryOwner_Id(albumName, albumOwnerId)
             .orElse(null);
-
     if (albumName.isBlank()) {
-      albumName = "Album" + "(" + gallery.getPhotoAlbums().size() + 1 + ")";
+      int albumsCount = gallery.getPhotoAlbums().size() + 1;
+      albumName = "Album" + "(" + albumsCount + ")";
     }
 
     if (album == null) {
