@@ -21,6 +21,7 @@ public class CommentValidator implements org.springframework.validation.Validato
 
       errors.rejectValue(
           "commentContent",
+          ValidationConstants.COMMENT_IS_EMPTY,
           ValidationConstants.COMMENT_IS_EMPTY);
     }
 

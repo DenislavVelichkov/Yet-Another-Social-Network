@@ -21,6 +21,7 @@ public class PostValidator implements org.springframework.validation.Validator {
 
       errors.rejectValue(
           "postContent",
+          ValidationConstants.POST_IS_EMPTY,
           ValidationConstants.POST_IS_EMPTY);
     }
   }

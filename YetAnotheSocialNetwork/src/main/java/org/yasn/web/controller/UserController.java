@@ -2,6 +2,7 @@ package org.yasn.web.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,30 +32,32 @@ public class UserController extends BaseController {
 
   @GetMapping("/register")
   @PageTitle("Log In or Sign Up")
-  public ModelAndView index(
-      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
+  @PreAuthorize("isAnonymous()")
+  public ModelAndView userRegister(ModelAndView modelAndView) {
 
+    modelAndView.addObject("registerModel", new UserRegisterBindingModel());
     return super.view("/user/register");
   }
 
   @PostMapping("/register")
+  @PreAuthorize("isAnonymous()")
   public ModelAndView registerConfirm(
       ModelAndView modelAndView,
-      @ModelAttribute(name = "model") UserRegisterBindingModel model,
+      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel,
       BindingResult bindingResult) {
 
-    this.userRegisterValidator.validate(model, bindingResult);
+    this.userRegisterValidator.validate(registerModel, bindingResult);
 
     if (bindingResult.hasErrors()) {
-      model.setPassword(null);
-      model.setConfirmPassword(null);
-      modelAndView.addObject("model", model);
+      registerModel.setPassword(null);
+      registerModel.setConfirmPassword(null);
+      modelAndView.addObject("registerModel", registerModel);
 
-      return super.view("index", modelAndView);
+      return super.view("user/register", modelAndView);
     }
 
     UserServiceModel userServiceModel =
-        this.modelMapper.map(model, UserServiceModel.class);
+        this.modelMapper.map(registerModel, UserServiceModel.class);
     this.modelMapper.validate();
 
     this.userService.registerUser(userServiceModel);

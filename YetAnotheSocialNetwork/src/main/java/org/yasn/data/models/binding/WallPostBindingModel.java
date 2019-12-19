@@ -1,5 +1,6 @@
 package org.yasn.data.models.binding;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import org.yasn.common.enums.PostPrivacy;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class WallPostBindingModel {
 
   private MultipartFile postPicture;
