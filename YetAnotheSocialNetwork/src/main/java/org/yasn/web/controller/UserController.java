@@ -2,7 +2,6 @@ package org.yasn.web.controller;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,20 +26,18 @@ public class UserController extends BaseController {
 
   @GetMapping("/login")
   public ModelAndView userLogin() {
-    return super.view("/user/login");
+    return super.view("user/login");
   }
 
   @GetMapping("/register")
   @PageTitle("Log In or Sign Up")
-  @PreAuthorize("isAnonymous()")
-  public ModelAndView userRegister(ModelAndView modelAndView) {
+  public ModelAndView userRegister(
+      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
 
-    modelAndView.addObject("registerModel", new UserRegisterBindingModel());
-    return super.view("/user/register");
+    return super.view("user/register");
   }
 
   @PostMapping("/register")
-  @PreAuthorize("isAnonymous()")
   public ModelAndView registerConfirm(
       ModelAndView modelAndView,
       @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel,
