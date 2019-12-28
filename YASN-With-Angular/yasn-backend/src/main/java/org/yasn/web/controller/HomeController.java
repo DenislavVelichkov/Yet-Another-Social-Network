@@ -15,8 +15,6 @@ import org.yasn.services.wall.WallService;
 public class HomeController extends BaseController {
   private final WallService wallService;
 
-
-
   @GetMapping("/home")
   @PageTitle("Home")
   public ModelAndView home(
