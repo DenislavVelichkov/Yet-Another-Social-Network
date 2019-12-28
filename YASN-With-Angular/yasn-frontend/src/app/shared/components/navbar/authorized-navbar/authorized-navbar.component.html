@@ -1,4 +1,4 @@
-<div class="row" id="yasn-home-header-container">
+<!-- <div class="row" id="yasn-home-header-container">
     <div class="col-xl-3" id="header-left">
 
     </div>
@@ -44,7 +44,6 @@
                         <a class="yasn-notifications" data-target="#" data-toggle="dropdown" role="button">
                             <div class="notification-icons-container">
                                 <i class="fas fa-bell"></i>
-                                <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                                 <th:block th:unless="${activeUserDetails.notifications.size() == 0}">
                                     <span class="yasn-notification-container-hidden">
                                         [(${activeUserDetails.notifications.size()})]
@@ -52,7 +51,6 @@
                                 </th:block>
                             </div>
                             <div class="dropdown-menu multi-level" id="yasn-notifications-content" role="menu">
-                                <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                                 <th:block th:each="notification : ${activeUserDetails.notifications}">
                                     <hr class="post-delimiter">
                                     <div class="notification-content-container">
@@ -61,7 +59,6 @@
                                             [(${notification.senderFullName})]
                                         </a>
                                         <span>, [(${notification.content})]</span>
-                                        <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
                                         <a href="javascript: void(0)" id="accept-friend" onclick="acceptFriend()"
                                             style="margin-left: 1em" th:attr="senderId = ${notification.senderId}">
                                             Accept
@@ -83,7 +80,6 @@
                                     <a th:href="@{/admin}">Admin Panel</a>
                                 </li>
                                 <li>
-                                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
                                     <a th:href="@{'/profile/edit/' + ${activeUserDetails.id}}">Profile Settings</a>
                                 </li>
                                 <li>
@@ -106,4 +102,5 @@
     <div class="col-xl-3" id="header-right">
 
     </div>
-</div>
+</div> -->
+<p>It works !</p>
