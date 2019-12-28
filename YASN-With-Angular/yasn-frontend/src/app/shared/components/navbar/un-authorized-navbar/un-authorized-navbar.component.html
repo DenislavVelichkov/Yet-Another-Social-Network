@@ -1,0 +1,34 @@
+<div class="row" id="yasn-header-container">
+    <div class="col">
+        <!--   <images alt="" class="images-fluid ml-6" id="navbar-images-logo" src="">
+                https://res.cloudinary.com/yet-another-social-network/image/upload/v1569593929/yet-another-social-network/LogoMakr_9PPpCD_knmtn5.png -->
+    </div>
+    <div class="col offset-1 index-header-right">
+
+        <div id="login-form-container">
+            <form id="login-form" th:action="@{/user/login}" th:method="post">
+
+                <div class="navbar-login-form-field-container">
+                    <label for="email"></label>
+                    <input class="form-control navbar-login-form-field" id="email" name="email" placeholder="Email"
+                        type="email">
+                </div>
+
+                <div class="navbar-login-form-field-container">
+                    <label for="password"></label>
+                    <input class="form-control navbar-login-form-field" id="password" name="password"
+                        placeholder="Password..." type="password">
+                </div>
+
+                <div class="navbar-login-form-btn-container">
+                    <button class="btn btn-success btn-lg" id="navbar-login-btn" type="submit">
+                        Log In
+                    </button>
+                </div>
+                <th:block th:if="${param.error}">
+                    <script th:src="@{/js/script/error-banner.js}"></script>
+                </th:block>
+            </form>
+        </div>
+    </div>
+</div>
