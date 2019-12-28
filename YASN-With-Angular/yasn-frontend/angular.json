@@ -26,18 +26,11 @@
             "styles": [
               "../yasn-frontend/src/assets/css/reset-css.css",
               "../yasn-frontend/src/assets/css/bootstrap.min.css",
-              "../yasn-frontend/src/assets/css/fileinput.min.css",
-              "../yasn-frontend/src/assets/css/jquery.bsPhotoGallery.css",
               "../yasn-frontend/src/styles.css"
             ],
             "scripts": [
               "../yasn-frontend/src/assets/js/bootstrap.bundle.min.js",
-              "../yasn-frontend/src/assets/js/fileinput.js",
-              "../yasn-frontend/src/assets/js/jquery.bsPhotoGallery.js",
-              "../yasn-frontend/src/assets/js/jquery-3.3.1.min.js",
-              "../yasn-frontend/src/assets/js/sockjs.min.js",
-              "../yasn-frontend/src/assets/js/stomp.min.js",
-              "../yasn-frontend/src/assets/js/theme.min.js"
+              "../yasn-frontend/src/assets/js/jquery-3.3.1.min.js"
             ]
           },
           "configurations": {

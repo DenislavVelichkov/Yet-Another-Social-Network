@@ -6,19 +6,19 @@ import {AppComponent} from './app.component';
 import {IndexComponent} from './components/index/index.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NavbarModule } from './shared/components/navbar/navbar.module';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { UserModule } from './components/user/user.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     FooterComponent,
-    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NavbarModule
+    NavbarModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

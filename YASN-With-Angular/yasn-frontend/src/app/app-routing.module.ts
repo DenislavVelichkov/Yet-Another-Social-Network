@@ -1,10 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {IndexComponent} from "./components/index/index.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { IndexComponent } from "./components/index/index.component";
+import { NavbarModule } from './shared/components/navbar/navbar.module';
 
 
 const routes: Routes = [
-  {path:"", component: IndexComponent}
+  { path: "", pathMatch: "full", component: IndexComponent },
+  // { path: "", pathMatch: "full", loadChildren: () => NavbarModule },
 ];
 
 @NgModule({
