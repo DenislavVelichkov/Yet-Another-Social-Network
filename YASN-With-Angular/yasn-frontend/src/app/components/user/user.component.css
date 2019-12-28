@@ -1,0 +1,63 @@
+#yasn-body-container {
+    padding: 0 1em 0;
+    margin: 3rem 0 0;
+    /*min-width: 460px*/
+}
+
+#inner-main-right-container {
+    width: 100%;
+    padding: 0 2rem 0;
+}
+
+#inner-main-right-container p a {
+    text-decoration: none;
+    color: #0c5460;
+}
+
+#inner-main-right-container p a:hover {
+    text-decoration: none;
+    color: #17a2b8;
+}
+
+#main-left-content {
+    padding: 1em 0 0;
+    offset: view-box;
+}
+
+#passwordHelpInline {
+    margin: 0.33em 0 0 0.33em;
+}
+
+.radio-section-container {
+    margin: 1em 0 0;
+    padding-left: 1.5em;
+}
+
+.radio-block {
+    display: inline-block;
+}
+
+.radio-block:not(:first-child) {
+    padding-right: 1.2em;
+}
+
+#birthday-register-container {
+    margin: 1em 0 0;
+}
+
+#royal-sign-up-button {
+    width: 10rem;
+    padding: 0;
+    margin: 1em auto;
+    height: 3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+.button-holder {
+    margin: 1em 0 0;
+    text-align: center;
+    display: block;
+}
+
