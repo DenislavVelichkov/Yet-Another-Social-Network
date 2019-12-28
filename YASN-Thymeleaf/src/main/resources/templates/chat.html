@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html
+        layout:decorate="~{fragments/default_layout}"
+        sec:authorize="isAuthenticated()"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/chat.css"/>
+</head>
+
+
+<noscript>
+    <h2>Sorry! Your browser doesn't support Javascript</h2>
+</noscript>
+
+<th:block layout:fragment="main-content">
+    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+    <input type="hidden" th:value="${username}" id="name"/>
+    <input type="hidden" th:value="${activeUserDetails.profilePicture}" id="chat-avatar-pic"/>
+
+    <div id="chat-page">
+        <div class="chat-container shadow p-3 mb-5 bg-white rounded">
+            <div class="chat-header">
+                <h2>YASN Public Chat</h2>
+            </div>
+            <div class="connecting">
+                Connecting...
+            </div>
+
+            <ul id="messageArea">
+
+            </ul>
+
+            <div id="messageForm" name="messageForm">
+
+                <div class="form-group">
+                    <div class="input-group clearfix">
+                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+                               class="form-control"/>
+                        <input class="chat-submit-btn" onclick="sendMessage()" value="Send"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/js/stomp.min.js"></script>
+    <script type="text/javascript" src="/js/sockjs.min.js"></script>
+    <script type="text/javascript" src="/js/script/chat-app.js"></script>
+</th:block>
+
+</html>
