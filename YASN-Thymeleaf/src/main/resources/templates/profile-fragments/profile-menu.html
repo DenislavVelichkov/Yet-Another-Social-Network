@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<th:block>
+    <div class="profile-nav-container">
+        <div class="profile-cover-menu">
+            <ul>
+                <li>
+                    <a th:href="@{'/profile/timeline/' + ${activeUserDetails.id}}">
+                        Timeline
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="">
+                        Friends
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Photos
+                    </a>
+                </li>-->
+                <li>
+                    <th:block layout:insert="~{profile-fragments/create-album}"/>
+                </li>
+                <li>
+                    <div class="profile-action-buttons">
+                        <!--<a href="" type="submit">Messages</a>-->
+                        <a th:href="@{'/profile/edit/' + ${activeUserDetails.id}}" type="submit">
+                            Edit Profile
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</th:block>
+
+</html>

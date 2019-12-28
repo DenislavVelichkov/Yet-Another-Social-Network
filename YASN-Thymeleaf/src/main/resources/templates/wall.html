@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block>
+    <div class="yasn-wall-container">
+        <th:block layout:insert="~{wall-fragments/create-a-post}"/>
+        <th:block layout:insert="~{wall-fragments/wall-post}"/>
+    </div>
+</th:block>
+</html>

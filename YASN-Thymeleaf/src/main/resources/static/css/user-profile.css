@@ -1,0 +1,197 @@
+#user-profile-main {
+    margin-top: 2em;
+}
+
+.user-profile-container {
+    display: block;
+}
+
+.user-cover-container {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.cover-img-container::before {
+    display: block;
+    content: '';
+    padding-top: 294px;
+}
+
+.cover-img-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.cover-img-caption {
+    display: flex;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.cover-img-caption p {
+    position: relative;
+    top: 0;
+    left: 6%;
+    margin-top: auto;
+    margin-bottom: 0;
+    flex-grow: 1;
+    font-size: 2em;
+    font-weight: bolder;
+    color: #fff;
+}
+
+.static-cover-img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    display: block;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.profile-picture {
+    flex: 0 1 14%;
+    position: relative;
+    height: auto;
+    width: 0; /*For Chrome...*/
+    top: 44%;
+    left: 5%;
+    box-shadow: 0 0 0.6em #fff;
+}
+
+.profile-nav-container {
+    display: block;
+    width: 100%;
+}
+
+.profile-cover-menu > ul {
+    margin-top: 1rem;
+    padding-bottom: 1em;
+}
+
+.profile-cover-menu li {
+    display: inline;
+    text-align: center;
+    padding: 0 1em 0;
+
+}
+
+.profile-cover-menu > ul a {
+    font-weight: bold;
+    color: #4e555b;
+}
+
+.profile-action-buttons {
+    display: inline-block;
+    float: right;
+}
+
+.profile-action-buttons a {
+    padding: 0 1em 0;
+}
+
+/*Sticky sidebar*/
+.user-profile-sidebar-container {
+    position: sticky;
+    top: 6vh;
+}
+
+.profile-edit-container {
+    margin: 0;
+}
+
+.upload-profile-picture, .upload-cover-img {
+    font-size: 9rem;
+    text-align: center;
+}
+
+.upload-profile-picture label:hover,
+.upload-cover-img label:hover {
+    cursor: pointer;
+}
+
+.edit-profile-upload-container p {
+    text-align: center;
+    font-weight: bold;
+}
+
+.yasn-friends {
+    display: block;
+    width: 100%;
+    margin: 0 0 1em;
+    padding: 0 0.5em 0;
+}
+
+.yasn-friends li,
+.yasn-friends span,
+.yasn-friends img,
+.yasn-friends span:before,
+.yasn-friends span {
+    display: block;
+}
+
+.yasn-friends a {
+    display: none;
+}
+
+.friend-name {
+    display: block;
+    font-weight: bolder;
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-decoration: none;
+}
+
+.friends-pictures-container {
+    display: flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+    justify-content: flex-start;
+    margin: 1em 0 0;
+}
+
+.yasn-friends li {
+    position: relative;
+    flex: 0 0 27%;
+    overflow: hidden;
+    margin: 1%;
+    border-radius: 8%;
+}
+
+.yasn-friends img {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.yasn-friends span:before {
+    content: "";
+    padding-top: 100%;
+}
+
+.album-modal-button {
+    font-weight: bold;
+    color: #4e555b !important;
+    cursor: pointer;
+}
+
+.album-modal-button:hover {
+    text-decoration: underline !important;
+    color: #4e555b;
+}
+
+/*todo Responsive cover images: https://jsfiddle.net/brettdewoody/bcwx9qft/*/

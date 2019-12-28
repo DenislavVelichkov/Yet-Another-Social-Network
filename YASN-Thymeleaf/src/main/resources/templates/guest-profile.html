@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block layout:fragment="main-content">
+
+    <div class="row" id="user-profile-body-container">
+
+        <div class="col-3" id="user-profile-sidebar-left">
+
+        </div>
+
+        <div class="col-6" id="user-profile-main">
+            <div class="user-profile-container">
+                <th:block layout:insert="~{guest-profile-fragments/guest-profile-header}"/>
+                <div class="row">
+                    <th:block layout:insert="~{guest-profile-fragments/guest-profile-timeline}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3" id="user-profile-right">
+        </div>
+
+    </div>
+
+</th:block>
+
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+<!--/*@thymesVar id="commentOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+<!--/*@thymesVar id="comments" type="List<org.yasn.data.models.view.PostCommentViewModel>"*/-->
+<div th:each="comment : ${post.comments}">
+    <hr class="post-delimiter">
+    <div class="post-comment-container">
+        <div class="post-meta-avatar">
+            <img alt="profile-avatar" class="user-img" th:src="@{${comment.commentOwner.profilePicture}}"/>
+        </div>
+        <!--<div class="post-menu">
+            <div class="dropdown">
+                <a data-target="#" data-toggle="dropdown" role="button">
+                    <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu multi-level" role="menu">
+                    <li>
+                        &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
+                        <a class="post-control-edit"
+                           href="">
+                            Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+        <div>
+            <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+            <th:block th:unless="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">
+                <a th:href="@{'/profile/guest/' + ${comment.commentOwner.id}}">
+                    [(${comment.commentOwner.fullName})] </a>
+            </th:block>
+            <th:block th:if="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">
+                <a th:href="@{'/profile/timeline/' + ${comment.commentOwner.id}}">
+                    [(${comment.commentOwner.fullName})] </a>
+            </th:block>
+        </div>
+        <div class="post-meta-info">
+
+            <span th:text="${time.calcTimeAgo(comment.createdOn)}"></span>
+            <div class="wall-post-comment-content-container">
+                <p>[(${comment.commentContent})]</p>
+            </div>
+            <th:block th:unless="${comment.commentPicture == null}">
+                <div class="img-container">
+                    <img alt="comment-picture"
+                         class="post-content-pic img-fluid" th:src="@{${comment.commentPicture}}">
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+</html>

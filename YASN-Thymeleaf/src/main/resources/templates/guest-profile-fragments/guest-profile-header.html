@@ -1,0 +1,18 @@
+<th:block>
+    <div class="user-cover-container">
+        <div class="shadow mb-5 bg-white rounded">
+            <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+            <div class="cover-img-container">
+                <img class="static-cover-img" th:src="@{${userProfileView.coverPicture}}"
+                     alt="cover-profile-image"/>
+                <div class="cover-img-caption">
+                    <img class="img-fluid z-depth-2 rounded profile-picture"
+                         th:src="@{${userProfileView.profilePicture}}"
+                         alt="profile-picture"/>
+                    <p th:text="${userProfileView.fullName}"></p>
+                </div>
+            </div>
+            <th:block layout:insert="~{guest-profile-fragments/guest-profile-menu}"/>
+        </div>
+    </div>
+</th:block>

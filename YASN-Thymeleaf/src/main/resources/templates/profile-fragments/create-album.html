@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<th:block>
+    <!-- Large modal -->
+    <a role="button"
+       class="album-modal-button"
+       data-toggle="modal"
+       data-target="#create-album-modal">
+        Create Album
+    </a>
+
+    <div class="modal" id="create-album-modal">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Photo Album</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                    <form>
+                        <input id="photos" type="file" name="photos" multiple/>
+
+                        <div class="input-group mb-3 mt-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Enter name for your album...</span>
+                            </div>
+                            <input id="gallery-album-name" name="albumName" type="text" class="form-control" aria-describedby="inputGroup-sizing-default">
+                        </div>
+
+                        <input type="hidden" name="profileId" th:value="${userProfileView.id}"/>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

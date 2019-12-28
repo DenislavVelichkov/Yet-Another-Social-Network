@@ -1,0 +1,78 @@
+.yasn-profile-gallery {
+    display: block;
+    width: 100%;
+    margin: 0 0 1em;
+    padding: 0 0.5em 0;
+}
+
+.yasn-profile-gallery li,
+.yasn-profile-gallery span,
+.yasn-profile-gallery img,
+.yasn-profile-gallery span:before,
+.yasn-profile-gallery span {
+    display: block;
+}
+
+.yasn-profile-gallery a {
+    display: none;
+}
+
+.album-name {
+    display: block;
+    font-weight: bolder;
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.album-pictures-container {
+    display: flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+    justify-content: flex-start;
+    margin: 1em 0 0;
+}
+
+.yasn-profile-gallery li {
+    position: relative;
+    flex: 0 0 31%;
+    overflow: hidden;
+    margin: 1%;
+    border-radius: 8%;
+}
+
+.yasn-profile-gallery img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 100%;
+}
+
+.yasn-profile-gallery span:before {
+    content: "";
+    padding-top: 100%;
+}
+
+/*.album-picture-container span:after {
+    content: "";
+    padding-top: 100%;
+}*/
+
+.yasn-profile-gallery span {
+    position: relative;
+    overflow: hidden;
+}
+
+#gallery-showcase {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    margin: 0;
+}
+
+
+
+

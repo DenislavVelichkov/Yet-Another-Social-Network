@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!--/*@thymesVar id="allProfilePosts" type="List<org.yasn.data.models.view.WallPostViewModel>"*/-->
+<th:block th:each="post : ${allProfilePosts}">
+    <div class="yasn-wall-post-container shadow p-3 mb-5 bg-white rounded">
+        <div class="yasn-wall-post-content">
+            <div class="post-meta-avatar">
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="postOwner" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+                <img alt="avatar"
+                     class="user-img" th:src="@{${post.postOwner.profilePicture}}">
+            </div>
+            <!--<div class="post-menu">
+                <div class="dropdown">
+                    <a data-target="#" data-toggle="dropdown" role="button">
+                        <i class="fas fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu">
+                        <li>
+                            &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
+                            <a class="post-control-edit"
+                               href="">
+                                Edit
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>-->
+            <div>
+                <!-- /*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                <th:block th:unless="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                    <a th:href="@{'/profile/guest/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                </th:block>
+                <th:block th:if="${#strings.equals(post.postOwner.id, activeUserDetails.id)}">
+                    <a th:href="@{'/profile/timeline/' + ${post.postOwner.id}}">[(${post.postOwner.fullName})]</a>
+                </th:block>
+            </div>
+            <div class="post-meta-info">
+                <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                <!--/*@thymesVar id="time" type="org.yasn.utils.TimeUtilImpl"*/-->
+                <span th:text="${time.calcTimeAgo(post.createdOn)}"></span>
+                <span th:if="${post.postPrivacy.name() == 'PUBLIC'}">
+                    <i class="fa fa-users"></i>
+                </span>
+                <span th:unless="${post.postPrivacy.name() == 'PUBLIC'}">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </div>
+            <!--/*@thymesVar id="post" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+
+            <div class="post-contents">
+                <p>[(${post.postContent})]</p>
+                <th:block th:unless="${post.postPicture == null}">
+                    <img alt="post-picture"
+                         class="post-content-pic img-fluid" th:src="@{${post.postPicture}}">
+                </th:block>
+            </div>
+
+            <div class="comments-likes">
+                <ul>
+                    <li onclick="postCommentPop()">
+                        <a href="javascript:void(0)">Comment</a>
+                    </li>
+                    <span class="text-muted"> - </span>
+                    <li>
+                        <a class="post-like"
+                           href="javascript:void(0)"
+                           onclick="likeAPost()"
+                           th:attr="likePostId = ${post.id}">
+                            Like
+                        </a>
+                    </li>
+                    <li>
+                        <th:block th:unless="${post.actualLikes.size() == 0}">
+                            <span id="likes-count" th:text="${post.actualLikes.size()}"></span>
+                            <i class="far fa-thumbs-up"></i>
+                        </th:block>
+                    </li>
+                </ul>
+            </div>
+            <div class="yasn-post-comment">
+                <!--/*@thymesVar id="postComment" type="org.yasn.data.models.binding.PostCommentBindingModel"*/-->
+                <form enctype="multipart/form-data"
+                      th:action="@{/profile/guest/comment}"
+                      th:method="post"
+                      th:object="${postComment}">
+                    <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                    <img alt="profile-picture"
+                         class="comment-meta-avatar-img img-fluid"
+                         th:src="@{${activeUserDetails.profilePicture}}"/>
+                    <label for="yasn-comment-post-textarea"></label>
+                    <input class="comment-post-textarea"
+                           id="yasn-comment-post-textarea" name="comment-post-textarea"
+                           th:field="*{commentContent}"
+                           type="text"/>
+                    <div class="comment-image-upload">
+                        <label for="file-input">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input id="file-input" th:field="*{commentPicture}" type="file"/>
+                    </div>
+                    <input name="postId" th:value="${post.id}" type="hidden"/>
+                    <input name="profileId" th:value="${userProfileView.id}" type="hidden"/>
+                    <input class="comment-post-submit-btn" type="submit" value="Send"/>
+                </form>
+            </div>
+        </div>
+        <th:block layout:insert="~{wall-fragments/post-comments}"/>
+    </div>
+</th:block>
+
+</html>
