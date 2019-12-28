@@ -24,9 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/reset-css.css",
-              "src/assets/css/bootstrap.min.css",
-              "src/styles.css"
+              "../yasn-frontend/src/assets/css/reset-css.css",
+              "../yasn-frontend/src/assets/css/bootstrap.min.css",
+              "../yasn-frontend/src/styles.css"
             ],
             "scripts": []
           },

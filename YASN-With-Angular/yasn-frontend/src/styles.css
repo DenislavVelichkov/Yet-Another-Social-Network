@@ -1,1 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+/*TODO optimize Icons Fonts in Production , use iconmood.io to extract and save locally icon DB*/
+
+:root {
+    /*Font Size*/
+    --sizing-font-size-phone: 12px/1.5;
+    --sizing-font-size-tablet: 14px/1.5;
+    --sizing-font-size-laptop: 16px/1.5;
+    --sizing-font-size-desktop: 18px/1.5;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* font-family: 'Patua One', cursive, Monospaced!important; */
+    /* font-family: "Helvetica Mon ", Helvetica, Arial, sans-serif; */
+    font-family: 'Montserrat', sans-serif!important;
+}
+
+@media (max-width: 575.98px) {
+    html {
+        font-size: var(--sizing-font-size-phone);
+    }
+
+    .index-header-right {
+        margin-left: 0;
+    }
+
+    #yasn-header-container > div:nth-child(1) {
+        display: none;
+    }
+
+    .navbar-login-form-btn-container {
+        flex: 0 0 65%;
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    html {
+        font-size: var(--sizing-font-size-phone);
+    }
+
+    .index-header-right {
+        margin-left: 0;
+    }
+
+    #yasn-header-container > div:nth-child(1) {
+        display: none;
+    }
+
+    .navbar-login-form-btn-container {
+        flex: 0 0 65%;
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    html {
+        font-size: var(--sizing-font-size-tablet);
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    html {
+        font-size: var(--sizing-font-size-laptop);
+    }
+}
+
+@media (max-width: 1199.98px) {
+    /*TODO hide sidebars on small screens use JQuery*/
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: var(--sizing-font-size-desktop);
+    }
+}
+
+.h1, .h2, .h3, .h4, .h5 {
+    font-family: 'Patua One', cursive;
+    color: #4e555b;
+}
+
+small {
+    display: block;
+}
+
+.error {
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*CSS Style rewrite*/
+.rounded {
+    border-radius: 0.50em !important;
+}
