@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<th:block>
+    <div class="profile-nav-container">
+        <div class="profile-cover-menu">
+            <ul>
+                <li>
+                    <div class="profile-action-buttons">
+                        <a class="action-add-friend" href="javascript:void(0)" onclick="addFriend()"
+                           th:attr="profileId = ${userProfileView.id}">
+                            Add Friend
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</th:block>
+
+</html>

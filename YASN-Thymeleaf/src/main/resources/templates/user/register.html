@@ -1,0 +1,128 @@
+<!doctype HTML>
+<html lang="en"
+      layout:decorate="~{index}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<th:block layout:fragment="index-right-content">
+    <div id="inner-main-right-container">
+        <div id="index-register-form-container">
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                <div class="text-left form-background-container">
+                    <div class="h1">Create a New Account
+                        <small class="h5 text-muted">Dive in social networking!</small>
+                    </div>
+                    <!--/*@thymesVar id="registerModel" type="org.yasn.data.models.binding.UserRegisterBindingModel"*/-->
+                    <form th:action="@{/user/register}" th:method="post" th:object="${registerModel}">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="font-weight-bold" for="firstName"></label>
+                                <input class="form-control" id="firstName" name="firstName"
+                                       placeholder="First name" th:field="*{firstName}" type="text">
+                                <th:block th:if="${#fields.hasErrors('firstName')}">
+                                    <small class="error" th:errors="*{firstName}"></small>
+                                </th:block>
+                            </div>
+                            <div class="col-6">
+                                <label class="font-weight-bold" for="lastName"></label>
+                                <input class="form-control" id="lastName" name="lastName"
+                                       placeholder="Last name" th:value="*{lastName}" type="text">
+                                <th:block th:if="${#fields.hasErrors('lastName')}">
+                                    <small class="error" th:errors="*{lastName}"></small>
+                                </th:block>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="font-weight-bold" for="email"></label>
+                                <input class="form-control" id="email" name="email" placeholder="Email"
+                                       th:value="*{email}" type="email">
+                            </div>
+                            <div class="col-6">
+                                <label class="font-weight-bold" for="confirmEmail"></label>
+                                <input class="form-control" id="confirmEmail" name="confirmEmail"
+                                       placeholder="Confirm Email..." th:value="*{confirmEmail}" type="email">
+                                <th:block th:if="${#fields.hasErrors('email')}">
+                                    <small class="error" th:errors="*{email}">Email doesn't match</small>
+                                </th:block>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="font-weight-bold" for="password"></label>
+                                <input aria-describedby="passwordHelpInline" class="form-control"
+                                       id="password" name="password" placeholder="Password..."
+                                       th:value="*{password}"
+                                       type="password">
+                                <th:block th:if="${#fields.hasErrors('password')}">
+                                    <small class="error" th:errors="*{password}"></small>
+                                </th:block>
+                                <small class="text-muted" id="passwordHelpInline">
+                                    Must be minimum 8 characters long.
+                                    Must contain atleast 1 capital letter and 1 digit.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="font-weight-bold" for="confirmPassword"></label>
+                                <input class="form-control" id="confirmPassword" name="confirmPassword"
+                                       placeholder="Confirm Password..." th:value="*{confirmPassword}"
+                                       type="password">
+                                <th:block th:if="${#fields.hasErrors('password')}">
+                                    <small class="error" th:errors="*{password}"></small>
+                                </th:block>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="radio-section-container text-muted col-6">
+                                <div class="radio-label">
+                                    <p class="text-muted " id="radio-gender-label">Gender</p>
+                                </div>
+
+                                <div class="radio-block">
+                                    <label class="font-weight-bold" for="male">Male</label>
+                                    <input class="custom-radio" id="male" name="gender" type="radio"
+                                           value="male">
+                                </div>
+                                <div class="radio-block">
+                                    <label class="font-weight-bold" for="female">Female</label>
+                                    <input class="custom-radio" id="female" name="gender" type="radio"
+                                           value="female">
+                                </div>
+                                <div class="radio-block">
+                                    <label class="font-weight-bold" for="custom">Custom</label>
+                                    <input class="custom-radio" id="custom" name="gender" type="radio"
+                                           value="custom">
+                                </div>
+
+                            </div>
+
+                            <div class="col-6" id="birthday-register-container">
+                                <label class="text-muted" for="birthday">Birthday</label>
+                                <input class="form-control" id="birthday" name="birthday" th:value="*{birthday}"
+                                       type="date">
+                            </div>
+
+                        </div>
+
+                        <div class="button-holder rounded-lg">
+                            <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit"
+                                   value="Sign Up">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/default_layout}"
+      sec:authorize="isAuthenticated()"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block layout:fragment="main-content">
+
+    <div class="row" id="user-profile-body-container">
+
+        <div class="col-3" id="user-profile-sidebar-left">
+
+        </div>
+
+        <div class="col-6" id="user-profile-main">
+
+        </div>
+
+        <div class="col-3" id="user-profile-right">
+
+        </div>
+    </div>
+
+</th:block>
+
+</html>

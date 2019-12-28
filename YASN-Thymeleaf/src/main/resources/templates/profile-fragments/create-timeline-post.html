@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block>
+
+    <div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
+                    <span>
+                        Create a Post
+                    </span>
+
+        <div class="yasn-post-attributes-container">
+            <!--/*@thymesVar id="timelinePost" type="org.yasn.data.models.binding.WallPostBindingModel"*/-->
+            <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+            <form enctype="multipart/form-data"
+                  id="yasn-wall-form"
+                  method="post" th:action="@{/profile/timeline/post}"
+                  th:object="${timelinePost}">
+
+                <label for="comment-text" id="post"></label>
+                <textarea id="comment-text"
+                          name="post"
+                          th:field="*{postContent}"
+                          type="text">
+                    </textarea>
+
+                <div class="yasn-post-extra-tag">
+
+                </div>
+
+                <div class="yasn-post-extra-location">
+
+                    <!--/*@thymesVar id="wallPost" type="org.yasn.data.models.view.WallPostViewModel"*/-->
+                    <div class="input-group mb-3 mt-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Enter Location...</span>
+                        </div>
+                        <input id="location" name="albumName"
+                               th:field="*{location}"
+                               type="text" class="form-control"
+                               aria-describedby="inputGroup-sizing-default"/>
+                    </div>
+
+                </div>
+
+                <div class="yasn-post-extra-photo">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input id="post-picture" type="file" class="custom-file-input" th:field="*{postPicture}">
+                            <label class="custom-file-label" for="post-picture">Choose image</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="yasn-post-extra-emojiies"></div>
+
+                <div class="yasn-post-buttons">
+                    <ul>
+                        <li><i class="fas fa-user-friends"></i></li>
+                        <li onclick="postLocationInPost()"><i class="far fa-compass"></i></li>
+                        <li onclick="postPicInPost()"><i class="fas fa-camera"></i></li>
+                        <li onclick="postPrivacyToggle()">
+                            <i class="fas fa-user-secret"></i>
+                            <span>Privacy</span>
+                        </li>
+                        <li class="yasn-post-extra-privacy">
+                            <ul>
+                                <!--todo    Fix radio buttons hover color-->
+
+                                <li th:each="label : ${T(org.yasn.common.enums.PostPrivacy).values()}">
+                                    <input th:field="*{postPrivacy}"
+                                           th:id="${{label}}"
+                                           th:value="${{label}}"
+                                           type="radio"/>
+
+                                    <label th:for="${{label}}">[(${label.getLabel()})]</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <input name="username" th:value="${#authentication.name}" type="hidden"/>
+                            <input class="post-submit-btn" type="submit" value="Post">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</th:block>
+
+</html>

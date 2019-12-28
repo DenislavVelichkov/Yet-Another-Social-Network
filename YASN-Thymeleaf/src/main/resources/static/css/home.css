@@ -1,0 +1,169 @@
+/*Header*/
+
+#yasn-home-header-container {
+    background-color: #0b769c;
+}
+
+.navbar-menu-right {
+    display: block;
+    justify-content: right;
+    padding: 1rem;
+}
+
+.navbar-menu-right ul {
+    margin: 0;
+}
+
+.navbar-menu-right ul > li i:hover {
+    color: #fff;
+}
+
+.navbar-menu-right ul > li i {
+    color: #212529;
+}
+
+.navbar-menu-right ul li {
+    display: inline-block;
+    margin: 0 0.33em 0;
+}
+
+.navbar-menu-right ul li:hover {
+    cursor: pointer;
+    background-color: rgba(165, 188, 194, 0.15);
+}
+
+.dropdown-menu.show li {
+    display: block;
+}
+
+.navbar-menu-right i {
+    font-size: 1.5rem;
+}
+
+.navbar-dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    border-radius: 1em;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dropdown-menu li a {
+    color: #1b1e21;
+    font-family: Helvetica, cursive;
+}
+
+.dropdown-menu li a:hover {
+    color: #1b1e21;
+    text-decoration: none;
+}
+
+.dropdown-menu.show {
+    margin-top: 1rem;
+}
+
+.fa.fa-sign-out-alt {
+    font-size: 1em !important;
+}
+
+.nav-tabs {
+    border-bottom: 0 solid #dee2e6 !important;
+}
+
+#avatar-picture {
+    width: 2.8em;
+    height: auto;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #fff;
+}
+
+#avatar-name {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    vertical-align: bottom;
+}
+
+.navbar-avatar-container {
+    display: block;
+    margin: 0.4em 0 0;
+}
+
+/*Body*/
+#yasn-home-body-container {
+    background-color: #e9ebee;
+    padding: 1rem 0 1rem;
+}
+
+.yasn-wall-container {
+    display: block;
+    width: 75%;
+    alignment-baseline: top;
+    border: 0.01em solid #e5e5e5;
+    margin: 0 auto 0;
+}
+
+.yasn-post-container {
+    display: block;
+    background-color: #fff;
+    padding: 1em;
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.yasn-post-container > span {
+    display: block;
+    font-weight: bold;
+    color: rgb(105, 107, 110);
+}
+
+.yasn-post-container ul {
+    margin: 0;
+}
+
+.yasn-post-attributes-container textarea {
+    display: block;
+    width: 100%;
+    resize: none;
+    padding: 0.5em;
+    outline: 0;
+}
+
+.yasn-post-buttons li, .yasn-post-buttons span {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.yasn-post-buttons li {
+    padding: 0.43em;
+    margin-top: 0.4em;
+    cursor: pointer;
+}
+
+.yasn-post-buttons li:hover {
+    color: rgba(11, 14, 17, 0.21);
+}
+
+.yasn-wall-post-form-button {
+    padding: 0;
+    margin: auto;
+    position: relative;
+    bottom: 2em;
+    float: right;
+}
+
+.yasn-post-extra-location,
+.yasn-post-extra-photo,
+.yasn-post-extra-privacy ul,
+.yasn-post-extra-tag {
+    display: none;
+    margin: 1em 0 0;
+}
+
+.emojionearea * {
+    z-index: 0 !important;
+}
+

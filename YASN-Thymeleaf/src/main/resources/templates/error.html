@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block layout:insert="~{fragments/head}"/>
+</head>
+
+<body style="background-color: #f7f7f7">
+<main>
+    <header>
+
+    </header>
+    <div class="mt-3">
+        <h1 class="text-center text-dark">Oops! Something Went Wrong. Even AI can't figure it out..</h1>
+        <hr class="hr-2 bg-dark ">
+        <div class="text-center">
+            <p style="color: red" th:text="|Error: ${message}| + ' Status Code: ' + ${statusCode}"></p>
+        </div>
+        <div class="text-center">
+            <img alt="robot-image" class="img-fluid"
+                 th:src="@{https://res.cloudinary.com/yet-another-social-network/image/upload/v1569550986/yet-another-social-network/error_messages/404}">
+
+        </div>
+    </div>
+
+    <footer>
+        <th:block layout:insert="~{fragments/footer}"/>
+    </footer>
+
+</main>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{index}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block layout:fragment="index-right-content">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <div class="text-left h-container">
+            <p class="h3 text-center text-info">
+                Please Log In with the form above ^ If you still have not signed up, go back and
+                <a th:href="@{/user/register}">Register</a>.
+            </p>
+        </div>
+    </div>
+</th:block>
+
+</html>

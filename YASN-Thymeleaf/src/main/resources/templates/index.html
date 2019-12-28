@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/default_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<th:block layout:fragment="main-content">
+    <div class="row no-gutters" id="yasn-body-container">
+        <div class="col text-center offset-1" id="main-left-content">
+            <div class="text-left">
+                <div class="h1 h-container">
+                    Welcome to Yet Another Social Network ™!
+                    <small class="h5 text-muted">
+                        Log In or Sign Up if you don't have an account.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <img alt="yasn-logo" class="img-fluid"
+                     src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
+            </div>
+        </div>
+
+        <div class="col" id="main-right-content">
+            <th:block layout:fragment="index-right-content"/>
+        </div>
+    </div>
+</th:block>
+
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="yasn-friends">
+    <!--/*@thymesVar id="userProfileView" type="org.yasn.data.models.view.UserProfileViewModel"*/-->
+    <ul class="friends-pictures-container">
+        <th:block th:each="friend : ${userProfileView.friends}">
+            <li>
+                    <span>
+                        <!--/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/-->
+                        <th:block th:unless="${#strings.equals(friend.id, activeUserDetails.id)}">
+                             <img class="friend-picture" th:src="@{${friend.profilePicture}}"
+                                  alt="friend-picture">
+                            <a th:href="@{'/profile/guest/' + ${friend.id}}"
+                               class="friend-name">
+                                [(${friend.fullName})]
+                            </a>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(friend.id, activeUserDetails.id)}">
+                             <img class="friend-picture" th:src="@{${friend.profilePicture}}"
+                                  alt="friend-picture">
+                            <a th:href="@{'/profile/timeline/' + ${activeUserDetails.id}}" class="friend-name">
+                                [(${friend.fullName})]
+                            </a>
+                        </th:block>
+                    </span>
+            </li>
+        </th:block>
+    </ul>
+</div>
+
+</html>
