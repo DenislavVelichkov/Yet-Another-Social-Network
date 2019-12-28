@@ -56,6 +56,7 @@ h1, h2, h3, h4, h5, h6 {
     .navbar-login-form-btn-container {
         flex: 0 0 65%;
         padding-left: 0;
+        margin-top: 1em;
     }
 }
 
@@ -75,6 +76,7 @@ h1, h2, h3, h4, h5, h6 {
     .navbar-login-form-btn-container {
         flex: 0 0 65%;
         padding-left: 0;
+        margin-top: 1em;
     }
 }
 

@@ -76,7 +76,7 @@ $(document).ready(function () {
     $("#comment-text").emojioneArea({
         buttonTitle: "Use the TAB key to insert emoji faster",
         recentEmojies: true,
-        pickerPosition: "right",
+        pickerPosition: "bottom",
         filtersPosition: "top",
         hidePickerOnBlur: true,
         search: false
@@ -89,7 +89,7 @@ $(document).ready(function () {
         placeholder: "Type your comment here",
         buttonTitle: "Use the TAB key to insert emoji faster",
         recentEmojies: true,
-        pickerPosition: "right",
+        pickerPosition: "bottom",
         filtersPosition: "top",
         hidePickerOnBlur: true,
         search: false

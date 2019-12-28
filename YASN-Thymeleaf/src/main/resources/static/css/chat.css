@@ -263,7 +263,7 @@ button.accent {
     }
 
     #messageForm .input-group input {
-        width: calc(100% - 70px);
+        /*width: calc(100% - 70px);*/
     }
 
     .chat-header {
