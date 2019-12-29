@@ -29,8 +29,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/bootstrap.bundle.min.js",
-              "src/assets/js/jquery-3.3.1.min.js"
+              "src/assets/js/jquery-3.3.1.min.js",
+              "src/assets/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {

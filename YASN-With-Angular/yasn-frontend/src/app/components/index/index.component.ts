@@ -6,10 +6,9 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
- title: string;
-
+  
   constructor() { 
-    this.title = 'Log In or Register';
+    
   }
 
   ngOnInit() {

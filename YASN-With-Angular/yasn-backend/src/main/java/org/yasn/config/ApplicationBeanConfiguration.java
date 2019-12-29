@@ -87,10 +87,4 @@ public class ApplicationBeanConfiguration {
   public TimeUtil timeUtil() {
     return new TimeUtilImpl();
   }
-
-  //  Required in order layout to work properly
-  @Bean
-  public LayoutDialect layoutDialect() {
-    return new LayoutDialect(new GroupingRespectLayoutTitleStrategy(), true);
-  }
 }

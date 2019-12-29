@@ -6,9 +6,7 @@
     margin: 0;
     background-color: #0b769c;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: start;
-    width: 100%;
+    flex-flow: row wrap;    
 }
 
 .index-header-right {
@@ -17,8 +15,6 @@
 
 #login-form-container {
     display: block;
-    width: 100%;
-    overflow: hidden;
     padding: 0 1em 0 2em;
 }
 

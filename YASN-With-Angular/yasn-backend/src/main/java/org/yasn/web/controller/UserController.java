@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.data.models.binding.UserRegisterBindingModel;
@@ -15,7 +12,7 @@ import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.services.user.UserService;
 import org.yasn.validation.user.UserRegisterValidator;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 @AllArgsConstructor
 public class UserController extends BaseController {
@@ -30,7 +27,6 @@ public class UserController extends BaseController {
   }
 
   @GetMapping("/register")
-  @PageTitle("Log In or Sign Up")
   public ModelAndView userRegister(
       @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
 

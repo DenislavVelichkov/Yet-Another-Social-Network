@@ -22,9 +22,6 @@ public class HomeController extends BaseController {
       @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment) {
 
-
-    // TODO: 11/14/2019 Optimize display with some kind of Cache method
-
     modelAndView.addObject("userProfileView", super.getUserProfileView());
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
