@@ -1,20 +1,5 @@
 /*Sticky Header*/
 
-body {
-    overflow-y: auto;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    position: sticky; /* Allocates space for the element, but moves it with you when you scroll */
-    top: 0; /* specifies the start position for the sticky behavior - 0 is pretty common */
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    z-index: 1000;
-}
-
 #yasn-header-container {
     color: #fff;
     padding: 0;
@@ -22,7 +7,7 @@ header {
     background-color: #0b769c;
     display: flex;
     flex-flow: row wrap;
-    justify-content: end;
+    justify-content: start;
     width: 100%;
 }
 
@@ -31,19 +16,18 @@ header {
 }
 
 #login-form-container {
-    margin: 0;
-    display: flex;
+    display: block;
     width: 100%;
-    padding: 0;
-    justify-content: start;
+    overflow: hidden;
+    padding: 0 1em 0 2em;
 }
 
 #login-form {
     margin: 0em;
     padding: 2rem 0 2rem;
-    line-height: 0;
     display: flex;
-    flex: 0 0 100%;
+    flex-flow: row wrap;
+    overflow: hidden;
 }
 
 #navbar-login-btn {
@@ -68,15 +52,14 @@ header {
 }
 
 .navbar-login-form-field-container {
-    flex: 1 1 34%;
+    flex: 0 0 35%;
     padding-right: 0.5em;
+    min-width: 80px;
 }
 
 .navbar-login-form-btn-container {
-    display: block;
-    float: right;
-    flex: 0 0 27%;
-    padding-left: 1em;
+    flex: 0 0 30%;
+    min-width: 89px;   
 }
 
 .navbar-login-form-field {

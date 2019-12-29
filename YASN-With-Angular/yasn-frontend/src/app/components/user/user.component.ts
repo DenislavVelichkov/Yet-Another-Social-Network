@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material';
 
 @Component({
   selector: 'app-user',
@@ -7,11 +6,8 @@ import { MatDatepickerModule } from '@angular/material';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private title: string;
-
-  constructor() { 
-    this.title = "Log in or Register"
-  }
+ 
+  constructor() {}
 
   ngOnInit() {
   }

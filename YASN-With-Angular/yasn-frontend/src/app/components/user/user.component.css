@@ -1,8 +1,9 @@
-body {
-    overflow: hidden;
+#index-register-form-container {
+    padding:1em 2em 0;
 }
 
 #yasn-body-container {
+    display: block;
     padding: 0 1em 0;
     margin: 3rem 0 0;
 }
@@ -15,6 +16,10 @@ body {
 #inner-main-right-container p a {
     text-decoration: none;
     color: #0c5460;
+}
+
+.title-container {
+    padding-top: 2em;
 }
 
 #inner-main-right-container p a:hover {
