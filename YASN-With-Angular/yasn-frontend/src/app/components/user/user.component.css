@@ -1,12 +1,15 @@
+body {
+    overflow: hidden;
+}
+
 #yasn-body-container {
     padding: 0 1em 0;
     margin: 3rem 0 0;
-    /*min-width: 460px*/
 }
 
 #inner-main-right-container {
     width: 100%;
-    padding: 0 2rem 0;
+    padding: 0;
 }
 
 #inner-main-right-container p a {
@@ -17,11 +20,6 @@
 #inner-main-right-container p a:hover {
     text-decoration: none;
     color: #17a2b8;
-}
-
-#main-left-content {
-    padding: 1em 0 0;
-    offset: view-box;
 }
 
 #passwordHelpInline {

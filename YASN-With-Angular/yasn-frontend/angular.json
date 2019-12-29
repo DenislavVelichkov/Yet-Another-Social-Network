@@ -24,13 +24,13 @@
               "src/assets"
             ],
             "styles": [
-              "../yasn-frontend/src/assets/css/reset-css.css",
-              "../yasn-frontend/src/assets/css/bootstrap.min.css",
-              "../yasn-frontend/src/styles.css"
+              "src/assets/css/reset-css.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/styles.css"
             ],
             "scripts": [
-              "../yasn-frontend/src/assets/js/bootstrap.bundle.min.js",
-              "../yasn-frontend/src/assets/js/jquery-3.3.1.min.js"
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/jquery-3.3.1.min.js"
             ]
           },
           "configurations": {

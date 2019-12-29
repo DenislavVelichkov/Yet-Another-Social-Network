@@ -17,29 +17,33 @@ header {
 
 #yasn-header-container {
     color: #fff;
-    padding: 0 1em 0;
+    padding: 0;
     margin: 0;
     background-color: #0b769c;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: end;
+    width: 100%;
 }
 
 .index-header-right {
     line-height: 0;
 }
 
-#login-form {
+#login-form-container {
     margin: 0;
+    display: flex;
+    width: 100%;
+    padding: 0;
+    justify-content: start;
+}
+
+#login-form {
+    margin: 0em;
     padding: 2rem 0 2rem;
     line-height: 0;
     display: flex;
-    width: 100%;
-    flex-flow: row wrap;
-    justify-content: center;
-}
-
-#login-form-container {
-    display: block;
-    padding: 0 1rem 0;
-    margin-left: 0;
+    flex: 0 0 100%;
 }
 
 #navbar-login-btn {

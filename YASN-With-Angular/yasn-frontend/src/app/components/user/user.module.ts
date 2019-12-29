@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { UserComponent } from './user.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 
 
@@ -15,7 +17,8 @@ import { UserComponent } from './user.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule
   ],
   exports: [UserComponent]
 })
