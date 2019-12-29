@@ -1,7 +1,7 @@
 package org.yasn.validation.wall;
 
 import org.springframework.validation.Errors;
-import org.yasn.data.models.binding.WallPostBindingModel;
+import org.yasn.web.models.binding.WallPostBindingModel;
 import org.yasn.validation.ValidationConstants;
 import org.yasn.validation.Validator;
 

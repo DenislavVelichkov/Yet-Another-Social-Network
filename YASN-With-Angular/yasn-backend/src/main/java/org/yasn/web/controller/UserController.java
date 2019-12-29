@@ -1,18 +1,20 @@
 package org.yasn.web.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.yasn.common.annotations.interceptor.PageTitle;
-import org.yasn.data.models.binding.UserRegisterBindingModel;
 import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.services.user.UserService;
 import org.yasn.validation.user.UserRegisterValidator;
+import org.yasn.web.models.binding.UserRegisterBindingModel;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/user")
 @AllArgsConstructor
 public class UserController extends BaseController {
@@ -21,40 +23,27 @@ public class UserController extends BaseController {
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
 
-  @GetMapping("/login")
-  public ModelAndView userLogin() {
-    return super.view("user/login");
-  }
-
-  @GetMapping("/register")
-  public ModelAndView userRegister(
-      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
-
-    return super.view("user/register");
-  }
-
   @PostMapping("/register")
-  public ModelAndView registerConfirm(
-      ModelAndView modelAndView,
-      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel,
-      BindingResult bindingResult) {
+  public ResponseEntity<?> register(
+      @RequestPart("registerModel") UserRegisterBindingModel registerModel,
+      BindingResult bindingResult) throws URISyntaxException {
 
     this.userRegisterValidator.validate(registerModel, bindingResult);
 
     if (bindingResult.hasErrors()) {
       registerModel.setPassword(null);
       registerModel.setConfirmPassword(null);
-      modelAndView.addObject("registerModel", registerModel);
 
-      return super.view("user/register", modelAndView);
+      return ResponseEntity.created(new URI("/")).body(registerModel);
     }
 
     UserServiceModel userServiceModel =
         this.modelMapper.map(registerModel, UserServiceModel.class);
     this.modelMapper.validate();
 
-    this.userService.registerUser(userServiceModel);
+    boolean isUserRegistered =
+        this.userService.registerUser(userServiceModel);
 
-    return super.redirect("/user/login");
+    return ResponseEntity.created(new URI("/")).body(isUserRegistered);
   }
 }

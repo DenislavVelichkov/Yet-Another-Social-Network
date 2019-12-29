@@ -1,4 +1,4 @@
-package org.yasn.data.models.binding;
+package org.yasn.web.models.binding;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

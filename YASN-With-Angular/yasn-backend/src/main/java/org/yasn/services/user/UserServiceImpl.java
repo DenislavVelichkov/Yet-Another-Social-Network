@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void registerUser(UserServiceModel userServiceModel) {
+  public boolean registerUser(UserServiceModel userServiceModel) {
     this.roleService.seedRolesInDb();
 
     if (this.userRepository.count() == 0) {
@@ -93,8 +93,8 @@ public class UserServiceImpl implements UserService {
         this.userProfileRepository.findById(profile.getId()).get();
 
     personalGallery.setGalleryOwner(userProfile);
-    this.personalGalleryRepository.saveAndFlush(personalGallery);
 
+    return true;
   }
 
   @Override

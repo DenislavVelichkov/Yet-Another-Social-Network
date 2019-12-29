@@ -45,10 +45,6 @@
             1.18.6
         </lombok.version>
 
-        <thymeleaf-layout-dialect.version>
-            2.4.1
-        </thymeleaf-layout-dialect.version>
-
     </properties>
 
     <dependencies>
@@ -120,11 +116,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>${modelmapper.version}</version>
@@ -141,12 +132,6 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>${thymeleaf-layout-dialect.version}</version>
         </dependency>
 
     </dependencies>

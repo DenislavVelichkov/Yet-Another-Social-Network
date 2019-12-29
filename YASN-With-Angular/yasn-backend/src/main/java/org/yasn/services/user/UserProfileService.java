@@ -2,7 +2,7 @@ package org.yasn.services.user;
 
 import java.io.IOException;
 
-import org.yasn.data.models.binding.ProfileEditBindingModel;
+import org.yasn.web.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 
 public interface UserProfileService {

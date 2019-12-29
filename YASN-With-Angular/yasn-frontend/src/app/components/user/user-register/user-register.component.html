@@ -5,94 +5,94 @@
                 <h1>Create a New Account
                     <small class="h5 text-muted">Dive in social networking!</small>
                 </h1>
-                <form>
+                <form #form="ngForm">
 
                     <div class="row">
                         <div class="col-6">
                             <label class="font-weight-bold" for="firstName"></label>
                             <input class="form-control" id="firstName" name="firstName" placeholder="First name"
-                                 type="text">
-                          
-                            </div>
-                            <div class="col-6">
-                                <label class="font-weight-bold" for="lastName"></label>
-                                <input class="form-control" id="lastName" name="lastName"
-                                       placeholder="Last name" type="text">
-                            
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="font-weight-bold" for="email"></label>
-                                <input class="form-control" id="email" name="email" placeholder="Email"
-                                       type="email">
-                            </div>
-                            <div class="col-6">
-                                <label class="font-weight-bold" for="confirmEmail"></label>
-                                <input class="form-control" id="confirmEmail" name="confirmEmail"
-                                       placeholder="Confirm Email..." type="email">
-                             
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="font-weight-bold" for="password"></label>
-                                <input aria-describedby="passwordHelpInline" class="form-control"
-                                       id="password" name="password" placeholder="Password..."                               
-                                       type="password">           
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="font-weight-bold" for="confirmPassword"></label>
-                                <input class="form-control" id="confirmPassword" name="confirmPassword"
-                                       placeholder="Confirm Password..."
-                                       type="password">                       
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="radio-section-container text-muted col-6">
-                                <div class="radio-label">
-                                    <p class="text-muted " id="radio-gender-label">Gender</p>
+                                type="text" #firstName = "ngModel" pattern="([A-Z][A-Za-z]+)"
+                                [ngClass]="{'is-valid': firstName.valid && firstName.touched,
+                                            'is-invalid': firstName.invalid && firstName.touched}"
+                                [(ngModel)]="userRegisterBindingModel.firstName">
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    First name is required and should start with capital letter.
                                 </div>
 
-                                <div class="radio-block">
-                                    <label class="font-weight-bold" for="male">Male</label>
-                                    <input class="custom-radio" id="male" name="gender" type="radio"
-                                           value="male">
-                                </div>
-                                <div class="radio-block">
-                                    <label class="font-weight-bold" for="female">Female</label>
-                                    <input class="custom-radio" id="female" name="gender" type="radio"
-                                           value="female">
-                                </div>
-                                <div class="radio-block">
-                                    <label class="font-weight-bold" for="custom">Custom</label>
-                                    <input class="custom-radio" id="custom" name="gender" type="radio"
-                                           value="custom">
-                                </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="lastName"></label>
+                            <input class="form-control" id="lastName" name="lastName" placeholder="Last name"
+                                type="text">
 
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="email"></label>
+                            <input class="form-control" id="email" name="email" placeholder="Email" type="email">
+                        </div>
+                        <div class="col-6">
+                            <label class="font-weight-bold" for="confirmEmail"></label>
+                            <input class="form-control" id="confirmEmail" name="confirmEmail"
+                                placeholder="Confirm Email..." type="email">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="font-weight-bold" for="password"></label>
+                            <input aria-describedby="passwordHelpInline" class="form-control" id="password"
+                                name="password" placeholder="Password..." type="password">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="font-weight-bold" for="confirmPassword"></label>
+                            <input class="form-control" id="confirmPassword" name="confirmPassword"
+                                placeholder="Confirm Password..." type="password">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="radio-section-container text-muted col-6">
+                            <div class="radio-label">
+                                <p class="text-muted " id="radio-gender-label">Gender</p>
                             </div>
 
-                            <div class="col-6" id="birthday-register-container">
-                                <label class="text-muted" for="birthday">Birthday</label>
-                                <input class="form-control" id="birthday" name="birthday" th:value="*{birthday}"
-                                       type="date">
+                            <div class="radio-block">
+                                <label class="font-weight-bold" for="male">Male</label>
+                                <input class="custom-radio" id="male" name="gender" type="radio" value="male">
                             </div>
-                        
+                            <div class="radio-block">
+                                <label class="font-weight-bold" for="female">Female</label>
+                                <input class="custom-radio" id="female" name="gender" type="radio" value="female">
+                            </div>
+                            <div class="radio-block">
+                                <label class="font-weight-bold" for="custom">Custom</label>
+                                <input class="custom-radio" id="custom" name="gender" type="radio" value="custom">
+                            </div>
+
                         </div>
 
-                        <div class="button-holder rounded-lg">
-                            <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit"
-                                   value="Sign Up">
+                        <div class="col-6" id="birthday-register-container">
+                            <label class="text-muted" for="birthday">Birthday</label>
+                            <input class="form-control" id="birthday" name="birthday" th:value="*{birthday}"
+                                type="date">
                         </div>
 
-                    </form>
-                </div>
+                    </div>
+
+                    <div class="button-holder rounded-lg">
+                        <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit" value="Sign Up">
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
+</div>

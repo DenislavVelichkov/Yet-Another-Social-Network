@@ -1,7 +1,7 @@
 package org.yasn.validation.wall;
 
 import org.springframework.validation.Errors;
-import org.yasn.data.models.binding.PostCommentBindingModel;
+import org.yasn.web.models.binding.PostCommentBindingModel;
 import org.yasn.validation.ValidationConstants;
 import org.yasn.validation.Validator;
 
