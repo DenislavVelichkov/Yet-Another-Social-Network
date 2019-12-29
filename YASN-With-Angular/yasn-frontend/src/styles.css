@@ -40,7 +40,11 @@ html {
     box-sizing: border-box;
     /* font-family: 'Patua One', cursive, Monospaced!important; */
     /* font-family: "Helvetica Mon ", Helvetica, Arial, sans-serif; */
-    font-family: 'Montserrat', sans-serif!important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title-container {
+     margin-top: 2em;
 }
 
 @media (max-width: 380px) {
@@ -56,6 +60,7 @@ html {
     .navbar-login-form-field-container {
         flex: 0 0 50%!important;
         padding-right: 0!important;
+        margin-bottom: 1em!important;
     }
 
     .navbar-login-form-btn-container {

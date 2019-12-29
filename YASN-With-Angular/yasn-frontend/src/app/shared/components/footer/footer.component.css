@@ -1,21 +1,20 @@
-footer .yasn-footer-menu a {
+.yasn-footer-menu a {
     font-size: 12px;
-    color: #0e1013;
-    text-decoration: none;
+    color: #0e1013;   
 }
 
-footer .yasn-footer-menu a::after {
+.yasn-footer-menu a::after {
     content: "|";
     margin-left: 10px;
     margin-right: 10px;
 
 }
 
-footer .yasn-footer-menu a:nth-last-child(2)::after,
-footer .yasn-footer-menu a:last-child::after {
+.yasn-footer-menu a:nth-last-child(2)::after,
+.yasn-footer-menu a:last-child::after {
     content: " ";
 }
 
-footer .w-100 {
+footer.w-100 {
     margin-bottom: 0;
 }

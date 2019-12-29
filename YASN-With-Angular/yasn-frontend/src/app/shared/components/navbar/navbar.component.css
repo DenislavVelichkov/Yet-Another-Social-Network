@@ -55,6 +55,8 @@
     flex: 0 0 35%;
     padding-right: 0.5em;
     min-width: 80px;
+    margin: 0;
+    line-height: 0;
 }
 
 .navbar-login-form-btn-container {
