@@ -7,4 +7,6 @@ export class UserRegisterBindingModel {
     private birthday: string;
     private confirmEmail: string;
     private confirmPass: string;
+
+
 }
