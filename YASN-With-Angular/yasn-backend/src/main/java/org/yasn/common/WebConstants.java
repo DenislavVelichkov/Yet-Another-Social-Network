@@ -2,6 +2,7 @@ package org.yasn.common;
 
 public class WebConstants {
 
+  public static String FRONTEND_URL = "http://localhost:4200";
   public static String DEFAULT_COVER_IMG_PATH = "https://res.cloudinary" +
       ".com/yet-another-social-network"
       + "/image/upload/v1574550366/yet-another-social-network/default-cover_bcdclv.jpg";

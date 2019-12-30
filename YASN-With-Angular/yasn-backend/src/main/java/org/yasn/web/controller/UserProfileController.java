@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
 import org.yasn.common.enums.PostPrivacy;
-import org.yasn.web.models.binding.PostCommentBindingModel;
-import org.yasn.web.models.binding.ProfileEditBindingModel;
-import org.yasn.web.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
@@ -26,6 +23,9 @@ import org.yasn.services.wall.WallService;
 import org.yasn.validation.user.ProfileEditValidator;
 import org.yasn.validation.wall.CommentValidator;
 import org.yasn.validation.wall.PostValidator;
+import org.yasn.web.models.binding.PostCommentBindingModel;
+import org.yasn.web.models.binding.ProfileEditBindingModel;
+import org.yasn.web.models.binding.WallPostBindingModel;
 
 @Controller
 @RequestMapping("/profile")

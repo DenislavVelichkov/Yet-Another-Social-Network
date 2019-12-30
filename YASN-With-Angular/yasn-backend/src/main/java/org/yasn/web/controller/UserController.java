@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.yasn.common.WebConstants;
 import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.services.user.UserService;
 import org.yasn.validation.user.UserRegisterValidator;
@@ -15,7 +16,7 @@ import org.yasn.web.models.binding.UserRegisterBindingModel;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(WebConstants.FRONTEND_URL)
 @AllArgsConstructor
 public class UserController extends BaseController {
 

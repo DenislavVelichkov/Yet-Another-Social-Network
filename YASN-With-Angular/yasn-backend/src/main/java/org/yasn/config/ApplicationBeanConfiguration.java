@@ -12,9 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.yasn.web.models.binding.PostCommentBindingModel;
-import org.yasn.web.models.binding.UserRegisterBindingModel;
-import org.yasn.web.models.binding.WallPostBindingModel;
 import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.yasn.data.models.service.wall.WallPostServiceModel;
@@ -22,6 +19,9 @@ import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
 import org.yasn.utils.TimeUtil;
 import org.yasn.utils.TimeUtilImpl;
+import org.yasn.web.models.binding.PostCommentBindingModel;
+import org.yasn.web.models.binding.UserRegisterBindingModel;
+import org.yasn.web.models.binding.WallPostBindingModel;
 
 @Configuration
 public class ApplicationBeanConfiguration {

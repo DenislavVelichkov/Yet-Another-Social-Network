@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
-import org.yasn.web.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.services.CloudinaryService;
+import org.yasn.web.models.binding.ProfileEditBindingModel;
 
 @Service
 @AllArgsConstructor

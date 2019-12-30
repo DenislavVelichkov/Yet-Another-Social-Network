@@ -3,7 +3,6 @@ package org.yasn.web.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
-import org.yasn.web.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.gallery.PersonalGalleryServiceModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
 import org.yasn.data.models.view.ActiveUserDetails;
@@ -14,6 +13,7 @@ import org.yasn.services.gallery.PersonalGalleryService;
 import org.yasn.services.user.UserProfileService;
 import org.yasn.services.wall.WallService;
 import org.yasn.utils.TimeUtil;
+import org.yasn.web.models.binding.ProfileEditBindingModel;
 
 public abstract class BaseController {
 

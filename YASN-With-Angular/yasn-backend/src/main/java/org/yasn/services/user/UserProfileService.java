@@ -2,8 +2,8 @@ package org.yasn.services.user;
 
 import java.io.IOException;
 
-import org.yasn.web.models.binding.ProfileEditBindingModel;
 import org.yasn.data.models.service.user.UserProfileServiceModel;
+import org.yasn.web.models.binding.ProfileEditBindingModel;
 
 public interface UserProfileService {
   UserProfileServiceModel findUserProfileByUsername(String username);

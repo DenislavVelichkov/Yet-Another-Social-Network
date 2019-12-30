@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
-import org.yasn.web.models.binding.UserRegisterBindingModel;
 import org.yasn.repository.user.UserRepository;
 import org.yasn.validation.ValidationConstants;
 import org.yasn.validation.Validator;
+import org.yasn.web.models.binding.UserRegisterBindingModel;
 
 @Validator
 public class UserRegisterValidator implements org.springframework.validation.Validator {

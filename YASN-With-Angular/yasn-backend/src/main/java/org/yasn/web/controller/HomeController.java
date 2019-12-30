@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.common.annotations.interceptor.PageTitle;
+import org.yasn.services.wall.WallService;
 import org.yasn.web.models.binding.PostCommentBindingModel;
 import org.yasn.web.models.binding.WallPostBindingModel;
-import org.yasn.services.wall.WallService;
 
 @RestController
 @AllArgsConstructor

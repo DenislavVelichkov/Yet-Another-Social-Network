@@ -8,10 +8,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
 import org.yasn.common.ExceptionMessages;
 import org.yasn.data.entities.user.UserProfile;
-import org.yasn.web.models.binding.ProfileEditBindingModel;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.validation.ValidationConstants;
 import org.yasn.validation.Validator;
+import org.yasn.web.models.binding.ProfileEditBindingModel;
 
 @Validator
 @AllArgsConstructor

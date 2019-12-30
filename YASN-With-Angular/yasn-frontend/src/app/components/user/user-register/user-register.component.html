@@ -5,7 +5,7 @@
                 <h1>Create a New Account
                     <small class="h5 text-muted">Dive in social networking!</small>
                 </h1>
-                <form #form="ngForm">
+                <form #userRegisterForm="ngForm">
 
                     <div class="row">
                         <div class="col-6">
@@ -17,14 +17,21 @@
                                 [(ngModel)]="userRegisterBindingModel.firstName">
                                 <div class="valid-feedback"></div>
                                 <div class="invalid-feedback">
-                                    First name is required and should start with capital letter.
+                                    First name is required and should start with capital letter and must NOT contain any special characters.
                                 </div>
 
                         </div>
                         <div class="col-6">
                             <label class="font-weight-bold" for="lastName"></label>
                             <input class="form-control" id="lastName" name="lastName" placeholder="Last name"
-                                type="text">
+                                type="text" #lastName = "ngModel" pattern="([A-Z][A-Za-z]+)"
+                                [ngClass]="{'is-valid': lastName.valid && lastName.touched,
+                                            'is-invalid': lastName.invalid && lastName.touched}"
+                                [(ngModel)]="userRegisterBindingModel.lastName">
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    Last name is required and should start with capital letter and must NOT contain any special characters.
+                                </div>
 
                         </div>
                     </div>
@@ -32,7 +39,15 @@
                     <div class="row">
                         <div class="col-6">
                             <label class="font-weight-bold" for="email"></label>
-                            <input class="form-control" id="email" name="email" placeholder="Email" type="email">
+                            <input class="form-control" id="email" name="email" placeholder="Email" type="email"
+                            #email = "ngModel" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
+                                [ngClass]="{'is-valid': email.valid && email.touched,
+                                            'is-invalid': email.invalid && email.touched}"
+                                [(ngModel)]="userRegisterBindingModel.email">
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">
+                                    Email is required.
+                                </div>
                         </div>
                         <div class="col-6">
                             <label class="font-weight-bold" for="confirmEmail"></label>
@@ -88,7 +103,14 @@
                     </div>
 
                     <div class="button-holder rounded-lg">
-                        <input class="btn btn-success btn-lg" id="royal-sign-up-button" type="submit" value="Sign Up">
+                        <input class="btn btn-success btn-lg"
+                               id="royal-sign-up-button"
+                               type="submit"
+                               value="Sign Up"
+                               [disabled]="userRegisterForm.invalid" (click)="onSubmit()">
+                      <div *ngIf="userRegisterForm.invalid">
+                       <small class="error">Fill your register form please.</small>
+                      </div>
                     </div>
 
                 </form>

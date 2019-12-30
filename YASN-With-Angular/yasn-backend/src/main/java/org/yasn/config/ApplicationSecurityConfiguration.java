@@ -28,7 +28,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .cors()
         .and()
         .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
+        .disable()
         .authorizeRequests()
         .antMatchers(
             "/js/**",
