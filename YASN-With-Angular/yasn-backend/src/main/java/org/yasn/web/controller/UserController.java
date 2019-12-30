@@ -14,8 +14,8 @@ import org.yasn.validation.user.UserRegisterValidator;
 import org.yasn.web.models.binding.UserRegisterBindingModel;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
 @RequestMapping("/user")
+@CrossOrigin("http://localhost:4200")
 @AllArgsConstructor
 public class UserController extends BaseController {
 
@@ -47,3 +47,4 @@ public class UserController extends BaseController {
     return ResponseEntity.created(new URI("/")).body(isUserRegistered);
   }
 }
+
