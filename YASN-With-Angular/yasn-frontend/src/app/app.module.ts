@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { IndexModule } from './components/index/index.module';
+import { AuthService } from './core/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { IndexModule } from './components/index/index.module';
     NavbarModule,
     IndexModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
