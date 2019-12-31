@@ -1,9 +1,11 @@
 package org.yasn.web.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,7 +28,7 @@ public class UserController extends BaseController {
   @PostMapping("/register")
   public ResponseEntity<?> register(
       @RequestPart("registerModel") UserRegisterBindingModel registerModel,
-      BindingResult bindingResult) throws URISyntaxException {
+      BindingResult bindingResult) {
 
     this.userRegisterValidator.validate(registerModel, bindingResult);
 
@@ -34,7 +36,11 @@ public class UserController extends BaseController {
       registerModel.setPassword(null);
       registerModel.setConfirmPassword(null);
 
-      return ResponseEntity.created(new URI("/")).body(registerModel);
+      Map<String, Object> errors = new LinkedHashMap<>();
+      errors.put("rejectedModel", registerModel);
+      errors.put("errors", new ArrayList<>(bindingResult.getAllErrors()));
+
+      return ResponseEntity.ok().body(errors);
     }
 
     UserServiceModel userServiceModel =
@@ -44,7 +50,8 @@ public class UserController extends BaseController {
     boolean isUserRegistered =
         this.userService.registerUser(userServiceModel);
 
-    return ResponseEntity.created(new URI("/")).body(isUserRegistered);
+    return ResponseEntity.ok().body(
+        JSONObject.toString("isUserRegistered", isUserRegistered));
   }
 }
 

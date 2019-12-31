@@ -5,7 +5,7 @@
         <h1>Create a New Account
           <small class="h5 text-muted">Dive in social networking!</small>
         </h1>
-        <form #userRegisterForm="ngForm">
+        <form #userRegisterForm="ngForm" (ngSubmit)="onSubmit()">
 
           <div class="row">
             <div class="col-6">
@@ -16,7 +16,6 @@
                      [ngClass]="{'is-valid': firstName.valid && firstName.touched,
                                             'is-invalid': firstName.invalid && firstName.touched}"
                      [(ngModel)]="userRegisterBindingModel.firstName">
-              <div class="valid-feedback"></div>
               <div class="invalid-feedback">
                 First name is required and should start with capital letter and must NOT contain any special characters.
               </div>
@@ -30,7 +29,6 @@
                      [ngClass]="{'is-valid': lastName.valid && lastName.touched,
                                             'is-invalid': lastName.invalid && lastName.touched}"
                      [(ngModel)]="userRegisterBindingModel.lastName">
-              <div class="valid-feedback"></div>
               <div class="invalid-feedback">
                 Last name is required and should start with capital letter and must NOT contain any special characters.
               </div>
@@ -47,13 +45,11 @@
                      required
                      #email="ngModel"
                      [ngClass]="{'is-valid':  email.valid
-                                                &&  email.touched
-                                                && userRegisterBindingModel.confirmEmail === userRegisterBindingModel.email,
+                                                &&  email.touched,
                                    'is-invalid': email.invalid
-                                                &&  email.touched
-                                                && userRegisterBindingModel.confirmEmail !== userRegisterBindingModel.email}"
+                                                &&  email.touched}"
                      [(ngModel)]="userRegisterBindingModel.email">
-              <div class="valid-feedback"></div>
+
               <div class="invalid-feedback">
                 Email is required.
               </div>
@@ -95,7 +91,7 @@
                                    'is-invalid': password.invalid
                                                 &&  password.touched}"
                      [(ngModel)]="userRegisterBindingModel.password">
-              <div class="valid-feedback"></div>
+
               <div class="invalid-feedback">
                 Password is required and must contain at least 1 capital letter and 1 number.
               </div>
@@ -118,7 +114,6 @@
                                                 &&  confirmEmail.touched
                                                 && userRegisterBindingModel.confirmPassword !== userRegisterBindingModel.password}"
                      [(ngModel)]="userRegisterBindingModel.confirmPassword">
-              <div class="valid-feedback"></div>
               <div class="invalid-feedback">
                 Password is required and must match your password.
               </div>
@@ -139,7 +134,7 @@
                                    'is-valid':  gender.valid
                                                 && gender.touched,
                                    'is-invalid': gender.invalid
-                                                &&  gender.touched}"
+                                                &&  gender.untouched}"
                        [(ngModel)]="userRegisterBindingModel.gender">
               </div>
               <div class="radio-block">
@@ -151,7 +146,7 @@
                                    'is-valid':  gender.valid
                                                 && gender.touched,
                                    'is-invalid': gender.invalid
-                                                &&  gender.touched}"
+                                                &&  gender.untouched}"
                        [(ngModel)]="userRegisterBindingModel.gender">
 
               </div>
@@ -164,7 +159,7 @@
                                    'is-valid':  gender.valid
                                                 && gender.touched,
                                    'is-invalid': gender.invalid
-                                                && gender.touched
+                                                && gender.untouched
                                               }"
                        [(ngModel)]="userRegisterBindingModel.gender">
 
@@ -191,7 +186,7 @@
               [(ngModel)]="userRegisterBindingModel.birthday">
             </div>
             <div class="invalid-feedback">
-              Please select your birthday.
+              Please select your birthday date.
             </div>
           </div>
 
@@ -200,7 +195,7 @@
                    id="royal-sign-up-button"
                    type="submit"
                    value="Sign Up"
-                   [disabled]="userRegisterForm.invalid" (click)="onSubmit()">
+                   [disabled]="userRegisterForm.invalid">
             <div *ngIf="userRegisterForm.invalid">
               <small class="error">Fill your register form please.</small>
             </div>
