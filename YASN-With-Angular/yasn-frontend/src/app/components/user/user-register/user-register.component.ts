@@ -3,6 +3,7 @@ import {UserRegisterBindingModel} from 'src/app/shared/models/user/UserRegisterB
 import {AuthService} from 'src/app/core/services/auth.service';
 import {Title} from "@angular/platform-browser";
 import {Router} from '@angular/router';
+import {IndexComponent} from "../../index/index.component";
 
 @Component({
   selector: 'app-user-register',
@@ -12,6 +13,7 @@ import {Router} from '@angular/router';
 export class UserRegisterComponent implements OnInit {
   private userRegisterBindingModel: UserRegisterBindingModel;
   private isUserRegistered: boolean;
+  private errors: Array<Object>;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -28,32 +30,26 @@ export class UserRegisterComponent implements OnInit {
     let formData = new FormData();
 
     let userBlobModel = new Blob(
-      [JSON.stringify(this.userRegisterBindingModel)], {type: 'application/json'}
+      [JSON.stringify(this.userRegisterBindingModel)],
+      {type: 'application/json'}
     );
 
     formData.append("registerModel", userBlobModel);
 
     this.authService.registerUser(formData).subscribe(data => {
-      this.userRegisterBindingModel = data['rejectedModel'];
+      this.isUserRegistered = data['isUserRegistered'];
 
-      if (!data['errors']) {
-        this.isUserRegistered = true;
+      if (!this.isUserRegistered) {
+        this.userRegisterBindingModel = data['rejectedModel'];
+        this.errors = [...data['errors']];
+        this.errors.forEach(error =>
+          alert(error['defaultMessage']));
+        this.router.navigate(['/']);
       } else {
-        //todo Bind errors to the validation.
-        // NgModel.bind("errors", data['errors'])
+        IndexComponent.prototype.showLoginPage = this.isUserRegistered;
+        this.router.navigate(['user/login']);
       }
-
-      console.log(this.userRegisterBindingModel);
-      console.log(data['errors']);
-
-      if (this.isUserRegistered) {
-        /*todo fill rejected model back into the form*/
-        console.log("navigating");
-        this.router.navigate(['/user/login']);
-      }
-
     });
+
   }
-
-
 }

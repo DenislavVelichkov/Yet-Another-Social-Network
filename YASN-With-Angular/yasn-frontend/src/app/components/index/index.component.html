@@ -15,7 +15,7 @@
   </div>
 
   <div class="col-md-6">
-    <app-user-register></app-user-register>
-    <!-- <app-user-login></app-user-login> -->
+    <app-user-register *ngIf="!_showLoginPage"></app-user-register>
+    <app-user-login *ngIf="_showLoginPage"></app-user-login>
   </div>
 </div>

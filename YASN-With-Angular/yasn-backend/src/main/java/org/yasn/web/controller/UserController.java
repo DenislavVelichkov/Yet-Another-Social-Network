@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
-import org.json.simple.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -30,28 +29,30 @@ public class UserController extends BaseController {
       @RequestPart("registerModel") UserRegisterBindingModel registerModel,
       BindingResult bindingResult) {
 
-    this.userRegisterValidator.validate(registerModel, bindingResult);
+    boolean isUserRegistered;
+    Map<String, Object> response = new LinkedHashMap<>();
 
+    this.userRegisterValidator.validate(registerModel, bindingResult);
     if (bindingResult.hasErrors()) {
       registerModel.setPassword(null);
       registerModel.setConfirmPassword(null);
 
-      Map<String, Object> errors = new LinkedHashMap<>();
-      errors.put("rejectedModel", registerModel);
-      errors.put("errors", new ArrayList<>(bindingResult.getAllErrors()));
+      response.put("rejectedModel", registerModel);
+      response.put("isUserRegistered", false);
+      response.put("errors", new ArrayList<>(bindingResult.getAllErrors()));
 
-      return ResponseEntity.ok().body(errors);
+      return ResponseEntity.ok().body(response);
     }
 
     UserServiceModel userServiceModel =
         this.modelMapper.map(registerModel, UserServiceModel.class);
     this.modelMapper.validate();
 
-    boolean isUserRegistered =
+    isUserRegistered =
         this.userService.registerUser(userServiceModel);
+    response.put("isUserRegistered", isUserRegistered);
 
-    return ResponseEntity.ok().body(
-        JSONObject.toString("isUserRegistered", isUserRegistered));
+    return ResponseEntity.ok().body(response);
   }
 }
 

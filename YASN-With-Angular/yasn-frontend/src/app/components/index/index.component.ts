@@ -6,13 +6,19 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  isUserRegistered: any;
-  
-  constructor() { 
-    
+ private _showLoginPage: boolean;
+
+  constructor() {
   }
 
   ngOnInit() {
   }
 
+  get showLoginPage(): boolean {
+    return this._showLoginPage;
+  }
+
+  set showLoginPage(value: boolean) {
+    this._showLoginPage = value;
+  }
 }
