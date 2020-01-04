@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,6 +21,7 @@ import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
 import org.yasn.utils.TimeUtil;
 import org.yasn.utils.TimeUtilImpl;
+import org.yasn.web.filters.CustomCsrfFilter;
 import org.yasn.web.models.binding.PostCommentBindingModel;
 import org.yasn.web.models.binding.UserRegisterBindingModel;
 import org.yasn.web.models.binding.WallPostBindingModel;
@@ -96,14 +99,27 @@ public class ApplicationBeanConfiguration {
     CorsConfiguration corsConfiguration = new CorsConfiguration()
         .applyPermitDefaultValues();
     corsConfiguration.addAllowedMethod(HttpMethod.PUT);
-    corsConfiguration.addAllowedMethod(HttpMethod.POST);
     corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
     corsConfiguration.addExposedHeader(
-        "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, "
-            + "Content-Type, Access-Control-Request-Method, Custom-Filter-Header");
-    source.registerCorsConfiguration("/**"
-        , corsConfiguration);
+        "Authorization," +
+        " x-xsrf-token," +
+        " x-auth-token," +
+        " Access-Control-Allow-Headers," +
+        " Origin," +
+        " Accept," +
+        " X-Requested-With," +
+        " Content-Type," +
+        " Access-Control-Request-Method," +
+        " Custom-Filter-Header");
+    source.registerCorsConfiguration("/**", corsConfiguration);
 
     return source;
+  }
+
+  @Bean
+  CsrfTokenRepository csrfTokenRepository() {
+    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+    repository.setHeaderName(CustomCsrfFilter.CSRF_COOKIE_NAME);
+    return repository;
   }
 }

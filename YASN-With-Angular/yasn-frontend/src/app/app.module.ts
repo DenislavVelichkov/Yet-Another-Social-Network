@@ -6,8 +6,9 @@ import {AppComponent} from './app.component';
 import {FooterComponent} from './shared/components/footer/footer.component';
 import {NavbarModule} from './shared/components/navbar/navbar.module';
 import {IndexModule} from './components/index/index.module';
-import {AuthService} from './core/services/auth.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthService} from "./core/services/auth.service";
+import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,20 @@ import {HttpClientModule} from '@angular/common/http';
     IndexModule,
     HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+   /* {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },*/
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: XhrInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

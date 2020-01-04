@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {IndexComponent} from './index.component';
 import {UserLoginComponent} from '../user/user-login/user-login.component';
 import {UserRegisterComponent} from '../user/user-register/user-register.component';
-import {AuthService} from 'src/app/core/services/auth.service';
+import {UserService} from 'src/app/components/user/user.service';
 import {RouterModule} from "@angular/router";
 
 @NgModule({
@@ -18,7 +18,7 @@ import {RouterModule} from "@angular/router";
         FormsModule,
         RouterModule
     ],
-  providers: [AuthService],
+  providers: [UserService],
   exports: [IndexComponent]
 })
 export class IndexModule { }

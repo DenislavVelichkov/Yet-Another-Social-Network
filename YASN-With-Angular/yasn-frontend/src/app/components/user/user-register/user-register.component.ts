@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserRegisterBindingModel} from 'src/app/shared/models/user/UserRegisterBindingModel';
-import {AuthService} from 'src/app/core/services/auth.service';
+import {UserService} from 'src/app/components/user/user.service';
 import {Title} from "@angular/platform-browser";
 import {Router} from '@angular/router';
 import {IndexComponent} from "../../index/index.component";
@@ -15,7 +15,7 @@ export class UserRegisterComponent implements OnInit {
   private isUserRegistered: boolean;
   private errors: Array<Object>;
 
-  constructor(private authService: AuthService,
+  constructor(private authService: UserService,
               private router: Router,
               private title: Title) {
   }
