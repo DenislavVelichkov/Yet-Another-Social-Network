@@ -1,4 +1,4 @@
-package org.yasn.web.api.chat;
+package org.yasn.web.controller;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yasn.data.models.chat.ChatMessage;
-import org.yasn.web.controller.BaseController;
 
 @Controller
 public class ChatController extends BaseController {

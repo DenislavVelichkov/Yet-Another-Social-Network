@@ -1,4 +1,4 @@
-package org.yasn.web.api.models;
+package org.yasn.web.models;
 
 import java.util.List;
 

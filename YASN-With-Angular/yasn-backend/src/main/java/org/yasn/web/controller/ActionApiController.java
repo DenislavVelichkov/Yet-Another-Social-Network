@@ -1,4 +1,4 @@
-package org.yasn.web.api;
+package org.yasn.web.controller;
 
 import java.io.IOException;
 import java.security.Principal;

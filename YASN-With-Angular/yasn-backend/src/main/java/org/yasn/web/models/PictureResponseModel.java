@@ -1,4 +1,4 @@
-package org.yasn.web.api.models;
+package org.yasn.web.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
