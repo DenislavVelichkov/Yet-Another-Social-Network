@@ -54,3 +54,8 @@
     display: block;
 }
 
+.login-container {
+  margin: 2em;
+  padding: 1em;
+}
+

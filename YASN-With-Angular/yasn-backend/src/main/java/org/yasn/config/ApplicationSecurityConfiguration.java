@@ -14,6 +14,7 @@ import org.yasn.web.filters.CustomCsrfFilter;
 @EnableWebSecurity
 @AllArgsConstructor
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
   private static final String[] CSRF_IGNORE = {"/user/login/**", "/user/register/**"};
   private final CorsConfigurationSource corsConfigurationSource;
   private final CsrfTokenRepository csrfTokenRepository;

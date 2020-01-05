@@ -42,8 +42,7 @@ export class UserRegisterComponent implements OnInit {
       if (!this.isUserRegistered) {
         this.userRegisterBindingModel = data['rejectedModel'];
         this.errors = [...data['errors']];
-        this.errors.forEach(error =>
-          alert(error['defaultMessage']));
+        this.errors.forEach(error => alert(error['defaultMessage']));
         this.router.navigate(['/']);
       } else {
         IndexComponent.prototype.showLoginPage = this.isUserRegistered;

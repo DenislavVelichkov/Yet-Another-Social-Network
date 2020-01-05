@@ -9,11 +9,13 @@ import {IndexModule} from './components/index/index.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from "./core/services/auth.service";
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
+import {NewsFeedComponent} from './components/home/news-feed/news-feed.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent
+    FooterComponent,
+    NewsFeedComponent
   ],
   imports: [
     BrowserModule,
@@ -24,11 +26,6 @@ import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
   ],
   providers: [
     AuthService,
-   /* {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },*/
     {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrInterceptor,

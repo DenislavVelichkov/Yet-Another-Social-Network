@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {catchError} from "rxjs/operators";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -9,8 +10,7 @@ export class XhrInterceptor implements HttpInterceptor {
     let xhr = req.clone(
       {headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')}
     );
-    //'Access-Control-Allow-Headers', 'X-Requested-With'
 
-    return next.handle(xhr);
+    return next.handle(xhr).pipe(catchError(err => console.error));
   }
 }
