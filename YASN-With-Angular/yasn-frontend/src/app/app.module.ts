@@ -8,6 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 import {NewsFeedComponent} from './components/home/news-feed/news-feed.component';
 import {SharedModule} from "./shared/shared.module";
+import {AuthService} from "./core/services/auth.service";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {SharedModule} from "./shared/shared.module";
     HttpClientModule
   ],
   providers: [
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrInterceptor,
