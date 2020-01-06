@@ -3,8 +3,8 @@ import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class EnvironmentUrlService {
-  // @ts-ignore
-  public urlAddress: string = environment.urlAddress;
+  public uiUrlAddress: string = environment.uiUrlAddress;
+  public apiEndPointAddress: string = environment.apiEndPointAddress;
 
   constructor() { }
 }

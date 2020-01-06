@@ -4,23 +4,20 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IndexModule} from './components/index/index.module';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
-import {NewsFeedComponent} from './components/home/news-feed/news-feed.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SharedModule} from "./shared/shared.module";
 import {AuthService} from "./core/services/auth.service";
+import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NewsFeedComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule.forRoot(),
-    IndexModule,
-    HttpClientModule
+    IndexModule
   ],
   providers: [
     AuthService,
