@@ -8,18 +8,18 @@ export class HttpRepositoryService {
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
-  public getData(route: string, headers) {
+  public getData(route: string, headers): Observable<Object> {
 
     return this.http.get(this.createCompleteRoute(
       route,
-      this.envUrl.apiEndPointAddress),{headers:headers});
+      this.envUrl.apiEndPointAddress), {headers: headers});
   }
 
   public create(route: string, body): Observable<Object> {
     return this.http.post(
       this.createCompleteRoute(
-                                route,
-                                this.envUrl.apiEndPointAddress),
+        route,
+        this.envUrl.apiEndPointAddress),
       body,
       this.generateHeaders(body));
   }
@@ -27,17 +27,17 @@ export class HttpRepositoryService {
   public loginRequest(route: string, body, headers): Observable<Object> {
     return this.http.post(
       this.createCompleteRoute(
-                                route,
-                                this.envUrl.apiEndPointAddress),
+        route,
+        this.envUrl.apiEndPointAddress),
       body,
-      {headers, responseType:"text"});
+      {headers, responseType: "text"});
   }
 
   public update(route: string, body): Observable<Object> {
     return this.http.put(
       this.createCompleteRoute(
-                                route,
-                                this.envUrl.apiEndPointAddress),
+        route,
+        this.envUrl.apiEndPointAddress),
       body,
       this.generateHeaders(body));
   }
@@ -54,15 +54,14 @@ export class HttpRepositoryService {
   }
 
   private generateHeaders(body) {
-    if (body instanceof FormData) { return; }
+    if (body instanceof FormData) {
+      return;
+    }
 
     const headers = [
       {
         'Content-Type': 'application/json'
       },
-      {
-        'withCredentials': 'true'
-      }
     ];
 
     return {

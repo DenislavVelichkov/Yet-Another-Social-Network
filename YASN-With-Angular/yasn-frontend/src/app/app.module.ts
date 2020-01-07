@@ -11,6 +11,7 @@ import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 import {HomeComponent} from './components/home/home.component';
 import {NewsFeedComponent} from "./components/home/news-feed/news-feed.component";
 import {CookieService} from "ngx-cookie-service";
+import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,13 @@ import {CookieService} from "ngx-cookie-service";
     IndexModule.forRoot()
   ],
   providers: [
-    AuthService, CookieService,
+    AuthService,
+    CookieService,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrInterceptor,

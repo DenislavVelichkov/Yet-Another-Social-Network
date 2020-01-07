@@ -16,7 +16,9 @@ export class UnAuthorizedNavbarComponent implements OnInit {
 
   constructor(private auth: AuthService,
               private router: Router,
-              private title: Title) { }
+              private title: Title) {
+    this.isUserLoggedIn = false;
+  }
 
   ngOnInit() {
     this.title.setTitle('YASN ' + 'Log In');
@@ -24,16 +26,9 @@ export class UnAuthorizedNavbarComponent implements OnInit {
   }
 
   onSubmit() {
-   /* let formData = new FormData();
+    this.auth.loginUser(this.userLoginBindingModel);
 
-    let userBlobModel = new F(
-      [JSON.stringify(this.userLoginBindingModel)],
-      {type: 'application/json'}
-    );
-
-    formData.append("loginModel", userBlobModel);*/
-
-    this.isUserLoggedIn = this.auth.loginUser(this.userLoginBindingModel);
+    this.isUserLoggedIn = this.auth.isAuthenticated;
 
       if (!this.isUserLoggedIn) {
 
