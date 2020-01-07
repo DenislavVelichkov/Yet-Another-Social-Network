@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,8 @@ public class UserServiceModel extends BaseServiceModel {
   private Date birthday;
   private boolean isActive;
   private Timestamp createdOn;
-  private UserProfileServiceModel userProfile;
   private Set<RoleServiceModel> authorities;
+
+  @JsonIgnore
+  private UserProfileServiceModel userProfile;
 }

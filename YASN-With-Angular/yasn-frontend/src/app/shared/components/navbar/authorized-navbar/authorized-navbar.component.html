@@ -1,19 +1,19 @@
-<!-- <div class="row" id="yasn-home-header-container">
+ <div class="row" id="yasn-home-header-container">
     <div class="col-xl-3" id="header-left">
 
     </div>
     <div class="col-xl-6">
         <nav>
             <div class="navbar-avatar-container float-left">
-                <img alt="no-profile-picture" id="avatar-picture" th:src="@{${activeUserDetails.profilePicture}}" />
-                <a th:href="@{'/profile/timeline/' + ${activeUserDetails.id}}">
-                    <span id="avatar-name" th:text=" 'Hey, ' + ${activeUserDetails.firstName} + '!'"></span>
+                <img alt="no-profile-picture" id="avatar-picture" " />
+                <a href="">
+                    <span id="avatar-name"></span>
                 </a>
             </div>
             <div class="navbar-menu-right nav-tabs float-right">
                 <ul>
                     <li>
-                        <a class="yasn-home" style="color: #212529" th:href="@{/home}">
+                        <a class="yasn-home" style="color: #212529" routerLink="home">
                             <span>
                                 <i class="fas fa-home"></i>
                             </span>
@@ -27,14 +27,14 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/profile/friends}" class="yasn-notification-friends">
+                        <a href="" class="yasn-notification-friends">
                             <span>
                                 <i class="fa fa-users"></i>
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/chat}" class="yasn-notification-messages">
+                        <a href="" class="yasn-notification-messages">
                             <span>
                                 <i class="fa fa-envelope"></i>
                             </span>
@@ -44,29 +44,10 @@
                         <a class="yasn-notifications" data-target="#" data-toggle="dropdown" role="button">
                             <div class="notification-icons-container">
                                 <i class="fas fa-bell"></i>
-                                <th:block th:unless="${activeUserDetails.notifications.size() == 0}">
-                                    <span class="yasn-notification-container-hidden">
-                                        [(${activeUserDetails.notifications.size()})]
-                                    </span>
-                                </th:block>
+
                             </div>
                             <div class="dropdown-menu multi-level" id="yasn-notifications-content" role="menu">
-                                <th:block th:each="notification : ${activeUserDetails.notifications}">
-                                    <hr class="post-delimiter">
-                                    <div class="notification-content-container">
-                                        <img class="comment-meta-avatar-img" th:src="@{${notification.senderPicture}}">
-                                        <a th:href="@{'/profile/guest/' + ${notification.senderId}}">
-                                            [(${notification.senderFullName})]
-                                        </a>
-                                        <span>, [(${notification.content})]</span>
-                                        <a href="javascript: void(0)" id="accept-friend" onclick="acceptFriend()"
-                                            style="margin-left: 1em" th:attr="senderId = ${notification.senderId}">
-                                            Accept
-                                        </a>
-                                        <span style="font-style: italic; margin-left: 1em"
-                                            th:text="${time.calcTimeAgo(notification.createdOn)}"></span>
-                                    </div>
-                                </th:block>
+
                             </div>
                         </a>
                     </li>
@@ -76,18 +57,16 @@
                                 <i class="fas fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu multi-level" role="menu">
-                                <li sec:authorize="hasAuthority('ADMIN')">
-                                    <a th:href="@{/admin}">Admin Panel</a>
+                                <li>
+                                    <a href="">Admin Panel</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{'/profile/edit/' + ${activeUserDetails.id}}">Profile Settings</a>
+                                    <a href="">Profile Settings</a>
                                 </li>
                                 <li>
-                                    <div>
-                                        <form method="post" name="logoutForm" th:action="@{/logout}" th:hidden="true">
-                                        </form>
+                                    <div (click)="logout()">
                                         <i class="fa fa-sign-out-alt"></i>
-                                        <a href="javascript: document.logoutForm.submit()">
+                                        <a href="">
                                             Logout
                                         </a>
                                     </div>
@@ -102,5 +81,5 @@
     <div class="col-xl-3" id="header-right">
 
     </div>
-</div> -->
+</div>
 <p>It works !</p>

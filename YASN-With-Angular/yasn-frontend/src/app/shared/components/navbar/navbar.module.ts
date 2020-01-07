@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AuthorizedNavbarComponent } from './authorized-navbar/authorized-navbar.component';
-import { UnAuthorizedNavbarComponent } from './un-authorized-navbar/un-authorized-navbar.component';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar.component';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {AuthorizedNavbarComponent} from './authorized-navbar/authorized-navbar.component';
+import {UnAuthorizedNavbarComponent} from './un-authorized-navbar/un-authorized-navbar.component';
+import {CommonModule} from '@angular/common';
+import {NavbarComponent} from './navbar.component';
+import {AppRoutingModule} from "../../../app-routing.module";
 
 @NgModule({
   declarations: [
@@ -11,11 +12,12 @@ import { NavbarComponent } from './navbar.component';
     UnAuthorizedNavbarComponent,
     NavbarComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-  ],
-  exports:[NavbarComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        AppRoutingModule,
+    ],
+    exports: [NavbarComponent, AuthorizedNavbarComponent],
   providers:[]
 })
 export class NavbarModule { }

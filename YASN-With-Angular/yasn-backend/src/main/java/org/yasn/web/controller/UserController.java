@@ -1,8 +1,11 @@
 package org.yasn.web.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,13 +19,26 @@ import org.yasn.web.models.binding.UserRegisterBindingModel;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class UserController extends BaseController {
 
   private final UserService userService;
   private final ModelMapper modelMapper;
   private final UserRegisterValidator userRegisterValidator;
+
+  @GetMapping(value = "/principal", produces = "application/json")
+  public ResponseEntity<?> user(Principal user) {
+    UserServiceModel userDetails =
+        this.userService.findUserByUsername(user.getName());
+
+    return ResponseEntity.ok(userDetails);
+  }
+
+  @GetMapping(value = "/token", produces = "application/json")
+  public ResponseEntity<?> token(HttpSession session) {
+    return ResponseEntity.ok(Collections.singletonMap("token", session.getId()));
+  }
 
   @PostMapping("/register")
   public ResponseEntity<?> register(
@@ -33,10 +49,10 @@ public class UserController extends BaseController {
     Map<String, Object> response = new LinkedHashMap<>();
 
     this.userRegisterValidator.validate(registerModel, bindingResult);
+
     if (bindingResult.hasErrors()) {
       registerModel.setPassword(null);
       registerModel.setConfirmPassword(null);
-
       response.put("rejectedModel", registerModel);
       response.put("isUserRegistered", false);
       response.put("errors", new ArrayList<>(bindingResult.getAllErrors()));
@@ -47,12 +63,11 @@ public class UserController extends BaseController {
     UserServiceModel userServiceModel =
         this.modelMapper.map(registerModel, UserServiceModel.class);
     this.modelMapper.validate();
-
-    isUserRegistered =
-        this.userService.registerUser(userServiceModel);
+    isUserRegistered = this.userService.registerUser(userServiceModel);
     response.put("isUserRegistered", isUserRegistered);
 
     return ResponseEntity.ok().body(response);
   }
+
 }
 

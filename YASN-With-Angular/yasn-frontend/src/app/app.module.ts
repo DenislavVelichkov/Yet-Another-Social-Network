@@ -8,19 +8,24 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SharedModule} from "./shared/shared.module";
 import {AuthService} from "./core/services/auth.service";
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
+import {HomeComponent} from './components/home/home.component';
+import {NewsFeedComponent} from "./components/home/news-feed/news-feed.component";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    NewsFeedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule.forRoot(),
-    IndexModule
+    IndexModule.forRoot()
   ],
   providers: [
-    AuthService,
+    AuthService, CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrInterceptor,

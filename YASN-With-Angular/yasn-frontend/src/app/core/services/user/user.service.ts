@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpRepositoryService} from "../../shared/services/http-repository.service";
+import {HttpRepositoryService} from "../../../shared/services/http-repository.service";
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class UserService {
+
     constructor(private httpRepo: HttpRepositoryService) { }
 
     registerUser(formData: FormData): Observable<Object> {

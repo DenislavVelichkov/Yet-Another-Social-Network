@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
+@Component
 public class CustomCsrfFilter extends OncePerRequestFilter {
   public static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
@@ -24,9 +26,10 @@ public class CustomCsrfFilter extends OncePerRequestFilter {
       Cookie cookie = WebUtils.getCookie(request, CSRF_COOKIE_NAME);
       String token = csrf.getToken();
 
-      if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+      if (cookie == null
+          || token != null
+          && !token.equals(cookie.getValue())) {
         cookie = new Cookie(CSRF_COOKIE_NAME, token);
-        cookie.setPath("/");
         response.addCookie(cookie);
       }
 

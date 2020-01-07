@@ -94,10 +94,9 @@ public class ApplicationBeanConfiguration {
   }
 
   @Bean
-  CorsConfigurationSource corsConfigurationSource() {
+  public CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration corsConfiguration = new CorsConfiguration()
-        .applyPermitDefaultValues();
+    CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
     corsConfiguration.addAllowedMethod(HttpMethod.PUT);
     corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
     corsConfiguration.addExposedHeader(
@@ -117,9 +116,10 @@ public class ApplicationBeanConfiguration {
   }
 
   @Bean
-  CsrfTokenRepository csrfTokenRepository() {
+  public CsrfTokenRepository csrfTokenRepository() {
     HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
     repository.setHeaderName(CustomCsrfFilter.CSRF_COOKIE_NAME);
     return repository;
   }
+
 }

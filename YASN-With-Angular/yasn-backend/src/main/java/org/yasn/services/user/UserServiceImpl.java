@@ -1,5 +1,6 @@
 package org.yasn.services.user;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -19,9 +20,9 @@ import org.yasn.data.entities.gallery.PersonalGallery;
 import org.yasn.data.entities.user.User;
 import org.yasn.data.entities.user.UserProfile;
 import org.yasn.data.models.service.user.UserServiceModel;
-import org.yasn.repository.gallery.PersonalGalleryRepository;
 import org.yasn.repository.user.UserProfileRepository;
 import org.yasn.repository.user.UserRepository;
+import org.yasn.web.models.binding.UserLoginBindingModel;
 
 @Service
 @AllArgsConstructor
@@ -31,7 +32,6 @@ public class UserServiceImpl implements UserService {
   private final RoleService roleService;
   private final ModelMapper modelMapper;
   private final BCryptPasswordEncoder passwordEncoder;
-  private final PersonalGalleryRepository personalGalleryRepository;
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -165,5 +165,22 @@ public class UserServiceImpl implements UserService {
     }
 
     this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
+  }
+
+  @Override
+  public Principal loginUser(UserLoginBindingModel loginModel) {
+    /*UsernamePasswordAuthenticationToken token =
+        new UsernamePasswordAuthenticationToken(
+            loginModel.getEmail(), loginModel.getPassword());
+    Authentication authentication = this.authenticationProvider.authenticate(token);
+
+    if (authentication != null) {
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+
+      return (Principal) authentication.getPrincipal();
+    }else {
+      throw new BadCredentialsException("Username or password is incorrect!");
+    }*/
+    return null;
   }
 }

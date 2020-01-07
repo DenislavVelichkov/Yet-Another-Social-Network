@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserRegisterBindingModel} from 'src/app/shared/models/user/UserRegisterBindingModel';
-import {UserService} from 'src/app/components/user/user.service';
+import {UserService} from 'src/app/core/services/user/user.service';
 import {Title} from "@angular/platform-browser";
 import {Router} from '@angular/router';
 import {IndexComponent} from "../../index/index.component";
@@ -15,15 +15,13 @@ export class UserRegisterComponent implements OnInit {
   private isUserRegistered: boolean;
   private errors: Array<Object>;
 
-  constructor(private authService: UserService,
+  constructor(private userService: UserService,
               private router: Router,
-              private title: Title) {
-  }
+              private title: Title) { }
 
   ngOnInit() {
     this.title.setTitle('YASN ' + 'Log In or Register');
     this.userRegisterBindingModel = new UserRegisterBindingModel();
-    this.isUserRegistered = false;
   }
 
   onSubmit() {
@@ -36,7 +34,7 @@ export class UserRegisterComponent implements OnInit {
 
     formData.append("registerModel", userBlobModel);
 
-    this.authService.registerUser(formData).subscribe(data => {
+    this.userService.registerUser(formData).subscribe(data => {
       this.isUserRegistered = data['isUserRegistered'];
 
       if (!this.isUserRegistered) {

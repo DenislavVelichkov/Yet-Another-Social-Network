@@ -37,20 +37,15 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .anyRequest().authenticated()
         .and()
         .formLogin()
-        .loginPage("http://localhost:4200/")
+        .loginProcessingUrl("/user/login")
         .usernameParameter("email")
         .passwordParameter("password")
-        .defaultSuccessUrl("http://localhost:4200/home")
         .and()
         .logout()
-        .logoutSuccessUrl("http://localhost:4200/")
         .permitAll()
         .deleteCookies("JSESSIONID")
         .and()
-        .exceptionHandling()
-        .accessDeniedPage("/")
-        .and()
-        .sessionManagement()
-        .maximumSessions(1);
+        .exceptionHandling();
+
   }
 }

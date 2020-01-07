@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserLoginBindingModel} from "../../../models/user/UserLoginBindingModel";
+import {Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
+import {AuthService} from "../../../../core/services/auth.service";
 
 @Component({
   selector: 'app-un-authorized-navbar',
@@ -7,9 +11,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnAuthorizedNavbarComponent implements OnInit {
 
-  constructor() { }
+  private userLoginBindingModel: UserLoginBindingModel;
+  private isUserLoggedIn: boolean;
+
+  constructor(private auth: AuthService,
+              private router: Router,
+              private title: Title) { }
 
   ngOnInit() {
+    this.title.setTitle('YASN ' + 'Log In');
+    this.userLoginBindingModel = new UserLoginBindingModel();
+  }
+
+  onSubmit() {
+   /* let formData = new FormData();
+
+    let userBlobModel = new F(
+      [JSON.stringify(this.userLoginBindingModel)],
+      {type: 'application/json'}
+    );
+
+    formData.append("loginModel", userBlobModel);*/
+
+    this.isUserLoggedIn = this.auth.loginUser(this.userLoginBindingModel);
+
+      if (!this.isUserLoggedIn) {
+
+        this.router.navigate(['/']);
+      } else {
+
+        this.router.navigate(['/home']);
+      }
+
   }
 
 }
