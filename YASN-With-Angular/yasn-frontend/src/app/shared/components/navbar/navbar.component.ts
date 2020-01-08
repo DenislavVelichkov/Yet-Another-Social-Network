@@ -7,19 +7,14 @@ import {AuthService} from "../../../core/services/auth.service";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private isAuthenticated: boolean;
 
-  constructor(private auth: AuthService) {
-    this.isAuthenticated = this.auth.isAuthenticated;
-    console.log(this.isAuthenticated);
-    console.log(this.auth.isAuthenticated);
-  }
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {
-
-    console.log('ngOnInit' + this.isAuthenticated);
-    console.log('ngOnInit' + this.auth.isAuthenticated);
-
   }
 
+  isAuthenticated(): boolean {
+    console.log(this.auth.isAuthenticated);
+    return this.auth.isAuthenticated;
+  }
 }

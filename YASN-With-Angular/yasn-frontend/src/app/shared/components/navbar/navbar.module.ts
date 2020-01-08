@@ -17,7 +17,6 @@ import {AppRoutingModule} from "../../../app-routing.module";
         FormsModule,
         AppRoutingModule,
     ],
-    exports: [NavbarComponent, AuthorizedNavbarComponent],
-  providers:[]
+    exports: [NavbarComponent]
 })
 export class NavbarModule { }

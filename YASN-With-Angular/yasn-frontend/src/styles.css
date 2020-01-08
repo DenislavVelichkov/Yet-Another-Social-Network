@@ -47,7 +47,7 @@ html {
 }
 
 @media (max-width: 380px) {
-    
+
  html {
         font-size: var(--sizing-font-size-phone);
     }
@@ -55,7 +55,7 @@ html {
     #login-form{
         flex-flow: column nowrap!important;
     }
-    
+
     .navbar-login-form-field-container {
         flex: 0 0 50%!important;
         padding-right: 0!important;
@@ -114,7 +114,7 @@ html {
 }
 
 @media (max-width: 1199.98px) {
-    /*TODO hide sidebars on small screens use JQuery*/
+
 }
 
 @media (min-width: 1200px) {
@@ -133,7 +133,7 @@ small {
 
 .error {
     color: red;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
 }
 
 /*CSS Style rewrite*/

@@ -5,7 +5,6 @@ import {NavbarModule} from "./components/navbar/navbar.module";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {EnvironmentUrlService} from "./services/environment-url.service";
 import {HttpRepositoryService} from "./services/http-repository.service";
-import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -13,8 +12,7 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   imports: [
     CommonModule,
-    NavbarModule,
-    HttpClientModule
+    NavbarModule
   ],
   exports:[FooterComponent, NavbarComponent]
 })

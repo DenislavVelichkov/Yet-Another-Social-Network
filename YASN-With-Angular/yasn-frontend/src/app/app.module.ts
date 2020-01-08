@@ -4,26 +4,25 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IndexModule} from './components/index/index.module';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SharedModule} from "./shared/shared.module";
 import {AuthService} from "./core/services/auth.service";
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
-import {HomeComponent} from './components/home/home.component';
-import {NewsFeedComponent} from "./components/home/news-feed/news-feed.component";
 import {CookieService} from "ngx-cookie-service";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import {HomeModule} from "./components/home/home.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    NewsFeedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     SharedModule.forRoot(),
-    IndexModule.forRoot()
+    IndexModule.forRoot(),
+    HomeModule
   ],
   providers: [
     AuthService,

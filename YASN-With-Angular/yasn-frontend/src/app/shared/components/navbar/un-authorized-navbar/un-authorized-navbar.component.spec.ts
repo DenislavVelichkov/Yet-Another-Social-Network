@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UnAuthorizedNavbarComponent } from './un-authorized-navbar.component';
+import {UnAuthorizedNavbarComponent} from './un-authorized-navbar.component';
 
 describe('UnAuthorizedNavbarComponent', () => {
   let component: UnAuthorizedNavbarComponent;
