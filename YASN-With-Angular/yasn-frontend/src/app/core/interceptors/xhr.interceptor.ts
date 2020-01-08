@@ -6,9 +6,13 @@ import {Observable} from "rxjs";
 export class XhrInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let xhr = req.clone(
-      {headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')}
-    );
+
+    let xhr = req.clone({
+        setHeaders: {
+          'Access-Control-Allow-Origin': ['http://localhost:8000', 'http://localhost:4200'],
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      });
 
     return next.handle(xhr);
   }

@@ -2,7 +2,6 @@ package org.yasn.web.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -16,6 +15,7 @@ import org.yasn.data.models.service.user.UserServiceModel;
 import org.yasn.services.user.UserService;
 import org.yasn.validation.user.UserRegisterValidator;
 import org.yasn.web.models.binding.UserRegisterBindingModel;
+import org.yasn.web.models.binding.UserSendCredentials;
 
 @RestController
 @RequestMapping("/user")
@@ -28,16 +28,18 @@ public class UserController extends BaseController {
   private final UserRegisterValidator userRegisterValidator;
 
   @GetMapping(value = "/principal", produces = "application/json")
-  public ResponseEntity<?> user(Principal user) {
-    UserServiceModel userDetails =
+  public ResponseEntity<?> user(Principal user, HttpSession session) {
+
+    UserServiceModel userModel =
         this.userService.findUserByUsername(user.getName());
+    UserSendCredentials credentials =
+        this.modelMapper.map(userModel, UserSendCredentials.class);
+    this.modelMapper.validate();
 
-    return ResponseEntity.ok(userDetails);
-  }
+    credentials.setSessionId(session.getId());
+    credentials.setUserProfileId(userModel.getId());
 
-  @GetMapping(value = "/token", produces = "application/json")
-  public ResponseEntity<?> token(HttpSession session) {
-    return ResponseEntity.ok(Collections.singletonMap("token", session.getId()));
+    return ResponseEntity.ok(credentials);
   }
 
   @PostMapping("/register")

@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.yasn.web.filters.CustomCsrfFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -21,7 +19,6 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
     http
         .httpBasic()
         .and()
@@ -30,7 +27,6 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .csrf().ignoringAntMatchers(CSRF_IGNORE)
         .csrfTokenRepository(this.csrfTokenRepository)
         .and()
-        .addFilterAfter(new CustomCsrfFilter(), CsrfFilter.class)
         .authorizeRequests()
         .antMatchers("../resources/**").permitAll()
         .antMatchers("/index.html", "/user/register", "/user/login").anonymous()
@@ -41,11 +37,12 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .usernameParameter("email")
         .passwordParameter("password")
         .and()
+        .sessionManagement()
+        .and()
         .logout()
-        .permitAll()
         .deleteCookies("JSESSIONID")
+        .permitAll()
         .and()
         .exceptionHandling();
-
   }
 }

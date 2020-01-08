@@ -1,19 +1,20 @@
-package org.yasn.data.models.service.user;
+package org.yasn.web.models.binding;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.yasn.data.models.service.BaseServiceModel;
+import org.yasn.data.models.service.user.RoleServiceModel;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserServiceModel extends BaseServiceModel {
-
+@AllArgsConstructor
+public class UserSendCredentials {
   private String username;
   private String firstName;
   private String lastName;
@@ -24,5 +25,7 @@ public class UserServiceModel extends BaseServiceModel {
   private boolean isActive;
   private Timestamp createdOn;
   private Set<RoleServiceModel> authorities;
-  private UserProfileServiceModel userProfile;
+  private String userProfileId;
+  private String sessionId;
+  private String xsrfToken;
 }

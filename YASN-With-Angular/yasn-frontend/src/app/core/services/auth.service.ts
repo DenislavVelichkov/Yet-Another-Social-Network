@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../shared/services/http-repository.service";
 import {UserLoginBindingModel} from "../../shared/models/user/UserLoginBindingModel";
 import {HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {ActiveUser} from "../../shared/models/user/ActiveUser";
 import {User} from "../../shared/models/user/User";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
   public userCredentials: string;
 
   constructor(private httpRepo: HttpRepositoryService,
+              private cookieService: CookieService,
               private router: Router) {
 
     this.currentUserSubject = new BehaviorSubject(
@@ -27,7 +29,9 @@ export class AuthService {
     this.userCredentials =
       btoa(formCredentials.email + ':' + formCredentials.password);
     const formHeader =
-      new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+      new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      });
     const credentialsHeader = new HttpHeaders(formCredentials ?
       {
         Authorization: 'Basic ' + this.userCredentials
@@ -50,8 +54,8 @@ export class AuthService {
 
           return user;
         }, error => {
-          console.log(error);
-          this.router.navigate(['/']);
+            this.router.navigate(['/']);
+            throwError(error)
         }
       );
   }
@@ -66,4 +70,21 @@ export class AuthService {
   public get currentUserInfo(): User {
     return this.currentUserSubject.value;
   }
+
+  /*getXsrfToken(name: string): string {
+    const csrfCookie = this.cookieService.get(name);
+    console.log(csrfCookie);
+    if (!csrfCookie) {
+      return null;
+    }
+    const cookie = csrfCookie.split(';')
+      .map(c => c.trim())
+      .filter(c => c.startsWith(name + '='));
+
+    if (cookie.length === 0) {
+      return null;
+    }
+
+    return decodeURIComponent(cookie[0].split('=')[1]);
+  }*/
 }

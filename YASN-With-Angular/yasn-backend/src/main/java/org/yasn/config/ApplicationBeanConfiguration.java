@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,9 +21,9 @@ import org.yasn.utils.FileUtil;
 import org.yasn.utils.FileUtilImpl;
 import org.yasn.utils.TimeUtil;
 import org.yasn.utils.TimeUtilImpl;
-import org.yasn.web.filters.CustomCsrfFilter;
 import org.yasn.web.models.binding.PostCommentBindingModel;
 import org.yasn.web.models.binding.UserRegisterBindingModel;
+import org.yasn.web.models.binding.UserSendCredentials;
 import org.yasn.web.models.binding.WallPostBindingModel;
 
 @Configuration
@@ -66,6 +66,11 @@ public class ApplicationBeanConfiguration {
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setCreatedOn))
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setCommentOwner));
 
+    modelMapper.createTypeMap(UserServiceModel.class, UserSendCredentials.class)
+               .addMappings(mapper -> mapper.skip(UserSendCredentials::setSessionId))
+               .addMappings(mapper -> mapper.skip(UserSendCredentials::setUserProfileId))
+               .addMappings(mapper -> mapper.skip(UserSendCredentials::setXsrfToken));
+
   }
 
   @Bean
@@ -98,18 +103,22 @@ public class ApplicationBeanConfiguration {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
     corsConfiguration.addAllowedMethod(HttpMethod.PUT);
+    corsConfiguration.addAllowedMethod(HttpMethod.GET);
     corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+    corsConfiguration.addAllowedMethod(HttpMethod.PATCH);
+    corsConfiguration.addAllowedMethod(HttpMethod.POST);
     corsConfiguration.addExposedHeader(
         "Authorization," +
-        " x-xsrf-token," +
-        " x-auth-token," +
-        " Access-Control-Allow-Headers," +
-        " Origin," +
-        " Accept," +
-        " X-Requested-With," +
-        " Content-Type," +
-        " Access-Control-Request-Method," +
-        " Custom-Filter-Header");
+            " X-XSRF-TOKEN," +
+            " X-Auth-Token," +
+            " Access-Control-Allow-Headers," +
+            " Origin," +
+            " Accept," +
+            " X-Requested-With," +
+            " Content-Type," +
+            " Access-Control-Request-Method," +
+            " Custom-Filter-Header");
+    corsConfiguration.setAllowCredentials(true);
     source.registerCorsConfiguration("/**", corsConfiguration);
 
     return source;
@@ -117,9 +126,10 @@ public class ApplicationBeanConfiguration {
 
   @Bean
   public CsrfTokenRepository csrfTokenRepository() {
-    HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-    repository.setHeaderName(CustomCsrfFilter.CSRF_COOKIE_NAME);
-    return repository;
+    CookieCsrfTokenRepository tokenRepository =
+        CookieCsrfTokenRepository.withHttpOnlyFalse();
+    tokenRepository.setCookiePath("/");
+    return tokenRepository;
   }
 
 }

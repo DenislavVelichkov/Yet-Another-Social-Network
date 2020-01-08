@@ -11,4 +11,6 @@ export class User {
   createdOn: string;
   authorities: [];
   authData?: string;
+  sessionId?: string;
+  xsrfToken?: string;
 }

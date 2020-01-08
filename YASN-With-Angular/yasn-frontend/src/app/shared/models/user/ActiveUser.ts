@@ -11,4 +11,6 @@ export interface ActiveUser {
   createdOn: string;
   authorities: [];
   authData?: string;
+  sessionId?: string;
+  xsrfToken?: string;
 }
