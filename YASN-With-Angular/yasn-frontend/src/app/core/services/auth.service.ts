@@ -2,21 +2,32 @@ import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../shared/services/http-repository.service";
 import {UserLoginBindingModel} from "../../shared/models/user/UserLoginBindingModel";
 import {HttpHeaders} from "@angular/common/http";
+import {BehaviorSubject, Observable} from "rxjs";
+import {Router} from "@angular/router";
+import {ActiveUser} from "../../shared/models/user/ActiveUser";
+import {User} from "../../shared/models/user/User";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  public isAuthenticated: boolean;
-  public loggedInUser: any;
+
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<ActiveUser>;
   public userCredentials: string;
 
-  constructor(private httpRepo: HttpRepositoryService) {
-    this.isAuthenticated = false;
+  constructor(private httpRepo: HttpRepositoryService,
+              private router: Router) {
+
+    this.currentUserSubject = new BehaviorSubject(
+      JSON.parse(localStorage.getItem('activeUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
     const formCredentials = {email: userModel.email, password: userModel.password};
-    this.userCredentials = btoa(formCredentials.email + ':' + formCredentials.password);
-    const formHeader = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    this.userCredentials =
+      btoa(formCredentials.email + ':' + formCredentials.password);
+    const formHeader =
+      new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     const credentialsHeader = new HttpHeaders(formCredentials ?
       {
         Authorization: 'Basic ' + this.userCredentials
@@ -30,23 +41,29 @@ export class AuthService {
       {headers: formHeader})
       .subscribe();
 
-    this.httpRepo.getData("/user/principal", credentialsHeader)
-      .subscribe(value => {
-        if (value !== null) {
-          this.loggedInUser = value;
+    this.httpRepo.getActiveUser("/user/principal", credentialsHeader)
+      .subscribe(user => {
+          user.authData = this.userCredentials;
+          localStorage.setItem('activeUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          this.router.navigate(['/home']);
 
-          this.isAuthenticated = true;
+          return user;
+        }, error => {
+          console.log(error);
+          this.router.navigate(['/']);
         }
-      }, error => {
-        console.log(error);
-      });
+      );
   }
 
   logout() {
     this.httpRepo.create("/logout", {}).subscribe();
+    localStorage.removeItem('activeUser');
+    this.currentUserSubject.next(null);
+    this.router.navigate(['/']);
   }
 
-  getAuthData(): string {
-    return `${this.userCredentials}`
+  public get currentUserInfo(): User {
+    return this.currentUserSubject.value;
   }
 }

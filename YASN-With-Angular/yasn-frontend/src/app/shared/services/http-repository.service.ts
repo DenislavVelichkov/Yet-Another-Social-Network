@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
 import {Observable} from "rxjs";
+import {ActiveUser} from "../models/user/ActiveUser";
 
 @Injectable()
 export class HttpRepositoryService {
@@ -11,6 +12,13 @@ export class HttpRepositoryService {
   public getData(route: string, headers): Observable<Object> {
 
     return this.http.get(this.createCompleteRoute(
+      route,
+      this.envUrl.apiEndPointAddress), {headers: headers});
+  }
+
+  public getActiveUser(route: string, headers): Observable<ActiveUser> {
+
+    return this.http.get<ActiveUser>(this.createCompleteRoute(
       route,
       this.envUrl.apiEndPointAddress), {headers: headers});
   }

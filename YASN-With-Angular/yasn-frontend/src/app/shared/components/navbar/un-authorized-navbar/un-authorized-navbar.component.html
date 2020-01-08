@@ -32,13 +32,12 @@
                     <input class="form-control navbar-login-form-field" id="loginPassword" name="password"
                         placeholder="Password..." type="password"
                            required
-                           #password="ngModel"
                            [(ngModel)]="userLoginBindingModel.password">
 
                 </div>
 
                 <div class="navbar-login-form-btn-container">
-                    <button class="btn btn-success btn-lg" [disabled]="loginForm.invalid" id="navbar-login-btn" type="submit">
+                    <button class="btn btn-success btn-lg" id="navbar-login-btn" type="submit">
                         Log In
                     </button>
                 </div>

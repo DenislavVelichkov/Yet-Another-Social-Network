@@ -12,12 +12,10 @@ import {AuthService} from "../../../../core/services/auth.service";
 export class UnAuthorizedNavbarComponent implements OnInit {
 
   private userLoginBindingModel: UserLoginBindingModel;
-  private isUserLoggedIn: boolean;
 
   constructor(private auth: AuthService,
               private router: Router,
               private title: Title) {
-    this.isUserLoggedIn = false;
   }
 
   ngOnInit() {
@@ -27,17 +25,5 @@ export class UnAuthorizedNavbarComponent implements OnInit {
 
   onSubmit() {
     this.auth.loginUser(this.userLoginBindingModel);
-
-    this.isUserLoggedIn = this.auth.isAuthenticated;
-
-      if (!this.isUserLoggedIn) {
-
-        this.router.navigate(['/']);
-      } else {
-
-        this.router.navigate(['/home']);
-      }
-
   }
-
 }

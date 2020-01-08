@@ -9,13 +9,13 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const currentUser = this.auth.loggedInUser;
+    const currentUser = this.auth.currentUserInfo;
 
-    if (currentUser && this.auth.getAuthData()) {
+    if (currentUser && currentUser.authData) {
       request = request.clone({
         setHeaders:
           {
-            Authorization: `Basic ${this.auth.getAuthData()}`
+            Authorization: `Basic ${currentUser.authData}`
           }
       });
     }
