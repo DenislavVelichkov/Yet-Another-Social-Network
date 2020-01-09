@@ -24,7 +24,6 @@ export class XhrInterceptor implements HttpInterceptor {
 
     let xhr = req.clone({
       setHeaders: {
-        'Access-Control-Allow-Origin': 'http://localhost:8000',
         'X-Requested-With': 'XMLHttpRequest',
       },
       withCredentials: true

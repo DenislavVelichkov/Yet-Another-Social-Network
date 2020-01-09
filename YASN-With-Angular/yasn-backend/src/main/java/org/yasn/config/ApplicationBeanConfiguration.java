@@ -1,5 +1,6 @@
 package org.yasn.config;
 
+import java.util.Arrays;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -8,8 +9,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -109,23 +108,12 @@ public class ApplicationBeanConfiguration {
             " Accept," +
             " X-Requested-With," +
             " Content-Type," +
-            " Access-Control-Request-Method," +
-            " Custom-Filter-Header");
+            " Access-Control-Request-Method,");
     corsConfiguration.setAllowCredentials(true);
+    corsConfiguration.setAllowedOrigins(
+        Arrays.asList("http://localhost:4200", "http://localhost:8000"));
     source.registerCorsConfiguration("/**", corsConfiguration);
 
     return source;
   }
-
-  @Bean
-  public CsrfTokenRepository csrfTokenRepository() {
-    CookieCsrfTokenRepository tokenRepository =
-        CookieCsrfTokenRepository.withHttpOnlyFalse();
-    tokenRepository.setCookiePath("/");
-    tokenRepository.setHeaderName("X-XSRF-TOKEN");
-    tokenRepository.setCookieName("XSRF-TOKEN");
-    tokenRepository.setCookieHttpOnly(true);
-    return tokenRepository;
-  }
-
 }
