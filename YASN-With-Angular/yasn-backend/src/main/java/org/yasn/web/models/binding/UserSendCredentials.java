@@ -26,6 +26,4 @@ public class UserSendCredentials {
   private Timestamp createdOn;
   private Set<RoleServiceModel> authorities;
   private String userProfileId;
-  private String sessionId;
-  private String xsrfToken;
 }

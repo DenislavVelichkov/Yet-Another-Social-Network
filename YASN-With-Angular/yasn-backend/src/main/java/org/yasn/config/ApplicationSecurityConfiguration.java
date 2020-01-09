@@ -13,7 +13,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 @AllArgsConstructor
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  private static final String[] CSRF_IGNORE = {"/user/login/**", "/user/register/**"};
+  private static final String[] CSRF_IGNORE = {
+      "/user/login/**", "/user/register/**", "/logout", "http://localhost:8000/login?error"};
   private final CorsConfigurationSource corsConfigurationSource;
   private final CsrfTokenRepository csrfTokenRepository;
 
@@ -24,7 +25,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .and()
         .cors().configurationSource(this.corsConfigurationSource)
         .and()
-        .csrf().ignoringAntMatchers(CSRF_IGNORE)
+        .csrf()
         .csrfTokenRepository(this.csrfTokenRepository)
         .and()
         .authorizeRequests()
@@ -37,12 +38,11 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .usernameParameter("email")
         .passwordParameter("password")
         .and()
-        .sessionManagement()
-        .and()
         .logout()
-        .deleteCookies("JSESSIONID")
         .permitAll()
+        .deleteCookies("JSESSIONID")
         .and()
-        .exceptionHandling();
+        .sessionManagement()
+        .maximumSessions(1);
   }
 }

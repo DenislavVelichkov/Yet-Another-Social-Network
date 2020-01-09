@@ -36,7 +36,6 @@ public class UserController extends BaseController {
         this.modelMapper.map(userModel, UserSendCredentials.class);
     this.modelMapper.validate();
 
-    credentials.setSessionId(session.getId());
     credentials.setUserProfileId(userModel.getId());
 
     return ResponseEntity.ok(credentials);

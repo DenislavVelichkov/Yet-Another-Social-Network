@@ -61,30 +61,14 @@ export class AuthService {
   }
 
   logout() {
-    this.httpRepo.create("/logout", {}).subscribe();
+
     localStorage.removeItem('activeUser');
     this.currentUserSubject.next(null);
+    this.cookieService.deleteAll();
     this.router.navigate(['/']);
   }
 
   public get currentUserInfo(): User {
     return this.currentUserSubject.value;
   }
-
-  /*getXsrfToken(name: string): string {
-    const csrfCookie = this.cookieService.get(name);
-    console.log(csrfCookie);
-    if (!csrfCookie) {
-      return null;
-    }
-    const cookie = csrfCookie.split(';')
-      .map(c => c.trim())
-      .filter(c => c.startsWith(name + '='));
-
-    if (cookie.length === 0) {
-      return null;
-    }
-
-    return decodeURIComponent(cookie[0].split('=')[1]);
-  }*/
 }

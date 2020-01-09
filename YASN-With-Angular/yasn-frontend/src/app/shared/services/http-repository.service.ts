@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
 import {Observable} from "rxjs";
 import {ActiveUser} from "../models/user/ActiveUser";
@@ -7,7 +7,8 @@ import {ActiveUser} from "../models/user/ActiveUser";
 @Injectable()
 export class HttpRepositoryService {
 
-  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
+  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) {
+  }
 
   public getData(route: string, headers): Observable<Object> {
 
@@ -23,13 +24,13 @@ export class HttpRepositoryService {
       this.envUrl.apiEndPointAddress), {headers: headers});
   }
 
-  public create(route: string, body): Observable<Object> {
+  public create(route: string, body, headers): Observable<Object> {
     return this.http.post(
       this.createCompleteRoute(
         route,
         this.envUrl.apiEndPointAddress),
       body,
-      this.generateHeaders(body));
+      {headers});
   }
 
   public loginRequest(route: string, body, headers): Observable<Object> {
@@ -38,16 +39,16 @@ export class HttpRepositoryService {
         route,
         this.envUrl.apiEndPointAddress),
       body,
-      {headers, responseType: "text", withCredentials: true, observe:"response"});
+      {headers, observe: "response"});
   }
 
-  public update(route: string, body): Observable<Object> {
+  public update(route: string, body, headers): Observable<Object> {
     return this.http.put(
       this.createCompleteRoute(
         route,
         this.envUrl.apiEndPointAddress),
       body,
-      this.generateHeaders(body));
+      {headers});
   }
 
   public delete(route: string): Observable<Object> {
@@ -59,21 +60,5 @@ export class HttpRepositoryService {
 
   private createCompleteRoute(route: string, envAddress: string) {
     return `${envAddress}${route}`;
-  }
-
-  private generateHeaders(body) {
-    if (body instanceof FormData) {
-      return;
-    }
-
-    const headers = [
-      {
-        'Content-Type': 'application/json'
-      },
-    ];
-
-    return {
-      headers: new HttpHeaders(...headers)
-    };
   }
 }

@@ -11,47 +11,36 @@ import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 import {CookieService} from "ngx-cookie-service";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {HomeModule} from "./components/home/home.module";
-import {SessionInterceptor} from "./core/interceptors/session.interceptor";
+import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientXsrfModule.withOptions(),
+    HttpClientXsrfModule.withOptions(
+      {
+        headerName: 'X-XSRF-TOKEN',
+        cookieName: 'XSRF-TOKEN'
+      }),
     SharedModule.forRoot(),
     IndexModule.forRoot(),
     HomeModule
   ],
+
   providers: [
     AuthService,
     CookieService,
-    {
-      provide:HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: XhrInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: SessionInterceptor,
-      multi: true
-    },
-   /* {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    }*/
-
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
-  bootstrap: [AppComponent]
+
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

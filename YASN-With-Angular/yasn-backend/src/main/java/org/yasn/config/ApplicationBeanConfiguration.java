@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -67,9 +66,7 @@ public class ApplicationBeanConfiguration {
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setCommentOwner));
 
     modelMapper.createTypeMap(UserServiceModel.class, UserSendCredentials.class)
-               .addMappings(mapper -> mapper.skip(UserSendCredentials::setSessionId))
-               .addMappings(mapper -> mapper.skip(UserSendCredentials::setUserProfileId))
-               .addMappings(mapper -> mapper.skip(UserSendCredentials::setXsrfToken));
+               .addMappings(mapper -> mapper.skip(UserSendCredentials::setUserProfileId));
 
   }
 
@@ -101,12 +98,8 @@ public class ApplicationBeanConfiguration {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-    corsConfiguration.addAllowedMethod(HttpMethod.PUT);
-    corsConfiguration.addAllowedMethod(HttpMethod.GET);
-    corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
-    corsConfiguration.addAllowedMethod(HttpMethod.PATCH);
-    corsConfiguration.addAllowedMethod(HttpMethod.POST);
+    CorsConfiguration corsConfiguration =
+        new CorsConfiguration().applyPermitDefaultValues();
     corsConfiguration.addExposedHeader(
         "Authorization," +
             " X-XSRF-TOKEN," +
@@ -129,6 +122,9 @@ public class ApplicationBeanConfiguration {
     CookieCsrfTokenRepository tokenRepository =
         CookieCsrfTokenRepository.withHttpOnlyFalse();
     tokenRepository.setCookiePath("/");
+    tokenRepository.setHeaderName("X-XSRF-TOKEN");
+    tokenRepository.setCookieName("XSRF-TOKEN");
+    tokenRepository.setCookieHttpOnly(true);
     return tokenRepository;
   }
 
