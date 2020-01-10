@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../shared/services/http-repository.service";
 import {UserLoginBindingModel} from "../../shared/models/user/UserLoginBindingModel";
-import {HttpXsrfTokenExtractor} from "@angular/common/http";
 import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {ActiveUser} from "../../shared/models/user/ActiveUser";
@@ -17,8 +16,7 @@ export class AuthService {
 
   constructor(private httpRepo: HttpRepositoryService,
               private cookieService: CookieService,
-              private router: Router,
-              private tokenExtractor: HttpXsrfTokenExtractor) {
+              private router: Router) {
 
     this.currentUserSubject = new BehaviorSubject(
       JSON.parse(localStorage.getItem('activeUser')));
@@ -26,7 +24,8 @@ export class AuthService {
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
-    const formCredentials = {email: userModel.email, password: userModel.password};
+    const formCredentials =
+      {email: userModel.email, password: userModel.password};
     this.userCredentials =
       window.btoa(formCredentials.email + ':' + formCredentials.password);
 

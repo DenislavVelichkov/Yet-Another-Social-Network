@@ -31,6 +31,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .usernameParameter("email")
         .passwordParameter("password")
         .loginProcessingUrl("/user/login")
+        .successForwardUrl("http://localhost:4200/home")
         .and()
         .httpBasic()
         .and()

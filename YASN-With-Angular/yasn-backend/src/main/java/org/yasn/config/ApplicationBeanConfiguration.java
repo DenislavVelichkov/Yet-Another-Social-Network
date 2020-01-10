@@ -101,14 +101,8 @@ public class ApplicationBeanConfiguration {
         new CorsConfiguration().applyPermitDefaultValues();
     corsConfiguration.addExposedHeader(
         "Authorization," +
-            " X-XSRF-TOKEN," +
             " X-Auth-Token," +
-            " Access-Control-Allow-Headers," +
-            " Origin," +
-            " Accept," +
-            " X-Requested-With," +
-            " Content-Type," +
-            " Access-Control-Request-Method,");
+            " X-Requested-With,");
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.setAllowedOrigins(
         Arrays.asList("http://localhost:4200", "http://localhost:8000"));
