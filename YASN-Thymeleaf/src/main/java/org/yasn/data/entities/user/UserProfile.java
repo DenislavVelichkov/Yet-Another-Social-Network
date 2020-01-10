@@ -19,7 +19,15 @@ import org.yasn.data.entities.wall.WallPost;
 public class UserProfile extends BaseEntity {
 
   @OneToMany(
+<<<<<<< HEAD
+<<<<<<< HEAD:YASN-Thymeleaf/src/main/java/org/yasn/data/entities/user/UserProfile.java
       fetch = FetchType.EAGER,
+=======
+      fetch = FetchType.LAZY,
+>>>>>>> experimental:YASN-With-Angular/yasn-backend/src/main/java/org/yasn/data/entities/user/UserProfile.java
+=======
+      fetch = FetchType.EAGER,
+>>>>>>> experimental
       targetEntity = Notification.class,
       mappedBy = "recipient",
       cascade = CascadeType.ALL,
@@ -43,21 +51,45 @@ public class UserProfile extends BaseEntity {
   private String coverPicture;
 
   @OneToMany(
+<<<<<<< HEAD
+<<<<<<< HEAD:YASN-Thymeleaf/src/main/java/org/yasn/data/entities/user/UserProfile.java
       fetch = FetchType.EAGER,
+=======
+      fetch = FetchType.LAZY,
+>>>>>>> experimental:YASN-With-Angular/yasn-backend/src/main/java/org/yasn/data/entities/user/UserProfile.java
+=======
+      fetch = FetchType.EAGER,
+>>>>>>> experimental
       targetEntity = WallPost.class,
       mappedBy = "postOwner",
       cascade = CascadeType.ALL)
   private Set<WallPost> wallPosts;
 
   @OneToMany(
+<<<<<<< HEAD
+<<<<<<< HEAD:YASN-Thymeleaf/src/main/java/org/yasn/data/entities/user/UserProfile.java
       fetch = FetchType.EAGER,
+=======
+      fetch = FetchType.LAZY,
+>>>>>>> experimental:YASN-With-Angular/yasn-backend/src/main/java/org/yasn/data/entities/user/UserProfile.java
+=======
+      fetch = FetchType.EAGER,
+>>>>>>> experimental
       targetEntity = PostComment.class,
       mappedBy = "commentOwner",
       cascade = CascadeType.ALL)
   private Set<PostComment> postComments;
 
   @ManyToMany(
+<<<<<<< HEAD
+<<<<<<< HEAD:YASN-Thymeleaf/src/main/java/org/yasn/data/entities/user/UserProfile.java
       fetch = FetchType.EAGER,
+=======
+      fetch = FetchType.LAZY,
+>>>>>>> experimental:YASN-With-Angular/yasn-backend/src/main/java/org/yasn/data/entities/user/UserProfile.java
+=======
+      fetch = FetchType.EAGER,
+>>>>>>> experimental
       cascade = CascadeType.PERSIST
   )
   @JoinTable(
