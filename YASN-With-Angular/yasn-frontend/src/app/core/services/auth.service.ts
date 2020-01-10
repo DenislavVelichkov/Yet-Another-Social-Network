@@ -7,7 +7,7 @@ import {ActiveUser} from "../../shared/models/user/ActiveUser";
 import {User} from "../../shared/models/user/User";
 import {CookieService} from "ngx-cookie-service";
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User>;
@@ -33,21 +33,23 @@ export class AuthService {
     params.append('email', `${userModel.email}`);
     params.append('password', `${userModel.password}`);
 
-    this.httpRepo.loginRequest("/user/login", params).subscribe();
+    this.httpRepo.loginRequest("/user/login", params)
+      .subscribe(() => {
+          this.httpRepo.getActiveUser("/user/principal")
+            .subscribe(user => {
+                user.authData = this.userCredentials;
+                localStorage.setItem('activeUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+                this.router.navigate(['/home']);
 
-    this.httpRepo.getActiveUser("/user/principal")
-      .subscribe(user => {
-          user.authData = this.userCredentials;
-          localStorage.setItem('activeUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          this.router.navigate(['/home']);
-
-          return user;
-        }, error => {
-            this.router.navigate(['/']);
-            throwError(error)
-        }
-      );
+                return user;
+              }, error => {
+                this.router.navigate(['/']);
+                throwError(error)
+              }
+            );
+        },
+        error => throwError(error));
   }
 
   logout() {

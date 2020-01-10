@@ -5,10 +5,12 @@ import {NavbarModule} from "./components/navbar/navbar.module";
 import {NavbarComponent} from "./components/navbar/navbar.component";
 import {EnvironmentUrlService} from "./services/environment-url.service";
 import {HttpRepositoryService} from "./services/http-repository.service";
+import {ErrorComponent} from './components/error/error.component';
 
 @NgModule({
   declarations: [
-    FooterComponent
+    FooterComponent,
+    ErrorComponent
   ],
   imports: [
     CommonModule,

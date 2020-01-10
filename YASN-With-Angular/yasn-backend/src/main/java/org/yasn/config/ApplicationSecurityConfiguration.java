@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.yasn.validation.handlers.AuthSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -14,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private final CorsConfigurationSource corsConfigurationSource;
+  private final AuthSuccessHandler authSuccessHandler;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -31,10 +33,11 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .usernameParameter("email")
         .passwordParameter("password")
         .loginProcessingUrl("/user/login")
-        .successForwardUrl("http://localhost:4200/home")
+        .successHandler(this.authSuccessHandler)
         .and()
         .httpBasic()
         .and()
-        .logout().permitAll();
+        .logout().permitAll()
+        .deleteCookies("JSESSIONID");
   }
 }

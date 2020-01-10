@@ -3,11 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {IndexComponent} from "./components/index/index.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./core/guards/auth.guard";
+import {ErrorComponent} from "./shared/components/error/error.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: IndexComponent},
   { path: "user/login", component:IndexComponent},
   { path: "home", canActivate: [AuthGuard], component:HomeComponent},
+  { path: "error", component:ErrorComponent},
 ];
 
 @NgModule({

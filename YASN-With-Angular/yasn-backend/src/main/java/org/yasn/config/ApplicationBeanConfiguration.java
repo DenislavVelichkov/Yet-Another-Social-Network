@@ -110,4 +110,5 @@ public class ApplicationBeanConfiguration {
 
     return source;
   }
+
 }
