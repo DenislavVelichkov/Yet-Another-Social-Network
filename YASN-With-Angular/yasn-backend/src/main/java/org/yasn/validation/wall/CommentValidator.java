@@ -1,0 +1,29 @@
+package org.yasn.validation.wall;
+
+import org.springframework.validation.Errors;
+import org.yasn.validation.ValidationConstants;
+import org.yasn.validation.Validator;
+import org.yasn.web.models.binding.PostCommentBindingModel;
+
+@Validator
+public class CommentValidator implements org.springframework.validation.Validator {
+
+  @Override
+  public boolean supports(Class<?> aClass) {
+    return PostCommentBindingModel.class.equals(aClass);
+  }
+
+  @Override
+  public void validate(Object o, Errors errors) {
+    PostCommentBindingModel commentBind = (PostCommentBindingModel) o;
+
+    if (commentBind.getCommentContent().isEmpty()) {
+
+      errors.rejectValue(
+          "commentContent",
+          ValidationConstants.COMMENT_IS_EMPTY,
+          ValidationConstants.COMMENT_IS_EMPTY);
+    }
+
+  }
+}

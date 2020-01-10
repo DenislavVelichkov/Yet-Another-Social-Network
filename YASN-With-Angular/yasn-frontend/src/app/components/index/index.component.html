@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6 text-center">
+    <div class="title-container">
+      <h1>
+        Welcome to Yet Another Social Network ™!
+        <small class="h5 text-muted">
+          Log In or Sign Up if you don't have an account.
+        </small>
+      </h1>
+    </div>
+    <div>
+      <img alt="yasn-logo" class="img-fluid"
+           src="https://res.cloudinary.com/yet-another-social-network/image/upload/v1569503375/yet-another-social-network/planet_owbtas.png">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <app-user-register *ngIf="!_showLoginPage"></app-user-register>
+    <app-user-login *ngIf="_showLoginPage"></app-user-login>
+  </div>
+</div>

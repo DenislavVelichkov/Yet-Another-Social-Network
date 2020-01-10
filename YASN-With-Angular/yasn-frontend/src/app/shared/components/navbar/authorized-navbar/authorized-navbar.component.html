@@ -1,0 +1,83 @@
+ <div class="row" id="yasn-home-header-container">
+    <div class="col-xl-3 col-md-4 col-sm-2" id="header-left">
+
+    </div>
+    <div class="col-xl-6 col-md-4 col-sm-8">
+        <nav>
+            <div class="navbar-avatar-container float-left">
+                <img src="" alt="no-profile-picture" id="avatar-picture"/>
+                <a href="">
+                    <span id="avatar-name"></span>
+                </a>
+            </div>
+            <div class="navbar-menu-right nav-tabs float-right">
+                <ul>
+                    <li>
+                        <a class="yasn-home" style="color: #212529" routerLink="home">
+                            <span>
+                                <i class="fas fa-home"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="yasn-search">
+                            <span>
+                                <i class="fab fa-searchengin"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="yasn-notification-friends">
+                            <span>
+                                <i class="fa fa-users"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="yasn-notification-messages">
+                            <span>
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="yasn-notifications" data-target="#" data-toggle="dropdown" role="button">
+                            <div class="notification-icons-container">
+                                <i class="fas fa-bell"></i>
+
+                            </div>
+                            <div class="dropdown-menu multi-level" id="yasn-notifications-content" role="menu">
+
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navbar-dropdown-menu">
+                        <div class="dropdown">
+                            <a data-target="#" data-toggle="dropdown" role="button">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu multi-level" role="menu">
+                                <li>
+                                    <a href="">Admin Panel</a>
+                                </li>
+                                <li>
+                                    <a href="">Profile Settings</a>
+                                </li>
+                                <li>
+                                    <div (click)="logout()">
+                                        <i class="fa fa-sign-out-alt">
+                                          <span>Logout</span>
+                                        </i>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="col-xl-3 col-md-4 col-sm-2" id="header-right">
+
+    </div>
+</div>
