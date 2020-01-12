@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpRepositoryService} from "../../../shared/services/http-repository.service";
+import {HttpRepositoryService} from "../../http/http-repository.service";
 
 @Injectable()
 export class UserService {

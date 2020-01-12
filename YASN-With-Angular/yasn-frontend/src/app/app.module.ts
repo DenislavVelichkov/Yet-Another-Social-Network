@@ -4,9 +4,9 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IndexModule} from './components/index/index.module';
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
-import {SharedModule} from "./shared/shared.module";
-import {AuthService} from "./core/services/auth.service";
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {CoreModule} from "./core/core.module";
+import {AuthService} from "./core/services/authentication/auth.service";
 import {XhrInterceptor} from "./core/interceptors/xhr.interceptor";
 import {CookieService} from "ngx-cookie-service";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
@@ -16,19 +16,13 @@ import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientXsrfModule.withOptions(
-      {
-        headerName: 'X-XSRF-TOKEN',
-        cookieName: 'XSRF-TOKEN'
-      }),
-    SharedModule.forRoot(),
+    CoreModule.forRoot(),
     IndexModule.forRoot(),
     HomeModule
   ],
