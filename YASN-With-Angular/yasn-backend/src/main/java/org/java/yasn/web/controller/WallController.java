@@ -15,15 +15,15 @@ import org.java.yasn.validation.wall.PostValidator;
 import org.java.yasn.web.models.binding.PostCommentBindingModel;
 import org.java.yasn.web.models.binding.WallPostBindingModel;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/home/wall")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/home/news-feed")
 @AllArgsConstructor
 public class WallController extends BaseController {
 
@@ -35,37 +35,22 @@ public class WallController extends BaseController {
   private final CommentValidator commentValidator;
 
   @PostMapping("/post")
-  public ModelAndView postOnWall(
-      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-      Principal activeUser,
-      BindingResult bindingResult) throws IOException {
-
-    this.postValidator.validate(wallPost, bindingResult);
-
-    if (bindingResult.hasErrors()) {
-      return super.redirect("/home");
-    }
+  public ResponseEntity<?> postOnNewsFeed(
+      @RequestPart(name = "post") WallPostBindingModel post,
+      @PathVariable(name = "profileOwnerId") String profileOwnerId) throws IOException {
 
     WallPostServiceModel wallPostServiceModel =
-        this.modelMapper.map(wallPost, WallPostServiceModel.class);
+        this.modelMapper.map(post, WallPostServiceModel.class);
+    this.modelMapper.validate();
 
-    if (!wallPost.getPostPicture().isEmpty()) {
-      wallPostServiceModel.setPostPicture(
-          this.cloudinaryService.uploadImage(wallPost.getPostPicture()));
-    } else {
-      wallPostServiceModel.setPostPicture(null);
-    }
+    this.wallService.createPost(
+        this.setDefaultModelAttributes(wallPostServiceModel, post), profileOwnerId);
 
-    if (wallPostServiceModel.getPostPrivacy() == null) {
-      wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
-    }
-
-    this.wallService.createPost(wallPostServiceModel, activeUser.getName());
-
-    return super.redirect("/home");
+    return ResponseEntity.ok(200);
   }
 
-  @PostMapping("/comment")
+
+  @PostMapping("/post/comment")
   public ModelAndView postCommentOnPost(
       @ModelAttribute(name = "postComment") PostCommentBindingModel postComment,
       @ModelAttribute(name = "postId") String postId,
@@ -92,5 +77,20 @@ public class WallController extends BaseController {
     this.postCommentService.postComment(postCommentServiceModel, activeUser, postId);
 
     return super.redirect("/home");
+  }
+
+  private WallPostServiceModel setDefaultModelAttributes(WallPostServiceModel wallPostServiceModel,
+                                                         WallPostBindingModel post) throws IOException {
+    if (!wallPostServiceModel.getPostPicture().isEmpty()) {
+      wallPostServiceModel.setPostPicture(
+          this.cloudinaryService.uploadImage(post.getPostPicture()));
+    } else {
+      wallPostServiceModel.setPostPicture(null);
+    }
+
+    if (wallPostServiceModel.getPostPrivacy() == null) {
+      wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
+    }
+    return wallPostServiceModel;
   }
 }

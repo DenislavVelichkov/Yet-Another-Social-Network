@@ -1,29 +1,30 @@
 <div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
                     <span>
-                        Create a PostsState
+                        Create a Post
                     </span>
 
-    <div class="yasn-post-attributes-container">
-      <form>
-        <label for="comment-text" id="post"></label>
-        <textarea id="comment-text"
-                  name="post"
-                  type="text">
+  <div class="yasn-post-attributes-container">
+    <form #post="ngForm" (ngSubmit)="createPost(post.value)">
+      <input style="display: none" value="${}" type="text" name="profileOwnerId" ngModel/>
+      <label for="comment-text" id="post"></label>
+      <textarea id="comment-text"
+                name="post"
+                type="text" ngModel>
         </textarea>
 
-        <div class="yasn-post-extra-tag">
+      <div class="yasn-post-extra-tag">
 
-        </div>
+      </div>
 
-        <div class="yasn-post-extra-location">
+      <div class="yasn-post-extra-location">
           <div class="input-group mb-3 mt-4">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Enter Location...</span>
             </div>
-            <input id="location" name="albumName"
-
+            <input id="location" name="location"
                    type="text" class="form-control"
-                   aria-describedby="inputGroup-sizing-default"/>
+                   aria-describedby="inputGroup-sizing-default"
+                   ngModel/>
           </div>
 
         </div>
@@ -66,7 +67,7 @@
               </ul>-->
             </li>
             <li>
-              <input class="post-submit-btn" type="submit" value="PostsState">
+              <button class="post-submit-btn" type="submit">POST</button>
             </li>
           </ul>
         </div>

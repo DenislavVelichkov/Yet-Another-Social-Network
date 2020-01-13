@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UserLoginBindingModel} from "../../../models/user/UserLoginBindingModel";
+import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
 import {Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {AuthService} from "../../../../core/services/auth.service";
+import {AuthService} from "../../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-un-authorized-navbar',

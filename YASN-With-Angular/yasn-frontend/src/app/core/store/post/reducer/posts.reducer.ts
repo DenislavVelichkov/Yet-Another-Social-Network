@@ -1,5 +1,5 @@
 import {PostsState} from "../state/posts.state";
-import * as PostsActions from "../actions/posts.actions";
+import * as PostsActions from "../actions/posts.action";
 
 const initialState: PostsState = {all: []};
 

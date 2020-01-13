@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
 import {Observable} from "rxjs";
-import {ActiveUser} from "../../shared/models/user/ActiveUser";
+import {ActiveUser} from "../store/authentication/ActiveUser";
 import {take} from "rxjs/operators";
 
 @Injectable()

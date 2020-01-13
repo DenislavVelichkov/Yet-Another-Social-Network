@@ -34,10 +34,10 @@ public class WallServiceImpl implements WallService {
   private final AuthenticatedUserService authUserService;
 
   @Override
-  public void createPost(WallPostServiceModel wallPostServiceModel, String username) {
+  public void createPost(WallPostServiceModel wallPostServiceModel, String activeUserId) {
 
     wallPostServiceModel.setPostOwner(
-        this.userProfileService.findUserProfileByUsername(username));
+        this.userProfileService.findUserProfileById(activeUserId));
 
     wallPostServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
 

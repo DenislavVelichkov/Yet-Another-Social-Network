@@ -1,15 +1,11 @@
 package org.java.yasn.web.controller;
 
 import lombok.AllArgsConstructor;
-import org.java.yasn.common.annotations.interceptor.PageTitle;
 import org.java.yasn.services.wall.WallService;
-import org.java.yasn.web.models.binding.PostCommentBindingModel;
-import org.java.yasn.web.models.binding.WallPostBindingModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,21 +14,13 @@ public class HomeController extends BaseController {
   private final WallService wallService;
 
   @GetMapping("/home")
-  @PageTitle("Home")
-  public ModelAndView home(
-      ModelAndView modelAndView,
-      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
-      @ModelAttribute(name = "postComment") PostCommentBindingModel postComment) {
+  public ResponseEntity<?> home() {
 
-    modelAndView.addObject("userProfileView", super.getUserProfileView());
-    modelAndView.addObject(
-        "activeUserDetails", super.getActiveUserDetails());
-    modelAndView.addObject(
-        "allWallPosts", this.wallService.displayAllPosts());
-    return super.view("home", modelAndView);
+
+    return ResponseEntity.ok(this.wallService.displayAllPosts());
   }
 
-  @GetMapping("/admin")
+  /*@GetMapping("/admin")
   public ModelAndView adminPanel(ModelAndView modelAndView) {
 
     modelAndView.addObject(
@@ -40,5 +28,5 @@ public class HomeController extends BaseController {
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
     return super.view("admin-panel", modelAndView);
-  }
+  }*/
 }

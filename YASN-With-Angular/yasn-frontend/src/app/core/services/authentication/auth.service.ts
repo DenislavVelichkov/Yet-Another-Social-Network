@@ -3,8 +3,8 @@ import {HttpRepositoryService} from "../../http/http-repository.service";
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
 import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
-import {ActiveUser} from "../../../shared/models/user/ActiveUser";
-import {User} from "../../../shared/models/user/User";
+import {ActiveUser} from "../../store/authentication/ActiveUser";
+import {User} from "../../store/authentication/User";
 import {CookieService} from "ngx-cookie-service";
 
 @Injectable()
