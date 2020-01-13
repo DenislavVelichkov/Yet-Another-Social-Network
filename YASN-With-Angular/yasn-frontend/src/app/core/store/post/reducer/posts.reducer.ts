@@ -1,17 +1,18 @@
 import {PostsState} from "../state/posts.state";
-import * as PostsActions from "../actions/posts.action";
+import {ActionTypes} from "../actions/posts.actions";
+import {PostActions} from "../actions/action.type";
 
 const initialState: PostsState = {all: []};
 
 export function postsReducer(
   state: PostsState = initialState,
-  action: PostsActions.Type) {
+  action: PostActions) {
 
 
   switch (action.type) {
-    case PostsActions.GET_ALL_POSTS:
+    case ActionTypes.GET_ALL_POSTS:
       return getAllPosts(initialState, action.payload);
-    case PostsActions.CREAT_POSTS:
+    case ActionTypes.CREATE_POST:
       return createPost(initialState, action.payload);
     default:
       return state;

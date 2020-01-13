@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
 import {Observable} from "rxjs";
-import {ActiveUser} from "../store/authentication/ActiveUser";
+import {Principal} from "../store/authentication/Principal";
 import {take} from "rxjs/operators";
 
 @Injectable()
@@ -19,9 +19,9 @@ export class HttpRepositoryService {
       .pipe(take(1));
   }
 
-  public getActiveUser(route: string): Observable<ActiveUser> {
+  public getActiveUser(route: string): Observable<Principal> {
 
-    return this.http.get<ActiveUser>(this.createCompleteRoute(
+    return this.http.get<Principal>(this.createCompleteRoute(
       route,
       this.envUrl.apiEndPointAddress))
       .pipe(take(1));

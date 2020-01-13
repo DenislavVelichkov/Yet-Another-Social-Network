@@ -1,7 +1,13 @@
-import {ActiveUser} from "../ActiveUser";
+import {Principal} from "../Principal";
+
+const initialState: AuthState = {
+  isAuthenticated: false,
+  loaded: false,
+  loading: false
+};
 
 export interface AuthState {
-  activeUser?: ActiveUser;
+  activeUser?: Principal;
   loaded: boolean;
   loading: boolean;
   error?: string;

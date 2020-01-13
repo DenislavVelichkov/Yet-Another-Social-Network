@@ -1,4 +1,4 @@
-export interface ActiveUser {
+export interface Principal {
   id: string;
   username: string;
   firstName: string;

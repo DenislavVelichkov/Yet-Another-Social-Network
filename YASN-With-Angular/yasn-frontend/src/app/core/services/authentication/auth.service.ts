@@ -3,7 +3,7 @@ import {HttpRepositoryService} from "../../http/http-repository.service";
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
 import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
-import {ActiveUser} from "../../store/authentication/ActiveUser";
+import {Principal} from "../../store/authentication/Principal";
 import {User} from "../../store/authentication/User";
 import {CookieService} from "ngx-cookie-service";
 
@@ -11,7 +11,7 @@ import {CookieService} from "ngx-cookie-service";
 export class AuthService {
 
   private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<ActiveUser>;
+  public currentUser: Observable<Principal>;
   public userCredentials: string;
 
   constructor(private httpRepo: HttpRepositoryService,
