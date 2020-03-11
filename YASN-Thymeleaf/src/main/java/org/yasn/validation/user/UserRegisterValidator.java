@@ -38,14 +38,12 @@ public class UserRegisterValidator implements org.springframework.validation.Val
     if (!firstNameMatcher.matches()) {
       errors.rejectValue(
           "firstName",
-          ValidationConstants.NAME_ONLY_LETTERS,
           ValidationConstants.NAME_ONLY_LETTERS);
     }
 
     if (!lastNameMatcher.matches()) {
       errors.rejectValue(
           "lastName",
-          ValidationConstants.NAME_ONLY_LETTERS,
           ValidationConstants.NAME_ONLY_LETTERS);
     }
 
@@ -53,30 +51,24 @@ public class UserRegisterValidator implements org.springframework.validation.Val
                                  .equals(userRegisterBindingModel.getConfirmPassword())) {
       errors.rejectValue(
           "password",
-          ValidationConstants.PASSWORDS_DO_NOT_MATCH,
           ValidationConstants.PASSWORDS_DO_NOT_MATCH);
     }
 
     if (!passwordMatcher.matches()) {
       errors.rejectValue(
           "password",
-          ValidationConstants.PASSWORD_CONDITION,
           ValidationConstants.PASSWORD_CONDITION);
-
-
     }
 
     if (!userRegisterBindingModel.getEmail().equals(userRegisterBindingModel.getConfirmEmail())) {
       errors.rejectValue(
           "email",
-          ValidationConstants.EMAIL_DOESNT_MATCH,
           ValidationConstants.EMAIL_DOESNT_MATCH);
     }
 
     if (this.userRepository.findByEmail(userRegisterBindingModel.getEmail()).isPresent()) {
       errors.rejectValue(
           "email",
-          ValidationConstants.EMAIL_ALREADY_EXISTS,
           ValidationConstants.EMAIL_ALREADY_EXISTS);
     }
   }

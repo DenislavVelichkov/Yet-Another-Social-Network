@@ -10,20 +10,20 @@
 
     <div class="row" id="user-profile-body-container">
 
-        <div class="col-xl-3" id="user-profile-sidebar-left">
+        <div class="col-3" id="user-profile-sidebar-left">
 
         </div>
 
-        <div class="col-xl-6" id="user-profile-main">
+        <div class="col-6" id="user-profile-main">
             <div class="user-profile-container">
                 <th:block layout:insert="~{profile-fragments/profile-header}"/>
                 <div class="row">
-                    <th:block layout:insert="~{profile-fragments/profile-timeline}"/>
+                    <th:block layout:insert="profile-fragments/profile-timeline"/>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3" id="user-profile-right">
+        <div class="col-3" id="user-profile-right">
 
         </div>
     </div>

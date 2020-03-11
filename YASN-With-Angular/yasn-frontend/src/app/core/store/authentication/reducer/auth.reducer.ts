@@ -1,5 +1,7 @@
 import {AuthState} from "../state/auth.state";
-import {AuthenticateAction} from "../actions/authenticate.action";
+import {AuthActionTypes} from "../actions/auth.action.types";
+import {ActionTypes} from "../actions/auth.actions";
+
 
 const initialState: AuthState = {
   isAuthenticated: false,
@@ -10,6 +12,10 @@ const initialState: AuthState = {
 };
 
 export function authReducer(state: AuthState = initialState,
-                            action: AuthenticateAction) {
+                            action: AuthActionTypes) {
+  switch (action.type) {
+    case ActionTypes.SIGN_UP:
+      break;
 
+  }
 }

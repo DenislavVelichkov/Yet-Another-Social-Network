@@ -6,8 +6,8 @@
 @import url("back-to-top.css");
 @import url("user-profile.css");
 @import url("photo-gallery.css");
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-/*@import url(''https://fonts.googleapis.com/css?family=Montserrat&display=swap'');*/
+/*@import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');*/
+
 /*TODO optimize Icons Fonts in Production , use iconmood.io to extract and save locally icon DB*/
 
 :root {
@@ -32,12 +32,7 @@ html {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     /* font-family: 'Patua One', cursive, Monospaced;*/
-    /*font-family: "Helvetica Mon ", Helvetica, Arial, sans-serif;*/
-    font-family: 'Montserrat', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Helvetica Mon ", Helvetica, Arial, sans-serif;
 }
 
 @media (max-width: 575.98px) {
@@ -56,7 +51,6 @@ h1, h2, h3, h4, h5, h6 {
     .navbar-login-form-btn-container {
         flex: 0 0 65%;
         padding-left: 0;
-        margin-top: 1em;
     }
 }
 
@@ -76,7 +70,6 @@ h1, h2, h3, h4, h5, h6 {
     .navbar-login-form-btn-container {
         flex: 0 0 65%;
         padding-left: 0;
-        margin-top: 1em;
     }
 }
 

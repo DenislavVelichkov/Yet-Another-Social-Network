@@ -35,15 +35,7 @@ public class WallPost extends BaseEntity {
   private String postContent;
 
   @OneToMany(
-<<<<<<< HEAD
-<<<<<<< HEAD:YASN-Thymeleaf/src/main/java/org/yasn/data/entities/wall/WallPost.java
       fetch = FetchType.EAGER,
-=======
-      fetch = FetchType.LAZY,
->>>>>>> experimental:YASN-With-Angular/yasn-backend/src/main/java/org/yasn/data/entities/wall/WallPost.java
-=======
-      fetch = FetchType.EAGER,
->>>>>>> experimental
       targetEntity = PostComment.class,
       mappedBy = "parentPost",
       cascade = CascadeType.ALL)
@@ -60,15 +52,7 @@ public class WallPost extends BaseEntity {
   private PostPrivacy postPrivacy;
 
   @OneToMany(
-<<<<<<< HEAD
-<<<<<<< HEAD:YASN-Thymeleaf/src/main/java/org/yasn/data/entities/wall/WallPost.java
       fetch = FetchType.EAGER,
-=======
-      fetch = FetchType.LAZY,
->>>>>>> experimental:YASN-With-Angular/yasn-backend/src/main/java/org/yasn/data/entities/wall/WallPost.java
-=======
-      fetch = FetchType.EAGER,
->>>>>>> experimental
       targetEntity = Like.class,
       mappedBy = "likeOwner",
       cascade = CascadeType.ALL,

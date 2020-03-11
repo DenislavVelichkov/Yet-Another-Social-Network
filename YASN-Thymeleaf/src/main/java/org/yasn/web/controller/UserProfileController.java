@@ -233,8 +233,7 @@ public class UserProfileController extends BaseController {
   @GetMapping("/friends")
   public ModelAndView friends(ModelAndView modelAndView) {
 
-    modelAndView.addObject(
-        "userProfileView", super.getUserProfileView());
+    modelAndView.addObject("userProfileView", super.getUserProfileView());
     modelAndView.addObject(
         "activeUserDetails", super.getActiveUserDetails());
 

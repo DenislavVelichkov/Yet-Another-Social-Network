@@ -26,35 +26,35 @@ public class UserController extends BaseController {
 
   @GetMapping("/login")
   public ModelAndView userLogin() {
-    return super.view("user/login");
+    return super.view("/user/login");
   }
 
   @GetMapping("/register")
   @PageTitle("Log In or Sign Up")
-  public ModelAndView userRegister(
+  public ModelAndView index(
       @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel) {
 
-    return super.view("user/register");
+    return super.view("/user/register");
   }
 
   @PostMapping("/register")
   public ModelAndView registerConfirm(
       ModelAndView modelAndView,
-      @ModelAttribute(name = "registerModel") UserRegisterBindingModel registerModel,
+      @ModelAttribute(name = "model") UserRegisterBindingModel model,
       BindingResult bindingResult) {
 
-    this.userRegisterValidator.validate(registerModel, bindingResult);
+    this.userRegisterValidator.validate(model, bindingResult);
 
     if (bindingResult.hasErrors()) {
-      registerModel.setPassword(null);
-      registerModel.setConfirmPassword(null);
-      modelAndView.addObject("registerModel", registerModel);
+      model.setPassword(null);
+      model.setConfirmPassword(null);
+      modelAndView.addObject("model", model);
 
-      return super.view("user/register", modelAndView);
+      return super.view("index", modelAndView);
     }
 
     UserServiceModel userServiceModel =
-        this.modelMapper.map(registerModel, UserServiceModel.class);
+        this.modelMapper.map(model, UserServiceModel.class);
     this.modelMapper.validate();
 
     this.userService.registerUser(userServiceModel);
