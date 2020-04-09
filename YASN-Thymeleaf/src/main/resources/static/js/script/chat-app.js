@@ -25,7 +25,6 @@ connect();
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
-
     let socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
