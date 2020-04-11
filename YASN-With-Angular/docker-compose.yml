@@ -1,0 +1,24 @@
+version: "3"
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+
+  java-api:
+    image:
+    build: yasn-backend/
+    container_name: yasn-backend
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+
+  angular-client:
+    build: yasn-frontend/
+    container_name: yasn-frontend
+    ports:
+      - "4200:4200"
+    networks:
+      - backend
