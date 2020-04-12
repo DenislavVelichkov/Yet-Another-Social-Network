@@ -4,16 +4,17 @@ import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindin
 import {throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import {authReducer} from "../../store/authentication/reducer/auth.reducer";
 import {AuthenticateAction} from "../../store/authentication/actions/authenticate.action";
 import {AuthActionTypes} from "../../store/authentication/actions/auth.action.types";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
+import {Principal} from "../../store/authentication/Principal";
+import {takeLast} from "rxjs/operators";
 
 @Injectable()
 export class AuthService {
-  /* private currentUserSubject: BehaviorSubject<User>;
-   public currentUser: Observable<Principal>;*/
+  /* private currentUserSubject: BehaviorSubject<User>;*/
+  public _currentUser: Principal;
   public userCredentials: string;
 
   constructor(private httpRepo: HttpRepositoryService,
@@ -48,10 +49,10 @@ export class AuthService {
             .subscribe(user => {
                 user.authData = this.userCredentials;
 
-                localStorage.setItem('activeUser', JSON.stringify(user));
+                // localStorage.setItem('activeUser', JSON.stringify(user));
                 let action: AuthActionTypes = new AuthenticateAction(user);
 
-                authReducer(this.store.select('auth'), action)
+                this.store.dispatch(action)
                 this.router.navigate(['/home']);
 
                 return user;
@@ -69,6 +70,11 @@ export class AuthService {
     // this.currentUserSubject.next(null);
     this.cookieService.deleteAll();
     this.router.navigate(['/']);
+  }
+
+  getCurrentUser() {
+   return this._currentUser =
+          this.store.select('auth').pipe(takeLast(1))['activeUser'];
   }
 
 }

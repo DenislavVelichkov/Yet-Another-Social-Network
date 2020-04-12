@@ -3,7 +3,6 @@ import {UserRegisterBindingModel} from 'src/app/shared/models/user/UserRegisterB
 import {UserService} from 'src/app/core/services/user/user.service';
 import {Title} from "@angular/platform-browser";
 import {Router} from '@angular/router';
-import {IndexComponent} from "../../index/index.component";
 
 @Component({
   selector: 'app-user-register',
@@ -43,9 +42,9 @@ export class UserRegisterComponent implements OnInit {
         this.errors.forEach(error => alert(error['defaultMessage']));
         this.router.navigate(['/']);
       } else {
-        IndexComponent.prototype.showLoginPage = this.isUserRegistered;
         this.router.navigate(['user/login']);
       }
+
     });
 
   }
