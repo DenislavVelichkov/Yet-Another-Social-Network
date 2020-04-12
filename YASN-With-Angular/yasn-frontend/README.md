@@ -1,3 +1,7 @@
+# Yasn Project
+
+To run the project install Docker and run in cmd/bash command: docker-compose up --build
+
 # YasnFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
