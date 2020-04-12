@@ -1,21 +1,27 @@
-import {AuthState} from "../state/auth.state";
-import {AuthActionTypes} from "../actions/auth.action.types";
-import {ActionTypes} from "../actions/auth.actions";
+import {AuthState, initialState} from "../state/auth.state";
+import {Principal} from "../Principal";
+import {AuthActionType, AuthActionTypes} from "../actions/auth.action.types";
 
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-  activeUser: null,
-  loaded: false,
-  loading: false,
-  error: null
-};
-
-export function authReducer(state: AuthState = initialState,
-                            action: AuthActionTypes) {
+export function authReducer(state: AuthState[] = [initialState],
+                            action: AuthActionTypes): AuthState[] {
   switch (action.type) {
-    case ActionTypes.SIGN_UP:
-      break;
+    case AuthActionType.AUTHENTICATE:
+      return loginUser(state, action.payload);
+
+    default:
+      return state;
+  }
+
+  function loginUser(state: AuthState[], user: Principal): AuthState[] {
+   let newState: AuthState = {
+      isAuthenticated: true,
+      loaded: true,
+      loading: false,
+      activeUser: user,
+      error: null
+    };
+
+    return [...state, newState];
 
   }
 }

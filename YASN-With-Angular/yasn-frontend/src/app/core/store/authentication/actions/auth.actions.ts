@@ -1,3 +1,4 @@
+/*
 import {type} from "../../../util/util";
 
 export const ActionTypes = {
@@ -14,3 +15,4 @@ export const ActionTypes = {
   SIGN_UP_ERROR: type('[AUTH] Sign up error'),
   SIGN_UP_SUCCESS: type('[AUTH] Sign up success')
 };
+*/

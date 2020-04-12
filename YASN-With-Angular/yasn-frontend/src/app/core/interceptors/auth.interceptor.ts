@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthService} from "../services/authentication/auth.service";
+import {AuthState} from "../store/authentication/state/auth.state";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthService) {
+  constructor(private store:Store<AuthState>) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const currentUser = this.auth.currentUserInfo;
+    const currentUser = this.store.select('activeUser').authData;
 
     if (currentUser && currentUser.authData) {
       request = request.clone({

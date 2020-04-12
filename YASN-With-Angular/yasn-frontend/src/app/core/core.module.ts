@@ -19,7 +19,6 @@ import {appReducers} from "./store/app.reducers";
     CommonModule,
     NavbarModule,
     StoreModule.forRoot(appReducers),
-
   ],
   exports: [FooterComponent, NavbarComponent]
 })

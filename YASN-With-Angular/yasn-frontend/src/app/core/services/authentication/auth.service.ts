@@ -1,31 +1,40 @@
 import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../http/http-repository.service";
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
-import {BehaviorSubject, Observable, throwError} from "rxjs";
+import {throwError} from "rxjs";
 import {Router} from "@angular/router";
-import {Principal} from "../../store/authentication/Principal";
-import {User} from "../../store/authentication/User";
 import {CookieService} from "ngx-cookie-service";
+import {authReducer} from "../../store/authentication/reducer/auth.reducer";
+import {AuthenticateAction} from "../../store/authentication/actions/authenticate.action";
+import {AuthActionTypes} from "../../store/authentication/actions/auth.action.types";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/app.state";
 
 @Injectable()
 export class AuthService {
-
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<Principal>;
+  /* private currentUserSubject: BehaviorSubject<User>;
+   public currentUser: Observable<Principal>;*/
   public userCredentials: string;
 
   constructor(private httpRepo: HttpRepositoryService,
               private cookieService: CookieService,
-              private router: Router) {
+              private router: Router,
+              private store: Store<AppState>) {
 
-    this.currentUserSubject = new BehaviorSubject(
+    /*this.currentUserSubject = new BehaviorSubject(
       JSON.parse(localStorage.getItem('activeUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+
+    this.currentUser = this.currentUserSubject.asObservable();*/
+
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
-    const formCredentials =
-      {email: userModel.email, password: userModel.password};
+
+    const formCredentials = {
+      email: userModel.email,
+      password: userModel.password
+    };
+
     this.userCredentials =
       window.btoa(formCredentials.email + ':' + formCredentials.password);
 
@@ -38,8 +47,11 @@ export class AuthService {
           this.httpRepo.getActiveUser("/user/principal")
             .subscribe(user => {
                 user.authData = this.userCredentials;
+
                 localStorage.setItem('activeUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
+                let action: AuthActionTypes = new AuthenticateAction(user);
+
+                authReducer(this.store.select('auth'), action)
                 this.router.navigate(['/home']);
 
                 return user;
@@ -54,12 +66,9 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('activeUser');
-    this.currentUserSubject.next(null);
+    // this.currentUserSubject.next(null);
     this.cookieService.deleteAll();
     this.router.navigate(['/']);
   }
 
-  public get currentUserInfo(): User {
-    return this.currentUserSubject.value;
-  }
 }

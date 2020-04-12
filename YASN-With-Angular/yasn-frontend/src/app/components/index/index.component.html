@@ -15,7 +15,7 @@
   </div>
 
   <div class="col-md-6">
-    <app-user-register *ngIf="!_showLoginPage"></app-user-register>
-    <app-user-login *ngIf="_showLoginPage"></app-user-login>
+    <app-user-register *ngIf="!isAuthenticated"></app-user-register>
+    <app-user-login *ngIf="isAuthenticated"></app-user-login>
   </div>
 </div>

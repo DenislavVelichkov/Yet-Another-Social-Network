@@ -1,9 +1,11 @@
 import {Principal} from "../Principal";
 
-const initialState: AuthState = {
-  isAuthenticated: false,
+export const initialState: AuthState = {
+  activeUser: null,
   loaded: false,
-  loading: false
+  loading: false,
+  error: null,
+  isAuthenticated: false
 };
 
 export interface AuthState {

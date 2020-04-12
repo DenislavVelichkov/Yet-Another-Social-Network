@@ -3,5 +3,5 @@ import {authReducer} from "./authentication/reducer/auth.reducer";
 
 export const appReducers = {
   posts: postsReducer,
-  authentication: authReducer,
+  auth: authReducer,
 };
