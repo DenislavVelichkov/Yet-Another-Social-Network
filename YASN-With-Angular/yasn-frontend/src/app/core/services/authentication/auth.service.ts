@@ -53,7 +53,7 @@ export class AuthService {
                 let action: AuthActionTypes = new AuthenticateAction(user);
 
                 this.store.dispatch(action)
-                this.router.navigate(['/home']);
+                this.router.navigate(['user/login']);
 
                 return user;
               }, error => {

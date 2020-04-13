@@ -1,6 +1,6 @@
 {
   "name": "yasn-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
@@ -21,6 +21,7 @@
     "@angular/router": "~9.1.1",
     "@ngrx/store": "^9.1.0",
     "ngx-cookie-service": "^3.0.4",
+    "prod": "^1.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^1.11.1",
     "zone.js": "~0.10.3"

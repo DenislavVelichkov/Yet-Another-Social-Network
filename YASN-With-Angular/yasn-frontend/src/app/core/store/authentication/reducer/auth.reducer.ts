@@ -22,6 +22,5 @@ export function authReducer(state: AuthState[] = [initialState],
     };
 
     return [...state, newState];
-
   }
 }
