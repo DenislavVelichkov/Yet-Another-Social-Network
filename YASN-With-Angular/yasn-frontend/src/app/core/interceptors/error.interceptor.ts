@@ -22,7 +22,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       this.router.navigate(['error']);
 
-      console.log(err)
       return throwError(err);
     }))
   }

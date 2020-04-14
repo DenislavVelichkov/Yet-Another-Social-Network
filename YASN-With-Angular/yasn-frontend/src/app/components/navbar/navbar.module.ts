@@ -4,7 +4,7 @@ import {AuthorizedNavbarComponent} from './authorized-navbar/authorized-navbar.c
 import {UnAuthorizedNavbarComponent} from './un-authorized-navbar/un-authorized-navbar.component';
 import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './navbar.component';
-import {AppRoutingModule} from "../../app-routing.module";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import {AppRoutingModule} from "../../app-routing.module";
     imports: [
         CommonModule,
         FormsModule,
-        AppRoutingModule,
+        RouterModule,
     ],
     exports: [NavbarComponent]
 })

@@ -4,6 +4,7 @@ import {HomeComponent} from "./home.component";
 import {NewsFeedComponent} from "./news-feed/news-feed.component";
 import {CreatePostComponent} from "../create-post/create-post.component";
 import {FormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -15,7 +16,10 @@ import {FormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule
   ],
   exports: [HomeComponent]
 })
-export class HomeModule { }
+export class HomeModule {
+
+}

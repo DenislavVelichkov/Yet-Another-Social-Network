@@ -23,8 +23,8 @@ import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
     AppRoutingModule,
     HttpClientModule,
     CoreModule.forRoot(),
-    IndexModule.forRoot(),
-    HomeModule
+    IndexModule,
+    HomeModule,
   ],
 
   providers: [

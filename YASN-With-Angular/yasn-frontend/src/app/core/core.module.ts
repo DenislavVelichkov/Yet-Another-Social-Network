@@ -20,10 +20,11 @@ import {appReducers} from "./store/app.reducers";
     NavbarModule,
     StoreModule.forRoot(appReducers),
   ],
-  exports: [FooterComponent, NavbarComponent]
+  exports: [FooterComponent, NavbarComponent],
 })
 export class CoreModule {
   /*Ensure one instance of the services*/
+  //Add additional services here !
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
