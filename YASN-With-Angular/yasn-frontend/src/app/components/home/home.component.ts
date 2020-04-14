@@ -9,7 +9,7 @@ import {AppState} from "../../core/store/app.state";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private isAuthenticated: boolean;
+  private isLoggedIn: boolean;
 
   constructor(private title: Title,
               private store: Store<AppState>) {
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('YASN ' + 'Home');
     this.store.select('auth').subscribe(value => {
-      this.isAuthenticated = value.isAuthenticated
+      this.isLoggedIn = value.isLoggedIn;
     });
   }
 

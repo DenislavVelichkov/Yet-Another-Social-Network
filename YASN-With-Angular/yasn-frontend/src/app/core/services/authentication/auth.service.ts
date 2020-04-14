@@ -4,7 +4,6 @@ import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindin
 import {throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import {AuthenticatingAction} from "../../store/authentication/actions/authenticatingAction";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
 import {Principal} from "../../store/authentication/Principal";
@@ -24,19 +23,20 @@ export class AuthService {
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
-    this.store.dispatch(new AuthenticatingAction(this.userCredentials))
 
-    this.httpRepo.loginRequest("/user/login", userModel)
+    this.httpRepo.loginRequest("/api/user/login", userModel)
       .subscribe((data: any) => {
           this.handleAuthentication(data)
         },
-        error => throwError(error));
+        error => {
+          throwError(error)
+        });
   }
 
   logout() {
     this.store.dispatch(new LogoutAction());
-    this.cookieService.deleteAll();
-    this.router.navigate(['/']);
+    localStorage.clear()
+    this.router.navigate(['/user/login']).catch(reason => console.log(reason));
   }
 
   public handleAuthentication(response: HttpResponse<any>) {
@@ -54,7 +54,8 @@ export class AuthService {
         role: payload.role
       }
 
+    localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
+
     this.store.dispatch(new AuthenticatedAction(authenticatedUser))
-    this.router.navigate(['/home']);
   }
 }

@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Store} from "@ngrx/store";
 import {AppState} from "../store/app.state";
+import {exhaustMap, take} from "rxjs/operators";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -11,23 +12,17 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.store.select('auth').subscribe(value => {
+    return this.store.select('auth').pipe(take(1), exhaustMap(value => {
 
-      if (!value.authData) {
+      if (!value.activeUser) {
         return next.handle(request);
       }
 
-      if (value.authData && value.isAuthenticated) {
-        request = request.clone({
-          setHeaders:
-            {
-              Authorization: `${value.authData}`
-            }
-        });
-      }
+      const modifiedReq = request.clone({
+        headers: new HttpHeaders().append("Authorization", value.authData)
+      });
 
-    }, error => throwError(error));
-
-    return next.handle(request);
+      return next.handle(modifiedReq);
+    }));
   }
 }

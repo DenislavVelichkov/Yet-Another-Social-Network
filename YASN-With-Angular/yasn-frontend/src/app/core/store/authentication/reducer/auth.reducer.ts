@@ -13,7 +13,7 @@ export function authReducer(state: AuthState = initialState,
       return storeUser(state, action.payload)
 
     case AuthActionType.LOGOUT_SUCCESS:
-      return logout(state)
+      return logout()
 
     default:
       return state;
@@ -21,6 +21,7 @@ export function authReducer(state: AuthState = initialState,
 
   function storeUser(state: AuthState, payload: Principal) {
     let newAuthState: AuthState = {
+      isLoggedIn: false,
       isAuthenticated: true,
       loading: false,
       activeUser: payload,
@@ -33,6 +34,7 @@ export function authReducer(state: AuthState = initialState,
 
   function loginUser(state: AuthState, payload: any) {
     let newAuthState: AuthState = {
+      isLoggedIn: false,
       isAuthenticated: false,
       loading: true,
       activeUser: null,
@@ -43,8 +45,9 @@ export function authReducer(state: AuthState = initialState,
     return newAuthState;
   }
 
-  function logout(state: AuthState) {
+  function logout() {
     let newAuthState: AuthState = {
+      isLoggedIn: false,
       isAuthenticated: false,
       loading: false,
       activeUser: null,
