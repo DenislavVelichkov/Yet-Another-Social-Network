@@ -2,25 +2,56 @@ import {AuthState, initialState} from "../state/auth.state";
 import {Principal} from "../Principal";
 import {AuthActionType, AuthActionTypes} from "../actions/auth.action.types";
 
-export function authReducer(state: AuthState[] = [initialState],
-                            action: AuthActionTypes): AuthState[] {
+export function authReducer(state: AuthState = initialState,
+                            action: AuthActionTypes) {
+
   switch (action.type) {
     case AuthActionType.AUTHENTICATE:
       return loginUser(state, action.payload);
+
+    case AuthActionType.AUTHENTICATE_SUCCESS:
+      return storeUser(state, action.payload)
+
+    case AuthActionType.LOGOUT_SUCCESS:
+      return logout(state)
 
     default:
       return state;
   }
 
-  function loginUser(state: AuthState[], user: Principal): AuthState[] {
-   let newState: AuthState = {
+  function storeUser(state: AuthState, payload: Principal) {
+    let newAuthState: AuthState = {
       isAuthenticated: true,
-      loaded: true,
       loading: false,
-      activeUser: user,
-      error: null
+      activeUser: payload,
+      error: null,
+      authData: payload._token
     };
 
-    return [...state, newState];
+    return newAuthState;
+  }
+
+  function loginUser(state: AuthState, payload: any) {
+    let newAuthState: AuthState = {
+      isAuthenticated: false,
+      loading: true,
+      activeUser: null,
+      error: null,
+      authData: payload
+    };
+
+    return newAuthState;
+  }
+
+  function logout(state: AuthState) {
+    let newAuthState: AuthState = {
+      isAuthenticated: false,
+      loading: false,
+      activeUser: null,
+      error: null,
+      authData: null
+    };
+
+    return newAuthState;
   }
 }

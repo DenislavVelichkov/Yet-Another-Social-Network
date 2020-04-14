@@ -2,16 +2,16 @@ import {Principal} from "../Principal";
 
 export const initialState: AuthState = {
   activeUser: null,
-  loaded: false,
   loading: false,
   error: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  authData: null
 };
 
 export interface AuthState {
   activeUser?: Principal;
-  loaded: boolean;
   loading: boolean;
-  error?: string;
+  error?: Error;
   isAuthenticated: boolean;
+  authData: string;
 }

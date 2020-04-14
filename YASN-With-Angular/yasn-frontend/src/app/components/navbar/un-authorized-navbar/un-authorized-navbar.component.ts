@@ -1,21 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
 import {Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {AuthService} from "../../../core/services/authentication/auth.service";
+import {AppState} from "../../../core/store/app.state";
+import {Store} from "@ngrx/store";
+import {AuthenticatingAction} from "../../../core/store/authentication/actions/authenticatingAction";
 
 @Component({
   selector: 'app-un-authorized-navbar',
   templateUrl: './un-authorized-navbar.component.html',
   styleUrls: ['./un-authorized-navbar.component.css', '../navbar.component.css']
 })
+@Injectable()
 export class UnAuthorizedNavbarComponent implements OnInit {
 
   private userLoginBindingModel: UserLoginBindingModel;
 
   constructor(private auth: AuthService,
               private router: Router,
-              private title: Title) {
+              private title: Title,
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -24,6 +29,7 @@ export class UnAuthorizedNavbarComponent implements OnInit {
   }
 
   onSubmit() {
+    this.store.dispatch(new AuthenticatingAction(this.userLoginBindingModel))
     this.auth.loginUser(this.userLoginBindingModel);
   }
 }

@@ -1,4 +1,3 @@
-/*
 package org.java.yasn.web.filters;
 
 import java.io.IOException;
@@ -14,40 +13,40 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.java.yasn.common.AuthConstants;
+import org.java.yasn.common.AuthorityConstants;
+import org.java.yasn.common.ErrorConstants;
+import org.java.yasn.data.entities.user.Role;
+import org.java.yasn.data.entities.user.User;
+import org.java.yasn.web.models.binding.UserLoginModel;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import softuni.fitbook.common.constants.AuthConstants;
-import softuni.fitbook.common.constants.AuthorityConstants;
-import softuni.fitbook.common.constants.ErrorConstants;
-import softuni.fitbook.data.models.User;
-import softuni.fitbook.data.models.UserRole;
-import softuni.fitbook.web.controllers.models.request.user.UserLoginRequestModel;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        this.setFilterProcessesUrl("/api/users/signin");
+        this.setFilterProcessesUrl("/user/login");
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            UserLoginRequestModel loginBindingModel = new ObjectMapper()
-                    .readValue(request.getInputStream(), UserLoginRequestModel.class);
+            UserLoginModel loginBindingModel = new ObjectMapper()
+                    .readValue(request.getInputStream(), UserLoginModel.class);
 
             return this.authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            loginBindingModel.getUsername(),
+                            loginBindingModel.getEmail(),
                             loginBindingModel.getPassword(),
                             new ArrayList<>())
             );
         } catch (IOException ignored) {
-            return null;
+            return  null;
         }
     }
 
@@ -57,11 +56,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
         User user = ((User) authResult.getPrincipal());
-        String authority = extractHighestAuthorityFromAuthorities(user.getAuthorities());
+//        String authority = extractHighestAuthorityFromAuthorities(user.getAuthorities());
         String token = Jwts.builder()
                 .setSubject(user.getUsername())
                 .setExpiration(new Date(new Date().getTime() + 864000000L))
-                .claim("role", authority)
+                .claim("role", "blank")
                 .claim("userId", user.getId())
                 .signWith(SignatureAlgorithm.HS256, AuthConstants.SIGNING_KEY.getBytes())
                 .compact();
@@ -69,11 +68,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader(AuthConstants.AUTHORIZATION_HEADER, AuthConstants.AUTHORIZATION_HEADER_BEGINNING + token);
     }
 
-    private String extractHighestAuthorityFromAuthorities(Set<UserRole> authorities) {
+    private String extractHighestAuthorityFromAuthorities(Set<Role> authorities) {
 
         Set<String> allAuthoritiesAsString = authorities
                 .stream()
-                .map(UserRole::getAuthority)
+                .map(Role::getAuthority)
                 .collect(Collectors.toSet());
 
         if (allAuthoritiesAsString.contains(AuthorityConstants.AUTHORITY_ROOT_ADMIN)) {
@@ -89,4 +88,3 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 }
-*/

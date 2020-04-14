@@ -1,4 +1,3 @@
-/*
 package org.java.yasn.web.filters;
 
 import java.io.IOException;
@@ -8,23 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.jsonwebtoken.Jwts;
-import org.java.yasn.services.AuthenticatedUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.java.yasn.common.AuthConstants;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private final AuthenticatedUserService userService;
-
-    @Autowired
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-                                  AuthenticatedUserService userService) {
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
-        this.userService = userService;
     }
 
     @Override
@@ -55,14 +47,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (username != null) {
-                UserDetails userData = this.userService
-                        .loadUserByUsername(username);
 
                 usernamePasswordAuthenticationToken
                         = new UsernamePasswordAuthenticationToken(
                         username,
-                        null,
-                        userData.getAuthorities()
+                        null
                 );
             }
         }
@@ -70,4 +59,3 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         return usernamePasswordAuthenticationToken;
     }
 }
-*/

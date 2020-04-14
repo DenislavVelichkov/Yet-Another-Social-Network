@@ -1,6 +1,5 @@
 package org.java.yasn.services.user;
 
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -17,7 +16,6 @@ import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.user.UserRepository;
-import org.java.yasn.web.models.binding.UserLoginBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -167,20 +165,4 @@ public class UserServiceImpl implements UserService {
     this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
   }
 
-  @Override
-  public Principal loginUser(UserLoginBindingModel loginModel) {
-    /*UsernamePasswordAuthenticationToken token =
-        new UsernamePasswordAuthenticationToken(
-            loginModel.getEmail(), loginModel.getPassword());
-    Authentication authentication = this.authenticationProvider.authenticate(token);
-
-    if (authentication != null) {
-      SecurityContextHolder.getContext().setAuthentication(authentication);
-
-      return (Principal) authentication.getPrincipal();
-    }else {
-      throw new BadCredentialsException("Username or password is incorrect!");
-    }*/
-    return null;
-  }
 }

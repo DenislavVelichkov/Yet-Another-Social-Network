@@ -4,77 +4,57 @@ import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindin
 import {throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import {AuthenticateAction} from "../../store/authentication/actions/authenticate.action";
-import {AuthActionTypes} from "../../store/authentication/actions/auth.action.types";
+import {AuthenticatingAction} from "../../store/authentication/actions/authenticatingAction";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
 import {Principal} from "../../store/authentication/Principal";
-import {takeLast} from "rxjs/operators";
+import {HttpResponse} from "@angular/common/http";
+import {AuthenticatedAction} from "../../store/authentication/actions/authenticated.action";
+import {LogoutAction} from "../../store/authentication/actions/logout.action";
 
 @Injectable()
 export class AuthService {
-  /* private currentUserSubject: BehaviorSubject<User>;*/
-  public _currentUser: Principal;
+
   public userCredentials: string;
 
   constructor(private httpRepo: HttpRepositoryService,
               private cookieService: CookieService,
               private router: Router,
               private store: Store<AppState>) {
-
-    /*this.currentUserSubject = new BehaviorSubject(
-      JSON.parse(localStorage.getItem('activeUser')));
-
-    this.currentUser = this.currentUserSubject.asObservable();*/
-
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
+    this.store.dispatch(new AuthenticatingAction(this.userCredentials))
 
-    const formCredentials = {
-      email: userModel.email,
-      password: userModel.password
-    };
-
-    this.userCredentials =
-      window.btoa(formCredentials.email + ':' + formCredentials.password);
-
-    let params = new FormData();
-    params.append('email', `${userModel.email}`);
-    params.append('password', `${userModel.password}`);
-
-    this.httpRepo.loginRequest("/user/login", params)
-      .subscribe(() => {
-          this.httpRepo.getActiveUser("/user/principal")
-            .subscribe(user => {
-                user.authData = this.userCredentials;
-
-                // localStorage.setItem('activeUser', JSON.stringify(user));
-                let action: AuthActionTypes = new AuthenticateAction(user);
-
-                this.store.dispatch(action)
-                this.router.navigate(['user/login']);
-
-                return user;
-              }, error => {
-                this.router.navigate(['/']);
-                throwError(error)
-              }
-            );
+    this.httpRepo.loginRequest("/user/login", userModel)
+      .subscribe((data: any) => {
+          this.handleAuthentication(data)
         },
         error => throwError(error));
   }
 
   logout() {
-    localStorage.removeItem('activeUser');
-    // this.currentUserSubject.next(null);
+    this.store.dispatch(new LogoutAction());
     this.cookieService.deleteAll();
     this.router.navigate(['/']);
   }
 
-  getCurrentUser() {
-   return this._currentUser =
-          this.store.select('auth').pipe(takeLast(1))['activeUser'];
-  }
+  public handleAuthentication(response: HttpResponse<any>) {
+    const token: string = response.headers.get("Authorization")
+    const payload = JSON.parse(atob((token.replace('Bearer: ', '').split('.')[1])));
+    const expirationDate = new Date(new Date().getTime() + payload.exp);
 
+    let authenticatedUser: Principal =
+      {
+        userId: payload.userId,
+        userName: payload.sub,
+        _token: token,
+        tokenExpirationDate: expirationDate,
+        rememberMe: true,
+        role: payload.role
+      }
+
+    this.store.dispatch(new AuthenticatedAction(authenticatedUser))
+    this.router.navigate(['/home']);
+  }
 }

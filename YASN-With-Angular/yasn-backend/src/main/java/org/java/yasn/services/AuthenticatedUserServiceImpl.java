@@ -1,7 +1,6 @@
 package org.java.yasn.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,10 +16,7 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService {
   }
 
   @Override
-  public List<String> getRoles() {
-    return SecurityContextHolder.getContext().getAuthentication().getAuthorities()
-                                .stream()
-                                .map(GrantedAuthority::getAuthority)
-                                .collect(Collectors.toList());
+  public Collection<? extends GrantedAuthority> getRoles() {
+    return SecurityContextHolder.getContext().getAuthentication().getAuthorities();
   }
 }

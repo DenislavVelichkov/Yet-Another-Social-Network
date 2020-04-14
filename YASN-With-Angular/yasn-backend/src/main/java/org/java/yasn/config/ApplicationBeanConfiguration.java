@@ -19,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -99,13 +100,15 @@ public class ApplicationBeanConfiguration {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration corsConfiguration =
         new CorsConfiguration().applyPermitDefaultValues();
-    corsConfiguration.addExposedHeader(
-        "Authorization," +
-            " X-Auth-Token," +
-            " X-Requested-With,");
+    corsConfiguration.addAllowedMethod(HttpMethod.PUT);
+    corsConfiguration.addAllowedMethod(HttpMethod.POST);
+    corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
     corsConfiguration.setAllowCredentials(true);
+    corsConfiguration.addExposedHeader(
+        "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, "
+            + "Content-Type, Access-Control-Request-Method, Custom-Filter-Header");
     corsConfiguration.setAllowedOrigins(
-        Arrays.asList("http://localhost:4200", "http://localhost:8000"));
+        Arrays.asList("http://localhost:4200"));
     source.registerCorsConfiguration("/**", corsConfiguration);
 
     return source;

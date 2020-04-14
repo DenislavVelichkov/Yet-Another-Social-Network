@@ -13,14 +13,16 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(err => {
-      if (err.status === 401) {
+
+      /*if (err.status === 401) {
         // auto logout if 401 response returned from api
         this.auth.logout();
         location.reload();
-      }
+      }*/
 
       this.router.navigate(['error']);
 
+      console.log(err)
       return throwError(err);
     }))
   }

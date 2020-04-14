@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
 import {Observable} from "rxjs";
-import {Principal} from "../store/authentication/Principal";
 import {take} from "rxjs/operators";
 
 @Injectable()
@@ -11,17 +10,9 @@ export class HttpRepositoryService {
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) {
   }
 
-  public getData(route?: string): Observable<Object> {
+  public get(route?: string): Observable<Object> {
 
-    return this.http.get(this.createCompleteRoute(
-      route,
-      this.envUrl.apiEndPointAddress))
-      .pipe(take(1));
-  }
-
-  public getActiveUser(route: string): Observable<Principal> {
-
-    return this.http.get<Principal>(this.createCompleteRoute(
+    return this.http.get(HttpRepositoryService.createCompleteRoute(
       route,
       this.envUrl.apiEndPointAddress))
       .pipe(take(1));
@@ -29,53 +20,59 @@ export class HttpRepositoryService {
 
   public create(route: string, body): Observable<Object> {
     return this.http.post(
-      this.createCompleteRoute(
+      HttpRepositoryService.createCompleteRoute(
         route,
         this.envUrl.apiEndPointAddress),
       body,
-      this.generateHeader(body))
+      {})
       .pipe(take(1));
   }
 
-  public loginRequest(route?: string, body?: any): Observable<Object> {
+  public loginRequest(route: string, body: any) {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
     return this.http.post(
-      this.createCompleteRoute(
-        route,
-        this.envUrl.apiEndPointAddress),
+      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
-      {headers: this.generateHeader(body), observe: "response"})
-      .pipe(take(1));
+      {headers: headers, observe: "response"}).pipe(take(1));
+  }
+
+  public post(route: string, body) {
+    return this.http.post(
+      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
+      body,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }),
+        observe: "response"
+      }
+    ).pipe(take(1))
   }
 
   public update(route: string, body): Observable<Object> {
     return this.http.put(
-      this.createCompleteRoute(
+      HttpRepositoryService.createCompleteRoute(
         route,
         this.envUrl.apiEndPointAddress),
       body,
-      this.generateHeader(body))
+      {})
       .pipe(take(1));
   }
 
   public delete(route: string): Observable<Object> {
     return this.http.delete(
-      this.createCompleteRoute(
+      HttpRepositoryService.createCompleteRoute(
         route,
         this.envUrl.apiEndPointAddress))
       .pipe(take(1));
   }
 
-  private generateHeader(body?, specialHeaders?) {
-    let headers = new HttpHeaders();
 
-    if (body instanceof FormData) {
-      headers.set('Content-Type', 'application/x-www-form-urlencoded;utf-8')
-    }
-
-    return specialHeaders ? specialHeaders : headers;
-  }
-
-  private createCompleteRoute(route: string, envAddress: string) {
+  private static createCompleteRoute(route: string, envAddress: string) {
     return `${envAddress}${route}`;
   }
 }
