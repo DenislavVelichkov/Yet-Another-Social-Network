@@ -4,7 +4,7 @@ import {EnvironmentUrlService} from "./environment-url.service";
 import {Observable} from "rxjs";
 import {take} from "rxjs/operators";
 
-@Injectable()
+@Injectable({providedIn: "root"})
 export class HttpRepositoryService {
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) {
@@ -28,7 +28,7 @@ export class HttpRepositoryService {
       .pipe(take(1));
   }
 
-  public loginRequest(route: string, body: any) {
+  public loginRequest(route: string, body: any): Observable<any> {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -37,7 +37,8 @@ export class HttpRepositoryService {
     return this.http.post(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
-      {headers: headers, observe: "response"}).pipe(take(1));
+      {headers: headers, observe: "response"});
+
   }
 
   public post(route: string, body) {

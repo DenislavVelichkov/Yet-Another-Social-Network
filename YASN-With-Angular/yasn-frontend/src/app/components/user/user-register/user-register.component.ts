@@ -34,13 +34,14 @@ export class UserRegisterComponent implements OnInit {
     formData.append("registerModel", userBlobModel);
 
     this.userService.registerUser(formData).subscribe(data => {
+      //todo  Make it with Store
       this.isUserRegistered = data['isUserRegistered'];
 
       if (!this.isUserRegistered) {
         this.userRegisterBindingModel = data['rejectedModel'];
         this.errors = [...data['errors']];
         this.errors.forEach(error => alert(error['defaultMessage']));
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       } else {
         this.router.navigate(['user/login']);
       }

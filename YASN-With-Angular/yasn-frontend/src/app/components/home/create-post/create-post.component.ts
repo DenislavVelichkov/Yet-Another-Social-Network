@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {HttpRepositoryService} from "../../core/http/http-repository.service";
-import {AppState} from "../../core/store/app.state";
+import {HttpRepositoryService} from "../../../core/http/http-repository.service";
+import {AppState} from "../../../core/store/app.state";
 import {Store} from "@ngrx/store";
-import {Principal} from "../../core/store/authentication/Principal";
 
 @Component({
   selector: 'app-create-post',
@@ -10,18 +9,15 @@ import {Principal} from "../../core/store/authentication/Principal";
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit, AfterViewInit {
-  private activeProfile: Principal;
+  private activeProfile: any;
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>) {
-
-    this.store.select('auth').subscribe(value => {
-      this.activeProfile = value.activeUser;
-    })
   }
 
   ngOnInit() {
-
+    this.store.select('auth')
+      .subscribe(value => this.activeProfile = value.activeUser);
   }
 
   ngAfterViewInit(): void {

@@ -5,18 +5,18 @@ import {NavbarModule} from "../components/navbar/navbar.module";
 import {NavbarComponent} from "../components/navbar/navbar.component";
 import {EnvironmentUrlService} from "./http/environment-url.service";
 import {HttpRepositoryService} from "./http/http-repository.service";
-import {ErrorComponent} from '../components/error/error.component';
 import {StoreModule} from "@ngrx/store";
 import {NewsFeedService} from "./services/news-feed/news-feed.service";
 import {appReducers} from "./store/app.reducers";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
     FooterComponent,
-    ErrorComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     NavbarModule,
     StoreModule.forRoot(appReducers),
   ],

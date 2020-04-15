@@ -11,9 +11,13 @@ import {AppState} from "../../core/store/app.state";
 export class NavbarComponent implements OnInit {
   private isAuthenticated: boolean;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit() {
-    this.store.select('auth').subscribe(value => this.isAuthenticated = value.isAuthenticated);
+    this.store.select('auth')
+      .subscribe(value => {
+        this.isAuthenticated = value.isAuthenticated
+      });
   }
 }

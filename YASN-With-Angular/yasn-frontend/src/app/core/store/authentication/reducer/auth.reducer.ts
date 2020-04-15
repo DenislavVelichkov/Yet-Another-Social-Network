@@ -21,7 +21,7 @@ export function authReducer(state: AuthState = initialState,
 
   function storeUser(state: AuthState, payload: Principal) {
     let newAuthState: AuthState = {
-      isLoggedIn: false,
+      isLoggedIn: true,
       isAuthenticated: true,
       loading: false,
       activeUser: payload,

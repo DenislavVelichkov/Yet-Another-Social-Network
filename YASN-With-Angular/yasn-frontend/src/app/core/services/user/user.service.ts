@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpRepositoryService} from "../../http/http-repository.service";
 
-@Injectable()
+@Injectable({providedIn: "root"})
 export class UserService {
 
     constructor(private httpRepo: HttpRepositoryService) { }

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../core/store/app.state";
-import {map, take} from "rxjs/operators";
 
 @Component({
   selector: 'app-index',
@@ -15,8 +14,6 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('auth').pipe(
-      take(1),
-      map(val => this.isAuthenticated = val.isAuthenticated));
+    this.store.select('auth').subscribe(value => this.isAuthenticated = value.isAuthenticated);
   }
 }

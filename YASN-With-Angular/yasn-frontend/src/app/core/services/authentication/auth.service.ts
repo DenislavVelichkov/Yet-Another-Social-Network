@@ -11,7 +11,7 @@ import {HttpResponse} from "@angular/common/http";
 import {AuthenticatedAction} from "../../store/authentication/actions/authenticated.action";
 import {LogoutAction} from "../../store/authentication/actions/logout.action";
 
-@Injectable()
+@Injectable({providedIn: "root"})
 export class AuthService {
 
   public userCredentials: string;
@@ -27,6 +27,7 @@ export class AuthService {
     this.httpRepo.loginRequest("/api/user/login", userModel)
       .subscribe((data: any) => {
           this.handleAuthentication(data)
+          this.router.navigate(['home']);
         },
         error => {
           throwError(error)

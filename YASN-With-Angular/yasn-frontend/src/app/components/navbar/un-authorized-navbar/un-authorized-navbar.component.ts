@@ -26,6 +26,5 @@ export class UnAuthorizedNavbarComponent implements OnInit {
 
   onSubmit() {
     this.auth.loginUser(this.userLoginBindingModel);
-    this.router.navigate(['/user/login']).catch(reason => console.log(reason));
   }
 }
