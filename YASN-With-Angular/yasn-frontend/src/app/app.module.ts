@@ -14,9 +14,6 @@ import {ErrorComponent} from "./components/error/error.component";
 import {StoreModule} from "@ngrx/store";
 import {appReducers} from "./core/store/app.reducers";
 import {CommonModule} from "@angular/common";
-import {IndexModule} from "./components/index/index.module";
-import {HomeModule} from "./components/home/home.module";
-import {NavbarModule} from "./components/navbar/navbar.module";
 import {CoreModule} from "./core/core.module";
 import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-found.component";
 
@@ -34,9 +31,6 @@ import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-
     RouterModule,
     HttpClientModule,
     StoreModule.forRoot(appReducers),
-    IndexModule,
-    HomeModule,
-    NavbarModule,
     CoreModule
   ],
 
