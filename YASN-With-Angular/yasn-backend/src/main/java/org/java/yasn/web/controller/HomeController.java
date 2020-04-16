@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController extends BaseController {
   private final WallService wallService;
 
-  @GetMapping(value = "/all-news", produces = EndpointConstants.END_POINT_PRODUCES)
+  @GetMapping(value = "/all-news", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> allNewsFeed() {
 
     return ResponseEntity.ok(this.wallService.displayAllPosts());

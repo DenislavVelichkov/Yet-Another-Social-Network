@@ -2,8 +2,11 @@ package org.java.yasn.web.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.common.annotations.interceptor.PageTitle;
 import org.java.yasn.common.enums.PostPrivacy;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
@@ -21,6 +24,7 @@ import org.java.yasn.web.models.binding.ProfileEditBindingModel;
 import org.java.yasn.web.models.binding.WallPostBindingModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -28,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/api/user-profile")
 @AllArgsConstructor
 public class UserProfileController extends BaseController {
 
@@ -45,6 +49,19 @@ public class UserProfileController extends BaseController {
   public void allowEmptyDateBinding(WebDataBinder binder) {
     // tell spring to set empty values as null instead of empty string.
     binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+  }
+
+
+  @GetMapping(value = "/{profileId}", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public ResponseEntity<?> updateAvatar(
+      @PathVariable String profileId) {
+    UserProfileServiceModel userProfile = userProfileService.findUserProfileById(profileId);
+    Map<String, String> response = new HashMap<>();
+    response.put("fullName", userProfile.getFullName());
+    response.put("profileAvatarPicture", userProfile.getProfilePicture());
+    response.put("profileCoverPicture", userProfile.getCoverPicture());
+
+    return ResponseEntity.ok(response);
   }
 
   @GetMapping("/timeline/{profileId}")

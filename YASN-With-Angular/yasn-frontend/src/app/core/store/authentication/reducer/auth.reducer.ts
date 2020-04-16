@@ -1,6 +1,6 @@
 import {AuthState, initialState} from "../state/auth.state";
-import {Principal} from "../Principal";
 import {AuthActionType, AuthActionTypes} from "../actions/auth.action.types";
+import {UserAuthModel} from "../UserAuthModel";
 
 export function authReducer(state: AuthState = initialState,
                             action: AuthActionTypes) {
@@ -25,7 +25,7 @@ export function authReducer(state: AuthState = initialState,
       return state;
   }
 
-  function storeUser(state: AuthState, payload: Principal) {
+  function storeUser(state: AuthState, payload: UserAuthModel) {
     let newAuthState: AuthState = {
       isLoggedIn: true,
       isRegistered: false,
@@ -33,7 +33,6 @@ export function authReducer(state: AuthState = initialState,
       loading: false,
       activeUser: payload,
       error: null,
-      authData: payload._token
     };
 
     return newAuthState;
@@ -47,7 +46,6 @@ export function authReducer(state: AuthState = initialState,
       loading: true,
       activeUser: null,
       error: null,
-      authData: payload
     };
 
     return newAuthState;
@@ -61,7 +59,6 @@ export function authReducer(state: AuthState = initialState,
       loading: false,
       activeUser: null,
       error: null,
-      authData: null
     };
 
     return newAuthState;
@@ -75,7 +72,6 @@ export function authReducer(state: AuthState = initialState,
       loading: payload.loading,
       activeUser: null,
       error: null,
-      authData: null
     };
 
     return newAuthState;
@@ -89,7 +85,6 @@ export function authReducer(state: AuthState = initialState,
       loading: payload.loading,
       activeUser: null,
       error: null,
-      authData: null
     };
 
     return newAuthState;

@@ -3,29 +3,30 @@ import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from 
 import {Observable} from 'rxjs';
 import {Store} from "@ngrx/store";
 import {AppState} from "../store/app.state";
-import {exhaustMap, take} from "rxjs/operators";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private activeUser;
 
   constructor(private store: Store<AppState>) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      // this.store
+      //   .select('auth')
+      //   .pipe(take(1), map(source => this.activeUser = source.activeUser));
+    this.activeUser = JSON.parse(localStorage.getItem("activeUser"))
 
-    return this.store.select('auth').pipe(
-      take(1), exhaustMap(value => {
 
-      if (!value.authData) {
-        return next.handle(request);
+      if (this.activeUser) {
+        const headers = new HttpHeaders({
+          ['Authorization']:`${this.activeUser._token}`
+        })
+        const modifiedReq = request.clone({headers});
+
+        return next.handle(modifiedReq);
       }
 
-      const modifiedReq = request.clone({
-        headers: new HttpHeaders().append("Authorization", value.authData)
-      });
-
-      return next.handle(modifiedReq);
-    }));
-
+    return next.handle(request);
   }
 }

@@ -8,7 +8,6 @@ import {Store} from "@ngrx/store";
 import {RegisterAction} from "../../../core/store/authentication/actions/register.action";
 import {RegisterSuccessAction} from "../../../core/store/authentication/actions/register-success.action";
 import {throwError} from "rxjs";
-import {map, take} from "rxjs/operators";
 
 @Component({
   selector: 'app-user-register',
@@ -40,8 +39,7 @@ export class UserRegisterComponent implements OnInit {
 
     formData.append("registerModel", userBlobModel);
 
-    this.userService.registerUser(formData)
-      .pipe(take(1), map(data => {
+    this.userService.registerUser(formData).subscribe(data => {
 
       this.store.dispatch(new RegisterAction({
         isRegistered: data['isUserRegistered'],
@@ -64,7 +62,7 @@ export class UserRegisterComponent implements OnInit {
     }, error => {
       this.errors = error;
       throwError(error);
-    }));
+    });
 
   }
 }

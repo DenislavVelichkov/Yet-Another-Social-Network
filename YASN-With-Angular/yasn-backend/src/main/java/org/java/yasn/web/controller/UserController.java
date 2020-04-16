@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.services.user.UserService;
 import org.java.yasn.validation.user.UserRegisterValidator;
@@ -25,7 +26,7 @@ public class UserController extends BaseController {
   private final UserRegisterValidator userRegisterValidator;
 
 
-  @PostMapping("/register")
+  @PostMapping(value = "/register", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> register(
       @RequestPart("registerModel") UserRegisterBindingModel registerModel,
       BindingResult bindingResult) {

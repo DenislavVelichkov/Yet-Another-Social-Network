@@ -34,6 +34,6 @@ export class CreatePostComponent implements OnInit, AfterViewInit {
   }
 
   createPost(post: FormData) {
-    this.httpRepo.create("/home/news-feed/post", post)
+    this.httpRepo.createUser("/home/news-feed/post", post)
   }
 }

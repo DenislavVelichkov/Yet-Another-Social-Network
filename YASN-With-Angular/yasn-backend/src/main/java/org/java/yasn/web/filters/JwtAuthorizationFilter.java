@@ -1,6 +1,7 @@
 package org.java.yasn.web.filters;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,22 +38,21 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AuthConstants.AUTHORIZATION_HEADER);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
 
         if (token != null) {
             String username = Jwts.parser()
-                    .setSigningKey(AuthConstants.SIGNING_KEY.getBytes())
-                    .parseClaimsJws(token.replace(AuthConstants.AUTHORIZATION_HEADER_BEGINNING, ""))
-                    .getBody()
-                    .getSubject();
+                                  .setSigningKey(AuthConstants.SIGNING_KEY.getBytes())
+                                  .parseClaimsJws(token.replace(AuthConstants.AUTHORIZATION_HEADER_BEGINNING, ""))
+                                  .getSignature();
 
             if (username != null) {
 
-                usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(username, null);
+                  return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
             }
+
+            return null;
         }
 
-        return usernamePasswordAuthenticationToken;
+        return null;
     }
 }

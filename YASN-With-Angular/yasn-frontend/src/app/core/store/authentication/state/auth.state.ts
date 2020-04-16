@@ -1,4 +1,4 @@
-import {Principal} from "../Principal";
+import {UserAuthModel} from "../UserAuthModel";
 
 export const initialState: AuthState = {
   activeUser: null,
@@ -7,15 +7,13 @@ export const initialState: AuthState = {
   loading: false,
   error: null,
   isAuthenticated: false,
-  authData: null
 };
 
 export interface AuthState {
-  activeUser?: Principal;
+  activeUser?: UserAuthModel;
   isRegistered: boolean;
   isLoggedIn: boolean;
   loading: boolean;
   error?: Error;
   isAuthenticated: boolean;
-  authData: string;
 }

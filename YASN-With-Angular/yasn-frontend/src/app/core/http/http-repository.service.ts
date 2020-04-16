@@ -1,34 +1,28 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
-import {Observable} from "rxjs";
 import {take} from "rxjs/operators";
 
 @Injectable({providedIn: "root"})
 export class HttpRepositoryService {
 
-  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) {
+  constructor(private http: HttpClient,
+              private envUrl: EnvironmentUrlService) {
   }
 
-  public get(route?: string): Observable<Object> {
+  public get(route?: string) {
 
-    return this.http.get(HttpRepositoryService.createCompleteRoute(
-      route,
-      this.envUrl.apiEndPointAddress))
-      .pipe(take(1));
+    return this.http.get(HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress));
   }
 
-  public create(route: string, body): Observable<Object> {
+  public createUser(route: string, body) {
+
     return this.http.post(
-      HttpRepositoryService.createCompleteRoute(
-        route,
-        this.envUrl.apiEndPointAddress),
-      body,
-      {})
-      .pipe(take(1));
+      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
+      body);
   }
 
-  public loginRequest(route: string, body: any): Observable<any> {
+  public loginRequest(route: string, body: any) {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -38,10 +32,10 @@ export class HttpRepositoryService {
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
       {headers: headers, observe: "response"});
-
   }
 
-  public post(route: string, body) {
+  public postWithForm(route: string, body) {
+
     return this.http.post(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
@@ -54,7 +48,7 @@ export class HttpRepositoryService {
     ).pipe(take(1))
   }
 
-  public update(route: string, body): Observable<Object> {
+  public update(route: string, body) {
     return this.http.put(
       HttpRepositoryService.createCompleteRoute(
         route,
@@ -64,14 +58,13 @@ export class HttpRepositoryService {
       .pipe(take(1));
   }
 
-  public delete(route: string): Observable<Object> {
+  public delete(route: string) {
     return this.http.delete(
       HttpRepositoryService.createCompleteRoute(
         route,
         this.envUrl.apiEndPointAddress))
       .pipe(take(1));
   }
-
 
   private static createCompleteRoute(route: string, envAddress: string) {
     return `${envAddress}${route}`;

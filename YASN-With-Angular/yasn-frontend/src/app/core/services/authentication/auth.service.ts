@@ -6,10 +6,10 @@ import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
-import {Principal} from "../../store/authentication/Principal";
 import {HttpResponse} from "@angular/common/http";
 import {AuthenticatedAction} from "../../store/authentication/actions/authenticated.action";
 import {LogoutAction} from "../../store/authentication/actions/logout.action";
+import {UserAuthModel} from "../../store/authentication/UserAuthModel";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -43,17 +43,12 @@ export class AuthService {
     const payload = JSON.parse(atob((token.replace('Bearer: ', '').split('.')[1])));
     const expirationDate = new Date(new Date().getTime() + payload.exp);
 
-    let authenticatedUser: Principal =
-      {
-        userProfileId: payload.userProfileId,
-        role: payload.role,
-        fullName: payload.fullName,
-        avatarUrl: payload.avatarUrl,
-        coverPictureUrl: payload.coverPictureUrl,
-        _token: token,
-        tokenExpirationDate: expirationDate,
-        rememberMe: true
-      }
+    let authenticatedUser = new UserAuthModel(payload.role,
+                                              payload.userId,
+                                              payload.sub,
+                                              true,
+                                              token,
+                                              expirationDate);
 
     localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
     this.cookieService.deleteAll();

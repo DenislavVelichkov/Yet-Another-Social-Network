@@ -19,5 +19,4 @@ export class HomeComponent implements OnInit {
     //   .pipe(take(1),
     //     map(value => this.isLoggedIn = value.isLoggedIn));
   }
-
 }
