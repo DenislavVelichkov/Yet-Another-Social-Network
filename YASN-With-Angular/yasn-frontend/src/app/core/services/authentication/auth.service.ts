@@ -14,8 +14,6 @@ import {LogoutAction} from "../../store/authentication/actions/logout.action";
 @Injectable({providedIn: "root"})
 export class AuthService {
 
-  public userCredentials: string;
-
   constructor(private httpRepo: HttpRepositoryService,
               private cookieService: CookieService,
               private router: Router,
@@ -48,11 +46,13 @@ export class AuthService {
     let authenticatedUser: Principal =
       {
         userProfileId: payload.userProfileId,
-        userName: payload.sub,
+        role: payload.role,
+        fullName: payload.fullName,
+        avatarUrl: payload.avatarUrl,
+        coverPictureUrl: payload.coverPictureUrl,
         _token: token,
         tokenExpirationDate: expirationDate,
-        rememberMe: true,
-        role: payload.role
+        rememberMe: true
       }
 
     localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))

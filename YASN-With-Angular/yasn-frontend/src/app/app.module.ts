@@ -46,5 +46,6 @@ import {LoadingComponent} from './components/loading/loading.component';
 
   bootstrap: [AppComponent],
 })
+
 export class AppModule {
 }

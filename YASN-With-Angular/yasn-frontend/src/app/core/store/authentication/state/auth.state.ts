@@ -2,6 +2,7 @@ import {Principal} from "../Principal";
 
 export const initialState: AuthState = {
   activeUser: null,
+  isRegistered: false,
   isLoggedIn: false,
   loading: false,
   error: null,
@@ -11,6 +12,7 @@ export const initialState: AuthState = {
 
 export interface AuthState {
   activeUser?: Principal;
+  isRegistered: boolean;
   isLoggedIn: boolean;
   loading: boolean;
   error?: Error;

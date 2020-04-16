@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: "index", component: IndexComponent},
   {path: "error", component: ErrorComponent},
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
+  {path: "index", component: IndexComponent},
   {path: "user/login", component: IndexComponent},
 ];
 
@@ -24,5 +25,6 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

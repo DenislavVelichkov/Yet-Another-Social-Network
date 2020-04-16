@@ -17,7 +17,7 @@
   </div>
 
   <div class="col-md-6">
-    <app-user-register *ngIf="!isAuthenticated"></app-user-register>
-    <app-user-login *ngIf="isAuthenticated"></app-user-login>
+    <app-user-register *ngIf="!isAuthenticated && !isRegistered"></app-user-register>
+    <app-user-login *ngIf="isRegistered"></app-user-login>
   </div>
 </div>

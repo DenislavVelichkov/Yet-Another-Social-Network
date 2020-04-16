@@ -9,9 +9,9 @@ import {AppState} from "../../../core/store/app.state";
   styleUrls: ['./authorized-navbar.component.css', '../navbar.component.css']
 })
 export class AuthorizedNavbarComponent implements OnInit {
-  private profilePictureUrl: string = 'alavala';
+  private profilePictureUrl: string;
   private profileId: string;
-  private userName: string;
+  private userFullName: string;
 
   constructor(private auth: AuthService,
               private store: Store<AppState>) {
@@ -20,7 +20,8 @@ export class AuthorizedNavbarComponent implements OnInit {
   ngOnInit() {
     this.store.select('auth').subscribe(value => {
       this.profileId = value.activeUser.userProfileId;
-      this.userName = value.activeUser.userName;
+      this.profilePictureUrl = value.activeUser.avatarUrl;
+      this.userFullName = value.activeUser.fullName;
     })
   }
 

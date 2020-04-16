@@ -6,6 +6,9 @@ import {Router} from '@angular/router';
 import {AppState} from "../../../core/store/app.state";
 import {Store} from "@ngrx/store";
 import {RegisterAction} from "../../../core/store/authentication/actions/register.action";
+import {RegisterSuccessAction} from "../../../core/store/authentication/actions/register-success.action";
+import {throwError} from "rxjs";
+import {map, take} from "rxjs/operators";
 
 @Component({
   selector: 'app-user-register',
@@ -14,13 +17,13 @@ import {RegisterAction} from "../../../core/store/authentication/actions/registe
 })
 export class UserRegisterComponent implements OnInit {
   private userRegisterBindingModel: UserRegisterBindingModel;
-  private isUserRegistered: boolean;
   private errors: Array<Object>;
 
   constructor(private userService: UserService,
               private router: Router,
               private title: Title,
-              private store: Store<AppState>) { }
+              private store: Store<AppState>) {
+  }
 
   ngOnInit() {
     this.title.setTitle('YASN ' + 'Log In or Register');
@@ -37,21 +40,31 @@ export class UserRegisterComponent implements OnInit {
 
     formData.append("registerModel", userBlobModel);
 
-    this.store.dispatch(new RegisterAction())
-    this.userService.registerUser(formData).subscribe(data => {
+    this.userService.registerUser(formData)
+      .pipe(take(1), map(data => {
 
-      this.isUserRegistered = data['isUserRegistered'];
+      this.store.dispatch(new RegisterAction({
+        isRegistered: data['isUserRegistered'],
+        loading: true
+      }));
 
-      if (!this.isUserRegistered) {
+      if (!data['isUserRegistered']) {
         this.userRegisterBindingModel = data['rejectedModel'];
         this.errors = [...data['errors']];
+        //todo Display errors in a modal of some kind
         this.errors.forEach(error => alert(error['defaultMessage']));
         this.router.navigate(['']);
       } else {
+        this.store.dispatch(new RegisterSuccessAction({
+          isRegistered: data['isUserRegistered'],
+          loading: false
+        }));
         this.router.navigate(['user/login']);
       }
-
-    });
+    }, error => {
+      this.errors = error;
+      throwError(error);
+    }));
 
   }
 }
