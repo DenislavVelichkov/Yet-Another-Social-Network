@@ -12,9 +12,10 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     return this.store.select('auth').pipe(take(1), exhaustMap(value => {
 
-      if (!value.activeUser) {
+      if (!value.authData) {
         return next.handle(request);
       }
 
@@ -24,5 +25,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(modifiedReq);
     }));
+
   }
 }

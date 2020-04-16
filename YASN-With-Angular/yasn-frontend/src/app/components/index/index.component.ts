@@ -9,11 +9,15 @@ import {AppState} from "../../core/store/app.state";
 })
 export class IndexComponent implements OnInit {
   private isAuthenticated: boolean;
+  private loading: boolean = true;
 
   constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    this.store.select('auth').subscribe(value => this.isAuthenticated = value.isAuthenticated);
+    // this.store.select('auth').subscribe(value => {
+    //   this.isAuthenticated = value.isAuthenticated;
+    //   this.loading = value.loading;
+    // });
   }
 }

@@ -48,11 +48,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (username != null) {
 
-                usernamePasswordAuthenticationToken
-                        = new UsernamePasswordAuthenticationToken(
-                        username,
-                        null
-                );
+                usernamePasswordAuthenticationToken =
+                    new UsernamePasswordAuthenticationToken(username, null);
             }
         }
 

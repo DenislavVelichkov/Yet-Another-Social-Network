@@ -12,6 +12,8 @@ export const AuthActionType = {
   AUTHENTICATED_ERROR: type('[AUTH] Authenticated error'),
   AUTHENTICATED_SUCCESS: type('[AUTH] Authenticated success'),
   LOGOUT_SUCCESS: type('[AUTH] Logout success'),
+  REGISTER_USER: type('[AUTH] Registration...')
+
 };
 
 export type AuthActionTypes =

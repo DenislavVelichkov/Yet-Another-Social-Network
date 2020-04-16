@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 import {map, take} from "rxjs/operators";
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
 
   constructor(
@@ -29,8 +29,8 @@ export class AuthGuard implements CanActivate {
         if (isAuth) {
           return true;
         }
+
         return this.router.createUrlTree(['user/login']);
       }));
-
   }
 }

@@ -1,6 +1,6 @@
 export interface Principal {
   userName: string,
-  userId: string,
+  userProfileId: string,
   role: string,
   rememberMe: boolean,
   _token: string,

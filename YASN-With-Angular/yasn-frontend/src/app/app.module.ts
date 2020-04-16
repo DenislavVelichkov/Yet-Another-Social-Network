@@ -16,12 +16,14 @@ import {appReducers} from "./core/store/app.reducers";
 import {CommonModule} from "@angular/common";
 import {CoreModule} from "./core/core.module";
 import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-found.component";
+import {LoadingComponent} from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoadingComponent,
   ],
 
   imports: [

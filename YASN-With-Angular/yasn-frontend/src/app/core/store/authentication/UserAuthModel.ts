@@ -3,7 +3,7 @@ import {Principal} from "./Principal";
 class UserAuthModel implements Principal{
 
   constructor(
-    public userId: string,
+    public userProfileId: string,
     public userName: string,
     public role: string,
     public rememberMe: boolean,

@@ -19,7 +19,7 @@ import {HomeModule} from "../components/home/home.module";
     RouterModule,
     IndexModule,
     HomeModule,
-    NavbarModule
+    NavbarModule,
   ],
   exports: [FooterComponent, NavbarComponent],
 })

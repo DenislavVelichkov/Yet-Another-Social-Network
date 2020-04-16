@@ -7,13 +7,11 @@ import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.ExceptionMessages;
-import org.java.yasn.common.enums.PostPrivacy;
 import org.java.yasn.data.entities.LikeId;
 import org.java.yasn.data.entities.wall.Like;
 import org.java.yasn.data.entities.wall.WallPost;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
-import org.java.yasn.data.models.view.WallPostViewModel;
 import org.java.yasn.repository.wall.LikeRepository;
 import org.java.yasn.repository.wall.WallPostRepository;
 import org.java.yasn.services.AuthenticatedUserService;
@@ -72,22 +70,13 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public List<WallPostViewModel> findAllByOwnerId(String ownerId) {
-    List<WallPostServiceModel> postServiceModels =
+  public List<WallPostServiceModel> findAllByOwnerId(String ownerId) {
+    List<WallPostServiceModel> allPostsSorted =
         this.wallPostRepository
             .findAllByPostOwner_Id(ownerId)
             .stream()
             .map(wallPost ->
                 this.modelMapper.map(wallPost, WallPostServiceModel.class))
-            .collect(Collectors.toList());
-    this.modelMapper.validate();
-
-    List<WallPostViewModel> allPostsSorted =
-        postServiceModels
-            .stream()
-            .map(wallPostServiceModel ->
-                this.modelMapper.map(
-                    wallPostServiceModel, WallPostViewModel.class))
             .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
             .collect(Collectors.toList());
     this.modelMapper.validate();
@@ -96,11 +85,7 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public List<WallPostViewModel> displayAllPosts() {
-    String activeUserId =
-        this.userProfileService.findUserProfileByUsername(
-            authUserService.getUsername()).getId();
-
+  public List<WallPostServiceModel> displayAllPosts() {
     List<WallPostServiceModel> allPostsServiceModels = this.wallPostRepository
         .findAll()
         .stream()
@@ -109,35 +94,7 @@ public class WallServiceImpl implements WallService {
         .collect(Collectors.toList());
     this.modelMapper.validate();
 
-    List<WallPostViewModel> allPostsViewModels =
-        allPostsServiceModels.stream()
-                             .map(view ->
-                                 this.modelMapper.map(
-                                     view, WallPostViewModel.class))
-                             .collect(Collectors.toList());
-    this.modelMapper.validate();
-
-    List<WallPostViewModel> allPostsViewModelsSorted =
-        allPostsViewModels.stream().filter(wallPostViewModel ->
-            wallPostViewModel
-                .getPostPrivacy()
-                .equals(PostPrivacy.PUBLIC)
-                || wallPostViewModel
-                .getPostOwner().getId()
-                .equals(
-                    activeUserId)
-                || wallPostViewModel
-                .getPostOwner()
-                .getFriends()
-                .stream()
-                .anyMatch(
-                    profile ->
-                        profile.getId().equals(activeUserId)))
-                          .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
-                          .collect(Collectors.toList());
-    this.modelMapper.validate();
-
-    return allPostsViewModelsSorted;
+    return allPostsServiceModels;
   }
 
   public void likePost(WallPostServiceModel wallPostServiceModel, String profileId) {

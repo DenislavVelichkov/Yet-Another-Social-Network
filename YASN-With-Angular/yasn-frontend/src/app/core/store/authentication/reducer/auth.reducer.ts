@@ -15,6 +15,9 @@ export function authReducer(state: AuthState = initialState,
     case AuthActionType.LOGOUT_SUCCESS:
       return logout()
 
+    case AuthActionType.REGISTER_USER:
+      return registerUser(state, action.payload)
+
     default:
       return state;
   }
@@ -50,6 +53,20 @@ export function authReducer(state: AuthState = initialState,
       isLoggedIn: false,
       isAuthenticated: false,
       loading: false,
+      activeUser: null,
+      error: null,
+      authData: null
+    };
+
+    return newAuthState;
+  }
+
+  function registerUser(state: AuthState, payload: any) {
+
+    let newAuthState: AuthState = {
+      isLoggedIn: false,
+      isAuthenticated: false,
+      loading: true,
       activeUser: null,
       error: null,
       authData: null

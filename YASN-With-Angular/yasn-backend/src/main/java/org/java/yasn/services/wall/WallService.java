@@ -4,19 +4,18 @@ import java.io.IOException;
 import java.util.List;
 
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
-import org.java.yasn.data.models.view.WallPostViewModel;
 
 public interface WallService {
 
   void createPost(WallPostServiceModel wallPost, String username) throws IOException;
 
-  List<WallPostViewModel> displayAllPosts();
+  List<WallPostServiceModel> displayAllPosts();
 
   WallPostServiceModel findWallPostById(String id);
 
   List<WallPostServiceModel> findAllByUsername(String username);
 
-  List<WallPostViewModel> findAllByOwnerId(String ownerId);
+  List<WallPostServiceModel> findAllByOwnerId(String ownerId);
 
   void likePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
 

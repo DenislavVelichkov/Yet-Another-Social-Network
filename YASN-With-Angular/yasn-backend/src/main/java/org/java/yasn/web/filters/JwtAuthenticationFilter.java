@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.java.yasn.common.AuthConstants;
-import org.java.yasn.common.AuthorityConstants;
-import org.java.yasn.common.ErrorConstants;
 import org.java.yasn.data.entities.user.Role;
 import org.java.yasn.data.entities.user.User;
 import org.java.yasn.web.models.binding.UserLoginModel;
@@ -34,7 +31,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request,
+                                                HttpServletResponse response) throws AuthenticationException {
         try {
             UserLoginModel loginBindingModel = new ObjectMapper()
                     .readValue(request.getInputStream(), UserLoginModel.class);
@@ -56,35 +54,18 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
         User user = ((User) authResult.getPrincipal());
-//        String authority = extractHighestAuthorityFromAuthorities(user.getAuthorities());
+        Set<Role> userRoles = user.getAuthorities();
         String token = Jwts.builder()
                 .setSubject(user.getUsername())
                 .setExpiration(new Date(new Date().getTime() + 864000000L))
-                .claim("role", "blank")
-                .claim("userId", user.getId())
+                .claim("role", userRoles)
+                .claim("userProfileId", user.getUserProfile().getId())
+                .claim("fullName", user.getUserProfile().getFullName())
+                .claim("avatarUrl", user.getUserProfile().getProfilePicture())
+                .claim("coverPictureUrl", user.getUserProfile().getCoverPicture())
                 .signWith(SignatureAlgorithm.HS256, AuthConstants.SIGNING_KEY.getBytes())
                 .compact();
 
         response.addHeader(AuthConstants.AUTHORIZATION_HEADER, AuthConstants.AUTHORIZATION_HEADER_BEGINNING + token);
-    }
-
-    private String extractHighestAuthorityFromAuthorities(Set<Role> authorities) {
-
-        Set<String> allAuthoritiesAsString = authorities
-                .stream()
-                .map(Role::getAuthority)
-                .collect(Collectors.toSet());
-
-        if (allAuthoritiesAsString.contains(AuthorityConstants.AUTHORITY_ROOT_ADMIN)) {
-            return AuthorityConstants.AUTHORITY_ROOT_ADMIN;
-        } else if (allAuthoritiesAsString.contains(AuthorityConstants.AUTHORITY_ADMIN)) {
-            return AuthorityConstants.AUTHORITY_ADMIN;
-        } else if (allAuthoritiesAsString.contains(AuthorityConstants.AUTHORITY_MODERATOR)) {
-            return AuthorityConstants.AUTHORITY_MODERATOR;
-        } else if (allAuthoritiesAsString.contains(AuthorityConstants.AUTHORITY_USER)) {
-            return AuthorityConstants.AUTHORITY_USER;
-        } else {
-            throw new IllegalArgumentException(ErrorConstants.NO_SUCH_ROLE);
-        }
     }
 }

@@ -47,7 +47,7 @@ export class AuthService {
 
     let authenticatedUser: Principal =
       {
-        userId: payload.userId,
+        userProfileId: payload.userProfileId,
         userName: payload.sub,
         _token: token,
         tokenExpirationDate: expirationDate,
@@ -56,7 +56,7 @@ export class AuthService {
       }
 
     localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
-
+    this.cookieService.deleteAll();
     this.store.dispatch(new AuthenticatedAction(authenticatedUser))
   }
 }
