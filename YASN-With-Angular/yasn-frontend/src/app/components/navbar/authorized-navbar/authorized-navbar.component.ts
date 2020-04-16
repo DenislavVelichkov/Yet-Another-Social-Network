@@ -34,10 +34,10 @@ export class AuthorizedNavbarComponent implements OnInit {
       this.userFullName = value.userFullName;
       this.profilePictureUrl = value.avatarPictureUrl;
     })
+
   }
 
   logout() {
     this.auth.logout();
   }
-
 }

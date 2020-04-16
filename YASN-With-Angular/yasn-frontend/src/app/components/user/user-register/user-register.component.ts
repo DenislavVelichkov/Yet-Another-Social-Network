@@ -63,6 +63,5 @@ export class UserRegisterComponent implements OnInit {
       this.errors = error;
       throwError(error);
     });
-
   }
 }

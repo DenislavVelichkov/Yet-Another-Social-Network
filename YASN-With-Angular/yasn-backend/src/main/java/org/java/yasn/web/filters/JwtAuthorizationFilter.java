@@ -38,21 +38,22 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AuthConstants.AUTHORIZATION_HEADER);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
 
         if (token != null) {
             String username = Jwts.parser()
-                                  .setSigningKey(AuthConstants.SIGNING_KEY.getBytes())
-                                  .parseClaimsJws(token.replace(AuthConstants.AUTHORIZATION_HEADER_BEGINNING, ""))
-                                  .getSignature();
+                    .setSigningKey(AuthConstants.SIGNING_KEY.getBytes())
+                    .parseClaimsJws(token.replace(AuthConstants.AUTHORIZATION_HEADER_BEGINNING, ""))
+                    .getBody()
+                    .getSubject();
 
             if (username != null) {
 
-                  return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                usernamePasswordAuthenticationToken =
+                    new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
             }
-
-            return null;
         }
 
-        return null;
+        return usernamePasswordAuthenticationToken;
     }
 }
