@@ -10,6 +10,7 @@ import {AppState} from "../../core/store/app.state";
 export class IndexComponent implements OnInit {
   private isAuthenticated: boolean;
   private isRegistered: boolean;
+  private isLoading: boolean;
 
   constructor(private store: Store<AppState>) {
   }
@@ -18,6 +19,7 @@ export class IndexComponent implements OnInit {
     this.store.select('auth').subscribe(value => {
       this.isRegistered = value.isRegistered;
       this.isAuthenticated = value.isAuthenticated;
+      this.isLoading = value.loading;
     });
   }
 }

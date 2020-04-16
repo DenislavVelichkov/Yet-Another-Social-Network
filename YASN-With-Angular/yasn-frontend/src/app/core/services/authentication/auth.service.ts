@@ -10,6 +10,7 @@ import {HttpResponse} from "@angular/common/http";
 import {AuthenticatedAction} from "../../store/authentication/actions/authenticated.action";
 import {LogoutAction} from "../../store/authentication/actions/logout.action";
 import {UserAuthModel} from "../../store/authentication/UserAuthModel";
+import {AuthenticatingFailedAction} from "../../store/authentication/actions/authenticating-failed.action";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -28,6 +29,7 @@ export class AuthService {
           this.router.navigate(['home']);
         },
         error => {
+          this.store.dispatch(new AuthenticatingFailedAction({error: error, loading: false}))
           throwError(error)
         });
   }

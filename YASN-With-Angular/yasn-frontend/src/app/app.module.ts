@@ -12,7 +12,7 @@ import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 import {RouterModule} from "@angular/router";
 import {ErrorComponent} from "./components/error/error.component";
 import {StoreModule} from "@ngrx/store";
-import {appReducers} from "./core/store/app.reducers";
+import {appReducer} from "./core/store/app.reducer";
 import {CommonModule} from "@angular/common";
 import {CoreModule} from "./core/core.module";
 import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-found.component";
@@ -32,7 +32,7 @@ import {LoadingComponent} from './components/loading/loading.component';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducer),
     CoreModule
   ],
 

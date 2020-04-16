@@ -1,5 +1,5 @@
 import {Post} from "../Post";
 
-export interface PostsState {
+export interface PostState {
   all: Post[];
 }

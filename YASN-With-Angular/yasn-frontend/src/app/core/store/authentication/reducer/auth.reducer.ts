@@ -21,12 +21,15 @@ export function authReducer(state: AuthState = initialState,
     case AuthActionType.REGISTER_SUCCESS:
       return registerSuccess(state, action.payload)
 
+    case AuthActionType.AUTHENTICATE_ERROR:
+      return displayAuthError(state, action.payload)
+
     default:
       return state;
   }
 
   function storeUser(state: AuthState, payload: UserAuthModel) {
-    let newAuthState: AuthState = {
+    const newAuthState: AuthState = {
       isLoggedIn: true,
       isRegistered: false,
       isAuthenticated: true,
@@ -39,11 +42,11 @@ export function authReducer(state: AuthState = initialState,
   }
 
   function loginUser(state: AuthState, payload: any) {
-    let newAuthState: AuthState = {
+    const newAuthState: AuthState = {
       isLoggedIn: false,
       isRegistered: false,
       isAuthenticated: false,
-      loading: true,
+      loading: payload.loading,
       activeUser: null,
       error: null,
     };
@@ -52,7 +55,7 @@ export function authReducer(state: AuthState = initialState,
   }
 
   function logout() {
-    let newAuthState: AuthState = {
+    const newAuthState: AuthState = {
       isLoggedIn: false,
       isRegistered: false,
       isAuthenticated: false,
@@ -65,7 +68,7 @@ export function authReducer(state: AuthState = initialState,
   }
 
   function registerUser(state: AuthState, payload: any) {
-    let newAuthState: AuthState = {
+    const newAuthState: AuthState = {
       isLoggedIn: false,
       isRegistered: payload.isRegistered,
       isAuthenticated: false,
@@ -78,13 +81,26 @@ export function authReducer(state: AuthState = initialState,
   }
 
   function registerSuccess(state: AuthState, payload: any) {
-    let newAuthState: AuthState = {
+    const newAuthState: AuthState = {
       isLoggedIn: false,
       isRegistered: payload.isRegistered,
       isAuthenticated: false,
       loading: payload.loading,
       activeUser: null,
       error: null,
+    };
+
+    return newAuthState;
+  }
+
+  function displayAuthError(state: AuthState, payload: any) {
+    const newAuthState: AuthState = {
+      isLoggedIn: false,
+      isRegistered: false,
+      isAuthenticated: false,
+      loading: payload.loading,
+      activeUser: null,
+      error: payload.error,
     };
 
     return newAuthState;

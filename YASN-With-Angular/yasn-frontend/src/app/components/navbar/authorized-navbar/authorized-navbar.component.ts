@@ -40,4 +40,5 @@ export class AuthorizedNavbarComponent implements OnInit {
   logout() {
     this.auth.logout();
   }
+
 }

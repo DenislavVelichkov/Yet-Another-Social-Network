@@ -1,11 +1,11 @@
-import {PostsState} from "../state/posts.state";
+import {PostState} from "../state/postState";
 import {ActionTypes} from "../actions/posts.actions";
 import {PostActions} from "../actions/action.type";
 
-const initialState: PostsState = {all: []};
+const initialState: PostState = {all: []};
 
 export function postsReducer(
-  state: PostsState = initialState,
+  state: PostState = initialState,
   action: PostActions) {
 
 
