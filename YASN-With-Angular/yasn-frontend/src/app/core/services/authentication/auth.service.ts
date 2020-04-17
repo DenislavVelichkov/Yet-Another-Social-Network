@@ -30,6 +30,7 @@ export class AuthService {
         },
         error => {
           this.store.dispatch(new AuthenticatingFailedAction({error: error, loading: false}))
+          this.router.navigate(['user/login'])
           throwError(error)
         });
   }
@@ -45,15 +46,23 @@ export class AuthService {
     const payload = JSON.parse(atob((token.replace('Bearer: ', '').split('.')[1])));
     const expirationDate = new Date(new Date().getTime() + payload.exp);
 
-    let authenticatedUser = new UserAuthModel(payload.role,
-                                              payload.userId,
-                                              payload.sub,
-                                              true,
-                                              token,
-                                              expirationDate);
+    let authenticatedUser =
+      new UserAuthModel(
+        payload.role,
+        payload.userId,
+        payload.sub,
+        true,
+        token,
+        expirationDate);
 
     localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
     this.cookieService.deleteAll();
-    this.store.dispatch(new AuthenticatedAction(authenticatedUser))
+    this.store.dispatch(new AuthenticatedAction(
+      {
+        activeUser: authenticatedUser,
+        loading: false,
+        isAuthenticated: true,
+        isLoggedIn: true
+      }));
   }
 }

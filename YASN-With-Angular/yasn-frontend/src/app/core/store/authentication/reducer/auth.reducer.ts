@@ -1,6 +1,5 @@
 import {AuthState, initialState} from "../state/auth.state";
 import {AuthActionType, AuthActionTypes} from "../actions/auth.action.types";
-import {UserAuthModel} from "../UserAuthModel";
 
 export function authReducer(state: AuthState = initialState,
                             action: AuthActionTypes) {
@@ -28,14 +27,14 @@ export function authReducer(state: AuthState = initialState,
       return state;
   }
 
-  function storeUser(state: AuthState, payload: UserAuthModel) {
+  function storeUser(state: AuthState, payload: any) {
     const newAuthState: AuthState = {
-      isLoggedIn: true,
-      isRegistered: false,
-      isAuthenticated: true,
-      loading: false,
-      activeUser: payload,
-      error: null,
+      activeUser: payload.activeUser,
+      isRegistered: payload.isRegistered,
+      loading: payload.loading,
+      isLoggedIn: payload.isLoggedIn,
+      isAuthenticated: payload.isAuthenticated,
+      error: state.error,
     };
 
     return newAuthState;
@@ -43,12 +42,12 @@ export function authReducer(state: AuthState = initialState,
 
   function loginUser(state: AuthState, payload: any) {
     const newAuthState: AuthState = {
-      isLoggedIn: false,
-      isRegistered: false,
-      isAuthenticated: false,
+      isLoggedIn: state.isLoggedIn,
+      isRegistered: state.isRegistered,
+      isAuthenticated: state.isAuthenticated,
       loading: payload.loading,
-      activeUser: null,
-      error: null,
+      activeUser: state.activeUser,
+      error: state.error,
     };
 
     return newAuthState;
@@ -69,12 +68,12 @@ export function authReducer(state: AuthState = initialState,
 
   function registerUser(state: AuthState, payload: any) {
     const newAuthState: AuthState = {
-      isLoggedIn: false,
       isRegistered: payload.isRegistered,
-      isAuthenticated: false,
       loading: payload.loading,
-      activeUser: null,
-      error: null,
+      isLoggedIn: state.isLoggedIn,
+      isAuthenticated: state.isAuthenticated,
+      activeUser: state.activeUser,
+      error: state.error,
     };
 
     return newAuthState;
@@ -82,12 +81,12 @@ export function authReducer(state: AuthState = initialState,
 
   function registerSuccess(state: AuthState, payload: any) {
     const newAuthState: AuthState = {
-      isLoggedIn: false,
       isRegistered: payload.isRegistered,
-      isAuthenticated: false,
       loading: payload.loading,
-      activeUser: null,
-      error: null,
+      isLoggedIn: state.isLoggedIn,
+      isAuthenticated: state.isAuthenticated,
+      activeUser: state.activeUser,
+      error: state.error,
     };
 
     return newAuthState;
@@ -95,11 +94,11 @@ export function authReducer(state: AuthState = initialState,
 
   function displayAuthError(state: AuthState, payload: any) {
     const newAuthState: AuthState = {
-      isLoggedIn: false,
-      isRegistered: false,
-      isAuthenticated: false,
-      loading: payload.loading,
-      activeUser: null,
+      isLoggedIn: state.isLoggedIn,
+      isRegistered: state.isRegistered,
+      isAuthenticated: state.isAuthenticated,
+      loading: payload.state.loading,
+      activeUser: state.activeUser,
       error: payload.error,
     };
 
