@@ -52,10 +52,7 @@
           <li><i class="fas fa-user-friends"></i></li>
           <li><i class="far fa-compass"></i></li>
           <li><i class="fas fa-camera"></i></li>
-          <li (click)="onEmojiClick(ev)"><i class="fas fa-smile"></i>
-            <div class="emoji-container" style="display: none">
-              <emoji-mart (emojiSelect)="select($event)"></emoji-mart>
-            </div>
+          <li (click)="onEmojiClick()"><i class="fas fa-smile"></i>
           </li>
           <li>
             <i class="fas fa-user-secret"></i>
@@ -81,6 +78,16 @@
         </ul>
       </div>
     </form>
-
+    <div class="emoji-container" *ngIf="showEmojies">
+      <emoji-mart set="facebook"
+                  title="Pick your emoji…"
+                  emoji="point_up"
+                  (emojiSelect)="$event"
+                  (emojiClick)="addEmoji($event)"
+                  [style]="{ position: 'inherit', top: '5rem', left: '30rem' }"
+                  [darkMode]="false"
+                  [enableSearch]="true">
+      </emoji-mart>
+    </div>
   </div>
 </div>

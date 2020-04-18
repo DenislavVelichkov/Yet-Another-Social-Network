@@ -14,15 +14,14 @@ import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
 export class CreatePostComponent implements OnInit {
   private activeProfile: UserAuthModel;
   public postModel: PostBindingModel;
+  public showEmojies: boolean = false;
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>) {
   }
 
   ngOnInit() {
-
     this.postModel = new PostBindingModel();
-
     this.store.select('auth')
       .subscribe(value => this.activeProfile = value.activeUser);
   }
@@ -49,8 +48,11 @@ export class CreatePostComponent implements OnInit {
   }
 
   onEmojiClick() {
-    const emojiContainer = document.querySelector(".emoji-container");
-    emojiContainer.setAttribute("style", "display: block;")
-    // emojiContainer.setAttribute("style", "display: none;")
+    this.showEmojies = !this.showEmojies;
   }
+
+  addEmoji($ev) {
+
+  }
+
 }
