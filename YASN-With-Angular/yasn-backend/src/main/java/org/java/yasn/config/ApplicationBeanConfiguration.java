@@ -14,7 +14,7 @@ import org.java.yasn.utils.TimeUtilImpl;
 import org.java.yasn.web.models.binding.PostCommentBindingModel;
 import org.java.yasn.web.models.binding.UserRegisterBindingModel;
 import org.java.yasn.web.models.binding.UserSendCredentials;
-import org.java.yasn.web.models.binding.WallPostBindingModel;
+import org.java.yasn.web.models.binding.WallPostModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -52,7 +52,7 @@ public class ApplicationBeanConfiguration {
                .addMappings(mapper -> mapper.skip(UserServiceModel::setUserProfile))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setAuthorities));
 
-    modelMapper.createTypeMap(WallPostBindingModel.class, WallPostServiceModel.class)
+    modelMapper.createTypeMap(WallPostModel.class, WallPostServiceModel.class)
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setCreatedOn))
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setComments))
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setId))

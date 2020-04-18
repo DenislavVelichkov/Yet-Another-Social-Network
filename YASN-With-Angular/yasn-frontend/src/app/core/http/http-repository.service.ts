@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
 import {take} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class HttpRepositoryService {
@@ -15,7 +16,7 @@ export class HttpRepositoryService {
     return this.http.get(HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress));
   }
 
-  public createUser(route: string, body) {
+  public create(route: string, body): Observable<Object> {
 
     return this.http.post(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),

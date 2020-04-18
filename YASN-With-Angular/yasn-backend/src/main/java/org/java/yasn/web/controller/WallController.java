@@ -13,7 +13,7 @@ import org.java.yasn.services.wall.WallService;
 import org.java.yasn.validation.wall.CommentValidator;
 import org.java.yasn.validation.wall.PostValidator;
 import org.java.yasn.web.models.binding.PostCommentBindingModel;
-import org.java.yasn.web.models.binding.WallPostBindingModel;
+import org.java.yasn.web.models.binding.WallPostModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,17 +36,11 @@ public class WallController extends BaseController {
 
   @PostMapping("/post")
   public ResponseEntity<?> postOnNewsFeed(
-      @RequestPart(name = "post") WallPostBindingModel post,
-      @PathVariable(name = "profileOwnerId") String profileOwnerId) throws IOException {
+      @RequestPart(name = "post") WallPostModel post) throws IOException {
+    var a = post;
+   boolean isPostCreated = this.wallService.createPost(post);
 
-    WallPostServiceModel wallPostServiceModel =
-        this.modelMapper.map(post, WallPostServiceModel.class);
-    this.modelMapper.validate();
-
-    this.wallService.createPost(
-        this.setDefaultModelAttributes(wallPostServiceModel, post), profileOwnerId);
-
-    return ResponseEntity.ok(200);
+    return ResponseEntity.ok(isPostCreated);
   }
 
 
@@ -80,7 +74,7 @@ public class WallController extends BaseController {
   }
 
   private WallPostServiceModel setDefaultModelAttributes(WallPostServiceModel wallPostServiceModel,
-                                                         WallPostBindingModel post) throws IOException {
+                                                         WallPostModel post) throws IOException {
     if (!wallPostServiceModel.getPostPicture().isEmpty()) {
       wallPostServiceModel.setPostPicture(
           this.cloudinaryService.uploadImage(post.getPostPicture()));

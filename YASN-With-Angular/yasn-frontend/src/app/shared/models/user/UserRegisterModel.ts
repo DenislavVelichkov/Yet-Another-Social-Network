@@ -1,4 +1,4 @@
-export class UserRegisterBindingModel {
+export class UserRegisterModel {
 
   private firstName: string;
   private lastName: string;

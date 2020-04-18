@@ -17,6 +17,7 @@ import org.java.yasn.repository.wall.WallPostRepository;
 import org.java.yasn.services.AuthenticatedUserService;
 import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.utils.FileUtil;
+import org.java.yasn.web.models.binding.WallPostModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -32,17 +33,25 @@ public class WallServiceImpl implements WallService {
   private final AuthenticatedUserService authUserService;
 
   @Override
-  public void createPost(WallPostServiceModel wallPostServiceModel, String activeUserId) {
-
+  public boolean createPost(WallPostModel postModel) {
+    WallPostServiceModel wallPostServiceModel = new WallPostServiceModel();
     wallPostServiceModel.setPostOwner(
-        this.userProfileService.findUserProfileById(activeUserId));
-
+        this.userProfileService.findUserProfileById(postModel.getPostOwnerId()));
     wallPostServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
 
     WallPost wallPost =
         this.modelMapper.map(wallPostServiceModel, WallPost.class);
+    this.modelMapper.validate();
 
-    this.wallPostRepository.saveAndFlush(wallPost);
+    try {
+      this.wallPostRepository.saveAndFlush(wallPost);
+
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+
+      return false;
+    }
   }
 
   @Override

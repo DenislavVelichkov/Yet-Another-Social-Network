@@ -14,7 +14,7 @@
                      required
                      #firstName="ngModel" pattern="([A-Z][A-Za-z]+)"
                      [ngClass]="{'is-valid': firstName.valid && firstName.touched,
-                                            'is-invalid': firstName.invalid && firstName.touched}"
+                                 'is-invalid': firstName.invalid && firstName.touched}"
                      [(ngModel)]="userRegisterBindingModel.firstName">
 
               <div class="invalid-feedback">
@@ -28,7 +28,7 @@
                      required
                      #lastName="ngModel" pattern="([A-Z][A-Za-z]+)"
                      [ngClass]="{'is-valid': lastName.valid && lastName.touched,
-                                            'is-invalid': lastName.invalid && lastName.touched}"
+                                 'is-invalid': lastName.invalid && lastName.touched}"
                      [(ngModel)]="userRegisterBindingModel.lastName">
 
               <div class="invalid-feedback">

@@ -11,8 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WallPostBindingModel {
+public class WallPostModel {
 
+  private String postOwnerId;
   private MultipartFile postPicture;
   private String postContent;
   private PostPrivacy postPrivacy;

@@ -21,7 +21,7 @@ import org.java.yasn.validation.wall.CommentValidator;
 import org.java.yasn.validation.wall.PostValidator;
 import org.java.yasn.web.models.binding.PostCommentBindingModel;
 import org.java.yasn.web.models.binding.ProfileEditBindingModel;
-import org.java.yasn.web.models.binding.WallPostBindingModel;
+import org.java.yasn.web.models.binding.WallPostModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.ResponseEntity;
@@ -80,14 +80,14 @@ public class UserProfileController extends BaseController {
     modelAndView.addObject(
         "postComment", new PostCommentBindingModel());
     modelAndView.addObject(
-        "timelinePost", new WallPostBindingModel());
+        "timelinePost", new WallPostModel());
 
     return super.view("profile", modelAndView);
   }
 
   @PostMapping("/timeline/post")
   public ModelAndView postOnGuestTimeline(
-      @ModelAttribute(name = "wallPost") WallPostBindingModel wallPost,
+      @ModelAttribute(name = "wallPost") WallPostModel wallPost,
       @ModelAttribute(name = "commentPost") PostCommentBindingModel postComment,
       @ModelAttribute(name = "username") String username,
       Principal activeUser) throws IOException {
@@ -113,7 +113,7 @@ public class UserProfileController extends BaseController {
       wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
     }
 
-    this.wallService.createPost(wallPostServiceModel, activeUser.getName());
+//    boolean isPostCreated = this.wallService.createPost(wallPostServiceModel, activeUser.getName());
 
     return super.redirect("/profile/timeline/" + profileId);
   }

@@ -1,7 +1,6 @@
 export class PostBindingModel {
-
-  private postPicture: File;
-  private postContent: string;
-  private postPrivacy: string;
-  private location: string;
+  public postPicture: File;
+  public postContent: string;
+  public postPrivacy: string;
+  public location: string;
 }

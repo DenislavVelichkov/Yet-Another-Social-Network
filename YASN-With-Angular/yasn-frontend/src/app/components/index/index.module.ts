@@ -5,6 +5,7 @@ import {IndexComponent} from './index.component';
 import {UserLoginComponent} from '../user/user-login/user-login.component';
 import {UserRegisterComponent} from '../user/user-register/user-register.component';
 import {RouterModule} from "@angular/router";
+import {PickerModule} from "@ctrl/ngx-emoji-mart";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {RouterModule} from "@angular/router";
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule
+        RouterModule,
+        PickerModule
     ],
   exports: [IndexComponent]
 })

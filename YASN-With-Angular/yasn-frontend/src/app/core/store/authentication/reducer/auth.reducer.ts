@@ -1,5 +1,6 @@
 import {AuthState, initialState} from "../state/auth.state";
 import {AuthActionType, AuthActionTypes} from "../actions/auth.action.types";
+import {UserAuthModel} from "../UserAuthModel";
 
 export function authReducer(state: AuthState = initialState,
                             action: AuthActionTypes) {
@@ -59,7 +60,13 @@ export function authReducer(state: AuthState = initialState,
       isRegistered: false,
       isAuthenticated: false,
       loading: false,
-      activeUser: null,
+      activeUser: new UserAuthModel(
+        null,
+        null,
+        null,
+        null,
+        null,
+        null),
       error: null,
     };
 

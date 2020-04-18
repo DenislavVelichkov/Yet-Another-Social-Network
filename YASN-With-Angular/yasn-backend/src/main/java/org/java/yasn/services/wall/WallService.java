@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
+import org.java.yasn.web.models.binding.WallPostModel;
 
 public interface WallService {
 
-  void createPost(WallPostServiceModel wallPost, String username) throws IOException;
+  boolean createPost(WallPostModel wallPost) throws IOException;
 
   List<WallPostServiceModel> displayAllPosts();
 

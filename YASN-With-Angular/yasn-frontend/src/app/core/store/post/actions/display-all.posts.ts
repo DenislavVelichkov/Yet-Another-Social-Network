@@ -1,12 +1,10 @@
-import {Action} from "@ngrx/store";
 import {ActionTypes} from "./posts.actions";
 
-
-export class CreatePost implements Action {
+export class DisplayAllPosts {
   public readonly type: string;
 
   constructor(public payload: any) {
-    this.type = ActionTypes.CREATE_POST;
+    this.type = ActionTypes.GET_ALL_POSTS;
   }
 
 }

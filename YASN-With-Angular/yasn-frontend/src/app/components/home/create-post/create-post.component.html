@@ -4,12 +4,15 @@
                     </span>
 
   <div class="yasn-post-attributes-container">
-    <form #post="ngForm" (ngSubmit)="createPost(post.value)">
-      <input style="display: none" value="${}" type="text" name="profileOwnerId" ngModel/>
-      <label for="comment-text" id="post"></label>
+    <form #post="ngForm" (ngSubmit)="createPost()">
+      <label for="comment-text"></label>
       <textarea id="comment-text"
                 name="post"
-                type="text" ngModel>
+                type="text"
+                #postContent="ngModel"
+                [ngClass]="{'is-valid': postContent.valid && postContent.touched,
+                                 'is-invalid': postContent.invalid && postContent.touched}"
+                [(ngModel)]="postModel.postContent">
         </textarea>
 
       <div class="yasn-post-extra-tag">
@@ -21,10 +24,11 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Enter Location...</span>
           </div>
-          <input id="location" name="location"
-                 type="text" class="form-control"
-                 aria-describedby="inputGroup-sizing-default"
-                 ngModel/>
+          <label for="location">
+            <input id="location" name="location"
+                   type="text" class="form-control"
+                   aria-describedby="inputGroup-sizing-default"/>
+          </label>
         </div>
 
       </div>
@@ -43,11 +47,16 @@
 
       <div class="yasn-post-extra-emojiies"></div>
 
-      <div class="yasn-post-buttons">
+      <div class="yasn-post-buttons" ng-controller="onEmojiClick">
         <ul>
           <li><i class="fas fa-user-friends"></i></li>
           <li><i class="far fa-compass"></i></li>
           <li><i class="fas fa-camera"></i></li>
+          <li (click)="onEmojiClick(ev)"><i class="fas fa-smile"></i>
+            <div class="emoji-container" style="display: none">
+              <emoji-mart (emojiSelect)="select($event)"></emoji-mart>
+            </div>
+          </li>
           <li>
             <i class="fas fa-user-secret"></i>
             <span>Privacy</span>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserRegisterBindingModel} from 'src/app/shared/models/user/UserRegisterBindingModel';
+import {UserRegisterModel} from 'src/app/shared/models/user/UserRegisterModel';
 import {UserService} from 'src/app/core/services/user/user.service';
 import {Title} from "@angular/platform-browser";
 import {Router} from '@angular/router';
@@ -15,7 +15,7 @@ import {throwError} from "rxjs";
   styleUrls: ['./user-register.component.css', '../../index/index.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-  private userRegisterBindingModel: UserRegisterBindingModel;
+  private userRegisterBindingModel: UserRegisterModel;
   private errors: Array<Object>;
 
   constructor(private userService: UserService,
@@ -26,7 +26,7 @@ export class UserRegisterComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('YASN ' + 'Log In or Register');
-    this.userRegisterBindingModel = new UserRegisterBindingModel();
+    this.userRegisterBindingModel = new UserRegisterModel();
   }
 
   onSubmit() {

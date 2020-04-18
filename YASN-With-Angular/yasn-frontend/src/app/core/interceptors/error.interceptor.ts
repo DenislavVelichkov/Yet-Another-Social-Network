@@ -19,6 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req).pipe(catchError(err => {
+      this.store.dispatch(new AuthenticatingFailedAction({error: err, loading: false}))
 
       if (err.status === 401) {
         // auto logout if 401 response returned from api
@@ -31,7 +32,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       if (err.status === 403) {
-        this.store.dispatch(new AuthenticatingFailedAction({error: err}))
         this.router.navigate(['index']);
       } else {
         this.router.navigate(['error']);

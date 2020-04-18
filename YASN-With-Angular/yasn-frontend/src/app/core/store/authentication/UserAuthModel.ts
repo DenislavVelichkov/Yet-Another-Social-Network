@@ -7,7 +7,6 @@ export class UserAuthModel {
    private _token: string
    private _tokenExpirationDate: Date
 
-
   constructor(role: string,
               userProfileId: string,
               userName: string,

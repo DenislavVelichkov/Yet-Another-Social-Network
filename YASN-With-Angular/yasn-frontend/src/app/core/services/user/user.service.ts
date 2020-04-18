@@ -8,6 +8,6 @@ export class UserService {
     constructor(private httpRepo: HttpRepositoryService) { }
 
     registerUser(formData: FormData): Observable<Object> {
-        return this.httpRepo.createUser("/api/user/register", formData);
+        return this.httpRepo.create("/api/user/register", formData);
     }
 }

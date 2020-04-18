@@ -5,6 +5,8 @@ import {NewsFeedComponent} from "./news-feed/news-feed.component";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {CreatePostComponent} from "./create-post/create-post.component";
+import {PickerModule} from "@ctrl/ngx-emoji-mart";
+import {EmojiModule} from "@ctrl/ngx-emoji-mart/ngx-emoji";
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import {CreatePostComponent} from "./create-post/create-post.component";
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    PickerModule,
+    EmojiModule
   ],
   exports: [HomeComponent]
 })

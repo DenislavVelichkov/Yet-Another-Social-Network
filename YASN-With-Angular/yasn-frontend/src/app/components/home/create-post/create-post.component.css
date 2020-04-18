@@ -66,10 +66,6 @@
   margin: 1em 0 0;
 }
 
-.emojionearea * {
-  z-index: 1 !important;
-}
-
 .post-submit-btn {
   border: none;
   text-align: center;
