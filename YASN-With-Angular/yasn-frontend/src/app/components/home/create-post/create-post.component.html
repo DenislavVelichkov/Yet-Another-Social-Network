@@ -47,31 +47,18 @@
 
       <div class="yasn-post-extra-emojiies"></div>
 
-      <div class="yasn-post-buttons" ng-controller="onEmojiClick">
+      <div class="yasn-post-buttons">
         <ul>
           <li><i class="fas fa-user-friends"></i></li>
           <li><i class="far fa-compass"></i></li>
           <li><i class="fas fa-camera"></i></li>
-          <li (click)="onEmojiClick()"><i class="fas fa-smile"></i>
+          <li (click)="onEmojiClick()"><i class="{{emojiIcon}}"></i>
           </li>
           <li>
             <i class="fas fa-user-secret"></i>
             <span>Privacy</span>
           </li>
-          <li class="yasn-post-extra-privacy">
-            <!--  <ul>
 
-              <li th:each="label : ${T(org.yasn.common.enums.PostPrivacy).values()}">
-                <input th:field="*{postPrivacy}"
-                       th:id="${{label}}"
-                       th:value="${{label}}"
-                       type="radio"/>
-
-                <label th:for="${{label}}">[(${label.getLabel()})]</label>
-              </li>
-
-            </ul>-->
-          </li>
           <li>
             <button class="post-submit-btn" type="submit">POST</button>
           </li>
@@ -79,15 +66,28 @@
       </div>
     </form>
     <div class="emoji-container" *ngIf="showEmojies">
-      <emoji-mart set="facebook"
-                  title="Pick your emoji…"
-                  emoji="point_up"
-                  (emojiSelect)="$event"
-                  (emojiClick)="addEmoji($event)"
-                  [style]="{ position: 'inherit', top: '5rem', left: '30rem' }"
-                  [darkMode]="false"
-                  [enableSearch]="true">
-      </emoji-mart>
+      <div class="arrow-element"></div>
+        <emoji-mart
+          set="facebook"
+          title="Pick your emoji…"
+          emoji="point_up"
+          (emojiSelect)="addEmoji($event)"
+          [style]="{ position: 'inherit', top: '5rem', left: '32rem' }"
+          [darkMode]="false"
+          [enableSearch]="true">
+        </emoji-mart>
+    </div>
+    <div class="" *ngIf="showPrivacyMenu">
+
+    </div>
+    <div class="" *ngIf="showUploadPhotoMenu">
+
+    </div>
+    <div class="" *ngIf="showLocationMenu">
+
+    </div>
+    <div class="" *ngIf="tagFriendsMenu">
+
     </div>
   </div>
 </div>

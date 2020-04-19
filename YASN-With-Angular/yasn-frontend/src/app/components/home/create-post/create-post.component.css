@@ -6,6 +6,10 @@
   margin-bottom: 3em;
 }
 
+.yasn-post-buttons ul li {
+  padding: 0 0 0 1em;
+}
+
 .yasn-post-container > span {
   display: block;
   font-weight: bold;
@@ -98,4 +102,15 @@
   border-radius: 5px;
   background: #fff;
   font-size: 16px;
+}
+
+.arrow-element {
+  background-image: url("src/assets/static/images/menuIcons.png");
+  background-size: auto;
+  background-position: 0px -305px;
+  height: 11px;
+  position: relative;
+  top: 0.01em;
+  left: 7em;
+  width: 20px;
 }

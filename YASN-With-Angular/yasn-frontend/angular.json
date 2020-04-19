@@ -25,12 +25,13 @@
             ],
             "styles": [
               "src/assets/css/reset-css.css",
-              "src/assets/css/bootstrap.min.css",
-              "src/styles.css",
-              "node_modules/@ctrl/ngx-emoji-mart/picker.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css",
+              "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/bootstrap.bundle.min.js"
+              "node_modules/jquery/dist/jquery.slim.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
             ]
           },
           "configurations": {

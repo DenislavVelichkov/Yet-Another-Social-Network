@@ -14,13 +14,19 @@ import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
 export class CreatePostComponent implements OnInit {
   private activeProfile: UserAuthModel;
   public postModel: PostBindingModel;
-  public showEmojies: boolean = false;
+  public showEmojies: boolean;
+  public emojiIcon: string;
+  public showPrivacyMenu: string;
+  public showUploadPhotoMenu: string;
+  public showLocationMenu: string;
+  public tagFriendsMenu: string;
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>) {
   }
 
   ngOnInit() {
+    this.emojiIcon = 'fas fa-smile';
     this.postModel = new PostBindingModel();
     this.store.select('auth')
       .subscribe(value => this.activeProfile = value.activeUser);
@@ -49,10 +55,18 @@ export class CreatePostComponent implements OnInit {
 
   onEmojiClick() {
     this.showEmojies = !this.showEmojies;
+    if (this.showEmojies) {
+      this.emojiIcon = 'fa fa-times';
+    } else {
+      this.emojiIcon = 'fas fa-smile';
+    }
   }
 
   addEmoji($ev) {
+    let message = this.postModel.postContent
+    const selectedEmoji = $ev.emoji.native
+    message ? message += selectedEmoji : message = selectedEmoji;
 
+    this.postModel.postContent = message;
   }
-
 }
