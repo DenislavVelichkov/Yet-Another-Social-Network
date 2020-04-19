@@ -74,8 +74,8 @@
   border: none;
   text-align: center;
   background-color: transparent;
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 16px;
   color: #929292;
   cursor: pointer;
   width: 100%;
@@ -89,7 +89,7 @@
   border-radius: 1em;
   background-color: #f0f2f4;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   color: #929292;
   width: 100%;
   cursor: pointer;

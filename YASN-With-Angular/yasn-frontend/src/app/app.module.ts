@@ -17,6 +17,8 @@ import {CommonModule} from "@angular/common";
 import {CoreModule} from "./core/core.module";
 import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-found.component";
 import {LoadingComponent} from './components/loading/loading.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {LoadingComponent} from './components/loading/loading.component';
     RouterModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
 
   providers: [

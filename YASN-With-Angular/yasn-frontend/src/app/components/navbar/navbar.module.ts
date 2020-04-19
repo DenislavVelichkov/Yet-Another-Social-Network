@@ -5,6 +5,7 @@ import {UnAuthorizedNavbarComponent} from './un-authorized-navbar/un-authorized-
 import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './navbar.component';
 import {RouterModule} from "@angular/router";
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {RouterModule} from "@angular/router";
         CommonModule,
         FormsModule,
         RouterModule,
+        MatBadgeModule,
     ],
     exports: [NavbarComponent]
 })

@@ -16,10 +16,10 @@ export class CreatePostComponent implements OnInit {
   public postModel: PostBindingModel;
   public showEmojies: boolean;
   public emojiIcon: string;
-  public showPrivacyMenu: string;
-  public showUploadPhotoMenu: string;
-  public showLocationMenu: string;
-  public tagFriendsMenu: string;
+  public showPrivacyMenu: boolean;
+  public showUploadPhotoMenu: boolean;
+  public showLocationMenu: boolean;
+  public tagFriendsMenu: boolean;
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>) {

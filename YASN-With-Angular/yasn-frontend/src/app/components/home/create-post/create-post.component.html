@@ -1,11 +1,8 @@
 <div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
-                    <span>
-                        Create a Post
-                    </span>
-
   <div class="yasn-post-attributes-container">
     <form #post="ngForm" (ngSubmit)="createPost()">
-      <label for="comment-text"></label>
+      <label for="comment-text"> What's on your mind...?</label>
+
       <textarea id="comment-text"
                 name="post"
                 type="text"
@@ -52,13 +49,8 @@
           <li><i class="fas fa-user-friends"></i></li>
           <li><i class="far fa-compass"></i></li>
           <li><i class="fas fa-camera"></i></li>
-          <li (click)="onEmojiClick()"><i class="{{emojiIcon}}"></i>
-          </li>
-          <li>
-            <i class="fas fa-user-secret"></i>
-            <span>Privacy</span>
-          </li>
-
+          <li (click)="onEmojiClick()"><i class="{{emojiIcon}}"></i></li>
+          <li><i class="fas fa-user-secret"></i></li>
           <li>
             <button class="post-submit-btn" type="submit">POST</button>
           </li>
