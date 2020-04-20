@@ -6,6 +6,12 @@ import {Observable} from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class HttpRepositoryService {
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+  private formHeaders = new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  });
 
   constructor(private http: HttpClient,
               private envUrl: EnvironmentUrlService) {
@@ -13,7 +19,9 @@ export class HttpRepositoryService {
 
   public get(route?: string) {
 
-    return this.http.get(HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress));
+    return this.http.get(
+      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
+      {headers: this.headers});
   }
 
   public create(route: string, body): Observable<Object> {
@@ -25,14 +33,10 @@ export class HttpRepositoryService {
 
   public loginRequest(route: string, body: any) {
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
     return this.http.post(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
-      {headers: headers, observe: "response"});
+      {headers:this.headers, observe: "response"});
   }
 
   public postWithForm(route: string, body) {
@@ -41,9 +45,7 @@ export class HttpRepositoryService {
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
       {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }),
+        headers: this.formHeaders,
         observe: "response"
       }
     ).pipe(take(1))

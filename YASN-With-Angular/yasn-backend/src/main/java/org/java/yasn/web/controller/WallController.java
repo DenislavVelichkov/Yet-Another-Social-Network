@@ -37,8 +37,8 @@ public class WallController extends BaseController {
   @PostMapping("/post")
   public ResponseEntity<?> postOnNewsFeed(
       @RequestPart(name = "post") WallPostModel post) throws IOException {
-    var a = post;
-   boolean isPostCreated = this.wallService.createPost(post);
+
+    boolean isPostCreated = this.wallService.createPost(post);
 
     return ResponseEntity.ok(isPostCreated);
   }

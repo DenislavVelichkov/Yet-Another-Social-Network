@@ -1,5 +1,6 @@
 package org.java.yasn.services.wall;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.ExceptionMessages;
+import org.java.yasn.common.enums.PostPrivacy;
 import org.java.yasn.data.entities.LikeId;
 import org.java.yasn.data.entities.wall.Like;
 import org.java.yasn.data.entities.wall.WallPost;
@@ -15,10 +17,12 @@ import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.repository.wall.LikeRepository;
 import org.java.yasn.repository.wall.WallPostRepository;
 import org.java.yasn.services.AuthenticatedUserService;
+import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.utils.FileUtil;
 import org.java.yasn.web.models.binding.WallPostModel;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +35,25 @@ public class WallServiceImpl implements WallService {
   private final LikeRepository likeRepository;
   private final FileUtil fileUtil;
   private final AuthenticatedUserService authUserService;
+  private final CloudinaryService cloudinaryService;
 
   @Override
-  public boolean createPost(WallPostModel postModel) {
+  public boolean createPost(WallPostModel postModel) throws IOException {
     WallPostServiceModel wallPostServiceModel = new WallPostServiceModel();
     wallPostServiceModel.setPostOwner(
         this.userProfileService.findUserProfileById(postModel.getPostOwnerId()));
+    wallPostServiceModel.setPostContent(postModel.getPostContent());
     wallPostServiceModel.setCreatedOn(new Timestamp(new Date().getTime()));
+
+    if (postModel.getPostPicture() != null) {
+      wallPostServiceModel.setPostPicture(cloudinaryService.uploadImage(postModel.getPostPicture()));
+    }
+
+    if (postModel.getPostPrivacy() != null) {
+      wallPostServiceModel.setPostPrivacy(postModel.getPostPrivacy());
+    } else {
+      wallPostServiceModel.setPostPrivacy(PostPrivacy.PUBLIC);
+    }
 
     WallPost wallPost =
         this.modelMapper.map(wallPostServiceModel, WallPost.class);
@@ -47,7 +63,7 @@ public class WallServiceImpl implements WallService {
       this.wallPostRepository.saveAndFlush(wallPost);
 
       return true;
-    } catch (Exception e) {
+    } catch (DataIntegrityViolationException e) {
       e.printStackTrace();
 
       return false;

@@ -104,7 +104,7 @@ export function authReducer(state: AuthState = initialState,
       isLoggedIn: state.isLoggedIn,
       isRegistered: state.isRegistered,
       isAuthenticated: state.isAuthenticated,
-      loading: payload.state.loading,
+      loading: payload.loading,
       activeUser: state.activeUser,
       error: payload.error,
     };

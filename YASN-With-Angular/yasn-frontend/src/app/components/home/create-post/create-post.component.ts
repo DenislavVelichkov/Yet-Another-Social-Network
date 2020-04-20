@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpRepositoryService} from "../../../core/http/http-repository.service";
 import {AppState} from "../../../core/store/app.state";
 import {Store} from "@ngrx/store";
@@ -18,8 +18,9 @@ export class CreatePostComponent implements OnInit {
   public emojiIcon: string;
   public showPrivacyMenu: boolean;
   public showUploadPhotoMenu: boolean;
-  public showLocationMenu: boolean;
   public tagFriendsMenu: boolean;
+  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
+  files  = [];
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>) {
@@ -34,6 +35,7 @@ export class CreatePostComponent implements OnInit {
 
   createPost() {
     let formData = new FormData();
+    this.postModel.postOwnerId = this.activeProfile.userProfileId;
 
     console.log(JSON.stringify(this.postModel))
 
@@ -42,10 +44,7 @@ export class CreatePostComponent implements OnInit {
       {type: 'application/json'}
     );
 
-    formData.append("postOwnerId", this.activeProfile.userProfileId);
     formData.append("post", postBlobModel);
-
-    console.log(formData)
 
     this.httpRepo.create(endpointUrls.postToPublicWall, formData)
       .subscribe(post => {
@@ -54,6 +53,14 @@ export class CreatePostComponent implements OnInit {
   }
 
   onEmojiClick() {
+    if (this.showPrivacyMenu) {
+      this.showPrivacyMenu = !this.showPrivacyMenu;
+    }
+
+    if (this.showUploadPhotoMenu) {
+      this.showUploadPhotoMenu = !this.showUploadPhotoMenu;
+    }
+
     this.showEmojies = !this.showEmojies;
     if (this.showEmojies) {
       this.emojiIcon = 'fa fa-times';
@@ -69,4 +76,45 @@ export class CreatePostComponent implements OnInit {
 
     this.postModel.postContent = message;
   }
+
+  onPrivacyClick() {
+    if (this.showEmojies) {
+      this.showEmojies = !this.showEmojies;
+      this.emojiIcon = 'fas fa-smile';
+
+    }
+
+    if (this.showUploadPhotoMenu) {
+      this.showUploadPhotoMenu = !this.showUploadPhotoMenu;
+
+    }
+    this.showPrivacyMenu = !this.showPrivacyMenu;
+  }
+
+  onUploadPhotoClick() {
+    if (this.showEmojies) {
+      this.showEmojies = !this.showEmojies;
+      this.emojiIcon = 'fas fa-smile';
+
+    }
+    if (this.showPrivacyMenu) {
+      this.showPrivacyMenu = !this.showPrivacyMenu;
+    }
+
+    this.showUploadPhotoMenu = !this.showUploadPhotoMenu
+  }
+
+  onUploadPic() {
+    const fileUpload = this.fileUpload.nativeElement;
+    fileUpload.onchange = () => {
+      for (let index = 0; index < fileUpload.files.length; index++)
+      {
+        const file = fileUpload.files[index];
+        this.files.push({ data: file, inProgress: false, progress: 0});
+      }
+    };
+
+    fileUpload.click();
+  }
+
 }

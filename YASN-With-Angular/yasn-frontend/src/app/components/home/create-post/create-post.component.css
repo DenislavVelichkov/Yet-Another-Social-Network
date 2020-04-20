@@ -40,10 +40,6 @@
   width: 100%;
 }
 
-.yasn-post-buttons > ul:nth-child(1) > li:nth-child(6) {
-  float: right;
-}
-
 .yasn-post-buttons li {
   padding: 0.43em;
   margin-top: 0.4em;
@@ -62,12 +58,8 @@
   float: right;
 }
 
-.yasn-post-extra-location,
-.yasn-post-extra-photo,
-.yasn-post-extra-privacy ul,
-.yasn-post-extra-tag {
-  display: none;
-  margin: 1em 0 0;
+.yasn-post-btn-submit-container {
+  float: right;
 }
 
 .post-submit-btn {
@@ -111,6 +103,36 @@
   height: 11px;
   position: relative;
   top: 0.01em;
-  left: 7em;
+  left: 5.5em;
   width: 20px;
 }
+
+.emoji-container {
+  z-index: 1000;
+  position: absolute;
+  left: 0.9em;
+}
+
+.yasn-post-extra-privacy {
+  position: relative;
+  text-align: center;
+}
+
+.yasn-post-extra-privacy label .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.yasn-post-extra-privacy > label:nth-child(1) {
+  padding-right: 1rem;
+}
+
+.yasn-post-extra-photo {
+
+}
+
+

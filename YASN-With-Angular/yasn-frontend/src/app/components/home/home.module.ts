@@ -7,6 +7,10 @@ import {RouterModule} from "@angular/router";
 import {CreatePostComponent} from "./create-post/create-post.component";
 import {PickerModule} from "@ctrl/ngx-emoji-mart";
 import {EmojiModule} from "@ctrl/ngx-emoji-mart/ngx-emoji";
+import {MatCardModule} from "@angular/material/card";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -20,7 +24,11 @@ import {EmojiModule} from "@ctrl/ngx-emoji-mart/ngx-emoji";
     FormsModule,
     RouterModule,
     PickerModule,
-    EmojiModule
+    EmojiModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule
   ],
   exports: [HomeComponent]
 })

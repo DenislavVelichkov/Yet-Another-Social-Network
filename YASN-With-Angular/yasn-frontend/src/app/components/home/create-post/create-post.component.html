@@ -1,8 +1,8 @@
-<div class="yasn-post-container shadow p-3 mb-5 bg-white rounded">
+<div class="yasn-post-container shadow p-2 mb-5 bg-white rounded">
   <div class="yasn-post-attributes-container">
+
     <form #post="ngForm" (ngSubmit)="createPost()">
       <label for="comment-text"> What's on your mind...?</label>
-
       <textarea id="comment-text"
                 name="post"
                 type="text"
@@ -12,74 +12,78 @@
                 [(ngModel)]="postModel.postContent">
         </textarea>
 
-      <div class="yasn-post-extra-tag">
-
-      </div>
-
-      <div class="yasn-post-extra-location">
-        <div class="input-group mb-3 mt-4">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Enter Location...</span>
-          </div>
-          <label for="location">
-            <input id="location" name="location"
-                   type="text" class="form-control"
-                   aria-describedby="inputGroup-sizing-default"/>
-          </label>
-        </div>
-
-      </div>
-
-      <div class="yasn-post-extra-photo">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Upload</span>
-          </div>
-          <div class="custom-file">
-            <input id="post-picture" type="file" class="custom-file-input">
-            <label class="custom-file-label" for="post-picture">Choose image</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="yasn-post-extra-emojiies"></div>
-
       <div class="yasn-post-buttons">
         <ul>
           <li><i class="fas fa-user-friends"></i></li>
-          <li><i class="far fa-compass"></i></li>
-          <li><i class="fas fa-camera"></i></li>
+          <li (click)="onUploadPhotoClick()"><i class="fas fa-camera"></i></li>
           <li (click)="onEmojiClick()"><i class="{{emojiIcon}}"></i></li>
-          <li><i class="fas fa-user-secret"></i></li>
-          <li>
+          <li (click)="onPrivacyClick()"><i class="fas fa-user-secret"></i></li>
+          <li class="yasn-post-btn-submit-container">
             <button class="post-submit-btn" type="submit">POST</button>
           </li>
         </ul>
       </div>
     </form>
+
     <div class="emoji-container" *ngIf="showEmojies">
       <div class="arrow-element"></div>
-        <emoji-mart
-          set="facebook"
-          title="Pick your emoji…"
-          emoji="point_up"
-          (emojiSelect)="addEmoji($event)"
-          [style]="{ position: 'inherit', top: '5rem', left: '32rem' }"
-          [darkMode]="false"
-          [enableSearch]="true">
-        </emoji-mart>
+      <emoji-mart
+        set="facebook"
+        title="Pick your emoji…"
+        emoji="point_up"
+        (emojiSelect)="addEmoji($event)"
+        [style]="{ position: 'inherit', top: '5rem', left: '32rem' }"
+        [darkMode]="false"
+        [enableSearch]="true">
+      </emoji-mart>
     </div>
-    <div class="" *ngIf="showPrivacyMenu">
 
-    </div>
-    <div class="" *ngIf="showUploadPhotoMenu">
+    <section class="yasn-post-extra-privacy" *ngIf="showPrivacyMenu">
+      <label for="yasn-privacy-public-checkbox"> Public
+        <input id="yasn-privacy-public-checkbox" type="radio" value="PUBLIC" name="postPrivacy"
+               [ngModel]="postModel.postPrivacy"/>
+        <span class="checkmark"></span>
+      </label>
+      <label for="yasn-privacy-private-checkbox"> Private
+        <input id="yasn-privacy-private-checkbox" type="radio" value="PRIVATE" name="postPrivacy"
+               [ngModel]="postModel.postPrivacy"/>
+        <span class="checkmark"></span>
+      </label>
+    </section>
 
-    </div>
-    <div class="" *ngIf="showLocationMenu">
+    <section class="yasn-post-extra-photo" *ngIf="showUploadPhotoMenu">
+      <div>
+        <mat-card>
+          <mat-card-content>
+            <ul>
+              <li *ngFor="let file of files">
+                <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+                <span id="file-label">{{postModel.postPicture.name}}</span>
+              </li>
+            </ul>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" (click)="onUploadPic()">
+              <mat-icon>file_upload</mat-icon>
+              Upload picture...
+            </button>
+          </mat-card-actions>
+        </mat-card>
+        <input type="file"
+               #fileUpload
+               id="fileUpload"
+               name="fileUpload"
+               multiple="multiple"
+               accept="image/*"
+               style="display:none;"
+               [(ngModel)]="postModel.postPicture"/>
+      </div>
 
-    </div>
+    </section>
     <div class="" *ngIf="tagFriendsMenu">
+      <div class="yasn-post-extra-tag">
 
+      </div>
     </div>
   </div>
 </div>

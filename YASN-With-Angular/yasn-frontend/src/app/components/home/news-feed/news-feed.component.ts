@@ -18,11 +18,7 @@ export class NewsFeedComponent implements OnInit {
   }
 
   ngOnInit() {
-   /* this.newsService.getAllNewsFeeds()
-      .subscribe(() => {
-        this.newsFeedPosts =
-          this.store.select(state => state.posts.all);
-      });*/
+   let a = this.newsService.getAllNewsFeeds()
   }
 
 }

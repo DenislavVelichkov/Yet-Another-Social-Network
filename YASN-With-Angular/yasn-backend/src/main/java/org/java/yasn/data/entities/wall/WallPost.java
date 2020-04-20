@@ -48,7 +48,9 @@ public class WallPost extends BaseEntity {
   private Timestamp createdOn;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "post_privacy", nullable = false)
+  @Column(
+      name = "post_privacy",
+      nullable = false)
   private PostPrivacy postPrivacy;
 
   @OneToMany(
