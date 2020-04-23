@@ -8,4 +8,15 @@ export class Post {
   private postPrivacy: string;
   private actualLikes: [];
   private location: string;
+
+
+  constructor(postPicture: string, postContent: string, comments: [], createdOn: Timestamp<Date>, postPrivacy: string, actualLikes: [], location: string) {
+    this.postPicture = postPicture;
+    this.postContent = postContent;
+    this.comments = comments;
+    this.createdOn = createdOn;
+    this.postPrivacy = postPrivacy;
+    this.actualLikes = actualLikes;
+    this.location = location;
+  }
 }

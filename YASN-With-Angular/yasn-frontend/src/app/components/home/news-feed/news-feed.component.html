@@ -1,12 +1,12 @@
 <app-create-post></app-create-post>
-<!--
-<div *ngFor="let comment in comments">
+<div *ngFor="let post of newsFeedPosts | async">
   <hr class="post-delimiter">
-  <div class="post-comment-container">
+  <div class="post-comment-container shadow p-2 mb-5 bg-white rounded">
     <div class="post-meta-avatar">
-      <img alt="profile-avatar" class="user-img" th:src="@{${comment.commentOwner.profilePicture}}"/>
+      <img alt="profile-avatar" class="user-img" src="{{post.postPicture}}"/>
+      <span>PostOwnerName....</span>
     </div>
-    &lt;!&ndash;<div class="post-menu">
+    <!--<div class="post-menu">
         <div class="dropdown">
             <a data-target="#" data-toggle="dropdown" role="button">
                 <i class="fas fa-caret-down"></i>
@@ -21,30 +21,19 @@
                 </li>
             </ul>
         </div>
-    </div>&ndash;&gt;
+    </div>-->
     <div>
-      &lt;!&ndash;/*@thymesVar id="activeUserDetails" type="org.yasn.data.models.view.ActiveUserDetails"*/&ndash;&gt;
-      <th:block th:unless="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">
-        <a th:href="@{'/profile/guest/' + ${comment.commentOwner.id}}">
-          [(${comment.commentOwner.fullName})] </a>
-      </th:block>
-      <th:block th:if="${#strings.equals(comment.commentOwner.id, activeUserDetails.id)}">
-        <a th:href="@{'/profile/timeline/' + ${comment.commentOwner.id}}">
-          [(${comment.commentOwner.fullName})] </a>
-      </th:block>
+      <p>{{post.postContent}}</p>
     </div>
     <div class="post-meta-info">
 
-      <span th:text="${time.calcTimeAgo(comment.createdOn)}"></span>
+      <span></span>
       <div class="wall-post-comment-content-container">
-        <p>[(${comment.commentContent})]</p>
+        <p></p>
       </div>
-      <th:block th:unless="${comment.commentPicture == null}">
-        <div class="img-container">
-          <img alt="comment-picture"
-               class="post-content-pic img-fluid" th:src="@{${comment.commentPicture}}">
-        </div>
-      </th:block>
+      <div class="img-container">
+        <img class="post-content-pic img-fluid" alt="comment-picture" src=""/>
+      </div>
     </div>
   </div>
-</div>-->
+</div>

@@ -17,7 +17,7 @@ export class HttpRepositoryService {
               private envUrl: EnvironmentUrlService) {
   }
 
-  public get(route?: string) {
+  public get(route?: string): Observable<Object> {
 
     return this.http.get(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
@@ -36,7 +36,7 @@ export class HttpRepositoryService {
     return this.http.post(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body,
-      {headers:this.headers, observe: "response"});
+      {headers: this.headers, observe: "response"});
   }
 
   public postWithForm(route: string, body) {

@@ -101,7 +101,6 @@ public class ApplicationBeanConfiguration {
     CorsConfiguration corsConfiguration =
         new CorsConfiguration().applyPermitDefaultValues();
     corsConfiguration.addAllowedMethod(HttpMethod.PUT);
-    corsConfiguration.addAllowedMethod(HttpMethod.POST);
     corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.addExposedHeader(

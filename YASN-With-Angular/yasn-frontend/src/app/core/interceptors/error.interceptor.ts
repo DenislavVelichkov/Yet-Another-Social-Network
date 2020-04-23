@@ -23,7 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       if (err.status === 401) {
         // auto logout if 401 response returned from api
-        this.auth.logout();
         location.reload();
       }
 
@@ -36,6 +35,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       } else {
         this.router.navigate(['error']);
       }
+
+      this.auth.logout();
 
       return throwError(err);
     }))

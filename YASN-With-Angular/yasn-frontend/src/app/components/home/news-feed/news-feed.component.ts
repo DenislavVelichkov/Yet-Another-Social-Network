@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {Post} from "../../../core/store/post/Post";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
@@ -11,14 +10,19 @@ import {NewsFeedService} from "../../../core/services/news-feed/news-feed.servic
   styleUrls: ['./news-feed.component.css']
 })
 export class NewsFeedComponent implements OnInit {
-  private newsFeedPosts: Observable<Post[]>;
+  private newsFeedPosts: Observable<Object>;
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>) {
   }
 
   ngOnInit() {
-   let a = this.newsService.getAllNewsFeeds()
+    this.newsFeedPosts = this.newsService.getAllNewsFeeds();
+
+    this.newsFeedPosts.subscribe(value => {
+      console.log(JSON.stringify(value))
+      return value;
+    })
   }
 
 }
