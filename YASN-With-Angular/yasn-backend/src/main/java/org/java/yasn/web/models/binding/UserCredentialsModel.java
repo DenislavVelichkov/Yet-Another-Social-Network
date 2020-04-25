@@ -14,7 +14,7 @@ import org.java.yasn.data.models.service.user.RoleServiceModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSendCredentials {
+public class UserCredentialsModel {
   private String username;
   private String firstName;
   private String lastName;

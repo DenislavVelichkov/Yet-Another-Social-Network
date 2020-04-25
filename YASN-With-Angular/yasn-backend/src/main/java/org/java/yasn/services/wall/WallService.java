@@ -5,12 +5,13 @@ import java.util.Collection;
 
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.web.models.binding.WallPostModel;
+import org.java.yasn.web.models.response.WallPostResponseModel;
 
 public interface WallService {
 
   boolean createPost(WallPostModel wallPost) throws IOException;
 
-  Collection<WallPostServiceModel> displayAllPosts();
+  Collection<WallPostResponseModel> displayAllPosts();
 
   WallPostServiceModel findWallPostById(String id);
 
@@ -18,9 +19,9 @@ public interface WallService {
 
   Collection<WallPostServiceModel> findAllByOwnerId(String ownerId);
 
-  void likePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
+  void likePost(String postId, String profileId);
 
-  boolean isPostLikedByActiveUser(String activeUser, String postId);
+  boolean isPostLikedByActiveUser(String postId, String profileId);
 
   void unlikePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
 }

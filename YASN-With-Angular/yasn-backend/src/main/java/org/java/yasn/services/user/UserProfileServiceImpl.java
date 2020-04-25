@@ -13,7 +13,7 @@ import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.user.UserRepository;
 import org.java.yasn.services.CloudinaryService;
-import org.java.yasn.web.models.binding.ProfileEditBindingModel;
+import org.java.yasn.web.models.binding.ProfileEditModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,8 +49,6 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public UserProfileServiceModel findUserProfileById(String id) {
-    /*Model mapper tends to assign false values sometimes since Model Mapper
-    v2.3.1 the issue is not fixed*/
 
     UserProfile profile =
         this.userProfileRepository.findById(id)
@@ -99,59 +97,59 @@ public class UserProfileServiceImpl implements UserProfileService {
 
   @Override
   public boolean editProfile(UserProfileServiceModel userProfileServiceModel,
-                             ProfileEditBindingModel profileEditBindingModel) throws IOException {
+                             ProfileEditModel profileEditModel) throws IOException {
 
     UserServiceModel userServiceModel = userProfileServiceModel.getProfileOwner();
 
-    if (profileEditBindingModel.getEmail() != null) {
-      userServiceModel.setEmail(profileEditBindingModel.getEmail());
+    if (profileEditModel.getEmail() != null) {
+      userServiceModel.setEmail(profileEditModel.getEmail());
 
-      String[] usernamePrep = profileEditBindingModel.getEmail().split("@");
+      String[] usernamePrep = profileEditModel.getEmail().split("@");
       userServiceModel.setUsername(usernamePrep[0] + "." + usernamePrep[1]);
     }
 
-    if (profileEditBindingModel.getNewPassword() != null) {
+    if (profileEditModel.getNewPassword() != null) {
       userServiceModel.setPassword(
-          this.passwordEncoder.encode(profileEditBindingModel.getNewPassword()));
+          this.passwordEncoder.encode(profileEditModel.getNewPassword()));
     }
 
-    if (!profileEditBindingModel.getProfilePicture().isEmpty()) {
+    if (!profileEditModel.getProfilePicture().isEmpty()) {
       userProfileServiceModel.setProfilePicture(
           this.cloudinaryService.uploadImage(
-              profileEditBindingModel.getProfilePicture()));
+              profileEditModel.getProfilePicture()));
     }
 
-    if (!profileEditBindingModel.getCoverPicture().isEmpty()) {
+    if (!profileEditModel.getCoverPicture().isEmpty()) {
       userProfileServiceModel.setCoverPicture(
           this.cloudinaryService.uploadImage(
-              profileEditBindingModel.getCoverPicture()));
+              profileEditModel.getCoverPicture()));
     }
 
-    if (profileEditBindingModel.getBirthday() != null) {
+    if (profileEditModel.getBirthday() != null) {
       SimpleDateFormat formatter =
           new SimpleDateFormat("yyyy-MM-dd");
       try {
         userServiceModel.setBirthday(
-            formatter.parse(profileEditBindingModel.getBirthday()));
+            formatter.parse(profileEditModel.getBirthday()));
       } catch (ParseException e) {
         e.printStackTrace();
       }
 
     }
 
-    if (profileEditBindingModel.getGender() != null) {
-      userServiceModel.setGender(profileEditBindingModel.getGender());
+    if (profileEditModel.getGender() != null) {
+      userServiceModel.setGender(profileEditModel.getGender());
     }
 
-    if (profileEditBindingModel.getFirstName() != null
-        || profileEditBindingModel.getLastName() != null) {
+    if (profileEditModel.getFirstName() != null
+        || profileEditModel.getLastName() != null) {
       userProfileServiceModel.setFullName(
-          profileEditBindingModel.getFirstName()
+          profileEditModel.getFirstName()
               +
               " "
-              + profileEditBindingModel.getLastName());
-      userServiceModel.setFirstName(profileEditBindingModel.getFirstName());
-      userServiceModel.setLastName(profileEditBindingModel.getLastName());
+              + profileEditModel.getLastName());
+      userServiceModel.setFirstName(profileEditModel.getFirstName());
+      userServiceModel.setLastName(profileEditModel.getLastName());
     }
 
     userProfileServiceModel.setProfileOwner(userServiceModel);

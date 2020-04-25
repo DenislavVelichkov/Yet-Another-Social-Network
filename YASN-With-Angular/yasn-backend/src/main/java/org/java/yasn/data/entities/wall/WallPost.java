@@ -1,7 +1,6 @@
 package org.java.yasn.data.entities.wall;
 
 import java.sql.Timestamp;
-import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -20,7 +19,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class WallPost extends BaseEntity {
 
   @ManyToOne(targetEntity = UserProfile.class,
-  cascade = CascadeType.PERSIST,
   fetch = FetchType.LAZY)
   @JoinColumn(
       name = "post_owner_id",
@@ -55,13 +53,13 @@ public class WallPost extends BaseEntity {
       nullable = false)
   private PostPrivacy postPrivacy;
 
-  @OneToMany(
+  /*@OneToMany(
       fetch = FetchType.LAZY,
       targetEntity = Like.class,
       mappedBy = "likeOwner",
       cascade = CascadeType.ALL,
       orphanRemoval = true)
-  private Set<Like> actualLikes;
+  private Set<Like> actualLikes;*/
 
   @Column(name = "location")
   private String location;

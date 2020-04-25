@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.EndpointConstants;
-import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.services.wall.WallService;
+import org.java.yasn.web.models.response.WallPostResponseModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class HomeController {
   @GetMapping(value = "/all-news", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> allNewsFeed() {
 
-    Collection<WallPostServiceModel> posts = this.wallService.displayAllPosts();
+    Collection<WallPostResponseModel> posts = this.wallService.displayAllPosts();
 
     return ResponseEntity.ok(posts);
   }

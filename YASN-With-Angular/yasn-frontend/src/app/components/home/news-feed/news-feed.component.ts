@@ -18,6 +18,7 @@ export class NewsFeedComponent implements OnInit {
   }
 
   ngOnInit() {
+    //todo remove console log, add state management
     this.newsFeedPosts = this.newsService.getAllNewsFeeds();
 
     this.newsFeedPosts.subscribe(value => {

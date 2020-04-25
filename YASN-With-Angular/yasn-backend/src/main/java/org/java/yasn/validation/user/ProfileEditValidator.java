@@ -9,7 +9,7 @@ import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.validation.ValidationConstants;
 import org.java.yasn.validation.Validator;
-import org.java.yasn.web.models.binding.ProfileEditBindingModel;
+import org.java.yasn.web.models.binding.ProfileEditModel;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
 
@@ -22,15 +22,15 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
 
   @Override
   public boolean supports(Class<?> aClass) {
-    return ProfileEditBindingModel.class.equals(aClass);
+    return ProfileEditModel.class.equals(aClass);
   }
 
   @Override
   public void validate(Object o, Errors errors) {
-    ProfileEditBindingModel profileEditBindingModel = (ProfileEditBindingModel) o;
+    ProfileEditModel profileEditModel = (ProfileEditModel) o;
 
     UserProfile userProfile = this.userProfileRepository
-        .findByProfileOwner_Username(((ProfileEditBindingModel) o).getUsername())
+        .findByProfileOwner_Username(((ProfileEditModel) o).getUsername())
         .orElseThrow(() ->
             new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
@@ -40,10 +40,10 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
     Matcher lastNameMatcher = null;
     Matcher passwordMatcher = null;
 
-    if (profileEditBindingModel.getNewPassword() != null
-        || profileEditBindingModel.getOldPassword() != null) {
+    if (profileEditModel.getNewPassword() != null
+        || profileEditModel.getOldPassword() != null) {
       passwordMatcher =
-          passwordPattern.matcher(profileEditBindingModel.getNewPassword());
+          passwordPattern.matcher(profileEditModel.getNewPassword());
 
       if (!passwordMatcher.matches()) {
         errors.rejectValue(
@@ -59,9 +59,9 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
             ValidationConstants.PASSWORD_CONDITION);
       }
 
-      if (profileEditBindingModel.getNewPassword() != null
-          && !profileEditBindingModel.getNewPassword()
-                                     .equals(profileEditBindingModel
+      if (profileEditModel.getNewPassword() != null
+          && !profileEditModel.getNewPassword()
+                              .equals(profileEditModel
                                          .getConfirmNewPassword())) {
         errors.rejectValue(
             "newPassword",
@@ -71,7 +71,7 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
 
 
       if (!this.bCryptPasswordEncoder.matches(
-          profileEditBindingModel.getOldPassword(), userProfile.getProfileOwner().getPassword())) {
+          profileEditModel.getOldPassword(), userProfile.getProfileOwner().getPassword())) {
         errors.rejectValue(
             "oldPassword",
             ValidationConstants.WRONG_PASSWORD,
@@ -79,9 +79,9 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
       }
     }
 
-    if (profileEditBindingModel.getFirstName() != null) {
+    if (profileEditModel.getFirstName() != null) {
       firstNameMatcher =
-          namePattern.matcher(profileEditBindingModel.getFirstName());
+          namePattern.matcher(profileEditModel.getFirstName());
 
       if (!firstNameMatcher.matches()) {
         errors.rejectValue(
@@ -91,9 +91,9 @@ public class ProfileEditValidator implements org.springframework.validation.Vali
       }
     }
 
-    if (profileEditBindingModel.getLastName() != null) {
+    if (profileEditModel.getLastName() != null) {
       lastNameMatcher =
-          namePattern.matcher(profileEditBindingModel.getLastName());
+          namePattern.matcher(profileEditModel.getLastName());
 
       if (!lastNameMatcher.matches()) {
         errors.rejectValue(

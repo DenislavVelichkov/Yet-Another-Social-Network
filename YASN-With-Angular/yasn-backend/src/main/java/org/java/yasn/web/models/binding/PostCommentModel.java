@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostCommentBindingModel {
+public class PostCommentModel {
 
   private String commentContent;
   private MultipartFile commentPicture;

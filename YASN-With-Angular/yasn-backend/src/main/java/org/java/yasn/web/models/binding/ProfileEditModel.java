@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfileEditBindingModel {
+public class ProfileEditModel {
 
   private String username;
   private String firstName;

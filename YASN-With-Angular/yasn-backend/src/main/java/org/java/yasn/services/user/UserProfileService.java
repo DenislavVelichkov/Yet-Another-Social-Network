@@ -3,7 +3,7 @@ package org.java.yasn.services.user;
 import java.io.IOException;
 
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
-import org.java.yasn.web.models.binding.ProfileEditBindingModel;
+import org.java.yasn.web.models.binding.ProfileEditModel;
 
 public interface UserProfileService {
   UserProfileServiceModel findUserProfileByUsername(String username);
@@ -13,5 +13,5 @@ public interface UserProfileService {
   boolean addFriend(String senderId, String recipientUsername);
 
   boolean editProfile(UserProfileServiceModel userProfile,
-                      ProfileEditBindingModel profileEditBindingModel) throws IOException;
+                      ProfileEditModel profileEditModel) throws IOException;
 }

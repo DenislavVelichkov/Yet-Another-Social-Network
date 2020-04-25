@@ -1,4 +1,4 @@
-package org.java.yasn.web.models;
+package org.java.yasn.web.models.response;
 
 import java.util.Collection;
 

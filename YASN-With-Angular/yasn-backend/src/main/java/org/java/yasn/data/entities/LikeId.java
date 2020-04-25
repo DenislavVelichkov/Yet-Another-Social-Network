@@ -14,6 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LikeId implements Serializable {
-  private String post;
-  private String profile;
+  private String postId;
+  private String profileId;
 }

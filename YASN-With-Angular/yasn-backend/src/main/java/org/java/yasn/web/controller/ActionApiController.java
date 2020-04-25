@@ -12,7 +12,6 @@ import javax.management.OperationsException;
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.ExceptionMessages;
 import org.java.yasn.common.enums.NotificationType;
-import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.action.NotificationService;
 import org.java.yasn.services.gallery.PersonalGalleryService;
@@ -39,16 +38,6 @@ public class ActionApiController {
   @PostMapping("/likes")
   public void likeAction(@ModelAttribute(name = "likePostId") String postId,
                          Principal activeUser) {
-
-    WallPostServiceModel wallPostServiceModel =
-        this.wallService.findWallPostById(postId);
-
-    if (this.wallService.isPostLikedByActiveUser(
-        activeUser.getName(), wallPostServiceModel.getId())) {
-      this.wallService.unlikePost(wallPostServiceModel, activeUser.getName());
-    } else {
-      this.wallService.likePost(wallPostServiceModel, activeUser.getName());
-    }
 
   }
 

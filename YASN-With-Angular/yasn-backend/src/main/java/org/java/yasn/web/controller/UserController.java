@@ -9,7 +9,7 @@ import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.services.user.UserService;
 import org.java.yasn.validation.user.UserRegisterValidator;
-import org.java.yasn.web.models.binding.UserRegisterBindingModel;
+import org.java.yasn.web.models.binding.UserRegisterModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -28,7 +28,7 @@ public class UserController {
 
   @PostMapping(value = "/register", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> register(
-      @RequestPart("registerModel") UserRegisterBindingModel registerModel,
+      @RequestPart("registerModel") UserRegisterModel registerModel,
       BindingResult bindingResult) {
 
     boolean isUserRegistered;

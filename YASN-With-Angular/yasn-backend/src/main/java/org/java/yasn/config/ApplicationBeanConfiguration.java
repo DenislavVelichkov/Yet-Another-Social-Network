@@ -11,9 +11,9 @@ import org.java.yasn.utils.FileUtil;
 import org.java.yasn.utils.FileUtilImpl;
 import org.java.yasn.utils.TimeUtil;
 import org.java.yasn.utils.TimeUtilImpl;
-import org.java.yasn.web.models.binding.PostCommentBindingModel;
-import org.java.yasn.web.models.binding.UserRegisterBindingModel;
-import org.java.yasn.web.models.binding.UserSendCredentials;
+import org.java.yasn.web.models.binding.PostCommentModel;
+import org.java.yasn.web.models.binding.UserCredentialsModel;
+import org.java.yasn.web.models.binding.UserRegisterModel;
 import org.java.yasn.web.models.binding.WallPostModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -44,7 +44,7 @@ public class ApplicationBeanConfiguration {
                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
                .setSkipNullEnabled(true);
 
-    modelMapper.createTypeMap(UserRegisterBindingModel.class, UserServiceModel.class)
+    modelMapper.createTypeMap(UserRegisterModel.class, UserServiceModel.class)
                .addMappings(mapper -> mapper.skip(UserServiceModel::setId))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setUsername))
                .addMappings(mapper -> mapper.skip(UserServiceModel::setActive))
@@ -55,17 +55,16 @@ public class ApplicationBeanConfiguration {
     modelMapper.createTypeMap(WallPostModel.class, WallPostServiceModel.class)
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setCreatedOn))
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setId))
-               .addMappings(mapper -> mapper.skip(WallPostServiceModel::setActualLikes))
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setPostOwner));
 
-    modelMapper.createTypeMap(PostCommentBindingModel.class, PostCommentServiceModel.class)
+    modelMapper.createTypeMap(PostCommentModel.class, PostCommentServiceModel.class)
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setId))
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setParentPost))
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setCreatedOn))
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setCommentOwner));
 
-    modelMapper.createTypeMap(UserServiceModel.class, UserSendCredentials.class)
-               .addMappings(mapper -> mapper.skip(UserSendCredentials::setUserProfileId));
+    modelMapper.createTypeMap(UserServiceModel.class, UserCredentialsModel.class)
+               .addMappings(mapper -> mapper.skip(UserCredentialsModel::setUserProfileId));
 
   }
 

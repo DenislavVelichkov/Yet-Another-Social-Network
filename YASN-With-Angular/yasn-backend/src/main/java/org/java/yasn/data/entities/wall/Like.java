@@ -2,7 +2,6 @@ package org.java.yasn.data.entities.wall;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +17,7 @@ public class Like {
   @EmbeddedId
   LikeId id;
 
-  @ManyToOne(targetEntity = WallPost.class)
-  WallPost likeOwner;
+  boolean isPostAlreadyLiked;
 }
 
 

@@ -4,12 +4,14 @@
   <div class="post-container shadow p-2 mb-5 bg-white rounded">
 
     <div class="post-meta-avatar">
-      <img alt="profile-avatar" class="user-img" src="{{post.postPicture}}"/>
-      <span>PostOwnerName....</span>
+      <img alt="profile-avatar" class="user-img" src="{{post.ownerAvatarPictureUrl}}"/>
+      <span>{{post.ownerFullName}}</span>
+      <span>{{post.createdOn}}</span>
     </div>
 
     <div class="post-content">
-      <p>{{post.postContent}}</p>
+      <p>{{post.content}}</p>
+      <span>Likes: {{post.likesCount}}</span>
     </div>
 
     <div class="post-meta-info">
