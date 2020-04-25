@@ -1,6 +1,6 @@
 package org.java.yasn.services.user;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +13,7 @@ public interface UserService extends UserDetailsService {
 
   UserServiceModel findUserByEmail(String email);
 
-  List<UserServiceModel> findAllUsers();
+  Collection<UserServiceModel> findAllUsers();
 
   void setUserRole(String id, String role);
 }

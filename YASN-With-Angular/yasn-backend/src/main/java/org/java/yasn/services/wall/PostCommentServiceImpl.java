@@ -3,8 +3,8 @@ package org.java.yasn.services.wall;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class PostCommentServiceImpl implements PostCommentService {
   }
 
   @Override
-  public List<PostCommentServiceModel> displayAllPostComments(String id) {
+  public Collection<PostCommentServiceModel> displayAllPostComments(String id) {
     return this.postCommentRepository
         .findAllByParentPost_Id(id)
         .stream()

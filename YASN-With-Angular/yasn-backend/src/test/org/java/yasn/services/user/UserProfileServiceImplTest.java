@@ -54,8 +54,6 @@ public class UserProfileServiceImplTest extends TestBase {
       setProfileOwner(userExpected);
       setFriends(new HashSet<>());
       setId(TEST_PROFILE_UUID_EXPECTED);
-      setPostComments(new HashSet<>());
-      setWallPosts(new HashSet<>());
       setNotifications(new HashSet<>());
       setFriends(new HashSet<>());
     }};
@@ -67,8 +65,6 @@ public class UserProfileServiceImplTest extends TestBase {
       setProfileOwner(userServiceModelExpected);
       setFriends(new HashSet<>());
       setId(TEST_PROFILE_UUID_EXPECTED);
-      setPostComments(new HashSet<>());
-      setWallPosts(new HashSet<>());
       setNotifications(new HashSet<>());
       setFriends(new HashSet<>());
     }};

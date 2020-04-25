@@ -1,6 +1,6 @@
 package org.java.yasn.config;
 
-import java.util.Arrays;
+import java.util.Collections;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -28,8 +28,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class ApplicationBeanConfiguration {
 
-  private static ModelMapper modelMapper;
-  private static FileUtil fileUtil;
+  private static final ModelMapper modelMapper;
+  private static final FileUtil fileUtil;
 
   static {
     fileUtil = new FileUtilImpl();
@@ -54,10 +54,9 @@ public class ApplicationBeanConfiguration {
 
     modelMapper.createTypeMap(WallPostModel.class, WallPostServiceModel.class)
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setCreatedOn))
-               .addMappings(mapper -> mapper.skip(WallPostServiceModel::setComments))
                .addMappings(mapper -> mapper.skip(WallPostServiceModel::setId))
-               .addMappings(mapper -> mapper.skip(WallPostServiceModel::setPostOwner))
-               .addMappings(mapper -> mapper.skip(WallPostServiceModel::setActualLikes));
+               .addMappings(mapper -> mapper.skip(WallPostServiceModel::setActualLikes))
+               .addMappings(mapper -> mapper.skip(WallPostServiceModel::setPostOwner));
 
     modelMapper.createTypeMap(PostCommentBindingModel.class, PostCommentServiceModel.class)
                .addMappings(mapper -> mapper.skip(PostCommentServiceModel::setId))
@@ -107,7 +106,7 @@ public class ApplicationBeanConfiguration {
         "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, "
             + "Content-Type, Access-Control-Request-Method, Custom-Filter-Header");
     corsConfiguration.setAllowedOrigins(
-        Arrays.asList("http://localhost:4200"));
+        Collections.singletonList("http://localhost:4200"));
     source.registerCorsConfiguration("/**", corsConfiguration);
 
     return source;

@@ -19,7 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "wall_posts")
 public class WallPost extends BaseEntity {
 
-  @ManyToOne(targetEntity = UserProfile.class)
+  @ManyToOne(targetEntity = UserProfile.class,
+  cascade = CascadeType.PERSIST,
+  fetch = FetchType.LAZY)
   @JoinColumn(
       name = "post_owner_id",
       referencedColumnName = "id",
@@ -34,12 +36,12 @@ public class WallPost extends BaseEntity {
       nullable = false)
   private String postContent;
 
-  @OneToMany(
+  /*@OneToMany(
       fetch = FetchType.LAZY,
       targetEntity = PostComment.class,
       mappedBy = "parentPost",
       cascade = CascadeType.ALL)
-  private Set<PostComment> comments;
+  private Set<PostComment> comments;*/
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(

@@ -1,6 +1,6 @@
 package org.java.yasn.web.models;
 
-import java.util.List;
+import java.util.Collection;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AlbumResponseModel {
   private String id;
-  private List<PictureResponseModel> pictures;
+  private Collection<PictureResponseModel> pictures;
   private String name;
 }

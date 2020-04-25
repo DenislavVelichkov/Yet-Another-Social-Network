@@ -1,9 +1,9 @@
 package org.java.yasn.services.user;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserServiceModel> findAllUsers() {
+  public Collection<UserServiceModel> findAllUsers() {
     return this.userRepository
         .findAll()
         .stream()

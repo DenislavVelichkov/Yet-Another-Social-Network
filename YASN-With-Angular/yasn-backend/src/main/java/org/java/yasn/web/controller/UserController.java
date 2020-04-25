@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
-public class UserController extends BaseController {
+public class UserController {
 
   private final UserService userService;
   private final ModelMapper modelMapper;

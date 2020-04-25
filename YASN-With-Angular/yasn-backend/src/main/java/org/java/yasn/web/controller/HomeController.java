@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/home")
 @CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
-public class HomeController extends BaseController {
+public class HomeController {
   private final WallService wallService;
 
   @GetMapping(value = "/all-news", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
@@ -27,13 +27,4 @@ public class HomeController extends BaseController {
     return ResponseEntity.ok(posts);
   }
 
-  /*@GetMapping("/admin")
-  public ModelAndView adminPanel(ModelAndView modelAndView) {
-
-    modelAndView.addObject(
-        "userProfileView", super.getUserProfileView());
-    modelAndView.addObject(
-        "activeUserDetails", super.getActiveUserDetails());
-    return super.view("admin-panel", modelAndView);
-  }*/
 }

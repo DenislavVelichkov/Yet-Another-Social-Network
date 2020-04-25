@@ -2,7 +2,7 @@ package org.java.yasn.services.wall;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.List;
+import java.util.Collection;
 
 import org.java.yasn.data.models.service.wall.PostCommentServiceModel;
 
@@ -12,5 +12,5 @@ public interface PostCommentService {
                    Principal user,
                    String postId) throws IOException;
 
-  List<PostCommentServiceModel> displayAllPostComments(String id);
+  Collection<PostCommentServiceModel> displayAllPostComments(String id);
 }

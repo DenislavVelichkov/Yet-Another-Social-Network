@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.java.yasn.data.entities.BaseEntity;
 import org.java.yasn.data.entities.Notification;
-import org.java.yasn.data.entities.wall.PostComment;
-import org.java.yasn.data.entities.wall.WallPost;
 
 @Getter
 @Setter
@@ -42,19 +40,19 @@ public class UserProfile extends BaseEntity {
   @Column(name = "cover_picture")
   private String coverPicture;
 
-  @OneToMany(
+ /* @OneToMany(
       fetch = FetchType.LAZY,
       targetEntity = WallPost.class,
       mappedBy = "postOwner",
       cascade = CascadeType.ALL)
-  private Set<WallPost> wallPosts;
+  private Set<WallPost> wallPosts;*/
 
-  @OneToMany(
+ /* @OneToMany(
       fetch = FetchType.LAZY,
       targetEntity = PostComment.class,
       mappedBy = "commentOwner",
       cascade = CascadeType.ALL)
-  private Set<PostComment> postComments;
+  private Set<PostComment> postComments;*/
 
   @ManyToMany(
       fetch = FetchType.LAZY,

@@ -25,9 +25,6 @@ public class WallPostServiceModel extends BaseServiceModel {
 
   private String postContent;
 
-  @JsonIgnore
-  private Set<PostCommentServiceModel> comments;
-
   private Timestamp createdOn;
 
   private PostPrivacy postPrivacy;

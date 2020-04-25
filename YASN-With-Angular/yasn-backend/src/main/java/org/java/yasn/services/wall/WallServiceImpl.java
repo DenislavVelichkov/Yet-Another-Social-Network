@@ -2,8 +2,8 @@ package org.java.yasn.services.wall;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -85,7 +85,7 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public List<WallPostServiceModel> findAllByUsername(String username) {
+  public Collection<WallPostServiceModel> findAllByUsername(String username) {
     return this.wallPostRepository
         .findAllByPostOwner_ProfileOwner_Username(username)
         .stream()
@@ -95,8 +95,8 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public List<WallPostServiceModel> findAllByOwnerId(String ownerId) {
-    List<WallPostServiceModel> allPostsSorted =
+  public Collection<WallPostServiceModel> findAllByOwnerId(String ownerId) {
+    Collection<WallPostServiceModel> allPostsSorted =
         this.wallPostRepository
             .findAllByPostOwner_Id(ownerId)
             .stream()
@@ -110,8 +110,8 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public List<WallPostServiceModel> displayAllPosts() {
-    List<WallPostServiceModel> allPostsServiceModels = this.wallPostRepository
+  public Collection<WallPostServiceModel> displayAllPosts() {
+    Collection<WallPostServiceModel> allPostsServiceModels = this.wallPostRepository
         .findAll()
         .stream()
         .map(wallPost ->

@@ -1,8 +1,8 @@
 package org.java.yasn.services.action;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -68,10 +68,10 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public List<NotificationServiceModel> findAllByRecipientIdAndSenderId(String recipientId,
-                                                                        String senderId) {
+  public Collection<NotificationServiceModel> findAllByRecipientIdAndSenderId(String recipientId,
+                                                                              String senderId) {
 
-    List<Notification> notifications =
+    Collection<Notification> notifications =
         this.notificationRepository.findAllByRecipientIdAndSenderId(recipientId, senderId);
 
     return notifications

@@ -1,13 +1,13 @@
 package org.java.yasn.services.action;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.java.yasn.common.enums.NotificationType;
 import org.java.yasn.data.models.service.action.NotificationServiceModel;
 
 public interface NotificationService {
 
-  List<NotificationServiceModel> findAllByRecipientIdAndSenderId(
+  Collection<NotificationServiceModel> findAllByRecipientIdAndSenderId(
       String recipientId, String senderId);
 
   NotificationServiceModel createNotification(

@@ -23,7 +23,9 @@ public class PostComment extends BaseEntity {
       referencedColumnName = "id")
   private WallPost parentPost;
 
-  @ManyToOne(targetEntity = UserProfile.class)
+  @ManyToOne(targetEntity = UserProfile.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.PERSIST)
   @JoinColumn(
       name = "comment_owner_id",
       referencedColumnName = "id")
