@@ -17,9 +17,9 @@ export class HttpRepositoryService {
               private envUrl: EnvironmentUrlService) {
   }
 
-  public get(route?: string): Observable<Object> {
+  public get<T>(route?: string): Observable<T> {
 
-    return this.http.get(
+    return this.http.get<T>(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       {headers: this.headers});
   }

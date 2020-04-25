@@ -1,5 +1,6 @@
 .post-meta-avatar {
   float: left;
+  flex: 1 1 100%;
 }
 
 .post-menu {
@@ -19,6 +20,10 @@
 .post-control-delete {
   margin-left: 3em;
   color: red !important;
+}
+
+.post-content {
+  flex: 1 1 100%;
 }
 
 .user-img {
@@ -98,12 +103,14 @@
   font-style: italic;
 }
 
-.post-comment-container {
+.post-container {
   margin-top: 1em;
   border-radius: 1em;
   background-color: rgba(233, 235, 238, 0.65);
   width: 100%;
-  display: block;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
 }
 
 .post-delimiter {

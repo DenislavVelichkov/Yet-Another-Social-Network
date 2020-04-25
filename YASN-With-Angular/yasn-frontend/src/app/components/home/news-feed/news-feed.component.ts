@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
+import {Post} from "../../../core/store/post/Post";
 
 @Component({
   selector: 'app-news-feed',
@@ -10,7 +11,7 @@ import {NewsFeedService} from "../../../core/services/news-feed/news-feed.servic
   styleUrls: ['./news-feed.component.css']
 })
 export class NewsFeedComponent implements OnInit {
-  private newsFeedPosts: Observable<Object>;
+  private newsFeedPosts: Observable<Post>;
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>) {

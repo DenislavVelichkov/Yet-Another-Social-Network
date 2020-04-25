@@ -1,39 +1,30 @@
 <app-create-post></app-create-post>
 <div *ngFor="let post of newsFeedPosts | async">
-  <hr class="post-delimiter">
-  <div class="post-comment-container shadow p-2 mb-5 bg-white rounded">
+  <hr class="post-delimiter"/>
+  <div class="post-container shadow p-2 mb-5 bg-white rounded">
+
     <div class="post-meta-avatar">
       <img alt="profile-avatar" class="user-img" src="{{post.postPicture}}"/>
       <span>PostOwnerName....</span>
     </div>
-    <!--<div class="post-menu">
-        <div class="dropdown">
-            <a data-target="#" data-toggle="dropdown" role="button">
-                <i class="fas fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu multi-level" role="menu">
-                <li>
-                    &lt;!&ndash;     todo  little post menu CRUD operations  &ndash;&gt;
-                    <a class="post-control-edit"
-                       href="">
-                        Edit
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>-->
-    <div>
+
+    <div class="post-content">
       <p>{{post.postContent}}</p>
     </div>
+
     <div class="post-meta-info">
 
-      <span></span>
+<!--      <span></span>
+
       <div class="wall-post-comment-content-container">
         <p></p>
       </div>
+
       <div class="img-container">
         <img class="post-content-pic img-fluid" alt="comment-picture" src=""/>
-      </div>
+      </div>-->
+
     </div>
+
   </div>
 </div>
