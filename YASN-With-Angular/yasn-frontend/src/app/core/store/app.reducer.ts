@@ -3,7 +3,7 @@ import {authReducer} from "./authentication/reducer/auth.reducer";
 import {userProfileReducer} from "./userProfile/reducer/user-profile.reducer";
 
 export const appReducer = {
-  posts: postsReducer,
+  newsFeed: postsReducer,
   auth: authReducer,
   userProfile: userProfileReducer,
 };

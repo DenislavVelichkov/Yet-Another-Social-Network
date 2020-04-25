@@ -35,7 +35,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     RouterModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer),
-    CoreModule,
+    CoreModule.forRoot(),
     BrowserAnimationsModule,
     MatProgressSpinnerModule
   ],

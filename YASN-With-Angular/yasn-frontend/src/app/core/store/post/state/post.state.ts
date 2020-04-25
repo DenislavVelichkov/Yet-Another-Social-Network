@@ -1,9 +1,11 @@
 import {Post} from "../Post";
 
 export const initialState: PostState = {
-  all: []
+  allWallPosts: [],
+  loading: false
 };
 
 export interface PostState {
-  all: Post[];
+  allWallPosts: Post[];
+  loading: boolean;
 }
