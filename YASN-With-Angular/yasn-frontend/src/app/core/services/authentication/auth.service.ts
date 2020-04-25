@@ -36,8 +36,20 @@ export class AuthService {
   }
 
   logout() {
-    this.store.dispatch(new LogoutAction());
+
+    let nullPayload = {
+      activeUser:  false,
+      isRegistered:  false,
+      isLoggedIn:  false,
+      loading:  false,
+      error: null,
+      isAuthenticated:  false,
+    }
+
+    this.store.dispatch(new LogoutAction(nullPayload));
+
     localStorage.clear()
+
     this.router.navigate(['/user/login']).catch(reason => console.log(reason));
   }
 

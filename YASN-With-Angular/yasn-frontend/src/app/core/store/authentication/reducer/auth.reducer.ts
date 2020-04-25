@@ -1,6 +1,5 @@
 import {AuthState, initialState} from "../state/auth.state";
 import {AuthActionType, AuthActionTypes} from "../actions/auth.action.types";
-import {UserAuthModel} from "../UserAuthModel";
 
 export function authReducer(state: AuthState = initialState,
                             action: AuthActionTypes) {
@@ -13,7 +12,7 @@ export function authReducer(state: AuthState = initialState,
       return storeUser(state, action.payload)
 
     case AuthActionType.LOGOUT_SUCCESS:
-      return logout()
+      return logout(state, action.payload)
 
     case AuthActionType.REGISTER_USER:
       return registerUser(state, action.payload)
@@ -28,87 +27,34 @@ export function authReducer(state: AuthState = initialState,
       return state;
   }
 
-  function storeUser(state: AuthState, payload: any) {
-    const newAuthState: AuthState = {
-      activeUser: payload.activeUser,
-      isRegistered: payload.isRegistered,
-      loading: payload.loading,
-      isLoggedIn: payload.isLoggedIn,
-      isAuthenticated: payload.isAuthenticated,
-      error: state.error,
-    };
+  function storeUser(state, payload: any) {
 
-    return newAuthState;
+    return Object.assign({}, state, payload);
   }
 
-  function loginUser(state: AuthState, payload: any) {
-    const newAuthState: AuthState = {
-      isLoggedIn: state.isLoggedIn,
-      isRegistered: state.isRegistered,
-      isAuthenticated: state.isAuthenticated,
-      loading: payload.loading,
-      activeUser: state.activeUser,
-      error: state.error,
-    };
+  function loginUser(state, payload: any) {
 
-    return newAuthState;
+    return Object.assign({}, state, payload);
   }
 
-  function logout() {
-    const newAuthState: AuthState = {
-      isLoggedIn: false,
-      isRegistered: false,
-      isAuthenticated: false,
-      loading: false,
-      activeUser: new UserAuthModel(
-        null,
-        null,
-        null,
-        null,
-        null,
-        null),
-      error: null,
-    };
+  function logout(state, payload) {
 
-    return newAuthState;
+    return Object.assign({}, state, payload);
   }
 
-  function registerUser(state: AuthState, payload: any) {
-    const newAuthState: AuthState = {
-      isRegistered: payload.isRegistered,
-      loading: payload.loading,
-      isLoggedIn: state.isLoggedIn,
-      isAuthenticated: state.isAuthenticated,
-      activeUser: state.activeUser,
-      error: state.error,
-    };
+  function registerUser(state, payload: any) {
 
-    return newAuthState;
+    return Object.assign({}, state, payload);
   }
 
-  function registerSuccess(state: AuthState, payload: any) {
-    const newAuthState: AuthState = {
-      isRegistered: payload.isRegistered,
-      loading: payload.loading,
-      isLoggedIn: state.isLoggedIn,
-      isAuthenticated: state.isAuthenticated,
-      activeUser: state.activeUser,
-      error: state.error,
-    };
+  function registerSuccess(state, payload: any) {
 
-    return newAuthState;
+    return Object.assign({}, state, payload);
   }
 
-  function displayAuthError(state: AuthState, payload: any) {
-    const newAuthState: AuthState = {
-      isLoggedIn: state.isLoggedIn,
-      isRegistered: state.isRegistered,
-      isAuthenticated: state.isAuthenticated,
-      loading: payload.loading,
-      activeUser: state.activeUser,
-      error: payload.error,
-    };
+  function displayAuthError(state, payload: any) {
 
-    return newAuthState;
+    return Object.assign({}, state, payload);
   }
+
 }

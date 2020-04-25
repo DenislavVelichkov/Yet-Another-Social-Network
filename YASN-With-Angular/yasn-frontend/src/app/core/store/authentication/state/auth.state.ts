@@ -10,7 +10,7 @@ export const initialState: AuthState = {
 };
 
 export interface AuthState {
-  activeUser?: UserAuthModel;
+  activeUser: UserAuthModel;
   isRegistered: boolean;
   isLoggedIn: boolean;
   loading: boolean;
