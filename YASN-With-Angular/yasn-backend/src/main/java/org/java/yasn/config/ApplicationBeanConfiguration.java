@@ -9,8 +9,6 @@ import org.java.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.utils.FileUtil;
 import org.java.yasn.utils.FileUtilImpl;
-import org.java.yasn.utils.TimeUtil;
-import org.java.yasn.utils.TimeUtilImpl;
 import org.java.yasn.web.models.binding.PostCommentModel;
 import org.java.yasn.web.models.binding.UserCredentialsModel;
 import org.java.yasn.web.models.binding.UserRegisterModel;
@@ -86,11 +84,6 @@ public class ApplicationBeanConfiguration {
   @Bean
   public FileUtil fileUtil() {
     return fileUtil;
-  }
-
-  @Bean
-  public TimeUtil timeUtil() {
-    return new TimeUtilImpl();
   }
 
   @Bean

@@ -7,6 +7,7 @@ import {Post} from "../../../core/store/post/Post";
 import {DisplayAllPostsAction} from "../../../core/store/post/actions/display-all-posts.action";
 import {take} from "rxjs/operators";
 import {AvatarModel} from "../../../core/store/userProfile/AvatarModel";
+import {timeConverter} from "../../../core/util/util"
 
 @Component({
   selector: 'app-news-feed',
@@ -46,4 +47,7 @@ export class NewsFeedComponent implements OnInit {
 
   }
 
+  convertTime(date: Date): string {
+    return timeConverter(date)
+  }
 }
