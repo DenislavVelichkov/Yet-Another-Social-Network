@@ -1,5 +1,5 @@
 export interface AvatarModel {
-  userFullName: string,
-  avatarPictureUrl: string,
-  coverPictureUrl: string,
+  fullName: string,
+  profileAvatarPicture: string,
+  profileCoverPicture: string,
 }

@@ -1,7 +1,6 @@
 package org.java.yasn.data.entities.gallery;
 
 import java.sql.Timestamp;
-import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -16,14 +15,15 @@ import org.java.yasn.data.entities.BaseEntity;
 @Table(name = "photo_albums")
 public class PhotoAlbum extends BaseEntity {
 
-  @ManyToOne(targetEntity = PersonalGallery.class)
+  @ManyToOne(targetEntity = PersonalGallery.class,
+  fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "gallery_id", referencedColumnName = "id")
   private PersonalGallery personalGallery;
 
-  @OneToMany(targetEntity = Picture.class,
+ /* @OneToMany(targetEntity = Picture.class,
       mappedBy = "album",
-      cascade = CascadeType.ALL)
-  private Set<Picture> pictures;
+      cascade = CascadeType.PERSIST)
+  private Collection<Picture> pictures;*/
 
   @Column(nullable = false)
   private String name;
@@ -31,8 +31,7 @@ public class PhotoAlbum extends BaseEntity {
   @Column(name = "created_on")
   private Timestamp createdOn;
 
-  @Column(name = "album_image",
-      nullable = false)
+  @Column(name = "album_image")
   private String albumImg;
 
 }

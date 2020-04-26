@@ -58,7 +58,7 @@
             <ul>
               <li *ngFor="let file of files">
                 <mat-progress-bar [value]="file.progress"></mat-progress-bar>
-                <span id="file-label">{{postModel.postPicture.name}}</span>
+                <span id="file-label">{{file.name}}</span>
               </li>
             </ul>
           </mat-card-content>
@@ -75,8 +75,7 @@
                name="fileUpload"
                multiple="multiple"
                accept="image/*"
-               style="display:none;"
-               [(ngModel)]="postModel.postPicture"/>
+               style="display:none;"/>
       </div>
 
     </section>

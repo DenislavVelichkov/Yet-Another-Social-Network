@@ -152,5 +152,15 @@
   text-align: center !important;
 }
 
+.post-img {
+  border-radius: 5px;
+  height: auto;
+  width: 100%;
+}
+
+.post-like {
+  font-weight: 400;
+}
+
 
 

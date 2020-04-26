@@ -11,20 +11,24 @@
 
     <div class="post-content">
       <p>{{post.content}}</p>
-      <span>Likes: {{post.likesCount}}</span>
+      <div *ngFor="let pic of post.postPicture">
+        <img class="post-img" src="{{pic}}" alt="post-picture"/>
+        <hr>
+      </div>
+      <span class="post-like">Likes: {{post.likesCount}}</span>
     </div>
 
     <div class="post-meta-info">
 
-<!--      <span></span>
+      <!--      <span></span>
 
-      <div class="wall-post-comment-content-container">
-        <p></p>
-      </div>
+            <div class="wall-post-comment-content-container">
+              <p></p>
+            </div>
 
-      <div class="img-container">
-        <img class="post-content-pic img-fluid" alt="comment-picture" src=""/>
-      </div>-->
+            <div class="img-container">
+              <img class="post-content-pic img-fluid" alt="comment-picture" src=""/>
+            </div>-->
 
     </div>
 

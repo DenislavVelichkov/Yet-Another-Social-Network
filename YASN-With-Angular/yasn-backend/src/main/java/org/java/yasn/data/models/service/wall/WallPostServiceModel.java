@@ -19,8 +19,6 @@ public class WallPostServiceModel extends BaseServiceModel {
   @JsonIgnore
   private UserProfileServiceModel postOwner;
 
-  private String postPicture;
-
   private String postContent;
 
   private Timestamp createdOn;

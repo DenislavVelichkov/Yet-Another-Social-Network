@@ -1,6 +1,7 @@
 package org.java.yasn.web.models.response;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class WallPostResponseModel {
   String ownerFullName;
   String ownerAvatarPictureUrl;
   String content;
+  Collection<String> postPicture;
   Timestamp createdOn;
   long likesCount;
 }

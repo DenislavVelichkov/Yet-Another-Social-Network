@@ -19,15 +19,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class WallPost extends BaseEntity {
 
   @ManyToOne(targetEntity = UserProfile.class,
-  fetch = FetchType.LAZY)
+      fetch = FetchType.LAZY)
   @JoinColumn(
       name = "post_owner_id",
       referencedColumnName = "id",
       nullable = false)
   private UserProfile postOwner;
 
-  @Column(name = "post_picture")
-  private String postPicture;
+/*  @Column(name = "post_picture")
+  private String postPicture;*/
 
   @Column(
       name = "post_content",

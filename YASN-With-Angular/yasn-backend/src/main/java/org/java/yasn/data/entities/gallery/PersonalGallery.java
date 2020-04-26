@@ -1,6 +1,5 @@
 package org.java.yasn.data.entities.gallery;
 
-import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -16,13 +15,13 @@ import org.java.yasn.data.entities.user.UserProfile;
 @Table(name = "galleries")
 public class PersonalGallery extends BaseEntity {
 
-  @Column(name = "photo_albums")
+ /* @Column(name = "photo_albums")
   @OneToMany(targetEntity = PhotoAlbum.class,
-      cascade = CascadeType.ALL,
+      cascade = CascadeType.PERSIST,
       mappedBy = "personalGallery")
-  Set<PhotoAlbum> photoAlbums;
+  Collection<PhotoAlbum> photoAlbums;*/
 
-  @OneToOne(targetEntity = UserProfile.class)
+  @OneToOne(targetEntity = UserProfile.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "gallery_owner_id", referencedColumnName = "id")
   UserProfile galleryOwner;
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.java.yasn.common.enums.PostPrivacy;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -14,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class WallPostModel {
 
   private String postOwnerId;
-  private MultipartFile postPicture;
   private String postContent;
   private PostPrivacy postPrivacy;
   private String location;

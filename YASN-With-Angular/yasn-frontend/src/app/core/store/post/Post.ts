@@ -4,6 +4,7 @@ export interface Post {
   ownerAvatarPictureUrl: string;
   createdOn: Date;
   content: string;
+  postPicture: Array<string>;
   postPrivacy: string;
   likesCount: number;
   location: string;

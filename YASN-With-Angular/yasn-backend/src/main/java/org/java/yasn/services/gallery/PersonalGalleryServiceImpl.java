@@ -44,8 +44,8 @@ public class PersonalGalleryServiceImpl implements PersonalGalleryService {
             .findByNameAndPersonalGallery_GalleryOwner_Id(albumName, albumOwnerId)
             .orElse(null);
     if (albumName.isEmpty()) {
-      int albumsCount = gallery.getPhotoAlbums().size() + 1;
-      albumName = "Album" + "(" + albumsCount + ")";
+//      int albumsCount = gallery.getPhotoAlbums().size() + 1;
+//      albumName = "Album" + "(" + albumsCount + ")";
     }
 
     if (album == null) {
@@ -61,12 +61,12 @@ public class PersonalGalleryServiceImpl implements PersonalGalleryService {
                                   .collect(Collectors.toSet());
 
     try {
-      album.setPictures(pictures);
+//      album.setPictures(pictures);
       album.setAlbumImg(pictures.iterator().next().getPictureUrl());
       album.setCreatedOn(new Timestamp(new Date().getTime()));
       album.setName(albumName);
       album.setPersonalGallery(gallery);
-      gallery.getPhotoAlbums().add(album);
+//      gallery.getPhotoAlbums().add(album);
       this.albumRepository.saveAndFlush(album);
 
       return true;

@@ -23,7 +23,7 @@ export class CreatePostComponent implements OnInit {
   public tagFriendsMenu: boolean;
 
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
-  files  = [];
+  public files: Array<File> = []
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>) {
@@ -46,6 +46,10 @@ export class CreatePostComponent implements OnInit {
     );
 
     formData.append("post", postBlobModel);
+    this.files.forEach(value => {
+      formData.append("postPicture", value,`${value.name}`);
+    })
+
 
     this.httpRepo.create<Post>(endpointUrls.postToPublicWall, formData)
       .subscribe(post => {
@@ -108,14 +112,16 @@ export class CreatePostComponent implements OnInit {
   onUploadPic() {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
-      for (let index = 0; index < fileUpload.files.length; index++)
-      {
+      for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
-        this.files.push({ data: file, inProgress: false, progress: 0});
+        file.inProgress = false;
+        file.progress = 0;
+        this.files.push(file);
       }
     };
 
     fileUpload.click();
+    this.onUploadPhotoClick();
   }
 
 }

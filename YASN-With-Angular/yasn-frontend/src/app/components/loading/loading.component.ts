@@ -14,7 +14,7 @@ export class LoadingComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select('auth').subscribe(value => this.loading = value.loading)
-    this.store.select('newsFeed').subscribe(value => this.loading = value.loading)
+    // this.store.select('newsFeed').subscribe(value => this.loading = value.loading)
   }
 
 }
