@@ -1,6 +1,18 @@
 .post-meta-avatar {
   float: left;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  flex-direction: row;
+}
+
+.post-meta-avatar span {
   flex: 1 1 100%;
+}
+
+.post-meta-avatar > span:nth-child(3) {
+  font-weight: 100;
+  font-style: italic;
 }
 
 .post-menu {
@@ -45,6 +57,7 @@
 
 .comments-likes li {
   display: inline-block;
+  cursor: pointer;
 }
 
 .comments-likes > ul > li:nth-child(4) {
@@ -160,6 +173,53 @@
 
 .post-like {
   font-weight: 400;
+}
+
+.yasn-post-comment {
+  display: block;
+  width: 100%;
+}
+
+.yasn-post-comment form {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.comment-meta-avatar-img {
+  display: inline-block;
+  border-radius: 50%;
+  width: 47px;
+  height: auto;
+}
+
+.comment-post-textarea {
+  display: inline-block;
+  width: 74%;
+  margin-top: 0.5em;
+  margin-right: 1em;
+  margin-left: 1em
+}
+
+.comment-post-submit-btn {
+  border: none;
+  text-align: center;
+  display: inline-block;
+  background-color: #ffffff;
+  font-weight: bold;
+  color: #929292;
+  float: right;
+  cursor: pointer;
+  width: 65px;
+  height: auto;
+}
+
+.comment-post-submit-btn:hover {
+  display: inline-block;
+  background-color: #f0f2f4;
+  border-radius: 1em;
+  float: right;
+  cursor: pointer;
 }
 
 

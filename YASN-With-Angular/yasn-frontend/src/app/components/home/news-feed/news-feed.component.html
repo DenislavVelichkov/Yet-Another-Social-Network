@@ -15,20 +15,44 @@
         <img class="post-img" src="{{pic}}" alt="post-picture"/>
         <hr>
       </div>
-      <span class="post-like">Likes: {{post.likesCount}}</span>
     </div>
+    <div class="comments-likes">
+      <ul>
+        <li (click)="postCommentPop()">
+          <span>Comment</span>
+        </li>
+        <span class="text-muted"> - </span>
+        <li>
+          <span class="post-like" (click)="likeAPost()">
+            Like
+          </span>
+        </li>
+        <li>
+          <span id="likes-count">{{post.likesCount}} </span>
+          <i class="far fa-thumbs-up" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="showComments" class="yasn-post-comment">
 
-    <div class="post-meta-info">
+      <form>
+        <img alt="profile-picture" class="comment-meta-avatar-img img-fluid" src="{{avatar.avatarPictureUrl}}">
 
-      <!--      <span></span>
+        <label for="yasn-comment-post-textarea"></label>
+        <input class="comment-post-textarea"
+               id="yasn-comment-post-textarea"
+               name="commentContent"
+               type="text" value=""/>
 
-            <div class="wall-post-comment-content-container">
-              <p></p>
-            </div>
+        <div class="comment-image-upload">
+          <label for="file-input">
+            <i class="fas fa-camera" aria-hidden="true"></i>
+          </label>
+          <input id="file-input" type="file" name="commentPicture">
+        </div>
 
-            <div class="img-container">
-              <img class="post-content-pic img-fluid" alt="comment-picture" src=""/>
-            </div>-->
+        <input class="comment-post-submit-btn" type="submit" value="Send">
+      </form>
 
     </div>
 

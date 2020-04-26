@@ -1,5 +1,5 @@
-export interface AvatarModel {
-  fullName: string,
-  profileAvatarPicture: string,
-  profileCoverPicture: string,
+export class AvatarModel {
+  fullName: string;
+  profileAvatarPicture: string;
+  profileCoverPicture: string;
 }
