@@ -1,10 +1,8 @@
-import {Timestamp} from "rxjs";
-
 export interface Post {
   id: string;
   ownerFullName: string;
   ownerAvatarPictureUrl: string;
-  createdOn: Timestamp<Date>;
+  createdOn: Date;
   content: string;
   postPrivacy: string;
   likesCount: number;

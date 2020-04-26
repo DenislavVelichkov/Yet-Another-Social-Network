@@ -9,7 +9,7 @@ import org.java.yasn.web.models.response.WallPostResponseModel;
 
 public interface WallService {
 
-  boolean createPost(WallPostModel wallPost) throws IOException;
+  WallPostResponseModel createPost(WallPostModel wallPost) throws IOException;
 
   Collection<WallPostResponseModel> displayAllPosts();
 

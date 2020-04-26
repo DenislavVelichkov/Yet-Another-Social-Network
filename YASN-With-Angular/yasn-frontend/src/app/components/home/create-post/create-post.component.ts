@@ -5,6 +5,8 @@ import {Store} from "@ngrx/store";
 import {UserAuthModel} from "../../../core/store/authentication/UserAuthModel";
 import {endpointUrls} from "../../../shared/common/EndpointURLs";
 import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
+import {Post} from "../../../core/store/post/Post";
+import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 
 @Component({
   selector: 'app-create-post',
@@ -19,6 +21,7 @@ export class CreatePostComponent implements OnInit {
   public showPrivacyMenu: boolean;
   public showUploadPhotoMenu: boolean;
   public tagFriendsMenu: boolean;
+
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
   files  = [];
 
@@ -37,8 +40,6 @@ export class CreatePostComponent implements OnInit {
     let formData = new FormData();
     this.postModel.postOwnerId = this.activeProfile.userProfileId;
 
-    console.log(JSON.stringify(this.postModel))
-
     let postBlobModel = new Blob(
       [JSON.stringify(this.postModel)],
       {type: 'application/json'}
@@ -46,9 +47,9 @@ export class CreatePostComponent implements OnInit {
 
     formData.append("post", postBlobModel);
 
-    this.httpRepo.create(endpointUrls.postToPublicWall, formData)
+    this.httpRepo.create<Post>(endpointUrls.postToPublicWall, formData)
       .subscribe(post => {
-        console.log(JSON.stringify(post))
+        this.store.dispatch(new CreatePost({post: [post], loading: false}))
       });
   }
 

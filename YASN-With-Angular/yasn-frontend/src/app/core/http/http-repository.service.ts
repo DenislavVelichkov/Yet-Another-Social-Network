@@ -24,9 +24,9 @@ export class HttpRepositoryService {
       {headers: this.headers});
   }
 
-  public create(route: string, body): Observable<Object> {
+  public create<T>(route: string, body): Observable<T> {
 
-    return this.http.post(
+    return this.http.post<T>(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       body);
   }

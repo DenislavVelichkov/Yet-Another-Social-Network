@@ -24,7 +24,6 @@ import org.java.yasn.utils.FileUtil;
 import org.java.yasn.web.models.binding.WallPostModel;
 import org.java.yasn.web.models.response.WallPostResponseModel;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,7 @@ public class WallServiceImpl implements WallService {
   private final CloudinaryService cloudinaryService;
 
   @Override
-  public boolean createPost(WallPostModel postModel) throws IOException {
+  public WallPostResponseModel createPost(WallPostModel postModel) throws IOException {
     WallPostServiceModel wallPostServiceModel = new WallPostServiceModel();
     wallPostServiceModel.setPostOwner(
         this.userProfileService.findUserProfileById(postModel.getPostOwnerId()));
@@ -61,15 +60,20 @@ public class WallServiceImpl implements WallService {
         this.modelMapper.map(wallPostServiceModel, WallPost.class);
     this.modelMapper.validate();
 
-    try {
-      this.wallPostRepository.saveAndFlush(wallPost);
+    String newPostId = this.wallPostRepository.saveAndFlush(wallPost).getId();
 
-      return true;
-    } catch (DataIntegrityViolationException e) {
-      e.printStackTrace();
+    long likesCount = this.likeRepository
+        .findLikesById_PostId(wallPostServiceModel.getId())
+        .size();
+    WallPostResponseModel response =
+        new WallPostResponseModel(newPostId,
+            wallPostServiceModel.getPostOwner().getFullName(),
+            wallPostServiceModel.getPostOwner().getProfilePicture(),
+            wallPostServiceModel.getPostContent(),
+            wallPostServiceModel.getCreatedOn(),
+            likesCount);
 
-      return false;
-    }
+    return response;
   }
 
   @Override
