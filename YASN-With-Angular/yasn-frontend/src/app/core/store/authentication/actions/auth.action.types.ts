@@ -1,10 +1,11 @@
 import {RegisterAction} from "./register.action";
 import {AuthenticatingAction} from "./authenticating.action";
-import {type} from "../../../util/util";
+
 import {AuthenticatedAction} from "./authenticated.action";
 import {LogoutAction} from "./logout.action";
 import {RegisterSuccessAction} from "./register-success.action";
 import {AuthenticatingFailedAction} from "./authenticating-failed.action";
+import {type} from "../../../util/util";
 
 export const AuthActionType = {
   AUTHENTICATE: type('[AUTH] Authenticate'),
