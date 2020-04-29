@@ -1,6 +1,8 @@
 # Yasn Project
 
-To run the project install Docker and run in cmd/bash command: docker-compose up --build
+To run the project:
+ - Go to root folder of the project and run mvn clean install
+ - install Docker and run in cmd/bash command: docker-compose up --build
 
 # YasnFrontend
 
