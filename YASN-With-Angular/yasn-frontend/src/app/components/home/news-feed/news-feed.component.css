@@ -117,6 +117,10 @@
   margin-left: 1em;
 }
 
+.post-comment-container {
+  margin: 0 0 1em 0;
+}
+
 .comment-image-upload{
   display: flex;
   margin: 0 0.5em 0 0.5em;

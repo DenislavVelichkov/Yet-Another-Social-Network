@@ -10,9 +10,8 @@
 
     <div class="post-content">
       <p>{{post.content}}</p>
-      <div *ngFor="let pic of post.postPicture">
+      <div *ngFor="let pic of post.postPicture" class="post-comment-container">
         <img class="post-img" src="{{pic}}" alt="post-picture"/>
-        <hr>
       </div>
     </div>
     <div class="comments-likes">
