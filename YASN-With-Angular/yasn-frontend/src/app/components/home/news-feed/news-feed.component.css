@@ -124,6 +124,7 @@
 .comment-image-upload{
   display: flex;
   margin: 0 0.5em 0 0.5em;
+  align-items: center;
 }
 
 .comment-image-upload > input {
@@ -132,8 +133,10 @@
 
 .comment-image-upload > label > i{
   cursor: pointer;
-  position: relative;
-  top: 0.5em;
+}
+
+.comment-image-upload > label {
+  margin: 0;
 }
 
 .comment-image-upload > label:hover {
