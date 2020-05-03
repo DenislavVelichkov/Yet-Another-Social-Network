@@ -9,6 +9,8 @@ import {AppState} from "../../store/app.state";
 import {Store} from "@ngrx/store";
 import {take} from "rxjs/operators";
 import {DisplayAllPostsAction} from "../../store/post/actions/display-all-posts.action";
+import {CommentBindingModel} from "../../../shared/models/comment/CommentBindingModel";
+import {Comment} from "../../store/comment/Comment";
 
 @Injectable({providedIn: "root"})
 export class NewsFeedService {
@@ -28,6 +30,7 @@ export class NewsFeedService {
   createPost(postModel: PostBindingModel,
              userProfileId: string,
              payload: Array<File>) {
+
     let formData = new FormData();
     postModel.postOwnerId = userProfileId;
 
@@ -38,12 +41,25 @@ export class NewsFeedService {
 
     formData.append("post", postBlobModel);
     payload.forEach(value => {
-      formData.append("postPicture", value,`${value.name}`);
+      formData.append("postPicture", value, `${value.name}`);
     })
 
     this.httpRepo.create<Post>(EndpointUrls.postToPublicWall, formData)
       .subscribe(post => {
         this.store.dispatch(new CreatePost({post: [post], loading: false}))
       });
+  }
+
+  createComment(userProfileId: string, commentModel: CommentBindingModel, picture: File) {
+    commentModel.commentOwnerId = userProfileId;
+    let commentBlob = new Blob([JSON.stringify(commentModel)], {type: 'application/json'});
+
+    let commentForm = new FormData();
+    commentForm.append("comment", commentBlob);
+    commentForm.append("commentPicture", picture);
+    this.httpRepo.create<Comment>(EndpointUrls.postComment, commentForm)
+      .pipe(take(1)).subscribe(data => {
+        console.log(data)
+    });
   }
 }

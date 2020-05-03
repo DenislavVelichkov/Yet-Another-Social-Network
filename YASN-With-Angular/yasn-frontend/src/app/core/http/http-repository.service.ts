@@ -17,18 +17,18 @@ export class HttpRepositoryService {
               private envUrl: EnvironmentUrlService) {
   }
 
-  public get<T>(route: string, payload?: any): Observable<T> {
+  public get<T>(route: string): Observable<T> {
 
     return this.http.get<T>(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
       {headers: this.headers});
   }
 
-  public create<T>(route: string, body): Observable<T> {
+  public create<T>(route: string, body: any): Observable<T> {
 
     return this.http.post<T>(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
-      body);
+      body, {headers: this.headers});
   }
 
   public loginRequest(route: string, body: any) {

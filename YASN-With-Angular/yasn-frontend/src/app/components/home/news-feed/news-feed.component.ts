@@ -3,8 +3,8 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
 import {Post} from "../../../core/store/post/Post";
-import {AvatarModel} from "../../../core/store/userProfile/AvatarModel";
 import {timeConverter} from "../../../core/util/util"
+import {UserProfileState} from "../../../core/store/userProfile/state/user-profile.state";
 
 @Component({
   selector: 'app-news-feed',
@@ -12,13 +12,14 @@ import {timeConverter} from "../../../core/util/util"
   styleUrls: ['./news-feed.component.css']
 })
 export class NewsFeedComponent implements OnInit {
-  private newsFeedPosts: Post[];
+  public newsFeedPosts: Post[];
   public showComments: boolean;
-  public avatar: AvatarModel;
+  public postAvatar: UserProfileState;
+  public postId = 'postId';
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>) {
-    this.avatar = new AvatarModel()
+
   }
 
   ngOnInit() {
@@ -26,7 +27,7 @@ export class NewsFeedComponent implements OnInit {
     this.newsService.getAllNewsFeeds()
 
     this.store.select('userProfile').subscribe(value => {
-      Object.assign(this.avatar, value)
+      this.postAvatar = value;
     })
 
     this.store.select('newsFeed').subscribe(value =>

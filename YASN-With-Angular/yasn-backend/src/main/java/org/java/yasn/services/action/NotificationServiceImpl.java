@@ -66,6 +66,7 @@ public class NotificationServiceImpl implements NotificationService {
       throw new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND);
     }
 
+
     Collection<Notification> notifications =
         this.notificationRepository.findBySenderId(notificationModel.getSenderId());
 

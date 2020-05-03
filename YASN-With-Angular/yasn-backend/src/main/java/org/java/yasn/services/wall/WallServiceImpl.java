@@ -23,7 +23,9 @@ import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.wall.WallPostRepository;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.user.UserProfileService;
+import org.java.yasn.web.models.binding.CommentModel;
 import org.java.yasn.web.models.binding.WallPostModel;
+import org.java.yasn.web.models.response.CommentResponseModel;
 import org.java.yasn.web.models.response.WallPostResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -49,7 +51,9 @@ public class WallServiceImpl implements WallService {
                          LikeRepository likeRepository,
                          CloudinaryService cloudinaryService,
                          PhotoAlbumRepository photoAlbumRepository,
-                         PersonalGalleryRepository galleryRepository, PictureRepository pictureRepository, UserProfileRepository userProfileRepository) {
+                         PersonalGalleryRepository galleryRepository,
+                         PictureRepository pictureRepository,
+                         UserProfileRepository userProfileRepository) {
     this.wallPostRepository = wallPostRepository;
     this.userProfileService = userProfileService;
     this.modelMapper = modelMapper;
@@ -60,7 +64,6 @@ public class WallServiceImpl implements WallService {
     this.pictureRepository = pictureRepository;
     this.userProfileRepository = userProfileRepository;
   }
-
 
   @Override
   public WallPostResponseModel createPost(WallPostModel postModel, MultipartFile[] pictures) {
@@ -119,31 +122,6 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public Collection<WallPostServiceModel> findAllByUsername(String username) {
-    return this.wallPostRepository
-        .findAllByPostOwner_ProfileOwner_Username(username)
-        .stream()
-        .map(wallPost ->
-            this.modelMapper.map(wallPost, WallPostServiceModel.class))
-        .collect(Collectors.toList());
-  }
-
-  @Override
-  public Collection<WallPostServiceModel> findAllByOwnerId(String ownerId) {
-    Collection<WallPostServiceModel> allPostsSorted =
-        this.wallPostRepository
-            .findAllByPostOwner_Id(ownerId)
-            .stream()
-            .map(wallPost ->
-                this.modelMapper.map(wallPost, WallPostServiceModel.class))
-            .sorted((o1, o2) -> o2.getCreatedOn().compareTo(o1.getCreatedOn()))
-            .collect(Collectors.toList());
-    this.modelMapper.validate();
-
-    return allPostsSorted;
-  }
-
-  @Override
   public Collection<WallPostResponseModel> displayAllPosts() {
     Collection<WallPostServiceModel> allPostsServiceModels = this.wallPostRepository
         .findAll()
@@ -195,6 +173,12 @@ public class WallServiceImpl implements WallService {
   @Override
   public void unlikePost(WallPostServiceModel wallPostServiceModel, String activeUser) {
 
+  }
+
+  @Override
+  public CommentResponseModel createComment(CommentModel comment, MultipartFile picture) {
+
+    return null;
   }
 
   @Override

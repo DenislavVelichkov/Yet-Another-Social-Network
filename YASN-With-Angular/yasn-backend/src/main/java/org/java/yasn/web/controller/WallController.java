@@ -3,8 +3,11 @@ package org.java.yasn.web.controller;
 import java.io.IOException;
 
 import lombok.AllArgsConstructor;
+import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.services.wall.WallService;
+import org.java.yasn.web.models.binding.CommentModel;
 import org.java.yasn.web.models.binding.WallPostModel;
+import org.java.yasn.web.models.response.CommentResponseModel;
 import org.java.yasn.web.models.response.WallPostResponseModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,10 @@ public class WallController {
   private final WallService wallService;
 
 
-  @PostMapping("/post")
+  @PostMapping(value = "/post", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> postOnNewsFeed(
       @RequestPart(name = "post") WallPostModel post,
-      @RequestPart(name = "postPicture") MultipartFile[] picture) throws IOException {
+      @RequestPart(name = "postPicture", required = false) MultipartFile[] picture) throws IOException {
 
     WallPostResponseModel response = this.wallService.createPost(post, picture);
 
@@ -31,11 +34,15 @@ public class WallController {
   }
 
 
-  @PostMapping("/post/comment")
-  public ResponseEntity<?> postCommentOnPost() {
+  @PostMapping(value = "/post/comment", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public ResponseEntity<?> postCommentOnPost(
+      @RequestPart(name = "comment") CommentModel comment,
+      @RequestPart(name = "commentPicture", required = false) MultipartFile picture) {
 
+    var a = 5;
+    CommentResponseModel response = wallService.createComment(comment, picture);
 
-    return null;
+    return ResponseEntity.ok(response);
   }
 
 }

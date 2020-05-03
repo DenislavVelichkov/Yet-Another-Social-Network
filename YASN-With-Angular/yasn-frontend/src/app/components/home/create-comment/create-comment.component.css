@@ -1,0 +1,71 @@
+.yasn-post-comment {
+  display: block;
+  width: 100%;
+}
+
+.yasn-post-comment form {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.comment-meta-avatar-img {
+  display: inline-block;
+  border-radius: 50%;
+  width: 47px;
+  height: auto;
+}
+
+.comment-post-textarea {
+  color: #222427;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 16px;
+  display: inline-block;
+  width: 74%;
+  margin: 0 0.5em 0 0.5em;
+}
+
+.comment-post-submit-btn {
+  border: none;
+  text-align: center;
+  display: inline-block;
+  background-color: #ffffff;
+  font-weight: bold;
+  color: #929292;
+  float: right;
+  cursor: pointer;
+  width: 65px;
+  height: auto;
+}
+
+.comment-post-submit-btn:hover {
+  display: inline-block;
+  background-color: #f0f2f4;
+  border-radius: 1em;
+  float: right;
+  cursor: pointer;
+}
+
+.comment-image-upload{
+  display: flex;
+  margin: 0 0.5em 0 0.5em;
+  align-items: center;
+}
+
+.comment-image-upload > input {
+  display: none;
+}
+
+.comment-image-upload > label > i{
+  cursor: pointer;
+}
+
+.comment-image-upload > label {
+  margin: 0;
+}
+
+.comment-image-upload > label:hover {
+  color: #b9bbbe;
+}

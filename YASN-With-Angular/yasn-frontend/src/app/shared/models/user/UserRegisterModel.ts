@@ -1,5 +1,4 @@
 export class UserRegisterModel {
-
   private firstName: string;
   private lastName: string;
   private password: string;
