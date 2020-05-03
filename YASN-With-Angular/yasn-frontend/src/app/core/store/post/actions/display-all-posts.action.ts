@@ -1,10 +1,11 @@
 import {Action} from "@ngrx/store";
 import {PostActionTypes} from "./action.type";
+import {Post} from "../Post";
 
-export class DisplayAllPostsAction implements Action{
+export class DisplayAllPostsAction implements Action {
   public readonly type: string;
 
-  constructor(public payload: any) {
+  constructor(public payload: { allWallPosts: Post[], loading: boolean }) {
     this.type = PostActionTypes.GET_ALL_POSTS;
   }
 

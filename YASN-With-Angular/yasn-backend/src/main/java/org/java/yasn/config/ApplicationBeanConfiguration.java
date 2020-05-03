@@ -63,7 +63,6 @@ public class ApplicationBeanConfiguration {
 
     modelMapper.createTypeMap(UserServiceModel.class, UserCredentialsModel.class)
                .addMappings(mapper -> mapper.skip(UserCredentialsModel::setUserProfileId));
-
   }
 
   @Bean

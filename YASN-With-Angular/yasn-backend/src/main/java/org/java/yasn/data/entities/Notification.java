@@ -1,6 +1,6 @@
 package org.java.yasn.data.entities;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -19,10 +19,9 @@ public class Notification extends BaseEntity {
   @Column(nullable = false)
   boolean isViewed;
 
-  @Column(nullable = false, updatable = false)
-  private String senderId;
-
-  @ManyToOne(targetEntity = UserProfile.class)
+  @ManyToOne(targetEntity = UserProfile.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.PERSIST)
   @JoinColumn(
       name = "recipient_id",
       referencedColumnName = "id",
@@ -30,10 +29,10 @@ public class Notification extends BaseEntity {
   private UserProfile recipient;
 
   @Column(nullable = false)
-  private String senderPicture;
+  private String recipientPicture;
 
   @Column(nullable = false, updatable = false)
-  private String senderFullName;
+  private String recipientFullName;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false)
@@ -43,7 +42,7 @@ public class Notification extends BaseEntity {
   @Column(name = "created_on",
       updatable = false,
       nullable = false)
-  private Timestamp createdOn;
+  private LocalDate createdOn;
 
   @Column(nullable = false, updatable = false)
   private String content;

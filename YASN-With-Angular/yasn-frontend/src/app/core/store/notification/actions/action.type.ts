@@ -1,5 +1,6 @@
 import {type} from "../../../util/util";
 import {CreatePostNotificationAction} from "./create-post-notification.action";
+import {DisplayAllNotificationsAction} from "./display-all-notifications.action";
 
 
 export const NotificationActionTypes = {
@@ -8,5 +9,6 @@ export const NotificationActionTypes = {
 };
 
 export type NotificationActions =
-  CreatePostNotificationAction;
+  CreatePostNotificationAction
+  | DisplayAllNotificationsAction;
 

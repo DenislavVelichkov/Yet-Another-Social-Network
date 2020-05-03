@@ -1,3 +1,5 @@
+import {Notification} from "../Notification.js";
+
 export const initialState: NotificationState = {
   allPersonalNotifications: [],
   loading: false

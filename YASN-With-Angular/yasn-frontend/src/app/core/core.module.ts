@@ -9,6 +9,7 @@ import {NewsFeedService} from "./services/news-feed/news-feed.service";
 import {RouterModule} from "@angular/router";
 import {IndexModule} from "../components/index/index.module";
 import {HomeModule} from "../components/home/home.module";
+import {NotificationService} from "./services/notification/notification.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ export class CoreModule {
       providers: [
         EnvironmentUrlService,
         HttpRepositoryService,
-        NewsFeedService
+        NewsFeedService,
+        NotificationService
       ]
     };
   }

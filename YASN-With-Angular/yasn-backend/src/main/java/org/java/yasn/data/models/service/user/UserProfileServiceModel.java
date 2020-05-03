@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.java.yasn.data.models.service.BaseServiceModel;
-import org.java.yasn.data.models.service.action.NotificationServiceModel;
 
 @Getter
 @Setter
@@ -18,5 +17,4 @@ public class UserProfileServiceModel extends BaseServiceModel {
   private String profilePicture;
   private String coverPicture;
   private Set<UserProfileServiceModel> friends;
-  private Set<NotificationServiceModel> notifications;
 }

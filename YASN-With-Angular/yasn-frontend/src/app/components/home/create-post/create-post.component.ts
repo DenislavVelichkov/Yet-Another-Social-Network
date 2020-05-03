@@ -3,10 +3,10 @@ import {HttpRepositoryService} from "../../../core/http/http-repository.service"
 import {AppState} from "../../../core/store/app.state";
 import {Store} from "@ngrx/store";
 import {UserAuthModel} from "../../../core/store/authentication/UserAuthModel";
-import {endpointUrls} from "../../../shared/common/EndpointURLs";
 import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
-import {Post} from "../../../core/store/post/Post";
-import {CreatePost} from "../../../core/store/post/actions/create-post.action";
+import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
+import {NotificationService} from "../../../core/services/notification/notification.service";
+import {NotificationMessage} from "../../../shared/common/NotificationConstants";
 
 @Component({
   selector: 'app-create-post',
@@ -23,10 +23,12 @@ export class CreatePostComponent implements OnInit {
   public tagFriendsMenu: boolean;
 
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
-  public files: Array<File> = []
+  public files: Array<File> = [];
 
   constructor(private httpRepo: HttpRepositoryService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private newsFeedService: NewsFeedService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -37,24 +39,14 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost() {
-    let formData = new FormData();
-    this.postModel.postOwnerId = this.activeProfile.userProfileId;
+    this.newsFeedService.createPost(
+      this.postModel,
+      this.activeProfile.userProfileId,
+      this.files);
 
-    let postBlobModel = new Blob(
-      [JSON.stringify(this.postModel)],
-      {type: 'application/json'}
-    );
-
-    formData.append("post", postBlobModel);
-    this.files.forEach(value => {
-      formData.append("postPicture", value,`${value.name}`);
-    })
-
-
-    this.httpRepo.create<Post>(endpointUrls.postToPublicWall, formData)
-      .subscribe(post => {
-        this.store.dispatch(new CreatePost({post: [post], loading: false}))
-      });
+    this.notificationService.createNotificationOnNewPost(
+      this.activeProfile.userProfileId,
+      NotificationMessage.newPostCreated);
   }
 
   onEmojiClick() {

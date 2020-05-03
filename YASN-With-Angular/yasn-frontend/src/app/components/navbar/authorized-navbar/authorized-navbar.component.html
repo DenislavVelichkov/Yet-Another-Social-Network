@@ -43,11 +43,19 @@
                     <li>
                         <a class="yasn-notifications" data-target="#" data-toggle="dropdown" role="button">
                             <div class="notification-icons-container">
-                              <i class="fas fa-bell"><span matBadge="4" matBadgeOverlap="true" matBadgeColor="warn" matBadgePosition="above after"></span></i>
-
+                              <i class="fas fa-bell"><span matBadge="{{notifications.length}}" matBadgeOverlap="true" matBadgeColor="warn" matBadgePosition="above after"></span></i>
                             </div>
                             <div class="dropdown-menu multi-level" id="yasn-notifications-content" role="menu">
-
+                              <div *ngFor="let notification of notifications" class="notification-content-container">
+                                <img class="notification-content-avatar"
+                                     src="{{notification.recipientPicture}}" alt="avatar-picture"/>
+                                <a href="">
+                                  {{notification.recipientFullName}}
+                                </a>
+                                <span>, {{notification.content}}</span>
+                                <a href="">post</a>
+                                <span>{{convertTime(notification.createdOn)}}</span>
+                              </div>
                             </div>
                         </a>
                     </li>

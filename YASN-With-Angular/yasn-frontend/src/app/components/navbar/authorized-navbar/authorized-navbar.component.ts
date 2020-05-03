@@ -5,6 +5,9 @@ import {AppState} from "../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../core/http/http-repository.service";
 import {throwError} from "rxjs";
 import {UpdateAvatarAction} from "../../../core/store/userProfile/actions/update-avatar.action";
+import {Notification} from "../../../core/store/notification/Notification";
+import {timeConverter} from "../../../core/util/util";
+import {NotificationService} from "../../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -15,13 +18,16 @@ export class AuthorizedNavbarComponent implements OnInit {
   private profilePictureUrl: string;
   private profileId: string;
   private userFullName: string;
+  private notifications: Notification[];
 
   constructor(private auth: AuthService,
               private store: Store<AppState>,
-              private httpRepo: HttpRepositoryService) {
+              private httpRepo: HttpRepositoryService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
+
     this.store.select('auth').subscribe(value => {
       this.profileId = value.activeUser.userProfileId;
     })
@@ -35,10 +41,20 @@ export class AuthorizedNavbarComponent implements OnInit {
       this.profilePictureUrl = value.avatarPictureUrl;
     })
 
+    this.notificationService.getAllPersonalNotifications(this.profileId)
+
+    this.store.select('notifications').subscribe(value => {
+      this.notifications = value.allPersonalNotifications;
+    });
+
   }
 
   logout() {
     this.auth.logout();
+  }
+
+  convertTime(date: Date): string {
+    return timeConverter(date)
   }
 
 }

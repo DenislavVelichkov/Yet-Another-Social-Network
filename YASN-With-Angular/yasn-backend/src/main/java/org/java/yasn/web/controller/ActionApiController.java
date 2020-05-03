@@ -52,17 +52,6 @@ public class ActionApiController {
       throw new OperationsException(ExceptionMessages.FRIEND_REQUEST_ON_YOURSELF);
     }
 
-    if (this.notificationService
-        .findByRecipientIdSenderIdAndNotificationType(
-            recipientId, senderId, NotificationType.FRIEND_REQ) == null) {
-
-      this.notificationService.createNotification(
-          recipientId, sender.getName(), NotificationType.FRIEND_REQ);
-
-    } else {
-      throw new OperationsException(ExceptionMessages.FRIEND_REQUEST_ALREADY_EXISTS);
-    }
-
   }
 
   @PostMapping("/accept-friend")

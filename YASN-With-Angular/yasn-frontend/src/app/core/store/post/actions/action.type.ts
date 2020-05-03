@@ -9,4 +9,4 @@ export const PostActionTypes = {
 
 export type PostActions =
   CreatePost
-  | DisplayAllPostsAction
+  | DisplayAllPostsAction;

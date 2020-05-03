@@ -114,7 +114,9 @@ html {
 }
 
 @media (max-width: 1199.98px) {
-
+    html {
+        font-size: var(--sizing-font-size-desktop);
+    }
 }
 
 @media (min-width: 1200px) {
@@ -140,6 +142,3 @@ small {
 .rounded {
     border-radius: 0.50em !important;
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

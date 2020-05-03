@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.java.yasn.data.entities.BaseEntity;
-import org.java.yasn.data.entities.Notification;
 
 @Getter
 @Setter
@@ -16,13 +15,12 @@ import org.java.yasn.data.entities.Notification;
 @Table(name = "user_profiles")
 public class UserProfile extends BaseEntity {
 
-  @OneToMany(
+ /* @OneToMany(
       fetch = FetchType.LAZY,
       targetEntity = Notification.class,
       mappedBy = "recipient",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true)
-  Set<Notification> notifications;
+      cascade = CascadeType.ALL)
+  Set<Notification> notifications;*/
 
   @Column(name = "full_name", nullable = false)
   private String fullName;
