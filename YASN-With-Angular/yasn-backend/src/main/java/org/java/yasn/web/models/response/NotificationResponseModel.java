@@ -16,9 +16,9 @@ public class NotificationResponseModel {
 
   private boolean isViewed;
 
-  private String recipientPicture;
+  private String senderPicture;
 
-  private String recipientFullName;
+  private String senderFullName;
 
   private NotificationType notificationType;
 

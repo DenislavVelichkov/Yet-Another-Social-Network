@@ -19,11 +19,11 @@ export class NotificationService {
               private store: Store<AppState>) {
   }
 
-  createNotificationOnNewPost(recipientId: string, content: string): void {
+  createNotificationOnNewPost(senderId: string, content: string): void {
     this.httpRepo.create<Notification>(
       EndpointUrls.notifications + '/created-post',
       {
-        recipientId: recipientId,
+        senderId: senderId,
         content: content,
         notificationType: NotificationTypes.CREATED_A_POST
       })
@@ -36,8 +36,8 @@ export class NotificationService {
       })
   }
 
-  getAllPersonalNotifications(recipientId: string) {
-    this.httpRepo.create<Notification[]>(EndpointUrls.notifications + '/get-all-notifications',  {recipientId: recipientId})
+  getAllPersonalNotifications(senderId: string): void {
+    this.httpRepo.create<Notification[]>(EndpointUrls.notifications + '/get-all-notifications',  {senderId: senderId})
       .pipe(take(1))
       .subscribe((value: Notification[]) => {
         this.store.dispatch(new DisplayAllNotificationsAction({

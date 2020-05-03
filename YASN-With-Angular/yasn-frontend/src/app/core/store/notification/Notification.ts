@@ -2,9 +2,9 @@ export interface Notification {
 
   isViewed: boolean;
 
-  recipientPicture: string;
+  senderPicture: string;
 
-  recipientFullName: string;
+  senderFullName: string;
   //change the property to NotificationType enum
   notificationType: string;
 

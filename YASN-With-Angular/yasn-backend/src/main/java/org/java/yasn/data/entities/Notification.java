@@ -23,16 +23,16 @@ public class Notification extends BaseEntity {
       fetch = FetchType.LAZY,
       cascade = CascadeType.PERSIST)
   @JoinColumn(
-      name = "recipient_id",
+      name = "sender_id",
       referencedColumnName = "id",
       nullable = false, updatable = false)
-  private UserProfile recipient;
+  private UserProfile sender;
 
   @Column(nullable = false)
-  private String recipientPicture;
+  private String senderPicture;
 
   @Column(nullable = false, updatable = false)
-  private String recipientFullName;
+  private String senderFullName;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false)
