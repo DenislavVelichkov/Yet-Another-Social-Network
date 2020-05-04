@@ -43,11 +43,15 @@ export class CreateCommentComponent implements OnInit {
     this.commentModel.commentOnPostId = this.postId;
 
     const fileUpload = this.uploadCommentPhoto.nativeElement;
-    const file = fileUpload.files[0];
+    let files: Array<File> = [];
+
+    for (let file of fileUpload.files) {
+      files.push(file)
+    }
 
     this.newsFeedService.createComment(
       this.userProfile.userProfileId,
       this.commentModel,
-      file)
+      files)
   }
 }

@@ -52,12 +52,16 @@ export class NewsFeedService {
 
   createComment(userProfileId: string,
                 commentModel: CommentBindingModel,
-                picture: File) {
+                pictures: Array<File>) {
     commentModel.commentOwnerId = userProfileId;
     let commentBlob = new Blob([JSON.stringify(commentModel)], {type: 'application/json'});
+
     let commentForm = new FormData();
     commentForm.append("comment", commentBlob);
-    commentForm.append("commentPicture", picture, `${picture.name}`);
+
+    pictures.forEach(pic => {
+      commentForm.append("commentPicture", pic, `${pic.name}`);
+    })
 
     this.httpRepo.create<Comment>(EndpointUrls.postComment, commentForm)
       .pipe(take(1)).subscribe(data => {
