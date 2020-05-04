@@ -50,13 +50,15 @@ export class NewsFeedService {
       });
   }
 
-  createComment(userProfileId: string, commentModel: CommentBindingModel, picture: File) {
+  createComment(userProfileId: string,
+                commentModel: CommentBindingModel,
+                picture: File) {
     commentModel.commentOwnerId = userProfileId;
     let commentBlob = new Blob([JSON.stringify(commentModel)], {type: 'application/json'});
-
     let commentForm = new FormData();
     commentForm.append("comment", commentBlob);
-    commentForm.append("commentPicture", picture);
+    commentForm.append("commentPicture", picture, `${picture.name}`);
+
     this.httpRepo.create<Comment>(EndpointUrls.postComment, commentForm)
       .pipe(take(1)).subscribe(data => {
         console.log(data)

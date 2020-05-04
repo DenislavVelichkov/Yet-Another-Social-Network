@@ -37,9 +37,8 @@ public class WallController {
   @PostMapping(value = "/post/comment", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> postCommentOnPost(
       @RequestPart(name = "comment") CommentModel comment,
-      @RequestPart(name = "commentPicture", required = false) MultipartFile picture) {
+      @RequestPart(name = "commentPicture", required = false) MultipartFile[] picture) {
 
-    var a = 5;
     CommentResponseModel response = wallService.createComment(comment, picture);
 
     return ResponseEntity.ok(response);

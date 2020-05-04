@@ -15,8 +15,10 @@ export class CreateCommentComponent implements OnInit {
   private userProfile: UserAuthModel;
   public commentAvatar: UserProfileState;
   public commentModel: CommentBindingModel;
+
   @ViewChild('uploadCommentPhoto', {static: false}) uploadCommentPhoto: ElementRef;
-  public picture: File;
+  public files: any;
+
   @Input('postId') postId: string;
 
   constructor(private store: Store<AppState>,
@@ -40,11 +42,12 @@ export class CreateCommentComponent implements OnInit {
   postComment(): void {
     this.commentModel.commentOnPostId = this.postId;
 
+    const fileUpload = this.uploadCommentPhoto.nativeElement;
+    const file = fileUpload.files[0];
+
     this.newsFeedService.createComment(
       this.userProfile.userProfileId,
       this.commentModel,
-      this.picture)
-
+      file)
   }
-
 }

@@ -1,25 +1,27 @@
 <div class="yasn-post-comment">
 
   <form (ngSubmit)="postComment()">
-    <img src="{{commentAvatar.avatarPictureUrl}}" alt="profile-picture" class="comment-meta-avatar-img">
+    <img src="{{commentAvatar.avatarPictureUrl}}"
+         alt="profile-picture"
+         class="comment-meta-avatar-img">
 
-    <label>
-      <input class="comment-post-textarea"
-             name="commentContent"
-             type="text"
-             [(ngModel)]="commentModel.commentContent"/>
-    </label>
+    <input class="comment-post-textarea"
+           name="commentContent"
+           type="text"
+           [(ngModel)]="commentModel.commentContent"/>
+
 
     <div class="comment-image-upload">
       <label for="uploadCommentPhoto">
         <i class="fas fa-camera" aria-hidden="true"></i>
       </label>
-      <input id="uploadCommentPhoto"
-             name="uploadCommentPhoto"
-             type="file"
-             accept="image/*"
-             #uploadCommentPhoto
-             [(ngModel)]="picture">
+      <input
+        #uploadCommentPhoto
+        id="uploadCommentPhoto"
+        name="uploadCommentPhoto"
+        accept="image/*"
+        type="file"
+      >
     </div>
 
     <input class="comment-post-submit-btn" type="submit" value="Send">

@@ -176,7 +176,7 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public CommentResponseModel createComment(CommentModel comment, MultipartFile picture) {
+  public CommentResponseModel createComment(CommentModel comment, MultipartFile[] picture) {
 
     return null;
   }
