@@ -24,6 +24,6 @@ public interface WallService {
 
   void unlikePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
 
-  CommentResponseModel createComment(CommentModel comment, MultipartFile[] picture);
+  CommentResponseModel createComment(CommentModel comment, MultipartFile[] pictures);
 
 }

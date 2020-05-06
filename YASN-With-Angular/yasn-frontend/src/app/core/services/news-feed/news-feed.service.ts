@@ -10,7 +10,8 @@ import {Store} from "@ngrx/store";
 import {take} from "rxjs/operators";
 import {DisplayAllPostsAction} from "../../store/post/actions/display-all-posts.action";
 import {CommentBindingModel} from "../../../shared/models/comment/CommentBindingModel";
-import {Comment} from "../../store/comment/Comment";
+import {UpdatePostAction} from "../../store/post/actions/update-post.action";
+import {PostComment} from "../../store/post/PostComment";
 
 @Injectable({providedIn: "root"})
 export class NewsFeedService {
@@ -20,6 +21,7 @@ export class NewsFeedService {
   }
 
   getAllNewsFeeds(): void {
+
     this.httpRepo.get<Post[]>(EndpointUrls.pullAllNews)
       .pipe(take(1))
       .subscribe((value: Post[]) => {
@@ -29,7 +31,7 @@ export class NewsFeedService {
 
   createPost(postModel: PostBindingModel,
              userProfileId: string,
-             payload: Array<File>) {
+             payload: File[]) {
 
     let formData = new FormData();
     postModel.postOwnerId = userProfileId;
@@ -52,7 +54,7 @@ export class NewsFeedService {
 
   createComment(userProfileId: string,
                 commentModel: CommentBindingModel,
-                pictures: Array<File>) {
+                pictures: File[]) {
     commentModel.commentOwnerId = userProfileId;
     let commentBlob = new Blob([JSON.stringify(commentModel)], {type: 'application/json'});
 
@@ -63,9 +65,11 @@ export class NewsFeedService {
       commentForm.append("commentPicture", pic, `${pic.name}`);
     })
 
-    this.httpRepo.create<Comment>(EndpointUrls.postComment, commentForm)
-      .pipe(take(1)).subscribe(data => {
-        console.log(data)
+    this.httpRepo.create<PostComment>(EndpointUrls.postComment, commentForm)
+      .pipe(take(1)).subscribe((data: PostComment) => {
+      console.log(JSON.stringify(data));
+      this.store.dispatch(new UpdatePostAction({comment: data, loading: true}));
     });
+
   }
 }

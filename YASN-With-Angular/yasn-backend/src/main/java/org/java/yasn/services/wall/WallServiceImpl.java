@@ -13,6 +13,7 @@ import org.java.yasn.data.entities.gallery.PhotoAlbum;
 import org.java.yasn.data.entities.gallery.Picture;
 import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.data.entities.wall.Like;
+import org.java.yasn.data.entities.wall.PostComment;
 import org.java.yasn.data.entities.wall.WallPost;
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.repository.LikeRepository;
@@ -20,6 +21,7 @@ import org.java.yasn.repository.gallery.PersonalGalleryRepository;
 import org.java.yasn.repository.gallery.PhotoAlbumRepository;
 import org.java.yasn.repository.gallery.PictureRepository;
 import org.java.yasn.repository.user.UserProfileRepository;
+import org.java.yasn.repository.wall.PostCommentRepository;
 import org.java.yasn.repository.wall.WallPostRepository;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.user.UserProfileService;
@@ -34,6 +36,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class WallServiceImpl implements WallService {
+  private final String ALBUM_NAME_FOR_POSTS = "Pictures From Posts";
+  private final String ALBUM_NAME_FOR_COMMENTS = "Pictures From Comments";
   private final WallPostRepository wallPostRepository;
   private final UserProfileService userProfileService;
   private final ModelMapper modelMapper;
@@ -43,6 +47,7 @@ public class WallServiceImpl implements WallService {
   private final PersonalGalleryRepository galleryRepository;
   private final PictureRepository pictureRepository;
   private final UserProfileRepository userProfileRepository;
+  private final PostCommentRepository commentRepository;
   private String imgUrl = "";
 
   public WallServiceImpl(WallPostRepository wallPostRepository,
@@ -53,7 +58,8 @@ public class WallServiceImpl implements WallService {
                          PhotoAlbumRepository photoAlbumRepository,
                          PersonalGalleryRepository galleryRepository,
                          PictureRepository pictureRepository,
-                         UserProfileRepository userProfileRepository) {
+                         UserProfileRepository userProfileRepository,
+                         PostCommentRepository commentRepository) {
     this.wallPostRepository = wallPostRepository;
     this.userProfileService = userProfileService;
     this.modelMapper = modelMapper;
@@ -63,6 +69,7 @@ public class WallServiceImpl implements WallService {
     this.galleryRepository = galleryRepository;
     this.pictureRepository = pictureRepository;
     this.userProfileRepository = userProfileRepository;
+    this.commentRepository = commentRepository;
   }
 
   @Override
@@ -102,7 +109,8 @@ public class WallServiceImpl implements WallService {
             wallPostServiceModel.getPostContent(),
             postPictureUrls,
             wallPostServiceModel.getCreatedOn(),
-            likesCount);
+            likesCount,
+            new ArrayList<>());
 
     return response;
   }
@@ -142,6 +150,27 @@ public class WallServiceImpl implements WallService {
                                       .map(Picture::getPictureUrl)
                                       .collect(Collectors.toCollection(LinkedList::new));
 
+                                  Collection<CommentResponseModel> comments = this.commentRepository
+                                      .findAllByParentPost_Id(p.getId())
+                                      .stream()
+                                      .map(postComment -> {
+                                        Collection<String> pictures = this.pictureRepository
+                                            .findAllByCommentId(postComment.getId())
+                                            .stream()
+                                            .map(Picture::getPictureUrl)
+                                            .collect(Collectors.toCollection(LinkedList::new));
+
+                                        return new CommentResponseModel(
+                                            postComment.getId(),
+                                            postComment.getParentPost().getId(),
+                                            postComment.getCommentOwner().getProfilePicture(),
+                                            postComment.getCommentOwner().getFullName(),
+                                            postComment.getCreatedOn(),
+                                            pictures,
+                                            postComment.getCommentContent());
+                                      })
+                                      .collect(Collectors.toCollection(LinkedList::new));
+
                                   return new WallPostResponseModel(
                                       p.getId(),
                                       p.getPostOwner().getFullName(),
@@ -149,7 +178,8 @@ public class WallServiceImpl implements WallService {
                                       p.getPostContent(),
                                       postPictureUrls,
                                       p.getCreatedOn(),
-                                      likesCount);
+                                      likesCount,
+                                      comments);
                                 })
                                 .collect(Collectors.toCollection(LinkedList::new));
   }
@@ -176,9 +206,40 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public CommentResponseModel createComment(CommentModel comment, MultipartFile[] picture) {
+  public CommentResponseModel createComment(CommentModel comment, MultipartFile[] pictures) {
 
-    return null;
+    UserProfile userProfile = this.userProfileRepository
+        .findById(comment.getCommentOwnerId())
+        .orElseThrow(() -> new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND));
+
+    WallPost wallPost = this.wallPostRepository
+        .findById(comment.getCommentOnPostId())
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.POST_DOES_NOT_EXIST));
+
+    PostComment postComment = new PostComment();
+    postComment.setCommentContent(comment.getCommentContent());
+    postComment.setCommentOwner(userProfile);
+    postComment.setCreatedOn(new Timestamp(new Date().getTime()));
+    postComment.setParentPost(wallPost);
+
+    PostComment newComment = this.commentRepository.saveAndFlush(postComment);
+
+    addPostPictures(newComment, pictures);
+
+    Collection<String> commentPicturesUrls = this.pictureRepository
+        .findAllByCommentId(postComment.getId())
+        .stream()
+        .map(Picture::getPictureUrl)
+        .collect(Collectors.toCollection(LinkedList::new));
+
+    return new CommentResponseModel(
+        newComment.getId(),
+        wallPost.getId(),
+        userProfile.getProfilePicture(),
+        userProfile.getFullName(),
+        postComment.getCreatedOn(),
+        commentPicturesUrls,
+        postComment.getCommentContent());
   }
 
   @Override
@@ -189,18 +250,43 @@ public class WallServiceImpl implements WallService {
     return like.isPresent() && like.get().isPostAlreadyLiked();
   }
 
-  private void addPostPictures(WallPost wallPost,
-                               MultipartFile[] pictures) {
+  private <T> void addPostPictures(T targe, MultipartFile[] pictures) {
+
+    PhotoAlbum photoAlbum = null;
+
     if (pictures.length != 0) {
-      String albumId = createPersonalGallery(wallPost.getPostOwner().getId());
-      PhotoAlbum photoAlbum = this.photoAlbumRepository.findById(albumId).get();
+      WallPost post;
+      PostComment comment;
+
+      if (targe instanceof WallPost) {
+        post = (WallPost) targe;
+        String albumId = createPersonalGallery(post.getPostOwner().getId(), ALBUM_NAME_FOR_POSTS);
+        photoAlbum = this.photoAlbumRepository.findById(albumId).get();
+        uploadPictures(pictures, photoAlbum, post);
+      }
+
+      if (targe instanceof PostComment) {
+        comment = (PostComment) targe;
+        String albumId = createPersonalGallery(comment.getCommentOwner().getId(), ALBUM_NAME_FOR_COMMENTS);
+        photoAlbum = this.photoAlbumRepository.findById(albumId).get();
+        uploadPictures(pictures, photoAlbum, comment);
+      }
+
+    }
+
+  }
+
+  private <T> void uploadPictures(MultipartFile[] pictures, PhotoAlbum photoAlbum, T obj) {
+    if (obj instanceof WallPost) {
+      WallPost post = (WallPost) obj;
 
       Arrays.stream(pictures)
             .forEach(multipartFile -> {
               try {
                 imgUrl = this.cloudinaryService.uploadImage(multipartFile);
+
                 Picture picture = new Picture();
-                picture.setWallPost(wallPost);
+                picture.setWallPost(post);
                 picture.setAlbum(photoAlbum);
                 picture.setPictureUrl(imgUrl);
                 picture.setUploadedOn(new Timestamp(new Date().getTime()));
@@ -211,25 +297,63 @@ public class WallServiceImpl implements WallService {
               }
             });
     }
+      if (obj instanceof PostComment) {
+        PostComment comment = (PostComment) obj;
+
+        Arrays.stream(pictures)
+              .forEach(multipartFile -> {
+                try {
+                  imgUrl = this.cloudinaryService.uploadImage(multipartFile);
+
+                  Picture picture = new Picture();
+                  picture.setComment(comment);
+                  picture.setAlbum(photoAlbum);
+                  picture.setPictureUrl(imgUrl);
+                  picture.setUploadedOn(new Timestamp(new Date().getTime()));
+
+                  this.pictureRepository.saveAndFlush(picture);
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
+              });
+
+      }
+
+
 
   }
 
-  private String createPersonalGallery(String postOwnerId) {
+  private String createPersonalGallery(String postOwnerId, String albumName) {
+
     Optional<PersonalGallery> personalGallery =
         this.galleryRepository.findByGalleryOwner_Id(postOwnerId);
+
+    Optional<PhotoAlbum> photoAlbum =
+        this.photoAlbumRepository.findByName(albumName);
 
     if (personalGallery.isEmpty()) {
       UserProfile userProfile = this.userProfileRepository.findById(postOwnerId).get();
       PersonalGallery gallery = new PersonalGallery();
       gallery.setGalleryOwner(userProfile);
+
+
+        PhotoAlbum album = new PhotoAlbum();
+        album.setCreatedOn(new Timestamp(new Date().getTime()));
+        album.setName(albumName);
+        album.setPersonalGallery(gallery);
+
+        return this.photoAlbumRepository.saveAndFlush(album).getId();
+    }
+
+    if (photoAlbum.isEmpty()) {
       PhotoAlbum album = new PhotoAlbum();
       album.setCreatedOn(new Timestamp(new Date().getTime()));
-      album.setName("Pictures From Posts");
-      album.setPersonalGallery(gallery);
+      album.setName(albumName);
+      album.setPersonalGallery(personalGallery.get());
 
       return this.photoAlbumRepository.saveAndFlush(album).getId();
     }
 
-    return this.photoAlbumRepository.findByPersonalGalleryId(personalGallery.get().getId()).get().getId();
+    return photoAlbum.get().getId();
   }
 }

@@ -18,4 +18,5 @@ public class WallPostResponseModel {
   Collection<String> postPicture;
   Timestamp createdOn;
   long likesCount;
+  Collection<CommentResponseModel> comments;
 }

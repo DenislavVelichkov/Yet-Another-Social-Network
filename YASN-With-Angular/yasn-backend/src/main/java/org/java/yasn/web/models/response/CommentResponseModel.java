@@ -1,21 +1,26 @@
 package org.java.yasn.web.models.response;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.util.Collection;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CommentResponseModel {
 
  private String id;
 
+ private String wallPostId;
+
+ private String avatarPictureUrl;
+
  private String senderFullName;
 
- private String senderAvatarPictureUrl;
+ private Timestamp createdOn;
 
- private LocalDate createdOn;
-
- private String picture;
+ private Collection<String> pictures;
 
  private String content;
 

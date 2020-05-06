@@ -14,4 +14,6 @@ public interface PhotoAlbumRepository extends JpaRepository<PhotoAlbum, String> 
   Optional<PhotoAlbum> findById(String id);
 
   Optional<PhotoAlbum> findByPersonalGalleryId(String galleryId);
+
+  Optional<PhotoAlbum> findByName(String albumName);
 }

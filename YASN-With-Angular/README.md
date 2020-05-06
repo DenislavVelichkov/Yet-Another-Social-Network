@@ -1,6 +1,7 @@
 # Yasn Project
 
 To run the project:
+ - Install maven or use the build in one in IntelliJ ide
  - Go to root folder of the project and type: mvn clean install
  - Install Docker and go to root folder of the project and type in cmd/bash following command: docker-compose up --build
  - Navigate to http://localhost:4200 and create your first account (:

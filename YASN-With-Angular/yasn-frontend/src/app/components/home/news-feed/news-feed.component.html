@@ -38,5 +38,23 @@
                         [postId]="post.id">
     </app-create-comment>
 
+    <div *ngFor="let comment of post.comments">
+      <hr class="post-delimiter">
+
+        <div class="post-comment-container">
+          <img alt="profile-avatar" class="user-img" src="{{comment.avatarPictureUrl}}"/>
+          <span>{{comment.senderFullName}}</span>
+          <span>{{convertTime(comment.createdOn)}}</span>
+        </div>
+
+        <div class="post-content">
+          <p>{{comment.content}}</p>
+          <div *ngFor="let commentPic of comment.pictures" class="post-content-container">
+            <img class="post-img" src="{{commentPic}}" alt="post-picture"/>
+          </div>
+        </div>
+
+    </div>
+
   </div>
 </div>

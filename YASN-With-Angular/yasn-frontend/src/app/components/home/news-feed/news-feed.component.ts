@@ -13,6 +13,7 @@ import {UserProfileState} from "../../../core/store/userProfile/state/user-profi
 })
 export class NewsFeedComponent implements OnInit {
   public newsFeedPosts: Post[];
+  private comments: Comment[];
   public showComments: boolean;
   public postAvatar: UserProfileState;
   public postId = 'postId';
@@ -32,7 +33,6 @@ export class NewsFeedComponent implements OnInit {
 
     this.store.select('newsFeed').subscribe(value =>
       this.newsFeedPosts = value.allWallPosts);
-
   }
 
   postCommentPop() {

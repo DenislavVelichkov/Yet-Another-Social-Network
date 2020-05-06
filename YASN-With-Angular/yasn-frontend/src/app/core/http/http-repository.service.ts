@@ -28,7 +28,7 @@ export class HttpRepositoryService {
 
     return this.http.post<T>(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
-      body, {headers: this.headers});
+      body);
   }
 
   public loginRequest(route: string, body: any) {

@@ -1,3 +1,5 @@
+import {PostComment} from "./PostComment";
+
 export interface Post {
   id: string;
   ownerFullName: string;
@@ -8,6 +10,7 @@ export interface Post {
   postPrivacy: string;
   likesCount: number;
   location: string;
+  comments: PostComment[];
 }
 
 

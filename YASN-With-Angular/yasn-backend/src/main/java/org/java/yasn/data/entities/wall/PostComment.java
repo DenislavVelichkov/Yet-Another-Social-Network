@@ -36,9 +36,6 @@ public class PostComment extends BaseEntity {
       nullable = false)
   private String commentContent;
 
-  @Column(name = "comment_picture")
-  private String commentPicture;
-
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
   @Column(name = "created_on",
       updatable = false, nullable = false)

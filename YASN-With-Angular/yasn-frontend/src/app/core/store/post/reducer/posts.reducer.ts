@@ -1,17 +1,23 @@
 import {initialState, PostState} from "../state/post.state";
 import {PostActions, PostActionTypes} from "../actions/action.type";
 import {Post} from "../Post";
+import {PostComment} from "../PostComment";
+import produce from "immer";
 
 export function postsReducer(state: PostState = initialState,
                              action: PostActions) {
 
   switch (action.type) {
+
     case PostActionTypes.GET_ALL_POSTS:
-
       return getAllPosts(state, action.payload);
-    case PostActionTypes.CREATE_POST:
 
+    case PostActionTypes.CREATE_POST:
       return createPost(state, action.payload);
+
+    case PostActionTypes.COMMENT_ON_POST:
+      return createComment(state, action.payload);
+
     default:
       return state;
   }
@@ -25,8 +31,7 @@ function getAllPosts(state, payload) {
 
 function createPost(state, payload) {
   let newPost: PostState = {
-    allWallPosts: state.allWallPosts
-      .concat(payload.post)
+    allWallPosts: state.allWallPosts.concat(payload.post)
       .sort((a: Post, b: Post) => {
         let result = compareDatesDesc(a.createdOn, b.createdOn);
 
@@ -36,6 +41,21 @@ function createPost(state, payload) {
   }
 
   return newPost;
+}
+
+function createComment(state: PostState, payload) {
+
+  return produce(state, draftState => {
+    draftState.allWallPosts
+      .find(post => post.id === payload.comment.wallPostId)
+      .comments.push(payload.comment);
+
+    draftState.allWallPosts.find(post => post.id === payload.comment.wallPostId)
+      .comments.sort(
+      (a: PostComment, b: PostComment) => compareDatesDesc(a.createdOn, b.createdOn))
+
+    draftState.loading = payload.loading;
+  });
 }
 
 function compareDatesDesc(dateA: Date, dateB: Date) {

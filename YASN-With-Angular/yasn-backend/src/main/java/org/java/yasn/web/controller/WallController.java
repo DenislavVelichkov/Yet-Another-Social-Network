@@ -26,9 +26,9 @@ public class WallController {
   @PostMapping(value = "/post", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> postOnNewsFeed(
       @RequestPart(name = "post") WallPostModel post,
-      @RequestPart(name = "postPicture", required = false) MultipartFile[] picture) throws IOException {
+      @RequestPart(name = "postPicture", required = false) MultipartFile[] pictures) throws IOException {
 
-    WallPostResponseModel response = this.wallService.createPost(post, picture);
+    WallPostResponseModel response = this.wallService.createPost(post, pictures);
 
     return ResponseEntity.ok(response);
   }
@@ -37,9 +37,9 @@ public class WallController {
   @PostMapping(value = "/post/comment", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> postCommentOnPost(
       @RequestPart(name = "comment") CommentModel comment,
-      @RequestPart(name = "commentPicture", required = false) MultipartFile[] picture) {
+      @RequestPart(name = "commentPicture", required = false) MultipartFile[] pictures) {
 
-    CommentResponseModel response = wallService.createComment(comment, picture);
+    CommentResponseModel response = wallService.createComment(comment, pictures);
 
     return ResponseEntity.ok(response);
   }
