@@ -10,7 +10,7 @@ import {Store} from "@ngrx/store";
 import {take} from "rxjs/operators";
 import {DisplayAllPostsAction} from "../../store/post/actions/display-all-posts.action";
 import {CommentBindingModel} from "../../../shared/models/comment/CommentBindingModel";
-import {UpdatePostAction} from "../../store/post/actions/update-post.action";
+import {CommentOnPostAction} from "../../store/post/actions/comment-on-post.action";
 import {PostComment} from "../../store/post/PostComment";
 
 @Injectable({providedIn: "root"})
@@ -68,7 +68,7 @@ export class NewsFeedService {
     this.httpRepo.create<PostComment>(EndpointUrls.postComment, commentForm)
       .pipe(take(1)).subscribe((data: PostComment) => {
       console.log(JSON.stringify(data));
-      this.store.dispatch(new UpdatePostAction({comment: data, loading: true}));
+      this.store.dispatch(new CommentOnPostAction({comment: data, loading: true}));
     });
 
   }

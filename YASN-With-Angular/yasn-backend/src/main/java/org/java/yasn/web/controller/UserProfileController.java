@@ -31,6 +31,7 @@ public class UserProfileController {
       @PathVariable String profileId) {
     UserProfileServiceModel userProfile = userProfileService.findUserProfileById(profileId);
     Map<String, String> response = new HashMap<>();
+    response.put("userProfileId", userProfile.getId());
     response.put("userFullName", userProfile.getFullName());
     response.put("avatarPictureUrl", userProfile.getProfilePicture());
     response.put("coverPictureUrl", userProfile.getCoverPicture());

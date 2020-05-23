@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
 import org.java.yasn.web.models.binding.CommentModel;
+import org.java.yasn.web.models.binding.LikeAPostModel;
 import org.java.yasn.web.models.binding.WallPostModel;
 import org.java.yasn.web.models.response.CommentResponseModel;
 import org.java.yasn.web.models.response.WallPostResponseModel;
@@ -18,7 +19,7 @@ public interface WallService {
 
   WallPostServiceModel findWallPostById(String id);
 
-  void likePost(String postId, String profileId);
+  void likePost(LikeAPostModel likeAPostModel);
 
   boolean isPostLikedByActiveUser(String postId, String profileId);
 

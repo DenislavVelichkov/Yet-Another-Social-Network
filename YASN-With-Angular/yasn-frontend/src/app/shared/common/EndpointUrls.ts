@@ -5,4 +5,5 @@ export const EndpointUrls = {
   pullAllNews: "/api/home/all-news",
   notifications: "/api/notification",
   postComment: "/api/home/news-feed/post/comment",
+  likeAPost: "/api/actions/likes/likeAPost",
 }

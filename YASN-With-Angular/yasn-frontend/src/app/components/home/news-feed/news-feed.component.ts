@@ -5,6 +5,11 @@ import {NewsFeedService} from "../../../core/services/news-feed/news-feed.servic
 import {Post} from "../../../core/store/post/Post";
 import {timeConverter} from "../../../core/util/util"
 import {UserProfileState} from "../../../core/store/userProfile/state/user-profile.state";
+import {HttpRepositoryService} from "../../../core/http/http-repository.service";
+import {EndpointUrls} from "../../../shared/common/EndpointUrls";
+import {take} from "rxjs/operators";
+import {LikeAPost} from "../../../core/store/post/LikeAPost";
+import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.action";
 
 @Component({
   selector: 'app-news-feed',
@@ -15,11 +20,12 @@ export class NewsFeedComponent implements OnInit {
   public newsFeedPosts: Post[];
   private comments: Comment[];
   public showComments: boolean;
-  public postAvatar: UserProfileState;
+  public userProfileInfo: UserProfileState;
   public postId = 'postId';
 
   constructor(private newsService: NewsFeedService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private http: HttpRepositoryService) {
 
   }
 
@@ -28,7 +34,7 @@ export class NewsFeedComponent implements OnInit {
     this.newsService.getAllNewsFeeds()
 
     this.store.select('userProfile').subscribe(value => {
-      this.postAvatar = value;
+      this.userProfileInfo = value;
     })
 
     this.store.select('newsFeed').subscribe(value =>
@@ -39,8 +45,11 @@ export class NewsFeedComponent implements OnInit {
     this.showComments = !this.showComments;
   }
 
-  likeAPost() {
-
+  likeAPost(postId: string) {
+    let likeAPost: LikeAPost = {postId: postId, userProfileId: this.userProfileInfo.userProfileId}
+    this.http.create(EndpointUrls.likeAPost, likeAPost)
+             .pipe(take(1))
+             .subscribe(data => this.store.dispatch(new LikeAPostAction(likeAPost)));
   }
 
   convertTime(date: Date): string {

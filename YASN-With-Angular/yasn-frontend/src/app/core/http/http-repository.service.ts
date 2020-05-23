@@ -39,7 +39,7 @@ export class HttpRepositoryService {
       {headers: this.headers, observe: "response"});
   }
 
-  public postWithForm(route: string, body) {
+ /* public postWithForm(route: string, body) {
 
     return this.http.post(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
@@ -49,7 +49,7 @@ export class HttpRepositoryService {
         observe: "response"
       }
     ).pipe(take(1))
-  }
+  }*/
 
   public update(route: string, body) {
     return this.http.put(

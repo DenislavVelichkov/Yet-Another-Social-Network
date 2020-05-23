@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
+import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.common.ExceptionMessages;
 import org.java.yasn.common.enums.NotificationType;
 import org.java.yasn.services.CloudinaryService;
@@ -17,6 +18,7 @@ import org.java.yasn.services.action.NotificationService;
 import org.java.yasn.services.gallery.PersonalGalleryService;
 import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.services.wall.WallService;
+import org.java.yasn.web.models.binding.LikeAPostModel;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/actions/")
 @AllArgsConstructor
 public class ActionApiController {
 
@@ -35,10 +37,10 @@ public class ActionApiController {
   private final CloudinaryService cloudinaryService;
 
 
-  @PostMapping("/likes")
-  public void likeAction(@ModelAttribute(name = "likePostId") String postId,
-                         Principal activeUser) {
+  @PostMapping(value = "/likes/likeAPost", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public void likeAction(@RequestBody LikeAPostModel likeAPostModel) {
 
+    wallService.likePost(likeAPostModel);
   }
 
   @PostMapping("/add-friend")

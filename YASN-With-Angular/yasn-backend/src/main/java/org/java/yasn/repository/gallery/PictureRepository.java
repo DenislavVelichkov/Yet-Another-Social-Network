@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PictureRepository extends JpaRepository<Picture, String> {
+
   Collection<Picture> findAllByWallPostId(String postId);
 
   Collection<Picture> findAllByCommentId(String CommentId);
 }
+

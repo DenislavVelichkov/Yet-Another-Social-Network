@@ -26,6 +26,7 @@ import org.java.yasn.repository.wall.WallPostRepository;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.web.models.binding.CommentModel;
+import org.java.yasn.web.models.binding.LikeAPostModel;
 import org.java.yasn.web.models.binding.WallPostModel;
 import org.java.yasn.web.models.response.CommentResponseModel;
 import org.java.yasn.web.models.response.WallPostResponseModel;
@@ -184,14 +185,14 @@ public class WallServiceImpl implements WallService {
                                 .collect(Collectors.toCollection(LinkedList::new));
   }
 
-  public void likePost(String postId, String profileId) {
+  public void likePost(LikeAPostModel likeAPostModel) {
 
     Like like = new Like();
 
 
     LikeId likeId = new LikeId();
-    likeId.setPostId(postId);
-    likeId.setProfileId(profileId);
+    likeId.setPostId(likeAPostModel.getPostId());
+    likeId.setProfileId(likeAPostModel.getUserProfileId());
 
     like.setId(likeId);
     like.setPostAlreadyLiked(true);
@@ -250,7 +251,7 @@ public class WallServiceImpl implements WallService {
     return like.isPresent() && like.get().isPostAlreadyLiked();
   }
 
-  private <T> void addPostPictures(T targe, MultipartFile[] pictures) {
+  private <T> void addPostPictures(T target, MultipartFile[] pictures) {
 
     PhotoAlbum photoAlbum = null;
 
@@ -258,15 +259,15 @@ public class WallServiceImpl implements WallService {
       WallPost post;
       PostComment comment;
 
-      if (targe instanceof WallPost) {
-        post = (WallPost) targe;
+      if (target instanceof WallPost) {
+        post = (WallPost) target;
         String albumId = createPersonalGallery(post.getPostOwner().getId(), ALBUM_NAME_FOR_POSTS);
         photoAlbum = this.photoAlbumRepository.findById(albumId).get();
         uploadPictures(pictures, photoAlbum, post);
       }
 
-      if (targe instanceof PostComment) {
-        comment = (PostComment) targe;
+      if (target instanceof PostComment) {
+        comment = (PostComment) target;
         String albumId = createPersonalGallery(comment.getCommentOwner().getId(), ALBUM_NAME_FOR_COMMENTS);
         photoAlbum = this.photoAlbumRepository.findById(albumId).get();
         uploadPictures(pictures, photoAlbum, comment);
