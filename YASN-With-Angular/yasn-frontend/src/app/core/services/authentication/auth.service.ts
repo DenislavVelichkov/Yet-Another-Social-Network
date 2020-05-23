@@ -11,6 +11,7 @@ import {AuthenticatedAction} from "../../store/authentication/actions/authentica
 import {LogoutAction} from "../../store/authentication/actions/logout.action";
 import {UserAuthModel} from "../../store/authentication/UserAuthModel";
 import {AuthenticatingFailedAction} from "../../store/authentication/actions/authenticating-failed.action";
+import {take} from "rxjs/operators";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -24,6 +25,7 @@ export class AuthService {
   loginUser(userModel: UserLoginBindingModel): void {
 
     this.httpRepo.loginRequest("/api/user/login", userModel)
+      .pipe(take(1))
       .subscribe((data: any) => {
           this.handleAuthentication(data)
           this.router.navigate(['home']);

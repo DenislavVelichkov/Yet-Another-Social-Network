@@ -11,12 +11,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class WallPostResponseModel {
-  String id;
-  String ownerFullName;
-  String ownerAvatarPictureUrl;
-  String content;
-  Collection<String> postPicture;
-  Timestamp createdOn;
-  long likesCount;
-  Collection<CommentResponseModel> comments;
+  private String id;
+  private String ownerFullName;
+  private String ownerAvatarPictureUrl;
+  private String content;
+  private Collection<String> postPicture;
+  private Timestamp createdOn;
+  private long likesCount;
+  private Collection<CommentResponseModel> comments;
+  private boolean postLikedByCurrentUser;
 }

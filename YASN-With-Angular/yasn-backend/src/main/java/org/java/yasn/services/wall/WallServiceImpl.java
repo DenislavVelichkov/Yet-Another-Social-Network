@@ -111,7 +111,8 @@ public class WallServiceImpl implements WallService {
             postPictureUrls,
             wallPostServiceModel.getCreatedOn(),
             likesCount,
-            new ArrayList<>());
+            new ArrayList<>(),
+            false);
 
     return response;
   }
@@ -131,7 +132,8 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public Collection<WallPostResponseModel> displayAllPosts() {
+  public Collection<WallPostResponseModel> displayAllPosts(String currentUser) {
+
     Collection<WallPostServiceModel> allPostsServiceModels = this.wallPostRepository
         .findAll()
         .stream()
@@ -180,7 +182,8 @@ public class WallServiceImpl implements WallService {
                                       postPictureUrls,
                                       p.getCreatedOn(),
                                       likesCount,
-                                      comments);
+                                      comments,
+                                      isPostLikedByActiveUser(p.getId(), currentUser));
                                 })
                                 .collect(Collectors.toCollection(LinkedList::new));
   }
@@ -202,8 +205,10 @@ public class WallServiceImpl implements WallService {
   }
 
   @Override
-  public void unlikePost(WallPostServiceModel wallPostServiceModel, String activeUser) {
-
+  public void unlikePost(LikeAPostModel likeAPostModel) {
+    Like like = this.likeRepository.findById_PostIdAndId_ProfileId(likeAPostModel.getPostId(), likeAPostModel.getUserProfileId())
+        .orElseThrow(() -> new IllegalArgumentException("Like does not exists!"));
+    this.likeRepository.delete(like);
   }
 
   @Override
@@ -246,7 +251,7 @@ public class WallServiceImpl implements WallService {
   @Override
   public boolean isPostLikedByActiveUser(String postId, String profileId) {
     Optional<Like> like =
-        this.likeRepository.findLikeById_PostIdAndId_ProfileId(postId, profileId);
+        this.likeRepository.findById_PostIdAndId_ProfileId(postId, profileId);
 
     return like.isPresent() && like.get().isPostAlreadyLiked();
   }

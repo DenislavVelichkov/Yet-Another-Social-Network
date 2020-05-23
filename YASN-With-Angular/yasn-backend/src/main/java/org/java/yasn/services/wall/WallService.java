@@ -15,7 +15,7 @@ public interface WallService {
 
   WallPostResponseModel createPost(WallPostModel wallPost, MultipartFile[] pictures) throws IOException;
 
-  Collection<WallPostResponseModel> displayAllPosts();
+  Collection<WallPostResponseModel> displayAllPosts(String currentUser);
 
   WallPostServiceModel findWallPostById(String id);
 
@@ -23,7 +23,7 @@ public interface WallService {
 
   boolean isPostLikedByActiveUser(String postId, String profileId);
 
-  void unlikePost(WallPostServiceModel wallPostServiceModel, String profileUsername);
+  void unlikePost(LikeAPostModel likeAPostModel);
 
   CommentResponseModel createComment(CommentModel comment, MultipartFile[] pictures);
 

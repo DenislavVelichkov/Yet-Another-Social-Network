@@ -11,6 +11,7 @@ export interface Post {
   likesCount: number;
   location: string;
   comments: PostComment[];
+  postLikedByCurrentUser: boolean;
 }
 
 

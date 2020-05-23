@@ -3,14 +3,10 @@ package org.java.yasn.web.controller;
 import java.util.Collection;
 
 import lombok.AllArgsConstructor;
-import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.services.wall.WallService;
 import org.java.yasn.web.models.response.WallPostResponseModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/home")
@@ -19,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
   private final WallService wallService;
 
-  @GetMapping(value = "/all-news", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<?> allNewsFeed() {
+  @GetMapping(value = "/all-news/{currentUser}")
+  public ResponseEntity<Collection<WallPostResponseModel>> allNewsFeed(@PathVariable(name = "currentUser") String currentUser) {
 
-    Collection<WallPostResponseModel> posts = this.wallService.displayAllPosts();
+    Collection<WallPostResponseModel> posts = this.wallService.displayAllPosts(currentUser);
 
     return ResponseEntity.ok(posts);
   }

@@ -23,8 +23,9 @@
         </li>
         <span class="text-muted"> - </span>
         <li>
-          <span class="post-like" (click)="likeAPost(post.id)">
-            Like
+          <span class="post-like" (click)="likeAPost(post.id, post.postLikedByCurrentUser)">
+            <span *ngIf="post.postLikedByCurrentUser">Unlike</span>
+            <span *ngIf="!post.postLikedByCurrentUser">Like</span>
           </span>
         </li>
         <li>

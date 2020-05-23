@@ -36,11 +36,16 @@ public class ActionApiController {
   private final PersonalGalleryService galleryService;
   private final CloudinaryService cloudinaryService;
 
-
   @PostMapping(value = "/likes/likeAPost", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public void likeAction(@RequestBody LikeAPostModel likeAPostModel) {
+  public void likePostAction(@RequestBody LikeAPostModel likeAPostModel) {
 
     wallService.likePost(likeAPostModel);
+  }
+
+  @PostMapping(value = "/likes/unLikeAPost", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public void unLikePostAction(@RequestBody LikeAPostModel likeAPostModel) {
+
+    wallService.unlikePost(likeAPostModel);
   }
 
   @PostMapping("/add-friend")

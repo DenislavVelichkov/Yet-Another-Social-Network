@@ -21,6 +21,9 @@ export function postsReducer(state: PostState = initialState,
     case PostActionTypes.LIKE_A_POST:
       return likePost(state, action.payload);
 
+    case PostActionTypes.UNLIKE_A_POST:
+      return unLikePost(state, action.payload);
+
     default:
       return state;
   }
@@ -63,11 +66,23 @@ function createComment(state, payload) {
 
 function likePost(state, payload) {
   return produce(state, draftState => {
-    draftState.allWallPosts
-      .find(post => post.id === payload.postId)
-      .likesCount++
+    let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
+    newPost.likesCount++;
+    newPost.postLikedByCurrentUser = true;
 
-    draftState.loading = payload.loading;
+    draftState.allWallPosts
+      .map(p => p.id === newPost.id || newPost);
+  });
+}
+
+function unLikePost(state, payload) {
+  return produce(state, draftState => {
+    let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
+    newPost.likesCount--;
+    newPost.postLikedByCurrentUser = false;
+
+    draftState.allWallPosts
+      .map(p => p.id === newPost.id || newPost);
   });
 }
 

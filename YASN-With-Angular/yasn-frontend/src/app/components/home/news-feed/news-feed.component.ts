@@ -10,6 +10,7 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {LikeAPost} from "../../../core/store/post/LikeAPost";
 import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.action";
+import {UnlikeAPostAction} from "../../../core/store/post/actions/unlike-a-post.action";
 
 @Component({
   selector: 'app-news-feed',
@@ -17,25 +18,28 @@ import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.acti
   styleUrls: ['./news-feed.component.css']
 })
 export class NewsFeedComponent implements OnInit {
+  public userProfileInfo: UserProfileState;
+  public showComments: boolean;
+  public postId = 'postId';
   public newsFeedPosts: Post[];
   private comments: Comment[];
-  public showComments: boolean;
-  public userProfileInfo: UserProfileState;
-  public postId = 'postId';
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>,
               private http: HttpRepositoryService) {
-
   }
 
   ngOnInit() {
 
-    this.newsService.getAllNewsFeeds()
+    this.store.select('userProfile')
+      .subscribe(value => {
+        this.userProfileInfo = value;
+      })
 
-    this.store.select('userProfile').subscribe(value => {
-      this.userProfileInfo = value;
-    })
+    let currentUserProfileId =
+      JSON.parse(localStorage.getItem('activeUser'))._userProfileId;
+
+    this.newsService.getAllNewsFeeds(currentUserProfileId)
 
     this.store.select('newsFeed').subscribe(value =>
       this.newsFeedPosts = value.allWallPosts);
@@ -45,11 +49,24 @@ export class NewsFeedComponent implements OnInit {
     this.showComments = !this.showComments;
   }
 
-  likeAPost(postId: string) {
-    let likeAPost: LikeAPost = {postId: postId, userProfileId: this.userProfileInfo.userProfileId}
-    this.http.create(EndpointUrls.likeAPost, likeAPost)
-             .pipe(take(1))
-             .subscribe(data => this.store.dispatch(new LikeAPostAction(likeAPost)));
+  likeAPost(postId: string, isPostAlreadyLiked: boolean) {
+    let likeModel: LikeAPost = {
+      postId: postId,
+      userProfileId: this.userProfileInfo.userProfileId
+    };
+
+    if (isPostAlreadyLiked) {
+      this.http.create(EndpointUrls.unLikeAPost, likeModel)
+        .pipe(take(1))
+        .subscribe(data => this.store.dispatch(new UnlikeAPostAction(likeModel)));
+
+    } else {
+      this.http.create(EndpointUrls.likeAPost, likeModel)
+        .pipe(take(1))
+        .subscribe(data => this.store.dispatch(new LikeAPostAction(likeModel)));
+    }
+
+
   }
 
   convertTime(date: Date): string {

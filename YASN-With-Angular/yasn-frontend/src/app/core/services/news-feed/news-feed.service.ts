@@ -20,9 +20,9 @@ export class NewsFeedService {
               private store: Store<AppState>) {
   }
 
-  getAllNewsFeeds(): void {
+  getAllNewsFeeds(userProfileId: string): void {
 
-    this.httpRepo.get<Post[]>(EndpointUrls.pullAllNews)
+    this.httpRepo.get<Post[]>(EndpointUrls.pullAllNews + userProfileId)
       .pipe(take(1))
       .subscribe((value: Post[]) => {
         this.store.dispatch(new DisplayAllPostsAction({allWallPosts: value, loading: true}))
