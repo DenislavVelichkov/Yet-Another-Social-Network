@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {UserProfileState} from "../../../../core/store/userProfile/state/user-profile.state";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -6,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./user-profile-header.component.css']
 })
 export class UserProfileHeaderComponent implements OnInit {
+  @Input("userProfile") userProfileInfo: UserProfileState;
 
   constructor() { }
 

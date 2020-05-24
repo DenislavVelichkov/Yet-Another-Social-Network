@@ -1,11 +1,11 @@
-<div class="user-cover-container">
+
   <div class="shadow mb-5 bg-white rounded">
 
     <div class="cover-img-container">
-      <img class="static-cover-img" src="" alt="cover-profile-image"/>
+      <img class="static-cover-img" src="{{userProfileInfo.coverPictureUrl}}" alt="cover-profile-image"/>
       <div class="cover-img-caption">
-        <img class="z-depth-2 rounded profile-picture" src="" alt="profile-picture"/>
-        <p></p>
+        <img class="z-depth-2 rounded profile-picture" src="{{userProfileInfo.avatarPictureUrl}}" alt="profile-picture"/>
+        <p>{{userProfileInfo.userFullName}}</p>
       </div>
     </div>
     <div class="profile-nav-container">
@@ -40,4 +40,4 @@
       </div>
     </div>
   </div>
-</div>
+

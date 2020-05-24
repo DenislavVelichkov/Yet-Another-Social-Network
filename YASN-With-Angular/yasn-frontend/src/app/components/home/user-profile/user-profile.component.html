@@ -7,8 +7,8 @@
   <div class="col-6" id="user-profile-main">
 
     <div class="user-profile-container">
-      <app-user-profile-header></app-user-profile-header>
-      <app-user-profile-body></app-user-profile-body>
+      <app-user-profile-header [userProfile]="userProfileState"></app-user-profile-header>
+      <app-user-profile-body [userProfile]="userProfileState"></app-user-profile-body>
     </div>
 
 

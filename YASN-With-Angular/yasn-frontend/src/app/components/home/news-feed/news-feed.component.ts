@@ -22,7 +22,6 @@ export class NewsFeedComponent implements OnInit {
   public showComments: boolean;
   public postId = 'postId';
   public newsFeedPosts: Post[];
-  private comments: Comment[];
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>,
