@@ -6,6 +6,7 @@ import {AuthGuard} from "./core/guards/auth.guard";
 import {ErrorComponent} from "./components/error/error.component";
 import {throwError} from "rxjs";
 import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-found.component";
+import {UserProfileComponent} from "./components/home/user-profile/user-profile.component";
 
 const routes: Routes = [
   {path: "404", component: PageNotFoundComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
   {path: "index", component: IndexComponent},
   {path: "user/login", component: IndexComponent},
+  {path: "user/profile", component: UserProfileComponent},
 ];
 
 @NgModule({

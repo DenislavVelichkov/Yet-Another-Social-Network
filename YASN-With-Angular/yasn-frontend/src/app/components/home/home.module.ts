@@ -12,6 +12,12 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {CreateCommentComponent} from './create-comment/create-comment.component';
+import {UserProfileComponent} from "./user-profile/user-profile.component";
+import {UserProfileHeaderComponent} from './user-profile/user-profile-header/user-profile-header.component';
+import {UserGalleryComponent} from './user-profile/user-gallery/user-gallery.component';
+import {UserProfileBodyComponent} from './user-profile/user-profile-body/user-profile-body.component';
+import {UserFriendsComponent} from './user-profile/user-friends/user-friends.component';
+import {EditUserProfileComponent} from './user-profile/edit-user-profile/edit-user-profile.component';
 
 
 @NgModule({
@@ -20,6 +26,12 @@ import {CreateCommentComponent} from './create-comment/create-comment.component'
     NewsFeedComponent,
     CreatePostComponent,
     CreateCommentComponent,
+    UserProfileComponent,
+    UserProfileHeaderComponent,
+    UserGalleryComponent,
+    UserProfileBodyComponent,
+    UserFriendsComponent,
+    EditUserProfileComponent,
   ],
   imports: [
     CommonModule,

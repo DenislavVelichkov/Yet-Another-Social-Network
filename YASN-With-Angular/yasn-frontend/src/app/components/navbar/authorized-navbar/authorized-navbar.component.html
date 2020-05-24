@@ -6,14 +6,14 @@
         <nav>
             <div class="navbar-avatar-container float-left">
                 <img src="{{profilePictureUrl}}" alt="profile-picture" id="avatar-picture"/>
-                <a href="/user-profile/{{profileId}}">
+                <a routerLink="user/profile">
                     <span id="avatar-name">{{userFullName}}</span>
                 </a>
             </div>
             <div class="navbar-menu-right nav-tabs float-right">
                 <ul>
                     <li>
-                        <a class="yasn-home" style="color: #212529" routerLink="home">
+                        <a routerLink="home" class="yasn-home" style="color: #212529">
                             <span>
                                 <i class="fas fa-home"></i>
                             </span>
@@ -69,7 +69,7 @@
                                     <a href="">Admin Panel</a>
                                 </li>
                                 <li>
-                                    <a href="">Profile Settings</a>
+                                    <a routerLink="user/profile">Profile Settings</a>
                                 </li>
                                 <li>
                                     <div (click)="logout()">
