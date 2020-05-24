@@ -1,0 +1,13 @@
+/*Sticky sidebar*/
+.user-profile-sidebar-container {
+  position: sticky;
+  top: 6vh;
+}
+
+.post-delimiter {
+  margin: 1em 2em 0;
+}
+
+.user-profile-container {
+  display: block;
+}
