@@ -1,5 +1,4 @@
 .post-meta-avatar {
-  float: left;
   display: flex;
   justify-content: flex-start;
   overflow: hidden;
@@ -108,6 +107,29 @@
   margin: 0 0 1em 0;
 }
 
+.post-comment-meta-avatar {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  flex-direction: row;
+  margin: 1em 0 0 0;
+}
+
+.post-comment-meta-avatar span {
+  flex: 1 1 100%;
+}
+
+.post-comment-meta-avatar > span:nth-child(3) {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 0.7em;
+  flex: 0 0 auto;
+}
+
+.post-comment-content {
+  flex: 1 1 100%;
+  margin: 1em 0 0 0;
+}
 
 
 
