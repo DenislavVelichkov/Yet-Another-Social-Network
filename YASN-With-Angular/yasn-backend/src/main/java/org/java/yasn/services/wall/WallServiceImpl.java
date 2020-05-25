@@ -105,6 +105,7 @@ public class WallServiceImpl implements WallService {
 
     WallPostResponseModel response =
         new WallPostResponseModel(newPost.getId(),
+            wallPostServiceModel.getPostOwner().getId(),
             wallPostServiceModel.getPostOwner().getFullName(),
             wallPostServiceModel.getPostOwner().getProfilePicture(),
             wallPostServiceModel.getPostContent(),
@@ -165,6 +166,7 @@ public class WallServiceImpl implements WallService {
 
                                         return new CommentResponseModel(
                                             postComment.getId(),
+                                            postComment.getCommentOwner().getId(),
                                             postComment.getParentPost().getId(),
                                             postComment.getCommentOwner().getProfilePicture(),
                                             postComment.getCommentOwner().getFullName(),
@@ -176,6 +178,7 @@ public class WallServiceImpl implements WallService {
 
                                   return new WallPostResponseModel(
                                       p.getId(),
+                                      p.getPostOwner().getId(),
                                       p.getPostOwner().getFullName(),
                                       p.getPostOwner().getProfilePicture(),
                                       p.getPostContent(),
@@ -240,6 +243,7 @@ public class WallServiceImpl implements WallService {
 
     return new CommentResponseModel(
         newComment.getId(),
+        newComment.getCommentOwner().getId(),
         wallPost.getId(),
         userProfile.getProfilePicture(),
         userProfile.getFullName(),

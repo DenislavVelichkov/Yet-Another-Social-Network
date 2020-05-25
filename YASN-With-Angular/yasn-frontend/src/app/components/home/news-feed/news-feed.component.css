@@ -9,6 +9,10 @@
   flex: 1 1 100%;
 }
 
+.post-meta-avatar a {
+  flex: 1 1 66%;
+}
+
 .post-meta-avatar > span:nth-child(3) {
   font-weight: 100;
   font-style: italic;
@@ -117,6 +121,10 @@
 
 .post-comment-meta-avatar span {
   flex: 1 1 100%;
+}
+
+.post-comment-meta-avatar a {
+  flex: 1 1 66%;
 }
 
 .post-comment-meta-avatar > span:nth-child(3) {

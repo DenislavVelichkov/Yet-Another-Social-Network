@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class WallPostResponseModel {
   private String id;
+  private String ownerProfileId;
   private String ownerFullName;
   private String ownerAvatarPictureUrl;
   private String content;

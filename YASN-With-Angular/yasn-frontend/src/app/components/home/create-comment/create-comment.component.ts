@@ -16,10 +16,10 @@ import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loadin
 export class CreateCommentComponent implements OnInit {
   public commentAvatar: UserProfileState;
   public commentModel: CommentBindingModel;
-  @ViewChild('uploadCommentPhoto', {static: false}) uploadCommentPhoto: ElementRef;
-  public files: any;
-  @Input('postId') postId: string;
   private userProfile: UserAuthModel;
+  public files: any;
+  @ViewChild('uploadCommentPhoto', {static: false}) uploadCommentPhoto: ElementRef;
+  @Input('postId') postId: string;
 
   constructor(private store: Store<AppState>,
               private newsFeedService: NewsFeedService) {

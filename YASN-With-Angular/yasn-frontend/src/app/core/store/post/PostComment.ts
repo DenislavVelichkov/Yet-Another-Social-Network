@@ -1,6 +1,8 @@
 export interface PostComment {
   id: string;
 
+  commentOwnerProfileId: string;
+
   wallPostId: string;
 
   avatarPictureUrl: string;

@@ -12,6 +12,8 @@ public class CommentResponseModel {
 
  private String id;
 
+ private String commentOwnerProfileId;
+
  private String wallPostId;
 
  private String avatarPictureUrl;
