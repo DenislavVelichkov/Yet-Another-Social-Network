@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserProfileState} from "../../../../core/store/userProfile/state/user-profile.state";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -8,11 +9,12 @@ import {UserProfileState} from "../../../../core/store/userProfile/state/user-pr
 })
 export class UserProfileHeaderComponent implements OnInit {
   @Input("userProfile") userProfileInfo: UserProfileState;
+  public currentProfileId: string;
 
-  constructor() {
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.currentProfileId = this.route.snapshot.paramMap.get('id');
   }
 
 }

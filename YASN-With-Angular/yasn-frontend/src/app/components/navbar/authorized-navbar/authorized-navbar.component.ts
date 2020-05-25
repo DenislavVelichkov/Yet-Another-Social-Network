@@ -16,10 +16,10 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
   styleUrls: ['./authorized-navbar.component.css', '../navbar.component.css']
 })
 export class AuthorizedNavbarComponent implements OnInit {
-  private profilePictureUrl: string;
   private profileId: string;
-  private userFullName: string;
-  private notifications: Notification[];
+  public profilePictureUrl: string;
+  public userFullName: string;
+  public notifications: Notification[];
 
   constructor(private auth: AuthService,
               private store: Store<AppState>,

@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
     this.store.select('userProfile').pipe(take(1)).subscribe(data => {
       this.userProfileState = data;
     })
+
   }
 
 }
