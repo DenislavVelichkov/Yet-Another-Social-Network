@@ -12,6 +12,8 @@ import {DisplayAllPostsAction} from "../../store/post/actions/display-all-posts.
 import {CommentBindingModel} from "../../../shared/models/comment/CommentBindingModel";
 import {CommentOnPostAction} from "../../store/post/actions/comment-on-post.action";
 import {PostComment} from "../../store/post/PostComment";
+import {StartLoadingAction} from "../../store/loading/actions/start-loading.action";
+import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
 
 @Injectable({providedIn: "root"})
 export class NewsFeedService {
@@ -47,9 +49,12 @@ export class NewsFeedService {
     })
 
     this.httpRepo.create<Post>(EndpointUrls.postToPublicWall, formData)
+      .pipe(take(1))
       .subscribe(post => {
         this.store.dispatch(new CreatePost({post: [post], loading: false}))
+        this.store.dispatch(new StartLoadingAction(true));
       });
+        this.store.dispatch(new StopLoadingAction(false));
   }
 
   createComment(userProfileId: string,
