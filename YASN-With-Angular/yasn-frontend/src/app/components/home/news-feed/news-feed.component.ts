@@ -58,15 +58,13 @@ export class NewsFeedComponent implements OnInit {
     if (isPostAlreadyLiked) {
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(
-          data => this.store.dispatch(
+        .subscribe(() => this.store.dispatch(
             new UnlikeAPostAction(likeModel)), error => throwError(error));
 
     } else {
       this.http.create(EndpointUrls.likeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(
-          data => this.store.dispatch(
+        .subscribe(() => this.store.dispatch(
             new LikeAPostAction(likeModel)), error => throwError(error));
     }
 
