@@ -11,6 +11,7 @@ import {take} from "rxjs/operators";
 import {LikeAPost} from "../../../core/store/post/LikeAPost";
 import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.action";
 import {UnlikeAPostAction} from "../../../core/store/post/actions/unlike-a-post.action";
+import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-news-feed',
@@ -57,12 +58,14 @@ export class NewsFeedComponent implements OnInit {
     if (isPostAlreadyLiked) {
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(data => this.store.dispatch(new UnlikeAPostAction(likeModel)));
+        .subscribe(
+          data => this.store.dispatch(new UnlikeAPostAction(likeModel)), error => throwError(error));
 
     } else {
       this.http.create(EndpointUrls.likeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(data => this.store.dispatch(new LikeAPostAction(likeModel)));
+        .subscribe(
+          data => this.store.dispatch(new LikeAPostAction(likeModel)), error => throwError(error));
     }
 
 

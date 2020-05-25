@@ -13,6 +13,7 @@ import {CommentBindingModel} from "../../../shared/models/comment/CommentBinding
 import {CommentOnPostAction} from "../../store/post/actions/comment-on-post.action";
 import {PostComment} from "../../store/post/PostComment";
 import {StartLoadingAction} from "../../store/loading/actions/start-loading.action";
+import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
 
 @Injectable({providedIn: "root"})
 export class NewsFeedService {
@@ -51,13 +52,18 @@ export class NewsFeedService {
       .pipe(take(1))
       .subscribe(post => {
         this.store.dispatch(new CreatePost({post: [post]}))
-        this.store.dispatch(new StartLoadingAction({loading: true}));
+      }, error => {
+        this.store.dispatch(new StopLoadingAction({loading: false}));
+        throwError(error)
       });
+
   }
 
   createComment(userProfileId: string,
                 commentModel: CommentBindingModel,
                 pictures: File[]) {
+    this.store.dispatch(new StartLoadingAction({loading: true}));
+
     commentModel.commentOwnerId = userProfileId;
     let commentBlob = new Blob([JSON.stringify(commentModel)], {type: 'application/json'});
 
@@ -70,9 +76,12 @@ export class NewsFeedService {
 
     this.httpRepo.create<PostComment>(EndpointUrls.postComment, commentForm)
       .pipe(take(1)).subscribe((data: PostComment) => {
-      console.log(JSON.stringify(data));
       this.store.dispatch(new CommentOnPostAction({comment: data}));
+    }, error => {
+      this.store.dispatch(new StopLoadingAction({loading: false}));
+      throwError(error);
     });
 
+    this.store.dispatch(new StopLoadingAction({loading: false}));
   }
 }

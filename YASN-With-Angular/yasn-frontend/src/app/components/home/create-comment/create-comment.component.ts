@@ -5,6 +5,8 @@ import {CommentBindingModel} from "../../../shared/models/comment/CommentBinding
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
 import {UserProfileState} from "../../../core/store/userProfile/state/user-profile.state";
 import {UserAuthModel} from "../../../core/store/authentication/UserAuthModel";
+import {StartLoadingAction} from "../../../core/store/loading/actions/start-loading.action";
+import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loading.action";
 
 @Component({
   selector: 'app-create-comment',
@@ -41,6 +43,7 @@ export class CreateCommentComponent implements OnInit {
 
   postComment(): void {
     this.commentModel.commentOnPostId = this.postId;
+    this.store.dispatch(new StartLoadingAction({loading: true}));
 
     const fileUpload = this.uploadCommentPhoto.nativeElement;
     let files: Array<File> = [];
@@ -53,5 +56,7 @@ export class CreateCommentComponent implements OnInit {
       this.userProfile.userProfileId,
       this.commentModel,
       files)
+
+    this.store.dispatch(new StopLoadingAction({loading: false}));
   }
 }

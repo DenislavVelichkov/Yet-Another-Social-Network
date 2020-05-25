@@ -7,6 +7,8 @@ import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
 import {NotificationService} from "../../../core/services/notification/notification.service";
 import {NotificationMessage} from "../../../shared/common/NotificationConstants";
+import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loading.action";
+import {StartLoadingAction} from "../../../core/store/loading/actions/start-loading.action";
 
 @Component({
   selector: 'app-create-post',
@@ -39,6 +41,8 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost() {
+    this.store.dispatch(new StartLoadingAction({loading: true}));
+
     this.newsFeedService.createPost(
       this.postModel,
       this.activeProfile.userProfileId,
@@ -47,6 +51,8 @@ export class CreatePostComponent implements OnInit {
     this.notificationService.createNotificationOnNewPost(
       this.activeProfile.userProfileId,
       NotificationMessage.newPostCreated);
+
+    this.store.dispatch(new StopLoadingAction({loading: false}));
   }
 
   onEmojiClick() {
