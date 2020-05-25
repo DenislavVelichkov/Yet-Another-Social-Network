@@ -14,14 +14,12 @@ import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loadin
   styleUrls: ['./create-comment.component.css']
 })
 export class CreateCommentComponent implements OnInit {
-  private userProfile: UserAuthModel;
   public commentAvatar: UserProfileState;
   public commentModel: CommentBindingModel;
-
   @ViewChild('uploadCommentPhoto', {static: false}) uploadCommentPhoto: ElementRef;
   public files: any;
-
   @Input('postId') postId: string;
+  private userProfile: UserAuthModel;
 
   constructor(private store: Store<AppState>,
               private newsFeedService: NewsFeedService) {

@@ -21,35 +21,34 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ErrorComponent,
-        PageNotFoundComponent,
-        LoadingComponent,
-    ],
+  declarations: [
+    AppComponent,
+    ErrorComponent,
+    PageNotFoundComponent,
+    LoadingComponent,
+  ],
 
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        CommonModule,
-        RouterModule,
-        HttpClientModule,
-        StoreModule.forRoot(appReducer),
-        CoreModule.forRoot(),
-        BrowserAnimationsModule,
-        MatProgressSpinnerModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    StoreModule.forRoot(appReducer),
+    CoreModule.forRoot(),
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
+  ],
 
-    providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        AuthService,
-        CookieService,
-    ],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    AuthService,
+    CookieService,
+  ],
 
-    bootstrap: [AppComponent],
-    exports: []
+  bootstrap: [AppComponent],
 })
 
 export class AppModule {

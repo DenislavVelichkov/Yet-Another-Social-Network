@@ -13,12 +13,12 @@ import {PickerModule} from "@ctrl/ngx-emoji-mart";
     UserRegisterComponent,
     IndexComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        PickerModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    PickerModule
+  ],
   exports: [IndexComponent]
 })
 

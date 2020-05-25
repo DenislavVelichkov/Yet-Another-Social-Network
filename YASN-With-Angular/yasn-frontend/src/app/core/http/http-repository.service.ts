@@ -17,6 +17,10 @@ export class HttpRepositoryService {
               private envUrl: EnvironmentUrlService) {
   }
 
+  private static createCompleteRoute(route: string, envAddress: string) {
+    return `${envAddress}${route}`;
+  }
+
   public get<T>(route: string): Observable<T> {
 
     return this.http.get<T>(
@@ -31,6 +35,18 @@ export class HttpRepositoryService {
       body);
   }
 
+  /* public postWithForm(route: string, body) {
+
+     return this.http.post(
+       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
+       body,
+       {
+         headers: this.formHeaders,
+         observe: "response"
+       }
+     ).pipe(take(1))
+   }*/
+
   public loginRequest(route: string, body: any) {
 
     return this.http.post(
@@ -38,18 +54,6 @@ export class HttpRepositoryService {
       body,
       {headers: this.headers, observe: "response"});
   }
-
- /* public postWithForm(route: string, body) {
-
-    return this.http.post(
-      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
-      body,
-      {
-        headers: this.formHeaders,
-        observe: "response"
-      }
-    ).pipe(take(1))
-  }*/
 
   public update(route: string, body) {
     return this.http.put(
@@ -67,9 +71,5 @@ export class HttpRepositoryService {
         route,
         this.envUrl.apiEndPointAddress))
       .pipe(take(1));
-  }
-
-  private static createCompleteRoute(route: string, envAddress: string) {
-    return `${envAddress}${route}`;
   }
 }

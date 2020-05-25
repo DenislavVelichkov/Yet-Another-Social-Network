@@ -3,13 +3,13 @@
 
     <form #post="ngForm" (ngSubmit)="createPost()">
       <label for="comment-text"> What's on your mind...?</label>
-      <textarea id="comment-text"
-                name="post"
-                type="text"
-                #postContent="ngModel"
+      <textarea #postContent="ngModel"
+                [(ngModel)]="postModel.postContent"
                 [ngClass]="{'is-valid': postContent.valid && postContent.touched,
                                  'is-invalid': postContent.invalid && postContent.touched}"
-                [(ngModel)]="postModel.postContent">
+                id="comment-text"
+                name="post"
+                type="text">
         </textarea>
 
       <div class="yasn-post-buttons">
@@ -25,33 +25,33 @@
       </div>
     </form>
 
-    <div class="emoji-container" *ngIf="showEmojies">
+    <div *ngIf="showEmojies" class="emoji-container">
       <div class="arrow-element"></div>
       <emoji-mart
-        set="facebook"
-        title="Pick your emoji…"
-        emoji="point_up"
         (emojiSelect)="addEmoji($event)"
-        [style]="{ position: 'inherit', top: '5rem', left: '32rem' }"
         [darkMode]="false"
-        [enableSearch]="true">
+        [enableSearch]="true"
+        [style]="{ position: 'inherit', top: '5rem', left: '32rem' }"
+        emoji="point_up"
+        set="facebook"
+        title="Pick your emoji…">
       </emoji-mart>
     </div>
 
-    <section class="yasn-post-extra-privacy" *ngIf="showPrivacyMenu">
+    <section *ngIf="showPrivacyMenu" class="yasn-post-extra-privacy">
       <label for="yasn-privacy-public-checkbox"> Public
-        <input id="yasn-privacy-public-checkbox" type="radio" value="PUBLIC" name="postPrivacy"
-               [ngModel]="postModel.postPrivacy"/>
+        <input [ngModel]="postModel.postPrivacy" id="yasn-privacy-public-checkbox" name="postPrivacy" type="radio"
+               value="PUBLIC"/>
         <span class="checkmark"></span>
       </label>
       <label for="yasn-privacy-private-checkbox"> Private
-        <input id="yasn-privacy-private-checkbox" type="radio" value="PRIVATE" name="postPrivacy"
-               [ngModel]="postModel.postPrivacy"/>
+        <input [ngModel]="postModel.postPrivacy" id="yasn-privacy-private-checkbox" name="postPrivacy" type="radio"
+               value="PRIVATE"/>
         <span class="checkmark"></span>
       </label>
     </section>
 
-    <section class="yasn-post-extra-photo" *ngIf="showUploadPhotoMenu">
+    <section *ngIf="showUploadPhotoMenu" class="yasn-post-extra-photo">
       <div>
         <mat-card>
           <mat-card-content>
@@ -63,23 +63,23 @@
             </ul>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button color="primary" (click)="onUploadPic()">
+            <button (click)="onUploadPic()" color="primary" mat-button>
               <mat-icon>file_upload</mat-icon>
               Upload picture...
             </button>
           </mat-card-actions>
         </mat-card>
-        <input type="file"
-               #fileUpload
-               id="fileUpload"
-               name="fileUpload"
-               multiple="multiple"
+        <input #fileUpload
                accept="image/*"
-               style="display:none;"/>
+               id="fileUpload"
+               multiple="multiple"
+               name="fileUpload"
+               style="display:none;"
+               type="file"/>
       </div>
 
     </section>
-    <div class="" *ngIf="tagFriendsMenu">
+    <div *ngIf="tagFriendsMenu" class="">
       <div class="yasn-post-extra-tag">
 
       </div>

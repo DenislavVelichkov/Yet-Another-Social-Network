@@ -1,12 +1,5 @@
 export class UserAuthModel {
 
-   private _role: string
-   private _userProfileId: string
-   private _userName: string
-   private _rememberMe: boolean
-   private _token: string
-   private _tokenExpirationDate: Date
-
   constructor(role: string,
               userProfileId: string,
               userName: string,
@@ -21,6 +14,48 @@ export class UserAuthModel {
     this._tokenExpirationDate = tokenExpirationDate;
   }
 
+  private _role: string
+
+  get role(): string {
+    return this._role;
+  }
+
+  set role(value: string) {
+    this._role = value;
+  }
+
+  private _userProfileId: string
+
+  get userProfileId(): string {
+    return this._userProfileId;
+  }
+
+  set userProfileId(value: string) {
+    this._userProfileId = value;
+  }
+
+  private _userName: string
+
+  get userName(): string {
+    return this._userName;
+  }
+
+  set userName(value: string) {
+    this._userName = value;
+  }
+
+  private _rememberMe: boolean
+
+  get rememberMe(): boolean {
+    return this._rememberMe;
+  }
+
+  set rememberMe(value: boolean) {
+    this._rememberMe = value;
+  }
+
+  private _token: string
+
   get token(): string {
     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
@@ -32,38 +67,7 @@ export class UserAuthModel {
     this._token = value;
   }
 
-
-  get role(): string {
-    return this._role;
-  }
-
-  set role(value: string) {
-    this._role = value;
-  }
-
-  get userProfileId(): string {
-    return this._userProfileId;
-  }
-
-  set userProfileId(value: string) {
-    this._userProfileId = value;
-  }
-
-  get userName(): string {
-    return this._userName;
-  }
-
-  set userName(value: string) {
-    this._userName = value;
-  }
-
-  get rememberMe(): boolean {
-    return this._rememberMe;
-  }
-
-  set rememberMe(value: boolean) {
-    this._rememberMe = value;
-  }
+  private _tokenExpirationDate: Date
 
   get tokenExpirationDate(): Date {
     return this._tokenExpirationDate;

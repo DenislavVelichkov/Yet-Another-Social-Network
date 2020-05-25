@@ -1,43 +1,42 @@
+<div class="shadow mb-5 bg-white rounded">
 
-  <div class="shadow mb-5 bg-white rounded">
-
-    <div class="cover-img-container">
-      <img class="static-cover-img" src="{{userProfileInfo.coverPictureUrl}}" alt="cover-profile-image"/>
-      <div class="cover-img-caption">
-        <img class="z-depth-2 rounded profile-picture" src="{{userProfileInfo.avatarPictureUrl}}" alt="profile-picture"/>
-        <p>{{userProfileInfo.userFullName}}</p>
-      </div>
-    </div>
-    <div class="profile-nav-container">
-      <div class="profile-cover-menu">
-        <ul>
-          <li>
-            <a routerLink="">
-              Timeline
-            </a>
-          </li>
-          <!--<li>
-              <a href="">
-                  Friends
-              </a>
-          </li>
-          <li>
-              <a href="">
-                  Photos
-              </a>
-          </li>-->
-          <li>
-
-          </li>
-          <li>
-            <div class="profile-action-buttons">
-              <a routerLink="">
-                Edit Profile
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
+  <div class="cover-img-container">
+    <img alt="cover-profile-image" class="static-cover-img" src="{{userProfileInfo.coverPictureUrl}}"/>
+    <div class="cover-img-caption">
+      <img alt="profile-picture" class="z-depth-2 rounded profile-picture" src="{{userProfileInfo.avatarPictureUrl}}"/>
+      <p>{{userProfileInfo.userFullName}}</p>
     </div>
   </div>
+  <div class="profile-nav-container">
+    <div class="profile-cover-menu">
+      <ul>
+        <li>
+          <a routerLink="">
+            Timeline
+          </a>
+        </li>
+        <!--<li>
+            <a href="">
+                Friends
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Photos
+            </a>
+        </li>-->
+        <li>
+
+        </li>
+        <li>
+          <div class="profile-action-buttons">
+            <a routerLink="">
+              Edit Profile
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 

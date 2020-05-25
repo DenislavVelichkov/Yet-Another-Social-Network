@@ -35,8 +35,8 @@ export class AuthorizedNavbarComponent implements OnInit {
 
     this.httpRepo.get(EndpointUrls.selectUserProfile + this.profileId)
       .subscribe(value => {
-      this.store.dispatch(new UpdateAvatarAction(value))
-    }, error => throwError(error))
+        this.store.dispatch(new UpdateAvatarAction(value))
+      }, error => throwError(error))
 
     this.store.select('userProfile').subscribe(value => {
       this.userFullName = value.userFullName;

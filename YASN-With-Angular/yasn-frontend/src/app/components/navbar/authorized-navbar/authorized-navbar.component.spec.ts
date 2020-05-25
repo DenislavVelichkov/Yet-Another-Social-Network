@@ -8,9 +8,9 @@ describe('AuthorizedNavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthorizedNavbarComponent ]
+      declarations: [AuthorizedNavbarComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

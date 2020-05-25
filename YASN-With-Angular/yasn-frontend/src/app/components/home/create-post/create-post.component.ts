@@ -16,16 +16,15 @@ import {StartLoadingAction} from "../../../core/store/loading/actions/start-load
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  private activeProfile: UserAuthModel;
   public postModel: PostBindingModel;
   public showEmojies: boolean;
   public emojiIcon: string;
   public showPrivacyMenu: boolean;
   public showUploadPhotoMenu: boolean;
   public tagFriendsMenu: boolean;
-
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
   public files: Array<File> = [];
+  private activeProfile: UserAuthModel;
 
   constructor(private httpRepo: HttpRepositoryService,
               private store: Store<AppState>,

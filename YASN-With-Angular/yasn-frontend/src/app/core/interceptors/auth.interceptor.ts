@@ -8,20 +8,21 @@ import {AppState} from "../store/app.state";
 export class AuthInterceptor implements HttpInterceptor {
   private activeUser;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      this.store.select('auth').subscribe(source => this.activeUser = source.activeUser);
+    this.store.select('auth').subscribe(source => this.activeUser = source.activeUser);
 
-      if (this.activeUser) {
-        const headers = new HttpHeaders({
-          ['Authorization']:`${this.activeUser._token}`
-        })
+    if (this.activeUser) {
+      const headers = new HttpHeaders({
+        ['Authorization']: `${this.activeUser._token}`
+      })
 
-        const modifiedReq = request.clone({headers});
+      const modifiedReq = request.clone({headers});
 
-        return next.handle(modifiedReq);
-      }
+      return next.handle(modifiedReq);
+    }
 
     return next.handle(request);
   }

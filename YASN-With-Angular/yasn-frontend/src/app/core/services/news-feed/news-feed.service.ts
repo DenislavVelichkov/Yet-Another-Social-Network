@@ -27,7 +27,7 @@ export class NewsFeedService {
     this.httpRepo.get<Post[]>(EndpointUrls.pullAllNews + userProfileId)
       .pipe(take(1))
       .subscribe((value: Post[]) => {
-        this.store.dispatch(new DisplayAllPostsAction({allWallPosts:value}))
+        this.store.dispatch(new DisplayAllPostsAction({allWallPosts: value}))
       }, error => throwError(error));
   }
 

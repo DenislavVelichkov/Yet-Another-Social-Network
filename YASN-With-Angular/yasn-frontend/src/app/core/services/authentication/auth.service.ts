@@ -42,11 +42,11 @@ export class AuthService {
   logout() {
 
     let nullPayload = {
-      activeUser:  false,
-      isRegistered:  false,
-      isLoggedIn:  false,
+      activeUser: false,
+      isRegistered: false,
+      isLoggedIn: false,
       error: null,
-      isAuthenticated:  false,
+      isAuthenticated: false,
     }
 
     this.store.dispatch(new LogoutAction(nullPayload));

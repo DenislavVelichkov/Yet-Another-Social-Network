@@ -8,9 +8,9 @@ describe('UserProfileBodyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserProfileBodyComponent ]
+      declarations: [UserProfileBodyComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

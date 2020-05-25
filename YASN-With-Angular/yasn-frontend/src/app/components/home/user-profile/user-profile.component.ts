@@ -13,12 +13,13 @@ export class UserProfileComponent implements OnInit {
   public userProfileState: UserProfileState;
   public userProfile = 'userProfile';
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit(): void {
     this.store.select('userProfile').pipe(take(1)).subscribe(data => {
-        this.userProfileState = data;
-      })
+      this.userProfileState = data;
+    })
   }
 
 }

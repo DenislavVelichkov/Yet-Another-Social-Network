@@ -13,12 +13,13 @@ import {MatBadgeModule} from "@angular/material/badge";
     UnAuthorizedNavbarComponent,
     NavbarComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        MatBadgeModule,
-    ],
-    exports: [NavbarComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    MatBadgeModule,
+  ],
+  exports: [NavbarComponent]
 })
-export class NavbarModule { }
+export class NavbarModule {
+}

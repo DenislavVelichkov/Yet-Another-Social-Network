@@ -1,88 +1,88 @@
 /*Sticky Header*/
 
 #yasn-header-container {
-    color: #fff;
-    padding: 0;
-    margin: 0;
-    background-color: #0b769c;
-    display: flex;
-    flex-flow: row wrap;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+  background-color: #0b769c;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .index-header-right {
-    line-height: 0;
+  line-height: 0;
 }
 
 #login-form-container {
-    display: block;
-    padding: 0 1em 0 2em;
+  display: block;
+  padding: 0 1em 0 2em;
 }
 
 #login-form {
-    margin: 0em;
-    padding: 2rem 0 2rem;
-    display: flex;
-    flex-flow: row wrap;
-    overflow: hidden;
+  margin: 0em;
+  padding: 2rem 0 2rem;
+  display: flex;
+  flex-flow: row wrap;
+  overflow: hidden;
 }
 
 #navbar-login-btn {
-    background-color: #17a2b8 !important;
-    border-color: #175167 !important;
-    width: 100%;
-    padding: 0;
-    height: 2.4em;
-    line-height: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
+  background-color: #17a2b8 !important;
+  border-color: #175167 !important;
+  width: 100%;
+  padding: 0;
+  height: 2.4em;
+  line-height: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 #navbar-login-btn:hover {
-    background-color: #18738a !important;
-    border-color: #175167 !important;
+  background-color: #18738a !important;
+  border-color: #175167 !important;
 }
 
 #navbar-login-btn:focus {
-    box-shadow: 0 0 0 .2rem #17a2b8;
+  box-shadow: 0 0 0 .2rem #17a2b8;
 }
 
 .navbar-login-form-field-container {
-    flex: 0 0 35%;
-    padding-right: 0.5em;
-    min-width: 80px;
-    margin: 0;
-    line-height: 0;
+  flex: 0 0 35%;
+  padding-right: 0.5em;
+  min-width: 80px;
+  margin: 0;
+  line-height: 0;
 }
 
 .navbar-login-form-btn-container {
-    flex: 0 0 30%;
-    min-width: 89px;
+  flex: 0 0 30%;
+  min-width: 89px;
 }
 
 .navbar-login-form-field {
-    height: 3.5rem;
+  height: 3.5rem;
 }
 
 .navbar-login-form-field:focus {
-    box-shadow: 0 0 0 .2rem #17a2b8;
+  box-shadow: 0 0 0 .2rem #17a2b8;
 }
 
 #bad-credentials {
-    width: auto;
-    text-align: center;
-    z-index: 1000;
+  width: auto;
+  text-align: center;
+  z-index: 1000;
 }
 
 #bad-credentials p {
-    margin-bottom: 0;
-    display: inline-block;
+  margin-bottom: 0;
+  display: inline-block;
 }
 
 .alert {
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 0;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 0;
 }
 
 /*Header- Authorized*/

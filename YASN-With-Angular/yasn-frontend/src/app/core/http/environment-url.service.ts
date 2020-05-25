@@ -6,5 +6,6 @@ export class EnvironmentUrlService {
   public uiUrlAddress: string = environment.uiUrlAddress;
   public apiEndPointAddress: string = environment.apiEndPointAddress;
 
-  constructor() { }
+  constructor() {
+  }
 }

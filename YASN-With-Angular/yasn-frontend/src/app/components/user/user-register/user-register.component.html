@@ -10,12 +10,12 @@
           <div class="row">
             <div class="col-6">
               <label class="font-weight-bold" for="firstName"></label>
-              <input class="form-control" id="firstName" name="firstName" placeholder="First name" type="text"
+              <input #firstName="ngModel" [(ngModel)]="userRegisterBindingModel.firstName" [ngClass]="{'is-valid': firstName.valid && firstName.touched,
+                                 'is-invalid': firstName.invalid && firstName.touched}" class="form-control" id="firstName"
+                     name="firstName"
+                     pattern="([A-Z][A-Za-z]+)" placeholder="First name"
                      required
-                     #firstName="ngModel" pattern="([A-Z][A-Za-z]+)"
-                     [ngClass]="{'is-valid': firstName.valid && firstName.touched,
-                                 'is-invalid': firstName.invalid && firstName.touched}"
-                     [(ngModel)]="userRegisterBindingModel.firstName">
+                     type="text">
 
               <div class="invalid-feedback">
                 First name is required and should start with capital letter and must NOT contain any special characters.
@@ -24,12 +24,12 @@
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="lastName"></label>
-              <input class="form-control" id="lastName" name="lastName" placeholder="Last name" type="text"
+              <input #lastName="ngModel" [(ngModel)]="userRegisterBindingModel.lastName" [ngClass]="{'is-valid': lastName.valid && lastName.touched,
+                                 'is-invalid': lastName.invalid && lastName.touched}" class="form-control" id="lastName"
+                     name="lastName"
+                     pattern="([A-Z][A-Za-z]+)" placeholder="Last name"
                      required
-                     #lastName="ngModel" pattern="([A-Z][A-Za-z]+)"
-                     [ngClass]="{'is-valid': lastName.valid && lastName.touched,
-                                 'is-invalid': lastName.invalid && lastName.touched}"
-                     [(ngModel)]="userRegisterBindingModel.lastName">
+                     type="text">
 
               <div class="invalid-feedback">
                 Last name is required and should start with capital letter and must NOT contain any special characters.
@@ -41,16 +41,16 @@
           <div class="row">
             <div class="col-6">
               <label class="font-weight-bold" for="email"></label>
-              <input class="form-control" id="email" name="email" placeholder="Email"
-                     type="email"
-                     pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
-                     required
-                     #email="ngModel"
-                     [ngClass]="{'is-valid':  email.valid
+              <input #email="ngModel" [(ngModel)]="userRegisterBindingModel.email" [ngClass]="{'is-valid':  email.valid
                                                 &&  email.touched,
                                    'is-invalid': email.invalid
-                                                &&  email.touched}"
-                     [(ngModel)]="userRegisterBindingModel.email">
+                                                &&  email.touched}" class="form-control"
+                     id="email"
+                     name="email"
+                     pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
+                     placeholder="Email"
+                     required
+                     type="email">
 
               <div class="invalid-feedback">
                 Email is required.
@@ -59,18 +59,18 @@
             </div>
             <div class="col-6">
               <label class="font-weight-bold" for="confirmEmail"></label>
-              <input class="form-control" id="confirmEmail" name="confirmEmail" placeholder="Confirm Email..."
-                     pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
-                     #confirmEmail="ngModel"
-                     required
-                     [ngClass]="{
+              <input #confirmEmail="ngModel" [(ngModel)]="userRegisterBindingModel.confirmEmail" [ngClass]="{
                                    'is-valid':  confirmEmail.valid
                                                 &&  confirmEmail.touched
                                                 && userRegisterBindingModel.confirmEmail === userRegisterBindingModel.email,
                                    'is-invalid': confirmEmail.invalid
                                                 &&  confirmEmail.touched
-                                                && userRegisterBindingModel.confirmEmail !== userRegisterBindingModel.email}"
-                     [(ngModel)]="userRegisterBindingModel.confirmEmail">
+                                                && userRegisterBindingModel.confirmEmail !== userRegisterBindingModel.email}" class="form-control"
+                     id="confirmEmail"
+                     name="confirmEmail"
+                     pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
+                     placeholder="Confirm Email..."
+                     required>
 
               <div class="invalid-feedback">
                 Confirm email is required and must match your email.
@@ -82,17 +82,17 @@
           <div class="row">
             <div class="col-12">
               <label class="font-weight-bold" for="password"></label>
-              <input class="form-control" id="password"
-                     name="password" placeholder="Password..." type="password"
-                     required
-                     pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
-                     #password="ngModel"
+              <input #password="ngModel" [(ngModel)]="userRegisterBindingModel.password"
                      [ngClass]="{
                                    'is-valid':  password.valid
                                                 && password.touched,
                                    'is-invalid': password.invalid
-                                                &&  password.touched}"
-                     [(ngModel)]="userRegisterBindingModel.password">
+                                                &&  password.touched}" class="form-control" id="password"
+                     name="password"
+                     pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
+                     placeholder="Password..."
+                     required
+                     type="password">
 
               <div class="invalid-feedback">
                 Password is required and must contain at least 1 capital letter and 1 number.
@@ -104,19 +104,19 @@
           <div class="row">
             <div class="col-12">
               <label class="font-weight-bold" for="confirmPassword"></label>
-              <input class="form-control" id="confirmPassword" name="confirmPassword"
-                     placeholder="Confirm Password..." type="password"
-                     pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
-                     required
-                     #confirmPassword="ngModel"
-                     [ngClass]="{
+              <input #confirmPassword="ngModel" [(ngModel)]="userRegisterBindingModel.confirmPassword" [ngClass]="{
                                    'is-valid':  confirmPassword.valid
                                                 && confirmPassword.touched
                                                 && userRegisterBindingModel.confirmPassword === userRegisterBindingModel.password,
                                    'is-invalid': confirmEmail.invalid
                                                 &&  confirmEmail.touched
                                                 && userRegisterBindingModel.confirmPassword !== userRegisterBindingModel.password}"
-                     [(ngModel)]="userRegisterBindingModel.confirmPassword">
+                     class="form-control" id="confirmPassword"
+                     name="confirmPassword"
+                     pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}"
+                     placeholder="Confirm Password..."
+                     required
+                     type="password">
 
               <div class="invalid-feedback">
                 Password is required and must match your password.
@@ -132,40 +132,40 @@
               </div>
               <div class="radio-block">
                 <label class="font-weight-bold" for="male">Male</label>
-                <input class="custom-radio" id="male" name="gender" type="radio" value="male"
-                       required
-                       #gender="ngModel"
-                       [ngClass]="{
+                <input #gender="ngModel" [(ngModel)]="userRegisterBindingModel.gender" [ngClass]="{
                                    'is-valid':  gender.valid
                                                 && gender.touched,
                                    'is-invalid': gender.invalid
-                                                &&  gender.untouched}"
-                       [(ngModel)]="userRegisterBindingModel.gender">
+                                                &&  gender.untouched}" class="custom-radio" id="male"
+                       name="gender"
+                       required
+                       type="radio"
+                       value="male">
               </div>
               <div class="radio-block">
                 <label class="font-weight-bold" for="female">Female</label>
-                <input class="custom-radio" id="female" name="gender" type="radio" value="female"
-                       required
-                       #gender="ngModel"
-                       [ngClass]="{
+                <input #gender="ngModel" [(ngModel)]="userRegisterBindingModel.gender" [ngClass]="{
                                    'is-valid':  gender.valid
                                                 && gender.touched,
                                    'is-invalid': gender.invalid
-                                                &&  gender.untouched}"
-                       [(ngModel)]="userRegisterBindingModel.gender">
+                                                &&  gender.untouched}" class="custom-radio" id="female"
+                       name="gender"
+                       required
+                       type="radio"
+                       value="female">
 
               </div>
               <div class="radio-block">
                 <label class="font-weight-bold" for="custom">Custom</label>
-                <input class="custom-radio" id="custom" name="gender" type="radio" value="custom"
-                       required
-                       #gender="ngModel"
-                       [ngClass]="{
+                <input #gender="ngModel" [(ngModel)]="userRegisterBindingModel.gender" [ngClass]="{
                                    'is-valid':  gender.valid
                                                 && gender.touched,
                                    'is-invalid': gender.invalid
-                                                && gender.untouched}"
-                       [(ngModel)]="userRegisterBindingModel.gender">
+                                                && gender.untouched}" class="custom-radio" id="custom"
+                       name="gender"
+                       required
+                       type="radio"
+                       value="custom">
 
               </div>
 
@@ -177,16 +177,16 @@
 
             <div class="col-6" id="birthday-register-container">
               <label class="text-muted" for="birthday">Birthday</label>
-              <input class="form-control" id="birthday" name="birthday"
-                     type="date"
-                     required
-                     #birthday="ngModel"
-                     [ngClass]="{
+              <input #birthday="ngModel" [(ngModel)]="userRegisterBindingModel.birthday" [ngClass]="{
                                    'is-valid':  birthday.valid
                                                 && birthday.touched,
                                    'is-invalid': birthday.invalid
                                                 && birthday.touched}"
-              [(ngModel)]="userRegisterBindingModel.birthday">
+                     class="form-control"
+                     id="birthday"
+                     name="birthday"
+                     required
+                     type="date">
             </div>
             <div class="invalid-feedback">
               Please select your birthday date.
@@ -194,11 +194,11 @@
           </div>
 
           <div class="button-holder rounded-lg">
-            <input class="btn btn-success btn-lg"
+            <input [disabled]="userRegisterForm.invalid"
+                   class="btn btn-success btn-lg"
                    id="royal-sign-up-button"
                    type="submit"
-                   value="Sign Up"
-                   [disabled]="userRegisterForm.invalid">
+                   value="Sign Up">
             <div *ngIf="userRegisterForm.invalid">
               <small class="error">Fill your register form please.</small>
             </div>

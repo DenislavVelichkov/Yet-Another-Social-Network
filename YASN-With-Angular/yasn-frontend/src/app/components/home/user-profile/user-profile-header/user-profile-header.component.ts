@@ -9,7 +9,8 @@ import {UserProfileState} from "../../../../core/store/userProfile/state/user-pr
 export class UserProfileHeaderComponent implements OnInit {
   @Input("userProfile") userProfileInfo: UserProfileState;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

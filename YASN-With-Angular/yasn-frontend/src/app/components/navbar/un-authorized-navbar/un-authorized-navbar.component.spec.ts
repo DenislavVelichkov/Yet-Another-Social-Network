@@ -8,9 +8,9 @@ describe('UnAuthorizedNavbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnAuthorizedNavbarComponent ]
+      declarations: [UnAuthorizedNavbarComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

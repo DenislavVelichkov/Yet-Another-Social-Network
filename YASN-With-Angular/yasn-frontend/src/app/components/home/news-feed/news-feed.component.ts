@@ -39,7 +39,7 @@ export class NewsFeedComponent implements OnInit {
     let currentUserProfileId =
       JSON.parse(localStorage.getItem('activeUser'))._userProfileId;
 
-    this.newsService.getAllNewsFeeds(currentUserProfileId)
+    this.newsService.getAllNewsFeeds(currentUserProfileId);
 
     this.store.select('newsFeed').subscribe(value =>
       this.newsFeedPosts = value.allWallPosts);
@@ -59,20 +59,21 @@ export class NewsFeedComponent implements OnInit {
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
         .subscribe(
-          data => this.store.dispatch(new UnlikeAPostAction(likeModel)), error => throwError(error));
+          data => this.store.dispatch(
+            new UnlikeAPostAction(likeModel)), error => throwError(error));
 
     } else {
       this.http.create(EndpointUrls.likeAPost, likeModel)
         .pipe(take(1))
         .subscribe(
-          data => this.store.dispatch(new LikeAPostAction(likeModel)), error => throwError(error));
+          data => this.store.dispatch(
+            new LikeAPostAction(likeModel)), error => throwError(error));
     }
-
 
   }
 
   convertTime(date: Date): string {
-    return timeAgoConverter(date)
+    return timeAgoConverter(date);
   }
 
 }

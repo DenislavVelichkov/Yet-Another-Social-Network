@@ -26,6 +26,7 @@ import {NotificationService} from "./services/notification/notification.service"
 })
 export class CoreModule {
   /*Ensure one instance of the services*/
+
   //Add additional services here !
   static forRoot(): ModuleWithProviders {
     return {

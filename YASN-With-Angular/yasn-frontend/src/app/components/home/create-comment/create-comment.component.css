@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 
-.comment-image-upload{
+.comment-image-upload {
   display: flex;
   margin: 0 0.5em 0 0.5em;
   align-items: center;
@@ -58,7 +58,7 @@
   display: none;
 }
 
-.comment-image-upload > label > i{
+.comment-image-upload > label > i {
   cursor: pointer;
 }
 

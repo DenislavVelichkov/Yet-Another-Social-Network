@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 export class XhrInterceptor implements HttpInterceptor {
   constructor() {
   }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     let xhr = req.clone({

@@ -5,9 +5,10 @@ import {HttpRepositoryService} from "../../http/http-repository.service";
 @Injectable({providedIn: "root"})
 export class UserService {
 
-    constructor(private httpRepo: HttpRepositoryService) { }
+  constructor(private httpRepo: HttpRepositoryService) {
+  }
 
-    registerUser(formData: FormData): Observable<Object> {
-        return this.httpRepo.create("/api/user/register", formData);
-    }
+  registerUser(formData: FormData): Observable<Object> {
+    return this.httpRepo.create("/api/user/register", formData);
+  }
 }
