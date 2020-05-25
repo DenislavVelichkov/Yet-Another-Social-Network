@@ -21,7 +21,6 @@ import {throwError} from "rxjs";
 export class NewsFeedComponent implements OnInit {
   public userProfileInfo: UserProfileState;
   public showComments: boolean;
-  public postId = 'postId';
   public newsFeedPosts: Post[];
 
   constructor(private newsService: NewsFeedService,

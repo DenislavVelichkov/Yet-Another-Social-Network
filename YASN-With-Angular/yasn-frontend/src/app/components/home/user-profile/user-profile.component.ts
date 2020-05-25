@@ -11,7 +11,6 @@ import {take} from "rxjs/operators";
 })
 export class UserProfileComponent implements OnInit {
   public userProfileState: UserProfileState;
-  public userProfile = 'userProfile';
 
   constructor(private store: Store<AppState>) {
   }
