@@ -1,10 +1,9 @@
 import {initialState, LoadingState} from "../state/loading.state";
-import {LoadingActions, LoadingActionTypes} from "../actions/action-type";
+import {LoadingActionsTypes, LoadingActionTypes} from "../actions/action-type";
 
 export function loadingReducer(state: LoadingState = initialState,
-                               action: LoadingActions) {
+                               action: LoadingActionsTypes) {
   switch (action.type) {
-
     case LoadingActionTypes.START_LOADING:
       return startLoading(state, action.payload);
     case LoadingActionTypes.STOP_LOADING:
@@ -15,6 +14,7 @@ export function loadingReducer(state: LoadingState = initialState,
   }
 
   function startLoading(state: LoadingState, payload: any) {
+
     return Object.assign({}, state, payload);
   }
 

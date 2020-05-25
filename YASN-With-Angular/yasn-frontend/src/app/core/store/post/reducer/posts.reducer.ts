@@ -42,8 +42,7 @@ function createPost(state, payload) {
         let result = compareDatesDesc(a.createdOn, b.createdOn);
 
         return result !== 0 ? result : -1;
-      }),
-    loading: payload.loading
+      })
   }
 
   return newPost;
@@ -59,8 +58,6 @@ function createComment(state, payload) {
     draftState.allWallPosts.find(post => post.id === payload.comment.wallPostId)
       .comments.sort(
       (a: PostComment, b: PostComment) => compareDatesDesc(a.createdOn, b.createdOn))
-
-    draftState.loading = payload.loading;
   });
 }
 

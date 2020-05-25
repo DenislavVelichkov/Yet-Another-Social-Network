@@ -5,7 +5,7 @@ import {PostComment} from "../PostComment";
 export class CommentOnPostAction implements Action {
   public readonly type: string;
 
-  constructor(public payload: { comment: PostComment, loading: boolean }) {
+  constructor(public payload: { comment: PostComment }) {
     this.type = PostActionTypes.COMMENT_ON_POST;
   }
 

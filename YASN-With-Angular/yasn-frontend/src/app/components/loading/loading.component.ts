@@ -8,13 +8,14 @@ import {AppState} from "../../core/store/app.state";
   styleUrls: ['./loading.component.css']
 })
 export class LoadingComponent implements OnInit {
-  loading: boolean;
+  public loading: boolean;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+
+  }
 
   ngOnInit(): void {
-    this.store.select('loadingFunction')
-              .subscribe(value => this.loading = value.loading)
+    this.store.select('loadingFunction').subscribe(data => this.loading = data.loading)
   }
 
 }

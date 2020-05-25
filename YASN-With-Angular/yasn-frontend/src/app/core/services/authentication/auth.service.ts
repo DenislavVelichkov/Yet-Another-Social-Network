@@ -12,6 +12,7 @@ import {LogoutAction} from "../../store/authentication/actions/logout.action";
 import {UserAuthModel} from "../../store/authentication/UserAuthModel";
 import {AuthenticatingFailedAction} from "../../store/authentication/actions/authenticating-failed.action";
 import {take} from "rxjs/operators";
+import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -31,7 +32,8 @@ export class AuthService {
           this.router.navigate(['home']);
         },
         error => {
-          this.store.dispatch(new AuthenticatingFailedAction({error: error, loading: false}))
+          this.store.dispatch(new AuthenticatingFailedAction({error: error}))
+          this.store.dispatch(new StopLoadingAction({loading: false}))
           this.router.navigate(['user/login'])
           throwError(error)
         });
@@ -43,7 +45,6 @@ export class AuthService {
       activeUser:  false,
       isRegistered:  false,
       isLoggedIn:  false,
-      loading:  false,
       error: null,
       isAuthenticated:  false,
     }
@@ -70,13 +71,12 @@ export class AuthService {
         expirationDate);
 
     localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
-    this.cookieService.deleteAll();
     this.store.dispatch(new AuthenticatedAction(
       {
         activeUser: authenticatedUser,
-        loading: false,
         isAuthenticated: true,
         isLoggedIn: true
       }));
+    this.store.dispatch(new StopLoadingAction({loading: false}))
   }
 }

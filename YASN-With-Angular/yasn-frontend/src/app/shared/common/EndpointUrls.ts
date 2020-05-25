@@ -9,4 +9,5 @@ export const EndpointUrls = {
   unLikeAPost: "/api/actions/likes/unLikeAPost",
   userProfileTimeline: "/api/user-profile/timeline/",
   userProfileGuest: "/api/user-profile/guest/",
+  selectUserProfile: "/api/user-profile/"
 }

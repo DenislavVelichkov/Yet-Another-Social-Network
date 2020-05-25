@@ -6,8 +6,9 @@ import {HttpRepositoryService} from "../../../core/http/http-repository.service"
 import {throwError} from "rxjs";
 import {UpdateAvatarAction} from "../../../core/store/userProfile/actions/update-avatar.action";
 import {Notification} from "../../../core/store/notification/Notification";
-import {timeConverter} from "../../../core/util/util";
+import {timeAgoConverter} from "../../../core/util/util";
 import {NotificationService} from "../../../core/services/notification/notification.service";
+import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -32,7 +33,8 @@ export class AuthorizedNavbarComponent implements OnInit {
       this.profileId = value.activeUser.userProfileId;
     })
 
-    this.httpRepo.get(`/api/user-profile/${this.profileId}`).subscribe(value => {
+    this.httpRepo.get(EndpointUrls.selectUserProfile + this.profileId)
+      .subscribe(value => {
       this.store.dispatch(new UpdateAvatarAction(value))
     }, error => throwError(error))
 
@@ -54,7 +56,7 @@ export class AuthorizedNavbarComponent implements OnInit {
   }
 
   convertTime(date: Date): string {
-    return timeConverter(date)
+    return timeAgoConverter(date)
   }
 
 }

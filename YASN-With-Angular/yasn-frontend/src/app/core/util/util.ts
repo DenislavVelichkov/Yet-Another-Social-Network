@@ -12,7 +12,7 @@ export function type<T>(label: T | ""): T {
   return <T>label;
 }
 
-export function timeConverter(time: Date): string {
+export function timeAgoConverter(time: Date): string {
   const delimiter: string = "ago";
   const elapsedTime: number = new Date().getTime() - new Date(time).getTime();
   let result = "";

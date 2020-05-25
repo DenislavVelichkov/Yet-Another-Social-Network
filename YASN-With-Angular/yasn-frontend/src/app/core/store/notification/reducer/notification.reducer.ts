@@ -29,7 +29,6 @@ export function notificationReducer(state: NotificationState = initialState,
         .concat(payload.allPersonalNotifications)
         .sort((dateA: Notification, dateB: Notification) =>
           compareDatesDesc(dateA.createdOn, dateB.createdOn)),
-      loading: payload.loading
     }
 
     return newNotification;

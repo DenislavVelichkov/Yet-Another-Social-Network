@@ -27,12 +27,12 @@ export function authReducer(state: AuthState = initialState,
       return state;
   }
 
-  function storeUser(state, payload: any) {
+  function storeUser(state, payload) {
 
     return Object.assign({}, state, payload);
   }
 
-  function loginUser(state, payload: any) {
+  function loginUser(state, payload) {
 
     return Object.assign({}, state, payload);
   }
@@ -42,17 +42,17 @@ export function authReducer(state: AuthState = initialState,
     return Object.assign({}, state, payload);
   }
 
-  function registerUser(state, payload: any) {
+  function registerUser(state, payload) {
 
     return Object.assign({}, state, payload);
   }
 
-  function registerSuccess(state, payload: any) {
+  function registerSuccess(state, payload) {
 
     return Object.assign({}, state, payload);
   }
 
-  function displayAuthError(state, payload: any) {
+  function displayAuthError(state, payload) {
 
     return Object.assign({}, state, payload);
   }

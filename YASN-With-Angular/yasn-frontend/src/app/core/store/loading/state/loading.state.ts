@@ -1,9 +1,7 @@
-import {LoadingFunction} from "../LoadingFunction";
-
-export const initialState: LoadingFunction = {
+export const initialState: LoadingState = {
   loading: false
-}
+};
 
 export interface LoadingState {
-  loading: boolean
+  loading: boolean;
 }

@@ -5,7 +5,7 @@ import {Title} from "@angular/platform-browser";
 import {AuthService} from "../../../core/services/authentication/auth.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
-import {AuthenticatingAction} from "../../../core/store/authentication/actions/authenticating.action";
+import {StartLoadingAction} from "../../../core/store/loading/actions/start-loading.action";
 
 @Component({
   selector: 'app-un-authorized-navbar',
@@ -29,7 +29,7 @@ export class UnAuthorizedNavbarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.store.dispatch(new AuthenticatingAction({loading: true}))
+    this.store.dispatch(new StartLoadingAction({loading: true}));
     this.auth.loginUser(this.userLoginBindingModel);
   }
 }

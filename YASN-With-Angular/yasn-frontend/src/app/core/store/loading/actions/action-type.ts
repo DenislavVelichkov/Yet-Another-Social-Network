@@ -7,6 +7,4 @@ export const LoadingActionTypes = {
  STOP_LOADING: type('[LOADING] Stop loading'),
 }
 
-
-export type LoadingActions =
-  StartLoadingAction | StopLoadingAction;
+export type LoadingActionsTypes = StartLoadingAction | StopLoadingAction;

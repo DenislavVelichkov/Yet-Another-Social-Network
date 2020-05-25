@@ -41,8 +41,7 @@ export class NotificationService {
       .pipe(take(1))
       .subscribe((value: Notification[]) => {
         this.store.dispatch(new DisplayAllNotificationsAction({
-            allPersonalNotifications: value,
-            loading: true
+            allPersonalNotifications: value
           }))
       }, error => throwError(error));
   }
