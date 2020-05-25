@@ -8,14 +8,13 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./user-profile-body.component.css']
 })
 export class UserProfileBodyComponent implements OnInit {
-  @Input("userProfile") userProfileInfo: UserProfileState;
-  public currentProfileId: string;
-
+  @Input("userProfile") activeProfileInfo: UserProfileState;
+  public selectedProfileId: string;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.currentProfileId = this.route.snapshot.paramMap.get('id');
+    this.selectedProfileId = this.route.snapshot.paramMap.get('id');
   }
 
 }
