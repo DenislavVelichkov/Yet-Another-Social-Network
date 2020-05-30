@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../http/http-repository.service";
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
-import {Observable, throwError} from "rxjs";
+import {throwError} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
@@ -29,7 +29,7 @@ export class AuthService {
       .pipe(take(1))
       .subscribe((data: any) => {
           this.handleAuthentication(data)
-          return this.router.navigate(['home']).catch(reason => console.log(throwError(reason)));
+          this.router.navigate(['home']).catch(reason => console.log(throwError(reason)));
         },
         error => {
           this.store.dispatch(new AuthenticatingFailedAction({error: error}))
@@ -79,16 +79,8 @@ export class AuthService {
     this.store.dispatch(new StopLoadingAction({loading: false}))
   }
 
-  isUserLoggedIn(): Observable<boolean> {
-    return new Observable<boolean>((subscriber) => {
-      let isUserActive = !!localStorage.getItem("activeUser");
-      subscriber.next(isUserActive);
-      return {
-        unsubscribe() {
-          return false;
-        }
-      }
-    });
+  isUserLoggedIn(): boolean {
+      return !!localStorage.getItem("activeUser")
   }
 
 }

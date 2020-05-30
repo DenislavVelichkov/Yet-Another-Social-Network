@@ -18,7 +18,6 @@ const routes: Routes = [
   {path: "user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},
   {path: "user/profile", canActivate: [AuthGuard], component: UserProfileComponent},
 ];
-/*   */;
 
 @NgModule({
   imports: [

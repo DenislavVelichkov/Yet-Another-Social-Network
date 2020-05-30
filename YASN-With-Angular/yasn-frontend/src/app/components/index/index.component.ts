@@ -14,9 +14,6 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.isUserLoggedIn().subscribe(value => {
-      this.isAuthenticated = value;
-    });
-
+    this.isAuthenticated = this.authService.isUserLoggedIn();
   }
 }
