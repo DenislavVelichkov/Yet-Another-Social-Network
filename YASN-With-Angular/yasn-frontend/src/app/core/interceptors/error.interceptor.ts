@@ -27,16 +27,17 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       if (err.status === 404) {
-        this.router.navigate(['404']);
+        this.router.navigate(['404']).catch(reason => console.log(throwError(reason)));
       }
 
       if (err.status === 403) {
-        this.router.navigate(['index']);
+        this.router.navigate(['index']).catch(reason => console.log(throwError(reason)));
       } else {
-        this.router.navigate(['error']);
+        this.router.navigate(['error']).catch(reason => console.log(throwError(reason)));
       }
 
-      // this.auth.logout();
+      this.auth.logout();
+      console.log(err);
 
       return throwError(err);
     }))

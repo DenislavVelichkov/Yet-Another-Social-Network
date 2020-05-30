@@ -7,14 +7,15 @@ import {ErrorComponent} from "./components/error/error.component";
 import {throwError} from "rxjs";
 import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-found.component";
 import {UserProfileComponent} from "./components/home/user-profile/user-profile.component";
+import {LoggedInGuard} from "./core/guards/logged-in.guard";
 
 const routes: Routes = [
   {path: "404", component: PageNotFoundComponent},
-  {path: "", pathMatch: "full", component: IndexComponent},
+  {path: "", pathMatch: "full", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "error", component: ErrorComponent},
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
-  {path: "index", component: IndexComponent},
-  {path: "user/login", component: IndexComponent},
+  {path: "index", canActivate: [LoggedInGuard], component: IndexComponent},
+  {path: "user/login", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},
   {path: "user/profile", canActivate: [AuthGuard], component: UserProfileComponent},
 ];

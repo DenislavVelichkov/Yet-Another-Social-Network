@@ -8,11 +8,8 @@ import {AuthService} from "../services/authentication/auth.service";
 export class AuthGuard implements CanActivate {
   private isAuth: boolean;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {
-  }
+  constructor(private router: Router,
+              private authService: AuthService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
