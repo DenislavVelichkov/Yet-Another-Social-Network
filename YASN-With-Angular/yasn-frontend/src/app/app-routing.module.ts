@@ -10,11 +10,10 @@ import {UserProfileComponent} from "./components/home/user-profile/user-profile.
 import {LoggedInGuard} from "./core/guards/logged-in.guard";
 
 const routes: Routes = [
+  {path: "", canActivate: [LoggedInGuard], redirectTo: "/user/login", pathMatch: "full"},
   {path: "404", component: PageNotFoundComponent},
-  {path: "", pathMatch: "full", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "error", component: ErrorComponent},
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
-  {path: "index", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "user/login", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},
   {path: "user/profile", canActivate: [AuthGuard], component: UserProfileComponent},

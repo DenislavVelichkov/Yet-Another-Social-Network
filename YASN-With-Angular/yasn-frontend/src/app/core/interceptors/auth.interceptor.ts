@@ -3,7 +3,7 @@ import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from 
 import {Observable} from 'rxjs';
 import {AuthService} from "../services/authentication/auth.service";
 
-@Injectable()
+@Injectable({providedIn: "root"})
 export class AuthInterceptor implements HttpInterceptor {
   private token: string;
   private userAlreadyLoggedIn: boolean;

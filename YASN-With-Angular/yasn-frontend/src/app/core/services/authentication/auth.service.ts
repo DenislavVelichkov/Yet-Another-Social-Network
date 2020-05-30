@@ -29,12 +29,12 @@ export class AuthService {
       .pipe(take(1))
       .subscribe((data: any) => {
           this.handleAuthentication(data)
-          this.router.navigate(['home']).catch(reason => console.log(throwError(reason)));
+          this.router.navigate(['/home']).catch(reason => console.log(throwError(reason)));
         },
         error => {
           this.store.dispatch(new AuthenticatingFailedAction({error: error}))
           this.store.dispatch(new StopLoadingAction({loading: false}))
-          this.router.navigate(['user/login']).catch(reason => throwError(reason))
+          this.router.navigate(['/user/login']).catch(reason => throwError(reason))
           console.log(throwError(error));
         });
   }
