@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {AppState} from "../../core/store/app.state";
+import {AuthService} from "../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-index',
@@ -8,17 +7,15 @@ import {AppState} from "../../core/store/app.state";
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  private isAuthenticated: boolean;
-  private isRegistered: boolean;
+  isAuthenticated: boolean;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private authService: AuthService) {
 
   }
 
   ngOnInit() {
-    this.store.select('auth').subscribe(value => {
-      this.isRegistered = value.isRegistered;
-      this.isAuthenticated = value.isAuthenticated;
+    this.authService.isUserLoggedIn().subscribe(value => {
+      this.isAuthenticated = value;
     });
 
   }

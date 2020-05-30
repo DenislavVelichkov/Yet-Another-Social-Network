@@ -5,7 +5,7 @@
 
     <div class="post-meta-avatar">
       <img alt="profile-avatar" class="user-img" src="{{post.ownerAvatarPictureUrl}}"/>
-      <a [routerLink]="['user/profile', post.ownerProfileId]">{{post.ownerFullName}}</a>
+      <a [routerLink]="['/user/profile', post.ownerProfileId]">{{post.ownerFullName}}</a>
       <span>{{convertTime(post.createdOn)}}</span>
     </div>
 
@@ -41,10 +41,11 @@
 
     <div *ngFor="let comment of post.comments">
       <hr class="post-delimiter">
+      <div class="post-comment-container">
 
       <div class="post-comment-meta-avatar">
         <img alt="profile-avatar" class="user-img" src="{{comment.avatarPictureUrl}}"/>
-        <a [routerLink]="['user/profile', comment.commentOwnerProfileId]">{{comment.senderFullName}}</a>
+        <a [routerLink]="['/user/profile', comment.commentOwnerProfileId]">{{comment.senderFullName}}</a>
         <span>{{convertTime(comment.createdOn)}}</span>
       </div>
 
@@ -55,6 +56,7 @@
         </div>
       </div>
 
+      </div>
     </div>
 
   </div>

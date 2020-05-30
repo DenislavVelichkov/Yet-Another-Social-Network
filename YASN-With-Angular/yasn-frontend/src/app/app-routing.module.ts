@@ -11,20 +11,26 @@ import {UserProfileComponent} from "./components/home/user-profile/user-profile.
 const routes: Routes = [
   {path: "404", component: PageNotFoundComponent},
   {path: "", pathMatch: "full", component: IndexComponent},
-  {path: "index", component: IndexComponent},
   {path: "error", component: ErrorComponent},
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
   {path: "index", component: IndexComponent},
   {path: "user/login", component: IndexComponent},
+  {path: "user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},
   {path: "user/profile", canActivate: [AuthGuard], component: UserProfileComponent},
-  {path: "home/user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},
 ];
+/*   */;
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
       routes,
-      {scrollPositionRestoration: "disabled", errorHandler: error => throwError(console.log(error))})
+      {
+        scrollPositionRestoration: "disabled",
+        errorHandler: error => {
+          window.location.replace("http://localhost:4200/404");
+          console.log(throwError(error));
+        }
+      })
   ],
   exports: [RouterModule]
 })

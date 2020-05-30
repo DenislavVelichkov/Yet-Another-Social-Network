@@ -10,12 +10,12 @@ import {StartLoadingAction} from "../../../core/store/loading/actions/start-load
 @Component({
   selector: 'app-un-authorized-navbar',
   templateUrl: './un-authorized-navbar.component.html',
-  styleUrls: ['./un-authorized-navbar.component.css', '../navbar.component.css']
+  styleUrls: ['./un-authorized-navbar.component.css']
 })
 @Injectable()
 export class UnAuthorizedNavbarComponent implements OnInit {
 
-  private userLoginBindingModel: UserLoginBindingModel;
+  userLoginBindingModel: UserLoginBindingModel;
 
   constructor(private auth: AuthService,
               private router: Router,

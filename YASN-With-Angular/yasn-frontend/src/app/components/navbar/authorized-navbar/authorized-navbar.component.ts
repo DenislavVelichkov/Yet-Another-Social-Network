@@ -13,13 +13,13 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 @Component({
   selector: 'app-authorized-navbar',
   templateUrl: './authorized-navbar.component.html',
-  styleUrls: ['./authorized-navbar.component.css', '../navbar.component.css']
+  styleUrls: ['./authorized-navbar.component.css','../un-authorized-navbar/un-authorized-navbar.component.css']
 })
 export class AuthorizedNavbarComponent implements OnInit {
-  private profileId: string;
-  public profilePictureUrl: string;
-  public userFullName: string;
-  public notifications: Notification[];
+  profileId: string;
+  profilePictureUrl: string;
+  userFullName: string;
+  notifications: Notification[];
 
   constructor(private auth: AuthService,
               private store: Store<AppState>,
@@ -28,10 +28,7 @@ export class AuthorizedNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.store.select('auth').subscribe(value => {
-      this.profileId = value.activeUser.userProfileId;
-    })
+    this.profileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
     this.httpRepo.get(EndpointUrls.selectUserProfile + this.profileId)
       .subscribe(value => {

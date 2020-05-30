@@ -139,5 +139,9 @@
   margin: 1em 0 0 0;
 }
 
+.post-comment-container {
+  background-color: rgba(233, 235, 238, 0.7);
+  border-radius: 1em;
+}
 
 

@@ -15,7 +15,7 @@ import {throwError} from "rxjs";
   styleUrls: ['./user-register.component.css', '../../index/index.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-  private userRegisterBindingModel: UserRegisterModel;
+  userRegisterBindingModel: UserRegisterModel;
   private errors: Array<Object>;
 
   constructor(private userService: UserService,

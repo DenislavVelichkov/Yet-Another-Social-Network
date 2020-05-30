@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../http/http-repository.service";
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
-import {throwError} from "rxjs";
-import {Router} from "@angular/router";
+import {Observable, throwError} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
@@ -13,6 +12,7 @@ import {UserAuthModel} from "../../store/authentication/UserAuthModel";
 import {AuthenticatingFailedAction} from "../../store/authentication/actions/authenticating-failed.action";
 import {take} from "rxjs/operators";
 import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
+import {Router} from "@angular/router";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -29,13 +29,13 @@ export class AuthService {
       .pipe(take(1))
       .subscribe((data: any) => {
           this.handleAuthentication(data)
-          this.router.navigate(['home']);
+          return this.router.navigate(['home']).catch(reason => console.log(throwError(reason)));
         },
         error => {
           this.store.dispatch(new AuthenticatingFailedAction({error: error}))
           this.store.dispatch(new StopLoadingAction({loading: false}))
-          this.router.navigate(['user/login'])
-          throwError(error)
+          this.router.navigate(['user/login']).catch(reason => throwError(reason))
+          console.log(throwError(error));
         });
   }
 
@@ -53,7 +53,7 @@ export class AuthService {
 
     localStorage.clear()
 
-    this.router.navigate(['/user/login']).catch(reason => console.log(reason));
+    this.router.navigate(['user/login']).catch(reason => throwError(reason));
   }
 
   public handleAuthentication(response: HttpResponse<any>) {
@@ -61,14 +61,13 @@ export class AuthService {
     const payload = JSON.parse(atob((token.replace('Bearer: ', '').split('.')[1])));
     const expirationDate = new Date(new Date().getTime() + payload.exp);
 
-    let authenticatedUser =
-      new UserAuthModel(
-        payload.role,
-        payload.userId,
-        payload.sub,
-        true,
-        token,
-        expirationDate);
+    let authenticatedUser = new UserAuthModel(
+      payload.role,
+      payload.userId,
+      payload.sub,
+      true,
+      token,
+      expirationDate);
 
     localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
     this.store.dispatch(new AuthenticatedAction(
@@ -79,4 +78,17 @@ export class AuthService {
       }));
     this.store.dispatch(new StopLoadingAction({loading: false}))
   }
+
+  isUserLoggedIn(): Observable<boolean> {
+    return new Observable<boolean>((subscriber) => {
+      let isUserActive = !!localStorage.getItem("activeUser");
+      subscriber.next(isUserActive);
+      return {
+        unsubscribe() {
+          return false;
+        }
+      }
+    });
+  }
+
 }

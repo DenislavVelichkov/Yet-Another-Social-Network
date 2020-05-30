@@ -6,9 +6,11 @@ import {Observable} from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class HttpRepositoryService {
+
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
+
   private formHeaders = new HttpHeaders({
     'Content-Type': 'application/x-www-form-urlencoded'
   });
