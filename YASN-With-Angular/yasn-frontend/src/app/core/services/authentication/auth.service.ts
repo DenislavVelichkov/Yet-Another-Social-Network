@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpRepositoryService} from "../../http/http-repository.service";
 import {UserLoginBindingModel} from "../../../shared/models/user/UserLoginBindingModel";
-import {throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
@@ -13,6 +13,7 @@ import {AuthenticatingFailedAction} from "../../store/authentication/actions/aut
 import {take} from "rxjs/operators";
 import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
 import {Router} from "@angular/router";
+import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
 
   loginUser(userModel: UserLoginBindingModel): void {
 
-    this.httpRepo.loginRequest("/api/user/login", userModel)
+    this.httpRepo.loginRequest(EndpointUrls.loginUser, userModel)
       .pipe(take(1))
       .subscribe((data: any) => {
           this.handleAuthentication(data)
@@ -53,12 +54,12 @@ export class AuthService {
 
     localStorage.clear()
 
-    this.router.navigate(['user/login']).catch(reason => throwError(reason));
+    this.router.navigate(['/user/login']).catch(reason => throwError(reason));
   }
 
   public handleAuthentication(response: HttpResponse<any>) {
     const token: string = response.headers.get("Authorization")
-    const payload = JSON.parse(atob((token.replace('Bearer: ', '').split('.')[1])));
+    const payload = JSON.parse(atob((token.replace("Bearer: ", "").split(".")[1])));
     const expirationDate = new Date(new Date().getTime() + payload.exp);
 
     let authenticatedUser = new UserAuthModel(
@@ -69,7 +70,7 @@ export class AuthService {
       token,
       expirationDate);
 
-    localStorage.setItem('activeUser', JSON.stringify(authenticatedUser))
+    localStorage.setItem("activeUser", JSON.stringify(authenticatedUser))
     this.store.dispatch(new AuthenticatedAction(
       {
         activeUser: authenticatedUser,
@@ -77,6 +78,10 @@ export class AuthService {
         isLoggedIn: true
       }));
     this.store.dispatch(new StopLoadingAction({loading: false}))
+  }
+
+  registerUser(formData: FormData): Observable<Object> {
+    return this.httpRepo.create(EndpointUrls.registerUser, formData);
   }
 
   isUserLoggedIn(): boolean {

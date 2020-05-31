@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserRegisterModel} from 'src/app/shared/models/user/UserRegisterModel';
-import {UserService} from 'src/app/core/services/user/user.service';
 import {Title} from "@angular/platform-browser";
 import {Router} from '@angular/router';
 import {AppState} from "../../../core/store/app.state";
@@ -8,6 +7,7 @@ import {Store} from "@ngrx/store";
 import {RegisterAction} from "../../../core/store/authentication/actions/register.action";
 import {RegisterSuccessAction} from "../../../core/store/authentication/actions/register-success.action";
 import {throwError} from "rxjs";
+import {AuthService} from "../../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-user-register',
@@ -18,7 +18,7 @@ export class UserRegisterComponent implements OnInit {
   userRegisterBindingModel: UserRegisterModel;
   private errors: Array<Object>;
 
-  constructor(private userService: UserService,
+  constructor(private auth: AuthService,
               private router: Router,
               private title: Title,
               private store: Store<AppState>) {
@@ -39,7 +39,7 @@ export class UserRegisterComponent implements OnInit {
 
     formData.append("registerModel", userBlobModel);
 
-    this.userService.registerUser(formData).subscribe(data => {
+    this.auth.registerUser(formData).subscribe(data => {
 
       this.store.dispatch(new RegisterAction({
         isRegistered: data['isUserRegistered'],
@@ -51,17 +51,17 @@ export class UserRegisterComponent implements OnInit {
         this.errors = [...data['errors']];
         //todo Display errors in a modal of some kind
         this.errors.forEach(error => alert(error['defaultMessage']));
-        this.router.navigate(['']);
+        this.router.navigate(['/']).catch(reason => console.log(throwError(reason)));
       } else {
         this.store.dispatch(new RegisterSuccessAction({
           isRegistered: data['isUserRegistered'],
           loading: false
         }));
-        this.router.navigate(['user/login']);
+        this.router.navigate(['user/login']).catch(reason => console.log(throwError(reason)));
       }
     }, error => {
       this.errors = error;
-      throwError(error);
+      console.log(throwError(error));
     });
   }
 }

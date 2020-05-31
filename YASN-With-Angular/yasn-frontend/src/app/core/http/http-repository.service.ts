@@ -74,4 +74,5 @@ export class HttpRepositoryService {
         this.envUrl.apiEndPointAddress))
       .pipe(take(1));
   }
+
 }
