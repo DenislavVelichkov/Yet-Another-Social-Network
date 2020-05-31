@@ -55,19 +55,19 @@
   width: 100%;
 }
 
-.profile-cover-menu > ul {
+.active-profile-cover-menu > ul {
   margin-top: 1rem;
   padding-bottom: 1em;
 }
 
-.profile-cover-menu li {
+.active-profile-cover-menu li {
   display: inline;
   text-align: center;
   padding: 0 1em 0;
 
 }
 
-.profile-cover-menu > ul a {
+.active-profile-cover-menu > ul a {
   font-weight: bold;
   color: #4e555b;
 }

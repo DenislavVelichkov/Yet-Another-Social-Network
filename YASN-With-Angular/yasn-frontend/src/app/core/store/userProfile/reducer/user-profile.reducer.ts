@@ -5,13 +5,13 @@ export function userProfileReducer(state: UserProfileState = initialState,
                                    action: ProfileActionTypes) {
 
   switch (action.type) {
-    case ProfileActionTypes.UPDATE_AVATAR:
-      return updateAvatar(state, action.payload);
+    case ProfileActionTypes.UPDATE_ACTIVE_PROFILE:
+      return updateProfile(state, action.payload);
     default:
       return state;
   }
 
-  function updateAvatar(state, payload) {
+  function updateProfile(state, payload) {
 
     return Object.assign({}, state, payload);
   }

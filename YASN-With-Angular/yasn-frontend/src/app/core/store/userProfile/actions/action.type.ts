@@ -1,9 +1,9 @@
 import {type} from "../../../util/util";
-import {UpdateAvatarAction} from "./update-avatar.action";
+import {UpdateActiveProfileAction} from "./update-active-profile.action";
 
 export const ProfileActionTypes = {
-  UPDATE_AVATAR: type('[PROFILE] Update Avatar'),
+  UPDATE_ACTIVE_PROFILE: type('[ACTIVE_PROFILE] Update Profile'),
 
 }
 export type ProfileActionTypes =
-  UpdateAvatarAction;
+  UpdateActiveProfileAction;

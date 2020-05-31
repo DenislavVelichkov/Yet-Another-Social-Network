@@ -9,7 +9,7 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
 import {throwError} from "rxjs";
-import {UpdateAvatarAction} from "../../../core/store/userProfile/actions/update-avatar.action";
+import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions/update-active-profile.action";
 
 @Component({
   selector: 'app-user-profile',
@@ -58,7 +58,7 @@ export class UserProfileComponent implements OnInit {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
         .pipe(take(1))
         .subscribe(value => {
-          this.store.dispatch(new UpdateAvatarAction(value));
+          this.store.dispatch(new UpdateActiveProfileAction(value));
         }, error => console.log(throwError(error)));
 
       this.store.select('userProfile').subscribe(data => {

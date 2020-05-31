@@ -4,11 +4,12 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../core/http/http-repository.service";
 import {throwError} from "rxjs";
-import {UpdateAvatarAction} from "../../../core/store/userProfile/actions/update-avatar.action";
+import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions/update-active-profile.action";
 import {Notification} from "../../../core/store/notification/Notification";
 import {timeAgoConverter} from "../../../core/util/util";
 import {NotificationService} from "../../../core/services/notification/notification.service";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
+import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -30,9 +31,9 @@ export class AuthorizedNavbarComponent implements OnInit {
   ngOnInit() {
     this.profileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
-    this.httpRepo.get(EndpointUrls.selectUserProfile + this.profileId)
+    this.httpRepo.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.profileId)
       .subscribe(value => {
-        this.store.dispatch(new UpdateAvatarAction(value))
+        this.store.dispatch(new UpdateActiveProfileAction(value))
       }, error => throwError(error))
 
     this.store.select('userProfile').subscribe(value => {
