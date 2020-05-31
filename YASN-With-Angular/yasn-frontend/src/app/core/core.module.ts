@@ -29,6 +29,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {CustomSnackbarComponent} from "../components/custom-snackbar/custom-snackbar.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import {MatButtonModule} from "@angular/material/button";
     UserProfileBodyComponent,
     UserFriendsComponent,
     EditUserProfileComponent,
-    AuthorizedNavbarComponent
+    AuthorizedNavbarComponent,
+    CustomSnackbarComponent
   ],
   imports: [
     CommonModule,
@@ -60,8 +63,15 @@ import {MatButtonModule} from "@angular/material/button";
     MatProgressBarModule,
     MatIconModule,
     MatButtonModule,
+    MatSnackBarModule
   ],
-  exports: [IndexComponent, HomeComponent, FooterComponent, AuthorizedNavbarComponent, UnAuthorizedNavbarComponent],
+  exports: [
+    IndexComponent,
+    HomeComponent,
+    FooterComponent,
+    AuthorizedNavbarComponent,
+    UnAuthorizedNavbarComponent,
+    CustomSnackbarComponent],
 })
 export class CoreModule {
   /*Ensure one instance of the services*/
@@ -74,7 +84,7 @@ export class CoreModule {
         EnvironmentUrlService,
         HttpRepositoryService,
         NewsFeedService,
-        NotificationService
+        NotificationService,
       ]
     };
   }

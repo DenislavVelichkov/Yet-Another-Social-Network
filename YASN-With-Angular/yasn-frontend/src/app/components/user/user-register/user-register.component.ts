@@ -8,6 +8,8 @@ import {RegisterAction} from "../../../core/store/authentication/actions/registe
 import {RegisterSuccessAction} from "../../../core/store/authentication/actions/register-success.action";
 import {throwError} from "rxjs";
 import {AuthService} from "../../../core/services/authentication/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CustomSnackbarComponent} from "../../custom-snackbar/custom-snackbar.component";
 
 @Component({
   selector: 'app-user-register',
@@ -21,7 +23,8 @@ export class UserRegisterComponent implements OnInit {
   constructor(private auth: AuthService,
               private router: Router,
               private title: Title,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -57,11 +60,18 @@ export class UserRegisterComponent implements OnInit {
           isRegistered: data['isUserRegistered'],
           loading: false
         }));
-        this.router.navigate(['user/login']).catch(reason => console.log(throwError(reason)));
+        this.router.navigate(['/user/login']).catch(reason => console.log(throwError(reason)));
       }
     }, error => {
       this.errors = error;
-      console.log(throwError(error));
+      return console.log(throwError(error));
     });
+
+    this.snackBar.openFromComponent(CustomSnackbarComponent,
+      {
+        verticalPosition: "top",
+        duration: 5000,
+        data: "Registration Successful! You can Log In now.",
+      })
   }
 }

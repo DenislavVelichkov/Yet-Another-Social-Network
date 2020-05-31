@@ -1,10 +1,10 @@
 export class UserRegisterModel {
-  private firstName: string;
-  private lastName: string;
-  private password: string;
-  private email: string;
-  private gender: string;
-  private birthday: string;
-  private confirmEmail: string;
-  private confirmPass: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  gender: string;
+  birthday: string;
+  confirmEmail: string;
+  confirmPass: string;
 }

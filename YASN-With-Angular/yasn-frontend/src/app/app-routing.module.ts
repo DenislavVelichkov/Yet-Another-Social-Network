@@ -25,8 +25,8 @@ const routes: Routes = [
       {
         scrollPositionRestoration: "enabled",
         errorHandler: error => {
-          window.location.replace("http://localhost:4200/404");
           console.log(throwError(error));
+          window.location.replace("http://localhost:4200/404");
         }
       })
   ],

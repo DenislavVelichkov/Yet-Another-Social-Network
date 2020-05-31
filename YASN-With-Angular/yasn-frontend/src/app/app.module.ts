@@ -37,8 +37,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     StoreModule.forRoot(appReducer),
     CoreModule.forRoot(),
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
-  ],
+    MatProgressSpinnerModule]
+  ,
 
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -49,6 +49,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   ],
 
   bootstrap: [AppComponent],
+  exports: [
+  ]
 })
 
 export class AppModule {
