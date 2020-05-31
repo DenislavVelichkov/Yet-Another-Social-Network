@@ -72,6 +72,23 @@
   color: #4e555b;
 }
 
+.guest-profile-cover-menu > ul {
+  margin-top: 1rem;
+  padding-bottom: 1em;
+}
+
+.guest-profile-cover-menu li {
+  display: inline;
+  text-align: center;
+  padding: 0 1em 0;
+  cursor: pointer;
+}
+
+.guest-profile-cover-menu > ul a {
+  font-weight: bold;
+  color: #4e555b;
+}
+
 .profile-action-buttons {
   display: inline-block;
   float: right;

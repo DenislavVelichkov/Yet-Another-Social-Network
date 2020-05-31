@@ -1,24 +1,22 @@
 package org.java.yasn.web.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.management.OperationsException;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.EndpointConstants;
-import org.java.yasn.common.ExceptionMessages;
-import org.java.yasn.common.enums.NotificationType;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.action.NotificationService;
 import org.java.yasn.services.gallery.PersonalGalleryService;
 import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.services.wall.WallService;
 import org.java.yasn.web.models.binding.LikeAPostModel;
+import org.java.yasn.web.models.binding.NotificationModel;
+import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,31 +46,20 @@ public class ActionApiController {
     wallService.unlikePost(likeAPostModel);
   }
 
-  @PostMapping("/add-friend")
-  public void sendFriendRequest(@ModelAttribute(name = "profileId") String recipientId,
-                                Principal sender) throws OperationsException {
+  @PostMapping(value = "", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public ResponseEntity<NotificationResponseModel> sendFriendRequest(@RequestBody NotificationModel notification) {
+    NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
 
-    String senderId =
-        this.profileService.findUserProfileByUsername(sender.getName()).getId();
-
-    if (recipientId.equals(senderId)) {
-      throw new OperationsException(ExceptionMessages.FRIEND_REQUEST_ON_YOURSELF);
-    }
-
+    return ResponseEntity.ok(response);
   }
 
-  @PostMapping("/accept-friend")
-  public void acceptFriendRequest(@ModelAttribute(name = "senderId") String senderId,
-                                  Principal activeUser) {
+  @PostMapping("/add-friend")
+  public ResponseEntity<?> acceptFriendRequest(@RequestBody NotificationModel notificationModel) {
 
     boolean successfulFriendship =
-        this.profileService.addFriend(senderId, activeUser.getName());
+        this.profileService.addFriend(notificationModel);
 
-    if (successfulFriendship) {
-      this.notificationService.removeNotification(
-          senderId, activeUser.getName(), NotificationType.FRIEND_REQ);
-    }
-
+    return ResponseEntity.ok(successfulFriendship);
   }
 
   @PostMapping("/create-album")

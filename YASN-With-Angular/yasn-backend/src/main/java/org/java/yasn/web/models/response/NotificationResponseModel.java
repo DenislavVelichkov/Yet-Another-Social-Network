@@ -1,6 +1,6 @@
 package org.java.yasn.web.models.response;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class NotificationResponseModel {
 
   private NotificationType notificationType;
 
-  private LocalDate createdOn;
+  private LocalDateTime createdOn;
 
   private String content;
 

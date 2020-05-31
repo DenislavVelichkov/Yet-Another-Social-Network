@@ -8,7 +8,7 @@ import {ProfileState} from "../../../../core/store/app.state";
   styleUrls: ['./user-profile-body.component.css']
 })
 export class UserProfileBodyComponent implements OnInit {
-  public selectedProfileId: string;
+  @Input("selectedProfileId") selectedProfileId: string;
   @Input("userProfile") activeProfileInfo: ProfileState;
   @Input("isGuestProfile") public isGuestProfile: boolean = false;
   @Input("isActiveProfile") public isActiveProfile: boolean = false;
@@ -16,7 +16,7 @@ export class UserProfileBodyComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.selectedProfileId = this.route.snapshot.paramMap.get('id');
+
   }
 
 }

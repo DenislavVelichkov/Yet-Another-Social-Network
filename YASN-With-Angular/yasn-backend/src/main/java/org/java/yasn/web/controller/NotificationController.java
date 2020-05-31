@@ -33,7 +33,7 @@ public class NotificationController {
       @RequestBody NotificationModel notificationModel) {
 
     NotificationResponseModel response =
-        this.notificationService.createNotification(notificationModel);
+        this.notificationService.createNotificationForNewPost(notificationModel);
 
     this.mapper.validate();
 

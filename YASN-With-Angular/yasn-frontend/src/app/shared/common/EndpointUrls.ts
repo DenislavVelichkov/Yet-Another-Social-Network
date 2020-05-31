@@ -9,5 +9,9 @@ export const EndpointUrls = {
   unLikeAPost: "/api/actions/likes/unLikeAPost",
   userProfileTimeline: "/api/user-profile/timeline/",
   userProfileGuest: "/api/user-profile/guest/",
-  selectUserProfile: "/api/user-profile/"
+  selectUserProfile: "/api/user-profile/",
+  sendFriendRequest: "/api/actions/send-friend-request",
+  acceptFriendRequest: "/api/actions/accept-friend/",
+  addFriend: "/api/actions/add-friend",
+  unfriendRequest: "/api/actions/unfriend/",
 }

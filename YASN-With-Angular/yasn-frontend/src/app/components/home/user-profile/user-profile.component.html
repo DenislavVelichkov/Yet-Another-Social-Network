@@ -11,12 +11,16 @@
   <div class="col-6" id="user-profile-main">
 
     <div class="user-profile-container">
-      <app-user-profile-header [userProfile]="userProfileState"
-                               [isGuestProfile]="isGuestProfile"
-                               [isActiveProfile]="isActiveProfile"></app-user-profile-header>
-      <app-user-profile-body [userProfile]="userProfileState"
-                             [isGuestProfile]="isGuestProfile"
-                             [isActiveProfile]="isActiveProfile"></app-user-profile-body>
+      <app-user-profile-header
+        [selectedProfileId]="selectedProfileId"
+        [userProfile]="userProfileState"
+        [isGuestProfile]="isGuestProfile"
+        [isActiveProfile]="isActiveProfile"></app-user-profile-header>
+      <app-user-profile-body
+        [selectedProfileId]="selectedProfileId"
+        [userProfile]="userProfileState"
+        [isGuestProfile]="isGuestProfile"
+        [isActiveProfile]="isActiveProfile"></app-user-profile-body>
     </div>
 
   </div>

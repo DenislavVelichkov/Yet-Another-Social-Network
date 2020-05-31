@@ -8,7 +8,9 @@ import org.java.yasn.web.models.response.NotificationResponseModel;
 
 public interface NotificationService {
 
-  NotificationResponseModel createNotification(NotificationModel notificationModel);
+  NotificationResponseModel createNotificationForNewPost(NotificationModel notificationModel);
+
+  NotificationResponseModel createFriendRequest(NotificationModel notificationModel);
 
   void removeNotification(String senderId, String recipientUsername, NotificationType friendReq);
 

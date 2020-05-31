@@ -6,7 +6,6 @@ import {UserAuthModel} from "../../../core/store/authentication/UserAuthModel";
 import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
 import {NotificationService} from "../../../core/services/notification/notification.service";
-import {NotificationMessage} from "../../../shared/common/NotificationConstants";
 import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loading.action";
 import {StartLoadingAction} from "../../../core/store/loading/actions/start-loading.action";
 
@@ -48,8 +47,7 @@ export class CreatePostComponent implements OnInit {
       this.files);
 
     this.notificationService.createNotificationOnNewPost(
-      JSON.parse(localStorage.getItem("activeUser"))._userProfileId,
-      NotificationMessage.newPostCreated);
+      JSON.parse(localStorage.getItem("activeUser"))._userProfileId);
 
     this.store.dispatch(new StopLoadingAction({loading: false}));
   }

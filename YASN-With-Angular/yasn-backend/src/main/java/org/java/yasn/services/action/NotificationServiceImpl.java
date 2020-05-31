@@ -1,6 +1,6 @@
 package org.java.yasn.services.action;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -28,25 +28,50 @@ public class NotificationServiceImpl implements NotificationService {
   private final ModelMapper modelMapper;
 
   @Override
-  public NotificationResponseModel createNotification(NotificationModel notificationModel) {
+  public NotificationResponseModel createNotificationForNewPost(NotificationModel notificationModel) {
 
-    Optional<UserProfile> recipient =
-        this.userProfileRepository.findById(notificationModel.getSenderId());
+    UserProfile recipient = this.userProfileRepository
+        .findById(notificationModel.getSenderId())
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
+    ;
 
     Notification notification = new Notification();
 
-    notification.setSender(recipient.get());
-    notification.setNotificationType(NotificationType.getNotificationType(notificationModel.getNotificationType()));
+    notification.setSender(recipient);
+    notification.setNotificationType(NotificationType.CREATED_A_POST);
     notification.setViewed(false);
-    notification.setCreatedOn(LocalDate.now());
-    notification.setSenderPicture(recipient.get().getProfilePicture());
-    notification.setSenderFullName(recipient.get().getFullName());
-    notification.setContent(notificationModel.getContent());
+    notification.setCreatedOn(LocalDateTime.now());
+    notification.setSenderPicture(recipient.getProfilePicture());
+    notification.setSenderFullName(recipient.getFullName());
+    notification.setContent("created a new post");
 
     Notification newNotification =
         this.notificationRepository.saveAndFlush(notification);
 
     return this.modelMapper.map(newNotification, NotificationResponseModel.class);
+  }
+
+  @Override
+  public NotificationResponseModel createFriendRequest(NotificationModel notificationModel) {
+    UserProfile recipient = this.userProfileRepository
+        .findById(notificationModel.getRecipientId())
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
+    UserProfile sender = this.userProfileRepository
+        .findById(notificationModel.getRecipientId())
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
+
+    Notification notification = new Notification();
+    notification.setSenderFullName(sender.getFullName());
+    notification.setSender(sender);
+    notification.setRecipient(recipient);
+    notification.setViewed(false);
+    notification.setSenderPicture(sender.getProfilePicture());
+    notification.setContent("wants to be your friend");
+    notification.setCreatedOn(LocalDateTime.now());
+    notification.setNotificationType(NotificationType.FRIEND_REQ);
+
+    return this.modelMapper.map(
+        this.notificationRepository.saveAndFlush(notification), NotificationResponseModel.class);
   }
 
 

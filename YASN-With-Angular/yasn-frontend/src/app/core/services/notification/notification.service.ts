@@ -5,7 +5,6 @@ import {take} from "rxjs/operators";
 import {AppState} from "../../store/app.state";
 import {Store} from "@ngrx/store";
 import {CreatePostNotificationAction} from "../../store/notification/actions/create-post-notification.action";
-import {NotificationTypes} from "../../../shared/common/NotificationConstants";
 import {Notification} from "../../store/notification/Notification";
 import {throwError} from "rxjs";
 import {DisplayAllNotificationsAction} from "../../store/notification/actions/display-all-notifications.action";
@@ -19,13 +18,11 @@ export class NotificationService {
               private store: Store<AppState>) {
   }
 
-  createNotificationOnNewPost(senderId: string, content: string): void {
+  createNotificationOnNewPost(senderId: string): void {
     this.httpRepo.create<Notification>(
       EndpointUrls.notifications + '/created-post',
       {
         senderId: senderId,
-        content: content,
-        notificationType: NotificationTypes.CREATED_A_POST
       })
       .pipe(take(1))
       .subscribe((data: Notification) => {

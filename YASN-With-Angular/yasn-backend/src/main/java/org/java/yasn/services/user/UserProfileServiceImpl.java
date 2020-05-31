@@ -13,6 +13,7 @@ import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.user.UserRepository;
 import org.java.yasn.services.CloudinaryService;
+import org.java.yasn.web.models.binding.NotificationModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -64,18 +65,14 @@ public class UserProfileServiceImpl implements UserProfileService {
   }
 
   @Override
-  public boolean addFriend(String senderId, String recipientUsername) {
+  public boolean addFriend(NotificationModel notificationModel) {
 
-    UserProfileServiceModel recipient =
-        this.modelMapper.map(
-            this.findUserProfileByUsername(
-                recipientUsername), UserProfileServiceModel.class);
-    this.modelMapper.validate();
-
-    UserProfileServiceModel sender =
-        this.modelMapper.map(
-            this.findUserProfileById(senderId), UserProfileServiceModel.class);
-    this.modelMapper.validate();
+    UserProfile recipient = this.userProfileRepository
+        .findById(notificationModel.getRecipientId())
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
+    UserProfile sender = this.userProfileRepository
+        .findById(notificationModel.getRecipientId())
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
     if (sender.getFriends().stream()
               .noneMatch(userProfile -> userProfile.getId().equals(recipient.getId()))
@@ -84,10 +81,8 @@ public class UserProfileServiceImpl implements UserProfileService {
       recipient.getFriends().add(sender);
       sender.getFriends().add(recipient);
 
-      this.userProfileRepository.saveAndFlush(
-          this.modelMapper.map(sender, UserProfile.class));
-      this.userProfileRepository.saveAndFlush(
-          this.modelMapper.map(recipient, UserProfile.class));
+      this.userProfileRepository.saveAndFlush(recipient);
+      this.userProfileRepository.saveAndFlush(sender);
 
       return true;
     }

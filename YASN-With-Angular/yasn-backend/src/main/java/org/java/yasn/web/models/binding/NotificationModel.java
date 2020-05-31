@@ -11,6 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NotificationModel {
   private String senderId;
-  private String content;
-  private String notificationType;
+  private String recipientId;
 }
