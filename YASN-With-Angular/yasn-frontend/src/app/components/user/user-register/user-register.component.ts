@@ -60,6 +60,12 @@ export class UserRegisterComponent implements OnInit {
           isRegistered: data['isUserRegistered'],
           loading: false
         }));
+        this.snackBar.openFromComponent(CustomSnackbarComponent,
+          {
+            verticalPosition: "top",
+            duration: 4200,
+            data: "Registration Successful! You can Log In now.",
+          })
         this.router.navigate(['/user/login']).catch(reason => console.log(throwError(reason)));
       }
     }, error => {
@@ -67,11 +73,5 @@ export class UserRegisterComponent implements OnInit {
       return console.log(throwError(error));
     });
 
-    this.snackBar.openFromComponent(CustomSnackbarComponent,
-      {
-        verticalPosition: "top",
-        duration: 5000,
-        data: "Registration Successful! You can Log In now.",
-      })
   }
 }

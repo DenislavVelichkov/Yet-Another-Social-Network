@@ -14,3 +14,7 @@
   width: 100%;
   border-radius: 50%;
 }
+
+.mat-spinner-preferences::ng-deep circle {
+  stroke: #0b769c !important;
+}
