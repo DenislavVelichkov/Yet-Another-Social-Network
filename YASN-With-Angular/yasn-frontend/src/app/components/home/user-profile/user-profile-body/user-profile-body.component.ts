@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserProfileState} from "../../../../core/store/userProfile/state/user-profile.state";
 import {ActivatedRoute} from "@angular/router";
+import {ProfileState} from "../../../../core/store/app.state";
 
 @Component({
   selector: 'app-user-profile-body',
@@ -8,8 +8,10 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./user-profile-body.component.css']
 })
 export class UserProfileBodyComponent implements OnInit {
-  @Input("userProfile") activeProfileInfo: UserProfileState;
   public selectedProfileId: string;
+  @Input("userProfile") activeProfileInfo: ProfileState;
+  @Input("isGuestProfile") public isGuestProfile: boolean = false;
+  @Input("isActiveProfile") public isActiveProfile: boolean = false;
 
   constructor(private route: ActivatedRoute) {}
 

@@ -9,6 +9,7 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
 import {throwError} from "rxjs";
+import {UpdateAvatarAction} from "../../../core/store/userProfile/actions/update-avatar.action";
 
 @Component({
   selector: 'app-user-profile',
@@ -18,6 +19,8 @@ import {throwError} from "rxjs";
 export class UserProfileComponent implements OnInit {
   public userProfileState: ProfileState;
   public selectedProfileId: string;
+  public isGuestProfile: boolean = false;
+  public isActiveProfile: boolean = false;
 
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,
@@ -26,7 +29,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedProfileId = this.route.snapshot.paramMap.get("id");
+
+    this.route.paramMap.subscribe(value => {
+      this.selectedProfileId = value.get("id");
+      this.updateComponent();
+    })
+
+  }
+
+  updateComponent() {
     let activeProfileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
     if (activeProfileId !== this.selectedProfileId) {
@@ -38,11 +49,22 @@ export class UserProfileComponent implements OnInit {
 
       this.store.select('guestProfile').subscribe(data => {
         this.userProfileState = data;
-      })
+        this.isGuestProfile = true;
+        this.isActiveProfile = false;
+
+      }, error => console.log(throwError(error)));
 
     } else {
+      this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
+        .pipe(take(1))
+        .subscribe(value => {
+          this.store.dispatch(new UpdateAvatarAction(value));
+        }, error => console.log(throwError(error)));
+
       this.store.select('userProfile').subscribe(data => {
         this.userProfileState = data;
+        this.isGuestProfile = false;
+        this.isActiveProfile = true;
       });
     }
   }
