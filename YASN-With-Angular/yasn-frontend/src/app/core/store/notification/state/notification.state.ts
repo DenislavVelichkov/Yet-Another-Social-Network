@@ -1,9 +1,9 @@
 import {Notification} from "../Notification.js";
 
 export const initialState: NotificationState = {
-  allPersonalNotifications: [],
-}
+  allPersonalNotifications: new Map<string, Notification[]>([])
+};
 
 export interface NotificationState {
-  allPersonalNotifications: Notification[];
+  allPersonalNotifications: Map<string, Notification[]>;
 }

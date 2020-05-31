@@ -2,7 +2,9 @@ import {initialState, PostState} from "../state/post.state";
 import {PostActions, PostActionTypes} from "../actions/action.type";
 import {Post} from "../Post";
 import {PostComment} from "../PostComment";
-import produce from "immer";
+import produce, {enableMapSet} from "immer";
+
+enableMapSet();
 
 export function postsReducer(state: PostState = initialState,
                              action: PostActions) {

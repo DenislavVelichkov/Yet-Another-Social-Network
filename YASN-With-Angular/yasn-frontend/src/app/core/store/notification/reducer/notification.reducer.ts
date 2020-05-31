@@ -1,9 +1,11 @@
 import {initialState, NotificationState} from "../state/notification.state";
 import {NotificationActions, NotificationActionTypes} from "../actions/action.type";
 import {Notification} from "../Notification";
+import produce, {enableMapSet} from "immer";
 
 export function notificationReducer(state: NotificationState = initialState,
                                     action: NotificationActions) {
+  enableMapSet();
 
   switch (action.type) {
     case NotificationActionTypes.GET_ALL_NOTIFICATIONS:
@@ -12,28 +14,48 @@ export function notificationReducer(state: NotificationState = initialState,
 
     case NotificationActionTypes.CREATE_POST_NOTIFICATION:
 
-      return createNotification(state, action.payload);
+      return createPost(state, action.payload);
 
+    case NotificationActionTypes.SEND_FRIEND_REQUEST:
+
+      return sendFriendRequest(state, action.payload)
     default:
       return state;
   }
 
-  function getAllNotification(state, payload) {
+  function getAllNotification(state: NotificationState, payload) {
 
-    return Object.assign({}, state, payload);
+    return produce(state, draftState => {
+      draftState.allPersonalNotifications.set(payload[0], payload[1]);
+    });
   }
 
-  function createNotification(state, payload) {
-    let newNotification: NotificationState = {
-      allPersonalNotifications: state.allPersonalNotifications
-        .concat(payload.allPersonalNotifications)
-        .sort((dateA: Notification, dateB: Notification) =>
-          compareDatesDesc(dateA.createdOn, dateB.createdOn)),
-    }
+  function createPost(state, payload) {
 
-    return newNotification;
+    return produce(state, draftState => {
+      draftState.allPersonalNotifications = payload.allPersonalNotifications;
+      draftState.allPersonalNotifications.get(payload.recipientId).sort(
+        (dateA: Notification, dateB: Notification) =>
+          compareDatesDesc(dateA.createdOn, dateB.createdOn));
+    });
   }
 
+  function sendFriendRequest(state: NotificationState, payload) {
+
+    return produce(state, draftState => {
+      let notificationToAdd: Notification[] = [payload.notification];
+
+      draftState.allPersonalNotifications.set(payload.recipientId, [...notificationToAdd])
+
+     /* draftState.allPersonalNotifications.get(payload.recipientId).push(notificationToAdd)
+
+      draftState.allPersonalNotifications.get(payload.recipientId).sort(
+        (dateA: Notification, dateB: Notification) =>
+          compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
+
+    });
+
+  }
 
   function compareDatesDesc(createdOnA: Date, createdOnB: Date) {
     let a = new Date(createdOnA)

@@ -46,8 +46,8 @@ export class CreatePostComponent implements OnInit {
       JSON.parse(localStorage.getItem("activeUser"))._userProfileId,
       this.files);
 
-    this.notificationService.createNotificationOnNewPost(
-      JSON.parse(localStorage.getItem("activeUser"))._userProfileId);
+   /* this.notificationService.createNotificationOnNewPost(
+      JSON.parse(localStorage.getItem("activeUser"))._userProfileId);*/
 
     this.store.dispatch(new StopLoadingAction({loading: false}));
   }

@@ -4,7 +4,6 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {AppState} from "../../store/app.state";
 import {Store} from "@ngrx/store";
-import {CreatePostNotificationAction} from "../../store/notification/actions/create-post-notification.action";
 import {Notification} from "../../store/notification/Notification";
 import {throwError} from "rxjs";
 import {DisplayAllNotificationsAction} from "../../store/notification/actions/display-all-notifications.action";
@@ -26,21 +25,19 @@ export class NotificationService {
       })
       .pipe(take(1))
       .subscribe((data: Notification) => {
-        this.store.dispatch(new CreatePostNotificationAction({
-          allPersonalNotifications: [data],
-          loading: true
-        }))
+        // this.store.dispatch(new CreatePostNotificationAction({}))
       })
   }
 
   getAllPersonalNotifications(recipientId: string): void {
-    this.httpRepo.create<Notification[]>(EndpointUrls.notifications + '/get-all-notifications', {recipientId: recipientId})
+    this.httpRepo.create<Notification[]>(
+      EndpointUrls.notifications + '/get-all-notifications',
+      {recipientId: recipientId})
       .pipe(take(1))
       .subscribe((value: Notification[]) => {
-        this.store.dispatch(new DisplayAllNotificationsAction({
-          allPersonalNotifications: value
-        }))
-      }, error => throwError(error));
+        let allNotifications = [recipientId, value];
+        this.store.dispatch(new DisplayAllNotificationsAction(allNotifications));
+      }, error => console.log(throwError(error)));
   }
 
 }

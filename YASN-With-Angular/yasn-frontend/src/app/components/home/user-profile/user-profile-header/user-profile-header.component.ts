@@ -1,10 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ProfileState} from "../../../../core/store/app.state";
+import {AppState, ProfileState} from "../../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../../core/http/http-repository.service";
 import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {Notification} from "../../../../core/store/notification/Notification";
+import {Store} from "@ngrx/store";
+import {SendFrRequestAction} from "../../../../core/store/notification/actions/send-fr-request.action";
+import {throwError} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.component";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -18,7 +23,9 @@ export class UserProfileHeaderComponent implements OnInit {
   @Input("isActiveProfile") public isActiveProfile: boolean = false;
 
   constructor(private route: ActivatedRoute,
-              private http: HttpRepositoryService) {
+              private http: HttpRepositoryService,
+              private store: Store<AppState>,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -35,7 +42,12 @@ export class UserProfileHeaderComponent implements OnInit {
     this.http.create<Notification>(EndpointUrls.sendFriendRequest, frRequest)
       .pipe(take(1))
       .subscribe(data => {
-        console.log(JSON.stringify(data))
-      });
+        this.store.dispatch(new SendFrRequestAction({notification: data, recipientId: this.selectedProfileId}));
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          duration: 4500,
+          verticalPosition: "top",
+          data: "You have send a friend request!"
+        })
+      }, error => console.log(throwError(error)));
   }
 }

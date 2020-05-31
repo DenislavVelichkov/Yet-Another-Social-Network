@@ -20,7 +20,7 @@ export class AuthorizedNavbarComponent implements OnInit {
   profileId: string;
   profilePictureUrl: string;
   userFullName: string;
-  notifications: Notification[];
+  notifications: Notification[] = [];
 
   constructor(private auth: AuthService,
               private store: Store<AppState>,
@@ -44,7 +44,9 @@ export class AuthorizedNavbarComponent implements OnInit {
     this.notificationService.getAllPersonalNotifications(this.profileId)
 
     this.store.select('notifications').subscribe(value => {
-      this.notifications = value.allPersonalNotifications;
+      if (value.allPersonalNotifications.get(this.profileId)) {
+        this.notifications = value.allPersonalNotifications.get(this.profileId);
+      }
     });
 
   }
