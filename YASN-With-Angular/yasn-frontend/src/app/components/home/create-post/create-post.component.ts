@@ -44,11 +44,11 @@ export class CreatePostComponent implements OnInit {
 
     this.newsFeedService.createPost(
       this.postModel,
-      this.activeProfile.userProfileId,
+      JSON.parse(localStorage.getItem("activeUser"))._userProfileId,
       this.files);
 
     this.notificationService.createNotificationOnNewPost(
-      this.activeProfile.userProfileId,
+      JSON.parse(localStorage.getItem("activeUser"))._userProfileId,
       NotificationMessage.newPostCreated);
 
     this.store.dispatch(new StopLoadingAction({loading: false}));

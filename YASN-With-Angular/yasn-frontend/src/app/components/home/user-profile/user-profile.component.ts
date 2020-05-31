@@ -1,7 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {UserProfileState} from "../../../core/store/userProfile/state/user-profile.state";
 import {Store} from "@ngrx/store";
-import {AppState} from "../../../core/store/app.state";
+import {AppState, ProfileState} from "../../../core/store/app.state";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../../core/services/authentication/auth.service";
+import {GetGuestProfileDetails} from "../../../core/store/guestProfile/actions/get-guest-profile.details";
+import {HttpRepositoryService} from "../../../core/http/http-repository.service";
+import {EndpointUrls} from "../../../shared/common/EndpointUrls";
+import {take} from "rxjs/operators";
+import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
+import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-user-profile',
@@ -9,16 +16,35 @@ import {AppState} from "../../../core/store/app.state";
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  public userProfileState: UserProfileState;
+  public userProfileState: ProfileState;
+  public selectedProfileId: string;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+              private route: ActivatedRoute,
+              private auth: AuthService,
+              private http: HttpRepositoryService) {
   }
 
   ngOnInit(): void {
-    this.store.select('userProfile').subscribe(data => {
-      this.userProfileState = data;
-    })
+    this.selectedProfileId = this.route.snapshot.paramMap.get("id");
+    let activeProfileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
+    if (activeProfileId !== this.selectedProfileId) {
+      this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
+        .pipe(take(1))
+        .subscribe(value => {
+          this.store.dispatch(new GetGuestProfileDetails(value));
+        }, error => console.log(throwError(error)));
+
+      this.store.select('guestProfile').subscribe(data => {
+        this.userProfileState = data;
+      })
+
+    } else {
+      this.store.select('userProfile').subscribe(data => {
+        this.userProfileState = data;
+      });
+    }
   }
 
 }

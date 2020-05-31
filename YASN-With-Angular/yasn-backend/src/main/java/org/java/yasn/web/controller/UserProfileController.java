@@ -27,7 +27,7 @@ public class UserProfileController {
 
 
   @GetMapping(value = "/{profileId}", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<?> updateAvatar(@PathVariable String profileId) {
+  public ResponseEntity<?> getUserProfileInfo(@PathVariable String profileId) {
     UserProfileServiceModel userProfile = userProfileService.findUserProfileById(profileId);
     Map<String, String> response = new HashMap<>();
     response.put("userProfileId", userProfile.getId());

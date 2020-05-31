@@ -16,7 +16,6 @@ const routes: Routes = [
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
   {path: "user/login", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},
-  {path: "user/profile", canActivate: [AuthGuard], component: UserProfileComponent},
 ];
 
 @NgModule({
@@ -24,7 +23,7 @@ const routes: Routes = [
     RouterModule.forRoot(
       routes,
       {
-        scrollPositionRestoration: "disabled",
+        scrollPositionRestoration: "enabled",
         errorHandler: error => {
           window.location.replace("http://localhost:4200/404");
           console.log(throwError(error));

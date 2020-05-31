@@ -88,4 +88,8 @@ export class AuthService {
       return !!localStorage.getItem("activeUser")
   }
 
+  getActiveUser(): UserAuthModel {
+    return JSON.parse(localStorage.getItem("activeUser"));
+  }
+
 }
