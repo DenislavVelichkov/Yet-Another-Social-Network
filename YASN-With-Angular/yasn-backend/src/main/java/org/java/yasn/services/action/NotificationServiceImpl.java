@@ -3,7 +3,6 @@ package org.java.yasn.services.action;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +15,6 @@ import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.web.models.binding.NotificationModel;
 import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -57,7 +55,7 @@ public class NotificationServiceImpl implements NotificationService {
         .findById(notificationModel.getRecipientId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
     UserProfile sender = this.userProfileRepository
-        .findById(notificationModel.getRecipientId())
+        .findById(notificationModel.getSenderId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
     Notification notification = new Notification();
@@ -84,22 +82,11 @@ public class NotificationServiceImpl implements NotificationService {
   @Override
   public Collection<NotificationResponseModel> getAllNotifications(NotificationModel notificationModel) {
 
-    Optional<UserProfile> currentUser =
-        this.userProfileRepository.findById(notificationModel.getSenderId());
-
-    if (currentUser.isEmpty()) {
-      throw new UsernameNotFoundException(ExceptionMessages.USER_NOT_FOUND);
-    }
-
-
     Collection<Notification> notifications =
-        this.notificationRepository.findBySenderId(notificationModel.getSenderId());
+        this.notificationRepository.findByRecipientId(notificationModel.getRecipientId());
 
     return notifications.stream()
-                        .filter(notification -> this.userProfileRepository
-                            .findById(notification.getSender().getId()).get().getFriends().contains(currentUser.get()))
-                        .map(notification -> this.modelMapper
-                            .map(notification, NotificationResponseModel.class))
+                        .map(notification -> this.modelMapper.map(notification, NotificationResponseModel.class))
                         .collect(Collectors.toCollection(LinkedList::new));
   }
 

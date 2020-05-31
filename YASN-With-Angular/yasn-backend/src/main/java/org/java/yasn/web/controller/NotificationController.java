@@ -40,13 +40,21 @@ public class NotificationController {
     return ResponseEntity.ok(response);
   }
 
+  @PostMapping(value = "/send-friend-request", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public ResponseEntity<NotificationResponseModel> sendFriendRequest(@RequestBody NotificationModel notification) {
+
+    NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
+    this.mapper.validate();
+
+    return ResponseEntity.ok(response);
+  }
+
   @PostMapping("/get-all-notifications")
   public ResponseEntity<Collection<NotificationResponseModel>> getAllNotifications(
       @RequestBody NotificationModel notificationModel) {
 
     Collection<NotificationResponseModel> response =
         this.notificationService.getAllNotifications(notificationModel);
-
     this.mapper.validate();
 
     return ResponseEntity.ok(response);

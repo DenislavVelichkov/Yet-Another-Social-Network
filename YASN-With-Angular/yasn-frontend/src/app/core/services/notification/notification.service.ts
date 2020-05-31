@@ -33,8 +33,8 @@ export class NotificationService {
       })
   }
 
-  getAllPersonalNotifications(senderId: string): void {
-    this.httpRepo.create<Notification[]>(EndpointUrls.notifications + '/get-all-notifications', {senderId: senderId})
+  getAllPersonalNotifications(recipientId: string): void {
+    this.httpRepo.create<Notification[]>(EndpointUrls.notifications + '/get-all-notifications', {recipientId: recipientId})
       .pipe(take(1))
       .subscribe((value: Notification[]) => {
         this.store.dispatch(new DisplayAllNotificationsAction({

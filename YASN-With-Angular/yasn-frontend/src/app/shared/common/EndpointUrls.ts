@@ -10,8 +10,8 @@ export const EndpointUrls = {
   userProfileTimeline: "/api/user-profile/timeline/",
   userProfileGuest: "/api/user-profile/guest/",
   selectUserProfile: "/api/user-profile/",
-  sendFriendRequest: "/api/actions/send-friend-request",
-  acceptFriendRequest: "/api/actions/accept-friend/",
+  sendFriendRequest: "/api/notification/send-friend-request",
+  acceptFriendRequest: "/api/notification/accept-friend/",
   addFriend: "/api/actions/add-friend",
-  unfriendRequest: "/api/actions/unfriend/",
+  unfriendRequest: "/api/notification/unfriend/",
 }

@@ -16,7 +16,6 @@ import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.services.wall.WallService;
 import org.java.yasn.web.models.binding.LikeAPostModel;
 import org.java.yasn.web.models.binding.NotificationModel;
-import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,13 +43,6 @@ public class ActionApiController {
   public void unLikePostAction(@RequestBody LikeAPostModel likeAPostModel) {
 
     wallService.unlikePost(likeAPostModel);
-  }
-
-  @PostMapping(value = "", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<NotificationResponseModel> sendFriendRequest(@RequestBody NotificationModel notification) {
-    NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
-
-    return ResponseEntity.ok(response);
   }
 
   @PostMapping("/add-friend")
