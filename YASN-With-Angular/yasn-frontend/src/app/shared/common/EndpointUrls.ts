@@ -1,5 +1,7 @@
 export const EndpointUrls = {
   websocketApi: "/yasn-websocket",
+  websocketStompFactory: "ws://localhost:8000/stomp",
+  websocketSockJSFactory: "http://localhost:4200/sockjs-node",
   loginUser: "/api/user/login",
   registerUser: "/api/user/register",
   postToPublicWall: "/api/home/news-feed/post",

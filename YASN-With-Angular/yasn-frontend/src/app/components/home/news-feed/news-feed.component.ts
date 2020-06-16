@@ -52,10 +52,12 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.websocketService.getData("/new-post-created").subscribe((post: Post) => {
+    this.websocketService.connect("/new-post-created");
+    this.websocketService.getData().subscribe((post: Post) => {
       if (post) {
         this.store.dispatch(new CreatePost({post: [post]}));
       }
+
     });
   }
 
@@ -90,6 +92,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.websocketService.disconnect();
   }
 
 }

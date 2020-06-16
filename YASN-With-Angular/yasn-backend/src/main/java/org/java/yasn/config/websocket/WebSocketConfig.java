@@ -19,12 +19,15 @@ public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry registry) {
     registry.enableSimpleBroker("/new-post-created");
-    registry.setApplicationDestinationPrefixes("/yasn-websocket");
+    registry.setApplicationDestinationPrefixes("/ws");
+    registry.setUserDestinationPrefix("/stomp");
   }
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/yasn-websocket").withSockJS();
+    registry.addEndpoint("/yasn-websocket")
+            .setAllowedOrigins("http://localhost:4200")
+            .withSockJS();
   }
 
   @Override
