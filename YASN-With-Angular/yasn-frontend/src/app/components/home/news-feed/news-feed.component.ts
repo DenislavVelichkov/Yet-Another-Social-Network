@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {NewsFeedService} from "../../../core/services/news-feed/news-feed.service";
@@ -11,21 +11,29 @@ import {take} from "rxjs/operators";
 import {LikeAPost} from "../../../core/store/post/LikeAPost";
 import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.action";
 import {UnlikeAPostAction} from "../../../core/store/post/actions/unlike-a-post.action";
-import {throwError} from "rxjs";
+import {Subscription, throwError} from "rxjs";
+import {WebsocketService} from "../../../core/services/websocket/websocket.service";
+import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 
 @Component({
   selector: 'app-news-feed',
   templateUrl: './news-feed.component.html',
   styleUrls: ['./news-feed.component.css']
 })
-export class NewsFeedComponent implements OnInit {
+export class NewsFeedComponent implements OnInit, OnDestroy {
+
   public userProfileInfo: UserProfileState;
+
   public showComments: boolean;
+
   public newsFeedPosts: Post[];
+
+  private subscription: Subscription;
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>,
-              private http: HttpRepositoryService) {
+              private http: HttpRepositoryService,
+              private websocketService: WebsocketService) {
   }
 
   ngOnInit() {
@@ -40,8 +48,15 @@ export class NewsFeedComponent implements OnInit {
 
     this.newsService.getAllNewsFeeds(currentUserProfileId);
 
-    this.store.select('newsFeed').subscribe(value =>
-      this.newsFeedPosts = value.allWallPosts);
+    this.subscription = this.store.select('newsFeed').subscribe(value =>{
+      this.newsFeedPosts = value.allWallPosts;
+    });
+
+    this.websocketService.getData("/new-post-created").subscribe((post: Post) => {
+      if (post) {
+        this.store.dispatch(new CreatePost({post: [post]}));
+      }
+    });
   }
 
   postCommentPop() {
@@ -71,6 +86,10 @@ export class NewsFeedComponent implements OnInit {
 
   convertTime(date: Date): string {
     return timeAgoConverter(date);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

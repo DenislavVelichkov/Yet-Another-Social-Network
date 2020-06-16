@@ -19,6 +19,7 @@ import {PageNotFoundComponent} from "./components/error/page-not-found/page-not-
 import {LoadingComponent} from './components/loading/loading.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {WebsocketService} from "./core/services/websocket/websocket.service";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthService,
     CookieService,
+    WebsocketService
   ],
 
   bootstrap: [AppComponent],

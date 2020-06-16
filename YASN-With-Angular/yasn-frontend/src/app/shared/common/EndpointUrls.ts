@@ -1,4 +1,5 @@
 export const EndpointUrls = {
+  websocketApi: "/yasn-websocket",
   loginUser: "/api/user/login",
   registerUser: "/api/user/register",
   postToPublicWall: "/api/home/news-feed/post",

@@ -10,6 +10,7 @@ import org.java.yasn.web.models.binding.WallPostModel;
 import org.java.yasn.web.models.response.CommentResponseModel;
 import org.java.yasn.web.models.response.WallPostResponseModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class WallController {
 
   private final WallService wallService;
+  private final SimpMessageSendingOperations sendAction;
 
 
   @PostMapping(value = "/post", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
@@ -29,6 +31,7 @@ public class WallController {
       @RequestPart(name = "postPicture", required = false) MultipartFile[] pictures) throws IOException {
 
     WallPostResponseModel response = this.wallService.createPost(post, pictures);
+    sendAction.convertAndSend("/new-post-created", response);
 
     return ResponseEntity.ok(response);
   }

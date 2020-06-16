@@ -54,7 +54,7 @@ export class NewsFeedService {
         this.store.dispatch(new CreatePost({post: [post]}))
       }, error => {
         this.store.dispatch(new StopLoadingAction({loading: false}));
-        throwError(error)
+        console.log(throwError(error));
       });
 
   }
