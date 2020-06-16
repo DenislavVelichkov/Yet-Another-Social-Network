@@ -1,7 +1,7 @@
 .yasn-loading-bar {
-  z-index: 100;
+  z-index: 10000;
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 50%;
   width: 15%;
   overflow: hidden;
@@ -9,7 +9,7 @@
 
 .yasn-loading-bar img {
   display: block;
-  margin: auto auto auto;
+  margin: auto;
   height: auto;
   width: 100%;
   border-radius: 50%;

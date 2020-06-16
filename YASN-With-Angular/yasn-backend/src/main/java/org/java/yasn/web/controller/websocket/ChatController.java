@@ -1,4 +1,4 @@
-package org.java.yasn.web.controller;
+package org.java.yasn.web.controller.websocket;
 
 import org.java.yasn.data.models.chat.ChatMessage;
 import org.springframework.http.ResponseEntity;

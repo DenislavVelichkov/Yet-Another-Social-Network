@@ -1,4 +1,4 @@
-package org.java.yasn.web.controller;
+package org.java.yasn.web.controller.websocket;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.data.models.chat.ChatMessage;

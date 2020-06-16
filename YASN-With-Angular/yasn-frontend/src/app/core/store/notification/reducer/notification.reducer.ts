@@ -19,7 +19,9 @@ export function notificationReducer(state: NotificationState = initialState,
     case NotificationActionTypes.SEND_FRIEND_REQUEST:
 
       return sendFriendRequest(state, action.payload)
+
     default:
+
       return state;
   }
 
@@ -54,7 +56,6 @@ export function notificationReducer(state: NotificationState = initialState,
           compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
 
     });
-
   }
 
   function compareDatesDesc(createdOnA: Date, createdOnB: Date) {
