@@ -3,7 +3,7 @@ import {AuthService} from "../../../core/services/authentication/auth.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../core/http/http-repository.service";
-import {throwError} from "rxjs";
+import {Subscription, throwError} from "rxjs";
 import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions/update-active-profile.action";
 import {Notification} from "../../../core/store/notification/Notification";
 import {timeAgoConverter} from "../../../core/util/util";
@@ -23,9 +23,10 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   profilePictureUrl: string;
   userFullName: string;
   notifications: Notification[] = [];
+  notificationsSubscription$: Subscription;
 
   constructor(private auth: AuthService,
-              private store: Store<AppState>,
+              private store$: Store<AppState>,
               private httpRepo: HttpRepositoryService,
               private notificationService: NotificationService,
               private websocketService: WebsocketService) {
@@ -38,29 +39,27 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
     this.httpRepo.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.profileId)
       .subscribe(value => {
-        this.store.dispatch(new UpdateActiveProfileAction(value))
+        this.store$.dispatch(new UpdateActiveProfileAction(value))
       }, error => throwError(error))
 
-    this.store.select('userProfile').subscribe(value => {
+    this.store$.select('userProfile').subscribe(value => {
       this.userFullName = value.userFullName;
       this.profilePictureUrl = value.avatarPictureUrl;
     })
 
     this.notificationService.getAllPersonalNotifications(this.profileId)
 
-    this.store.select('notifications').subscribe(value => {
+    this.store$.select('notifications').subscribe(value => {
       if (value.allPersonalNotifications.get(this.profileId)) {
         this.notifications = value.allPersonalNotifications.get(this.profileId);
       }
     });
 
-
-
-    this.websocketService.getFriendRequestsData().subscribe( (notification: string) => {
+    this.notificationsSubscription$ = this.websocketService.getFriendRequestsData().subscribe( (notification: string) => {
       let newNotification: Notification =  Object.assign({}, JSON.parse(notification));
 
       if (newNotification.recipientId === this.profileId) {
-        this.store.dispatch(new SendFrRequestAction({notification: newNotification}));
+        this.store$.dispatch(new SendFrRequestAction({notification: newNotification}));
       }
     }, error => console.log(new Error(error)));
 
@@ -76,6 +75,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.websocketService.disconnect();
+    this.notificationsSubscription$.unsubscribe();
   }
 
 }

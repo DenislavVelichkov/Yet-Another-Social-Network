@@ -23,7 +23,7 @@ export class UserProfileHeaderComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private http: HttpRepositoryService,
-              private store: Store<AppState>,
+              private store$: Store<AppState>,
               private snackBar: MatSnackBar) {
   }
 

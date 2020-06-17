@@ -27,25 +27,25 @@ export class CreateCommentComponent implements OnInit {
 
   @Input('postId') postId: string;
 
-  constructor(private store: Store<AppState>,
+  constructor(private store$: Store<AppState>,
               private newsFeedService: NewsFeedService) {
     this.commentModel = new CommentBindingModel();
   }
 
   ngOnInit(): void {
 
-    this.store.select('userProfile').subscribe(value => {
+    this.store$.select('userProfile').subscribe(value => {
       this.commentAvatar = value;
     })
 
-    this.store.select('auth').subscribe(value => {
+    this.store$.select('auth').subscribe(value => {
       this.userProfile = value.activeUser;
     })
   }
 
   postComment(): void {
     this.commentModel.commentOnPostId = this.postId;
-    this.store.dispatch(new StartLoadingAction({loading: true}));
+    this.store$.dispatch(new StartLoadingAction({loading: true}));
 
     const fileUpload = this.uploadCommentPhoto.nativeElement;
     let files: Array<File> = [];
@@ -59,6 +59,6 @@ export class CreateCommentComponent implements OnInit {
       this.commentModel,
       files)
 
-    this.store.dispatch(new StopLoadingAction({loading: false}));
+    this.store$.dispatch(new StopLoadingAction({loading: false}));
   }
 }

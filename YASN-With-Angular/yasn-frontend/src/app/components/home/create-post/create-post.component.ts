@@ -35,7 +35,7 @@ export class CreatePostComponent implements OnInit {
   private activeProfile: UserAuthModel;
 
   constructor(private httpRepo: HttpRepositoryService,
-              private store: Store<AppState>,
+              private store$: Store<AppState>,
               private newsFeedService: NewsFeedService,
               private notificationService: NotificationService) {
   }
@@ -43,12 +43,12 @@ export class CreatePostComponent implements OnInit {
   ngOnInit() {
     this.emojiIcon = 'fas fa-smile';
     this.postModel = new PostBindingModel();
-    this.store.select('auth')
+    this.store$.select('auth')
       .subscribe(value => this.activeProfile = value.activeUser);
   }
 
   createPost() {
-    this.store.dispatch(new StartLoadingAction({loading: true}));
+    this.store$.dispatch(new StartLoadingAction({loading: true}));
     let userId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
     this.newsFeedService.createPost(this.postModel, userId, this.files);
@@ -56,7 +56,7 @@ export class CreatePostComponent implements OnInit {
    /* this.notificationService.createNotificationOnNewPost(
       JSON.parse(localStorage.getItem("activeUser"))._userProfileId);*/
 
-    this.store.dispatch(new StopLoadingAction({loading: false}));
+    this.store$.dispatch(new StopLoadingAction({loading: false}));
   }
 
   onEmojiClick() {

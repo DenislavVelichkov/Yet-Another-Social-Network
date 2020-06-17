@@ -23,7 +23,7 @@ export class UserRegisterComponent implements OnInit {
   constructor(private auth: AuthService,
               private router: Router,
               private title: Title,
-              private store: Store<AppState>,
+              private store$: Store<AppState>,
               private snackBar: MatSnackBar) {
   }
 
@@ -44,7 +44,7 @@ export class UserRegisterComponent implements OnInit {
 
     this.auth.registerUser(formData).subscribe(data => {
 
-      this.store.dispatch(new RegisterAction({
+      this.store$.dispatch(new RegisterAction({
         isRegistered: data['isUserRegistered'],
         loading: true
       }));
@@ -56,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
         this.errors.forEach(error => alert(error['defaultMessage']));
         this.router.navigate(['/']).catch(reason => console.log(throwError(reason)));
       } else {
-        this.store.dispatch(new RegisterSuccessAction({
+        this.store$.dispatch(new RegisterSuccessAction({
           isRegistered: data['isUserRegistered'],
           loading: false
         }));

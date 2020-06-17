@@ -31,14 +31,14 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   private postSubscription: Subscription;
 
   constructor(private newsService: NewsFeedService,
-              private store: Store<AppState>,
+              private store$: Store<AppState>,
               private http: HttpRepositoryService,
               private websocketService: WebsocketService) {
   }
 
   ngOnInit() {
 
-    this.store.select('userProfile')
+    this.store$.select('userProfile')
       .subscribe(value => {
         this.userProfileInfo = value;
       })
@@ -48,14 +48,14 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
     this.newsService.getAllNewsFeeds(currentUserProfileId);
 
-    this.postSubscription = this.store.select('newsFeed').subscribe(value => {
+    this.store$.select('newsFeed').subscribe(value => {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.websocketService.getPostsData().subscribe( (post: string) => {
+    this.postSubscription = this.websocketService.getPostsData().subscribe( (post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
 
-      this.store.dispatch(new CreatePost({post: [newPost]}));
+      this.store$.dispatch(new CreatePost({post: [newPost]}));
     }, error => console.log(throwError(error)));
 
   }
@@ -73,13 +73,13 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     if (isPostAlreadyLiked) {
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(() => this.store.dispatch(
+        .subscribe(() => this.store$.dispatch(
           new UnlikeAPostAction(likeModel)), error => throwError(error));
 
     } else {
       this.http.create(EndpointUrls.likeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(() => this.store.dispatch(
+        .subscribe(() => this.store$.dispatch(
           new LikeAPostAction(likeModel)), error => throwError(error));
     }
 
@@ -90,7 +90,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.postSubscription.unsubscribe();
   }
 
 }

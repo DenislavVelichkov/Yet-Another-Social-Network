@@ -14,7 +14,7 @@ import {DisplayAllNotificationsAction} from "../../store/notification/actions/di
 export class NotificationService {
 
   constructor(private httpRepo: HttpRepositoryService,
-              private store: Store<AppState>) {
+              private store$: Store<AppState>) {
   }
 
   createNotificationOnNewPost(senderId: string): void {
@@ -25,7 +25,7 @@ export class NotificationService {
       })
       .pipe(take(1))
       .subscribe((data: Notification) => {
-        // this.store.dispatch(new CreatePostNotificationAction({}))
+        // this.store$.dispatch(new CreatePostNotificationAction({}))
       })
   }
 
@@ -36,7 +36,7 @@ export class NotificationService {
       .pipe(take(1))
       .subscribe((value: Notification[]) => {
         let allNotifications = [recipientId, value];
-        this.store.dispatch(new DisplayAllNotificationsAction(allNotifications));
+        this.store$.dispatch(new DisplayAllNotificationsAction(allNotifications));
       }, error => console.log(throwError(error)));
   }
 

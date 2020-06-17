@@ -20,7 +20,7 @@ export class UnAuthorizedNavbarComponent implements OnInit {
   constructor(private auth: AuthService,
               private router: Router,
               private title: Title,
-              private store: Store<AppState>) {
+              private store$: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class UnAuthorizedNavbarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.store.dispatch(new StartLoadingAction({loading: true}));
+    this.store$.dispatch(new StartLoadingAction({loading: true}));
     this.auth.loginUser(this.userLoginBindingModel);
   }
 }

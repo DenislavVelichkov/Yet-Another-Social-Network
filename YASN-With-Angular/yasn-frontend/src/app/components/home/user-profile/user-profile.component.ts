@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   public isGuestProfile: boolean = false;
   public isActiveProfile: boolean = false;
 
-  constructor(private store: Store<AppState>,
+  constructor(private store$: Store<AppState>,
               private route: ActivatedRoute,
               private auth: AuthService,
               private http: HttpRepositoryService) {
@@ -44,10 +44,10 @@ export class UserProfileComponent implements OnInit {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
         .pipe(take(1))
         .subscribe(value => {
-          this.store.dispatch(new GetGuestProfileDetails(value));
+          this.store$.dispatch(new GetGuestProfileDetails(value));
         }, error => console.log(throwError(error)));
 
-      this.store.select('guestProfile').subscribe(data => {
+      this.store$.select('guestProfile').subscribe(data => {
         this.userProfileState = data;
         this.isGuestProfile = true;
         this.isActiveProfile = false;
@@ -58,10 +58,10 @@ export class UserProfileComponent implements OnInit {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
         .pipe(take(1))
         .subscribe(value => {
-          this.store.dispatch(new UpdateActiveProfileAction(value));
+          this.store$.dispatch(new UpdateActiveProfileAction(value));
         }, error => console.log(throwError(error)));
 
-      this.store.select('userProfile').subscribe(data => {
+      this.store$.select('userProfile').subscribe(data => {
         this.userProfileState = data;
         this.isGuestProfile = false;
         this.isActiveProfile = true;

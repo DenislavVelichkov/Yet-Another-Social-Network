@@ -10,9 +10,9 @@ import {NotificationsEndpointTypes} from "../notification/NotificationTypes";
 })
 export class WebsocketService {
 
-  private postData: Subscriber<any>;
+  private postData$: Subscriber<any>;
 
-  private notificationsData: Subscriber<any>;
+  private notificationsData$: Subscriber<any>;
 
   private stompClient: Client = null;
 
@@ -24,9 +24,9 @@ export class WebsocketService {
 
     _this.stompClient = new Client({
       brokerURL: EndpointUrls.websocketStompFactory,
-      debug: function (str) {
+      /*debug: function (str) {
         console.log(str);
-      },
+      },*/
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
@@ -47,11 +47,11 @@ export class WebsocketService {
     _this.stompClient.onConnect = function (frame) {
 
       _this.stompClient.subscribe(NotificationsEndpointTypes.createNewWallPost, function (data) {
-        _this.postData.next(data.body);
+        _this.postData$.next(data.body);
       });
 
       _this.stompClient.subscribe(NotificationsEndpointTypes.sendNewFriendRequest, function (data) {
-        _this.notificationsData.next(data.body);
+        _this.notificationsData$.next(data.body);
       });
 
     };
@@ -69,11 +69,11 @@ export class WebsocketService {
 
   getPostsData<T>(): Observable<T> {
 
-    return new Observable<T>(subscriber => this.postData = subscriber);
+    return new Observable<T>(subscriber => this.postData$ = subscriber);
   }
 
   getFriendRequestsData<T>(): Observable<T> {
 
-    return new Observable<T>(subscriber => this.notificationsData = subscriber);
+    return new Observable<T>(subscriber => this.notificationsData$ = subscriber);
   }
 }

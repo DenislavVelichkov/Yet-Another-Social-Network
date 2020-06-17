@@ -21,7 +21,7 @@ export class AuthService {
   constructor(private httpRepo: HttpRepositoryService,
               private cookieService: CookieService,
               private router: Router,
-              private store: Store<AppState>) {
+              private store$: Store<AppState>) {
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
@@ -33,8 +33,8 @@ export class AuthService {
           this.router.navigate(['/home']).catch(reason => console.log(throwError(reason)));
         },
         error => {
-          this.store.dispatch(new AuthenticatingFailedAction({error: error}))
-          this.store.dispatch(new StopLoadingAction({loading: false}))
+          this.store$.dispatch(new AuthenticatingFailedAction({error: error}))
+          this.store$.dispatch(new StopLoadingAction({loading: false}))
           this.router.navigate(['/user/login']).catch(reason => throwError(reason))
           console.log(throwError(error));
         });
@@ -50,7 +50,7 @@ export class AuthService {
       isAuthenticated: false,
     }
 
-    this.store.dispatch(new LogoutAction(nullPayload));
+    this.store$.dispatch(new LogoutAction(nullPayload));
 
     localStorage.clear()
 
@@ -71,13 +71,13 @@ export class AuthService {
       expirationDate);
 
     localStorage.setItem("activeUser", JSON.stringify(authenticatedUser))
-    this.store.dispatch(new AuthenticatedAction(
+    this.store$.dispatch(new AuthenticatedAction(
       {
         activeUser: authenticatedUser,
         isAuthenticated: true,
         isLoggedIn: true
       }));
-    this.store.dispatch(new StopLoadingAction({loading: false}))
+    this.store$.dispatch(new StopLoadingAction({loading: false}))
   }
 
   registerUser(formData: FormData): Observable<Object> {

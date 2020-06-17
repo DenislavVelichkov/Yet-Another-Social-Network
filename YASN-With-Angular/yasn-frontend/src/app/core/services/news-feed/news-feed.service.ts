@@ -19,7 +19,7 @@ import {WebsocketService} from "../websocket/websocket.service";
 export class NewsFeedService {
 
   constructor(private httpRepo: HttpRepositoryService,
-              private store: Store<AppState>,
+              private store$: Store<AppState>,
               private websocketService: WebsocketService) {
   }
 
@@ -28,7 +28,7 @@ export class NewsFeedService {
     this.httpRepo.get<Post[]>(EndpointUrls.pullAllNews + userProfileId)
       .pipe(take(1))
       .subscribe((value: Post[]) => {
-        this.store.dispatch(new DisplayAllPostsAction({allWallPosts: value}))
+        this.store$.dispatch(new DisplayAllPostsAction({allWallPosts: value}))
       }, error => throwError(error));
   }
 
@@ -53,7 +53,7 @@ export class NewsFeedService {
       .pipe(take(1))
       .subscribe(post => {
       }, error => {
-        this.store.dispatch(new StopLoadingAction({loading: false}));
+        this.store$.dispatch(new StopLoadingAction({loading: false}));
         console.log(throwError(error));
       });
   }
@@ -61,7 +61,7 @@ export class NewsFeedService {
   createComment(userProfileId: string,
                 commentModel: CommentBindingModel,
                 pictures: File[]) {
-    this.store.dispatch(new StartLoadingAction({loading: true}));
+    this.store$.dispatch(new StartLoadingAction({loading: true}));
 
     commentModel.commentOwnerId = userProfileId;
     let commentBlob = new Blob([JSON.stringify(commentModel)], {type: 'application/json'});
@@ -75,12 +75,12 @@ export class NewsFeedService {
 
     this.httpRepo.create<PostComment>(EndpointUrls.postComment, commentForm)
       .pipe(take(1)).subscribe((data: PostComment) => {
-      this.store.dispatch(new CommentOnPostAction({comment: data}));
+      this.store$.dispatch(new CommentOnPostAction({comment: data}));
     }, error => {
-      this.store.dispatch(new StopLoadingAction({loading: false}));
+      this.store$.dispatch(new StopLoadingAction({loading: false}));
       throwError(error);
     });
 
-    this.store.dispatch(new StopLoadingAction({loading: false}));
+    this.store$.dispatch(new StopLoadingAction({loading: false}));
   }
 }
