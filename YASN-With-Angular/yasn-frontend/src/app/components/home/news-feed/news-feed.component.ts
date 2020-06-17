@@ -13,6 +13,7 @@ import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.acti
 import {UnlikeAPostAction} from "../../../core/store/post/actions/unlike-a-post.action";
 import {Subscription, throwError} from "rxjs";
 import {WebsocketService} from "../../../core/services/websocket/websocket.service";
+import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 
 @Component({
   selector: 'app-news-feed',
@@ -50,6 +51,13 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     this.postSubscription = this.store.select('newsFeed').subscribe(value => {
       this.newsFeedPosts = value.allWallPosts;
     });
+
+    this.websocketService.getPostsData().subscribe( (post: string) => {
+      let newPost: Post = Object.assign({}, JSON.parse(post));
+
+      this.store.dispatch(new CreatePost({post: [newPost]}));
+    }, error => console.log(throwError(error)));
+
   }
 
   postCommentPop() {

@@ -12,8 +12,6 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
 import {WebsocketService} from "../../../core/services/websocket/websocket.service";
 import {SendFrRequestAction} from "../../../core/store/notification/actions/send-fr-request.action";
-import {Post} from "../../../core/store/post/Post";
-import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -36,6 +34,8 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
+    this.websocketService.connect();
+
     this.httpRepo.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.profileId)
       .subscribe(value => {
         this.store.dispatch(new UpdateActiveProfileAction(value))
@@ -54,11 +54,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.websocketService.getPostsData().subscribe( (post: string) => {
-      let newPost: Post = Object.assign({}, JSON.parse(post));
 
-      this.store.dispatch(new CreatePost({post: [newPost]}));
-    }, error => console.log(throwError(error)));
 
     this.websocketService.getFriendRequestsData().subscribe( (notification: string) => {
       let newNotification: Notification =  Object.assign({}, JSON.parse(notification));
@@ -66,7 +62,6 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
       if (newNotification.recipientId === this.profileId) {
         this.store.dispatch(new SendFrRequestAction({notification: newNotification}));
       }
-
     }, error => console.log(new Error(error)));
 
   }

@@ -44,10 +44,22 @@ export class WebsocketService {
       console.log(ev);
     };
 
+    _this.stompClient.onConnect = function (frame) {
+
+      _this.stompClient.subscribe(NotificationsEndpointTypes.createNewWallPost, function (data) {
+        _this.postData.next(data.body);
+      });
+
+      _this.stompClient.subscribe(NotificationsEndpointTypes.sendNewFriendRequest, function (data) {
+        _this.notificationsData.next(data.body);
+      });
+
+    };
+
     _this.stompClient.activate();
   }
 
-  async disconnect() {
+  disconnect() {
 
     if (this.stompClient != null) {
       this.stompClient.deactivate();
@@ -56,27 +68,11 @@ export class WebsocketService {
   }
 
   getPostsData<T>(): Observable<T> {
-    this.connect();
-
-    const _this = this;
-    _this.stompClient.onConnect = function (frame) {
-      _this.stompClient.subscribe(NotificationsEndpointTypes.createNewWallPost, function (data) {
-        _this.postData.next(data.body);
-      });
-    };
 
     return new Observable<T>(subscriber => this.postData = subscriber);
   }
 
   getFriendRequestsData<T>(): Observable<T> {
-    this.connect();
-
-    const _this = this;
-    _this.stompClient.onConnect = function (frame) {
-      _this.stompClient.subscribe(NotificationsEndpointTypes.sendNewFriendRequest, function (data) {
-        _this.notificationsData.next(data.body);
-      });
-    };
 
     return new Observable<T>(subscriber => this.notificationsData = subscriber);
   }
