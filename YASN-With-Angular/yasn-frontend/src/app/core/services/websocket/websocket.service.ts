@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subscriber} from "rxjs";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
-import {EnvironmentUrlService} from "../../http/environment-url.service";
 import {Client} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client';
 
@@ -14,11 +13,9 @@ export class WebsocketService {
 
   stompClient: Client = null;
 
-  constructor(private environment: EnvironmentUrlService) {
-  }
+  constructor() {}
 
   connect(path: string) {
-    const token = JSON.parse(localStorage.getItem('activeUser'))._token;
 
     this.stompClient = new Client({
       brokerURL: EndpointUrls.websocketStompFactory,
@@ -28,7 +25,6 @@ export class WebsocketService {
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      connectHeaders: {Authorization: token}
     });
 
     this.stompClient.webSocketFactory = function () {
