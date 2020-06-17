@@ -28,7 +28,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   public newsFeedPosts: Post[];
 
-  private subscription: Subscription;
+  private postSubscription: Subscription;
 
   constructor(private newsService: NewsFeedService,
               private store: Store<AppState>,
@@ -48,17 +48,18 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
     this.newsService.getAllNewsFeeds(currentUserProfileId);
 
-    this.subscription = this.store.select('newsFeed').subscribe(value =>{
+    this.postSubscription = this.store.select('newsFeed').subscribe(value => {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.websocketService.connect(EndpointUrls.websocketTopicCreatedNewPost);
+    this.websocketService.connect(EndpointUrls.websocketTopicCreatedNewPost)
+      .then(() => {
+        this.websocketService.getPostsData().subscribe((post: string) => {
+          let newPost: Post = Object.assign({}, JSON.parse(post));
 
-    this.websocketService.getData().subscribe((post: string) => {
-      let newPost: Post = Object.assign({}, JSON.parse(post));
-
-        this.store.dispatch(new CreatePost({post: [newPost]}));
-    }, error => console.log(throwError(error)));
+          this.store.dispatch(new CreatePost({post: [newPost]}));
+        }, error => console.log(throwError(error)));
+      });
   }
 
   postCommentPop() {
@@ -75,13 +76,13 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
         .subscribe(() => this.store.dispatch(
-            new UnlikeAPostAction(likeModel)), error => throwError(error));
+          new UnlikeAPostAction(likeModel)), error => throwError(error));
 
     } else {
       this.http.create(EndpointUrls.likeAPost, likeModel)
         .pipe(take(1))
         .subscribe(() => this.store.dispatch(
-            new LikeAPostAction(likeModel)), error => throwError(error));
+          new LikeAPostAction(likeModel)), error => throwError(error));
     }
 
   }
@@ -91,7 +92,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.postSubscription.unsubscribe();
     this.websocketService.disconnect();
   }
 

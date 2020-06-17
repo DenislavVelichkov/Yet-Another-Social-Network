@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../../core/services/authentication/auth.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
@@ -10,13 +10,15 @@ import {timeAgoConverter} from "../../../core/util/util";
 import {NotificationService} from "../../../core/services/notification/notification.service";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
+import {WebsocketService} from "../../../core/services/websocket/websocket.service";
+import {SendFrRequestAction} from "../../../core/store/notification/actions/send-fr-request.action";
 
 @Component({
   selector: 'app-authorized-navbar',
   templateUrl: './authorized-navbar.component.html',
-  styleUrls: ['./authorized-navbar.component.css','../un-authorized-navbar/un-authorized-navbar.component.css']
+  styleUrls: ['./authorized-navbar.component.css', '../un-authorized-navbar/un-authorized-navbar.component.css']
 })
-export class AuthorizedNavbarComponent implements OnInit {
+export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   profileId: string;
   profilePictureUrl: string;
   userFullName: string;
@@ -25,7 +27,8 @@ export class AuthorizedNavbarComponent implements OnInit {
   constructor(private auth: AuthService,
               private store: Store<AppState>,
               private httpRepo: HttpRepositoryService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private websocketService: WebsocketService) {
   }
 
   ngOnInit() {
@@ -49,6 +52,17 @@ export class AuthorizedNavbarComponent implements OnInit {
       }
     });
 
+    this.websocketService.connect(EndpointUrls.websocketNotificationFriendRequest)
+      .then(() => {
+        this.websocketService.getFriendRequestsData().subscribe((data: string) => {
+          let newNotification: Notification = Object.assign({}, JSON.parse(data));
+
+          if (newNotification.recipientId === this.profileId) {
+            this.store.dispatch(new SendFrRequestAction({notification: newNotification}));
+          }
+
+        }, error => console.log(throwError(error)));
+      })
   }
 
   logout() {
@@ -57,6 +71,10 @@ export class AuthorizedNavbarComponent implements OnInit {
 
   convertTime(date: Date): string {
     return timeAgoConverter(date)
+  }
+
+  ngOnDestroy(): void {
+    this.websocketService.disconnect();
   }
 
 }

@@ -3,19 +3,23 @@ import {Observable, Subscriber} from "rxjs";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {Client} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client';
+import {NotificationsEndpointTypes} from "../notification/NotificationTypes";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
-  data: Subscriber<any>;
+  postData: Subscriber<any>;
+
+  notificationsData: Subscriber<any>;
 
   stompClient: Client = null;
 
-  constructor() {}
+  constructor() {
+  }
 
-  connect(path: string) {
+ async connect(path: string) {
 
     this.stompClient = new Client({
       brokerURL: EndpointUrls.websocketStompFactory,
@@ -33,10 +37,21 @@ export class WebsocketService {
 
     const _this = this;
 
-    _this.stompClient.onConnect = function (f) {
-      _this.stompClient.subscribe(path, function (data) {
-        _this.data.next(data.body);
-      })
+    _this.stompClient.onConnect = function () {
+
+      switch (path) {
+        case NotificationsEndpointTypes.createNewWallPost:
+          _this.stompClient.subscribe(NotificationsEndpointTypes.createNewWallPost, function (data) {
+            _this.postData.next(data.body);
+          })
+          break;
+        case NotificationsEndpointTypes.sendNewFriendRequest:
+          _this.stompClient.subscribe(NotificationsEndpointTypes.sendNewFriendRequest, function (data) {
+            _this.notificationsData.next(data.body);
+          })
+          break
+      }
+
     };
 
     _this.stompClient.onWebSocketError = function (ev) {
@@ -56,8 +71,12 @@ export class WebsocketService {
     }
   }
 
-  getData<T>(): Observable<T> {
-    return new Observable<T>(subscriber => this.data = subscriber);
+  getPostsData<T>(): Observable<T> {
+    return new Observable<T>(subscriber => this.postData = subscriber);
+  }
+
+  getFriendRequestsData<T>(): Observable<T> {
+    return new Observable<T>(subscriber => this.notificationsData = subscriber);
   }
 
 }

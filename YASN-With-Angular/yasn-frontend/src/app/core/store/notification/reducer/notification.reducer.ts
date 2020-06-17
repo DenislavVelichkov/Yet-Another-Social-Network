@@ -45,9 +45,9 @@ export function notificationReducer(state: NotificationState = initialState,
   function sendFriendRequest(state: NotificationState, payload) {
 
     return produce(state, draftState => {
-      let notificationToAdd: Notification[] = [payload.notification];
-
-      draftState.allPersonalNotifications.set(payload.recipientId, [...notificationToAdd])
+      draftState.allPersonalNotifications
+        .get(payload.notification.recipientId)
+        .push(payload.notification);
 
      /* draftState.allPersonalNotifications.get(payload.recipientId).push(notificationToAdd)
 

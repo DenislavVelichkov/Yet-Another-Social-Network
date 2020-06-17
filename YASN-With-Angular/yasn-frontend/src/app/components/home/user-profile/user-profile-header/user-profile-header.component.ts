@@ -6,7 +6,6 @@ import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {Notification} from "../../../../core/store/notification/Notification";
 import {Store} from "@ngrx/store";
-import {SendFrRequestAction} from "../../../../core/store/notification/actions/send-fr-request.action";
 import {throwError} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.component";
@@ -42,7 +41,6 @@ export class UserProfileHeaderComponent implements OnInit {
     this.http.create<Notification>(EndpointUrls.sendFriendRequest, frRequest)
       .pipe(take(1))
       .subscribe(data => {
-        this.store.dispatch(new SendFrRequestAction({notification: data, recipientId: this.selectedProfileId}));
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           duration: 4500,
           verticalPosition: "top",

@@ -1,5 +1,6 @@
 export const EndpointUrls = {
   websocketTopicCreatedNewPost: "/new-post-created",
+  websocketNotificationFriendRequest: "/new-friend-request",
   websocketStompFactory: "ws://localhost:8000/ws",
   websocketSockJSFactory: "http://localhost:8000/stomp",
   loginUser: "/api/user/login",

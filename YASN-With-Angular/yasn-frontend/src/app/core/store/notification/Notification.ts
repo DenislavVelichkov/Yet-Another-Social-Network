@@ -5,11 +5,13 @@ export interface Notification {
   senderPicture: string;
 
   senderFullName: string;
-  //change the property to NotificationType enum
+
   notificationType: string;
 
   createdOn: Date;
 
   content: string;
+
+  recipientId: string;
 
 }

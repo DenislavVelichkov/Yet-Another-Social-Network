@@ -14,17 +14,22 @@ import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loadin
   styleUrls: ['./create-comment.component.css']
 })
 export class CreateCommentComponent implements OnInit {
+
   public commentAvatar: UserProfileState;
+
   public commentModel: CommentBindingModel;
+
   private userProfile: UserAuthModel;
+
   public files: any;
+
   @ViewChild('uploadCommentPhoto', {static: false}) uploadCommentPhoto: ElementRef;
+
   @Input('postId') postId: string;
 
   constructor(private store: Store<AppState>,
               private newsFeedService: NewsFeedService) {
     this.commentModel = new CommentBindingModel();
-
   }
 
   ngOnInit(): void {
@@ -36,7 +41,6 @@ export class CreateCommentComponent implements OnInit {
     this.store.select('auth').subscribe(value => {
       this.userProfile = value.activeUser;
     })
-
   }
 
   postComment(): void {

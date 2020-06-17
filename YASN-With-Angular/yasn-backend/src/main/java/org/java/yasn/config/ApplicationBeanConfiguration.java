@@ -4,6 +4,7 @@ import java.util.Collections;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import org.java.yasn.data.entities.Notification;
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
@@ -13,6 +14,7 @@ import org.java.yasn.web.models.binding.PostCommentModel;
 import org.java.yasn.web.models.binding.UserCredentialsModel;
 import org.java.yasn.web.models.binding.UserRegisterModel;
 import org.java.yasn.web.models.binding.WallPostModel;
+import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -63,6 +65,9 @@ public class ApplicationBeanConfiguration {
 
     modelMapper.createTypeMap(UserServiceModel.class, UserCredentialsModel.class)
                .addMappings(mapper -> mapper.skip(UserCredentialsModel::setUserProfileId));
+
+    modelMapper.createTypeMap(Notification.class, NotificationResponseModel.class)
+               .addMapping(src -> src.getRecipient().getId(), (des, val) -> des.setRecipientId((String) val));
   }
 
   @Bean

@@ -56,7 +56,6 @@ export class NewsFeedService {
         this.store.dispatch(new StopLoadingAction({loading: false}));
         console.log(throwError(error));
       });
-
   }
 
   createComment(userProfileId: string,

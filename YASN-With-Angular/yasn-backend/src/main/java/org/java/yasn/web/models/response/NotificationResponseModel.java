@@ -26,4 +26,6 @@ public class NotificationResponseModel {
 
   private String content;
 
+  private String recipientId;
+
 }
