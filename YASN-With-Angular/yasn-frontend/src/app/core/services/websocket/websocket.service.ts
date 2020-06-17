@@ -1,52 +1,63 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
+import {Observable, Subscriber} from "rxjs";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {EnvironmentUrlService} from "../../http/environment-url.service";
-import {Stomp} from "@stomp/stompjs";
-import * as SockJS from "sockjs-client";
-
+import {Client} from "@stomp/stompjs";
+import * as SockJS from 'sockjs-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
-  data: Subscription;
+  data: Subscriber<any>;
 
-  private stompClient = null;
+  stompClient: Client = null;
 
-  constructor(private environment: EnvironmentUrlService) { }
+  constructor(private environment: EnvironmentUrlService) {
+  }
 
   connect(path: string) {
-    this.stompClient = Stomp.client(EndpointUrls.websocketStompFactory, ['v10.stomp', 'v11.stomp']);
+    const options =
 
-    this.stompClient.debug = function(str) {
-      console.log(str);
-    };
+      this.stompClient = new Client({
+        brokerURL: EndpointUrls.websocketStompFactory,
+        debug: function (str) {
+          console.log(str);
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000
+      });
 
-    this.stompClient.webSocketFactory = function () {
-      return new WebSocket(EndpointUrls.websocketStompFactory);
-    }
     this.stompClient.webSocketFactory = function () {
       return new SockJS(EndpointUrls.websocketSockJSFactory);
-    }
+    };
 
     const _this = this;
+    const token = JSON.parse(localStorage.getItem('activeUser'))._token;
 
-    _this.stompClient.connect({}, function (frame) {
-      console.log('Connected: ' + frame);
+    _this.stompClient.onConnect = function (f) {
+      console.log('Connected: ' + f);
+      _this.stompClient.subscribe("/new-post-created", function (data) {
+        _this.data.next(data.body);
+      })
+    };
 
-      _this.stompClient.subscribe(path, function (data) {
-        _this.data = data.body;
+    _this.stompClient.onWebSocketError = function (ev) {
+      console.log(ev);
+    };
 
-        console.log(JSON.parse(data.body));
-      });
-    });
+    _this.stompClient.onStompError = function (ev) {
+      console.log(ev);
+    };
+
+    _this.stompClient.activate();
   }
 
   disconnect() {
     if (this.stompClient != null) {
-      this.stompClient.disconnect();
+      this.stompClient.deactivate();
     }
   }
 

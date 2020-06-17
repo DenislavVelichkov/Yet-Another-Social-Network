@@ -2,6 +2,7 @@ package org.java.yasn.config.websocket;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MessageConverter;
@@ -14,19 +15,19 @@ import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
 @EnableWebSocketMessageBroker
+@AllArgsConstructor
 public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport implements WebSocketMessageBrokerConfigurer  {
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry registry) {
     registry.enableSimpleBroker("/new-post-created");
     registry.setApplicationDestinationPrefixes("/ws");
-    registry.setUserDestinationPrefix("/stomp");
   }
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
-    registry.addEndpoint("/yasn-websocket")
-            .setAllowedOrigins("http://localhost:4200")
+    registry.addEndpoint("/yasn-websocket", "/stomp")
+            .setAllowedOrigins("*")
             .withSockJS();
   }
 

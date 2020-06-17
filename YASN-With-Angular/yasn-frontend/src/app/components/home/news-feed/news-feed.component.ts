@@ -53,7 +53,11 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     });
 
     this.websocketService.connect("/new-post-created");
-    this.websocketService.getData().subscribe((post: Post) => {
+    this.websocketService.getData().subscribe((post: string) => {
+      let obj: Post = Object.assign({}, JSON.parse(post));
+
+      console.log(obj);
+
       if (post) {
         this.store.dispatch(new CreatePost({post: [post]}));
       }

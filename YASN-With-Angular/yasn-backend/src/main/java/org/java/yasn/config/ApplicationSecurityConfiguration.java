@@ -34,7 +34,12 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
         .antMatchers("../resources/**").permitAll()
-        .antMatchers("/api/user/register", "/api/user/login").anonymous()
+        .antMatchers(
+            "/api/user/register",
+            "/api/user/login",
+            "/yasn-websocket/**",
+            "/stomp/**",
+            "/ws/**").anonymous()
         .anyRequest().authenticated()
         .and()
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))

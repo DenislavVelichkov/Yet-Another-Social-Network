@@ -92,12 +92,15 @@ public class ApplicationBeanConfiguration {
         new CorsConfiguration().applyPermitDefaultValues();
     corsConfiguration.addAllowedMethod(HttpMethod.PUT);
     corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+    corsConfiguration.addAllowedMethod(HttpMethod.GET);
+    corsConfiguration.addAllowedMethod(HttpMethod.POST);
+    corsConfiguration.addAllowedMethod(HttpMethod.PATCH);
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.addExposedHeader(
         "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, "
             + "Content-Type, Access-Control-Request-Method, Custom-Filter-Header");
     corsConfiguration.setAllowedOrigins(
-        Collections.singletonList("http://localhost:4200"));
+        Collections.singletonList("*"));
     source.registerCorsConfiguration("/**", corsConfiguration);
 
     return source;

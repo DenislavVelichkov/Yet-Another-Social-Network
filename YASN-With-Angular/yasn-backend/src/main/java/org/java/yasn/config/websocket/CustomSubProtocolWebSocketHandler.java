@@ -23,7 +23,7 @@ public class CustomSubProtocolWebSocketHandler extends SubProtocolWebSocketHandl
 
   @Override
   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    webSocketSessionHandler.register(session);
+//    webSocketSessionHandler.register(session);
     super.afterConnectionEstablished(session);
   }
 }
