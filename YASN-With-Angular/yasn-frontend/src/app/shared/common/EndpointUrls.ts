@@ -1,5 +1,5 @@
 export const EndpointUrls = {
-  websocketApi: "/yasn-websocket",
+  websocketTopicCreatedNewPost: "/new-post-created",
   websocketStompFactory: "ws://localhost:8000/ws",
   websocketSockJSFactory: "http://localhost:8000/stomp",
   loginUser: "/api/user/login",

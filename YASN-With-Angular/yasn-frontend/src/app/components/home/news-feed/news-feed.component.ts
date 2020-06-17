@@ -52,17 +52,13 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.websocketService.connect("/new-post-created");
+    this.websocketService.connect(EndpointUrls.websocketTopicCreatedNewPost);
+
     this.websocketService.getData().subscribe((post: string) => {
-      let obj: Post = Object.assign({}, JSON.parse(post));
+      let newPost: Post = Object.assign({}, JSON.parse(post));
 
-      console.log(obj);
-
-      if (post) {
-        this.store.dispatch(new CreatePost({post: [post]}));
-      }
-
-    });
+        this.store.dispatch(new CreatePost({post: [newPost]}));
+    }, error => console.log(throwError(error)));
   }
 
   postCommentPop() {

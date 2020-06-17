@@ -23,7 +23,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
   private final UserService userService;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
+  // TODO: 6/17/2020 Finish the websocket security
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
@@ -37,9 +37,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .antMatchers(
             "/api/user/register",
             "/api/user/login",
-            "/yasn-websocket/**",
-            "/stomp/**",
-            "/ws/**").anonymous()
+            "/stomp/**"
+            ).anonymous()
         .anyRequest().authenticated()
         .and()
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))

@@ -18,28 +18,27 @@ export class WebsocketService {
   }
 
   connect(path: string) {
-    const options =
+    const token = JSON.parse(localStorage.getItem('activeUser'))._token;
 
-      this.stompClient = new Client({
-        brokerURL: EndpointUrls.websocketStompFactory,
-        debug: function (str) {
-          console.log(str);
-        },
-        reconnectDelay: 5000,
-        heartbeatIncoming: 4000,
-        heartbeatOutgoing: 4000
-      });
+    this.stompClient = new Client({
+      brokerURL: EndpointUrls.websocketStompFactory,
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      connectHeaders: {Authorization: token}
+    });
 
     this.stompClient.webSocketFactory = function () {
       return new SockJS(EndpointUrls.websocketSockJSFactory);
     };
 
     const _this = this;
-    const token = JSON.parse(localStorage.getItem('activeUser'))._token;
 
     _this.stompClient.onConnect = function (f) {
-      console.log('Connected: ' + f);
-      _this.stompClient.subscribe("/new-post-created", function (data) {
+      _this.stompClient.subscribe(path, function (data) {
         _this.data.next(data.body);
       })
     };

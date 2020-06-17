@@ -3,7 +3,6 @@ import {HttpRepositoryService} from "../../http/http-repository.service";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {Post} from "../../store/post/Post";
 import {throwError} from "rxjs";
-import {CreatePost} from "../../store/post/actions/create-post.action";
 import {PostBindingModel} from "../../../shared/models/post/PostBindingModel";
 import {AppState} from "../../store/app.state";
 import {Store} from "@ngrx/store";
@@ -14,12 +13,14 @@ import {CommentOnPostAction} from "../../store/post/actions/comment-on-post.acti
 import {PostComment} from "../../store/post/PostComment";
 import {StartLoadingAction} from "../../store/loading/actions/start-loading.action";
 import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
+import {WebsocketService} from "../websocket/websocket.service";
 
 @Injectable({providedIn: "root"})
 export class NewsFeedService {
 
   constructor(private httpRepo: HttpRepositoryService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private websocketService: WebsocketService) {
   }
 
   getAllNewsFeeds(userProfileId: string): void {
@@ -51,7 +52,6 @@ export class NewsFeedService {
     this.httpRepo.create<Post>(EndpointUrls.postToPublicWall, formData)
       .pipe(take(1))
       .subscribe(post => {
-        this.store.dispatch(new CreatePost({post: [post]}))
       }, error => {
         this.store.dispatch(new StopLoadingAction({loading: false}));
         console.log(throwError(error));
