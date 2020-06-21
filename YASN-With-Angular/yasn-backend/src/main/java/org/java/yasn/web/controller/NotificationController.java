@@ -37,7 +37,8 @@ public class NotificationController {
   }
 
   @PostMapping(value = "/send-friend-request", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<NotificationResponseModel> sendFriendRequest(@RequestBody NotificationModel notification) {
+  public ResponseEntity<NotificationResponseModel> sendFriendRequest(
+      @RequestBody NotificationModel notification) {
 
     NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
     this.mapper.validate();

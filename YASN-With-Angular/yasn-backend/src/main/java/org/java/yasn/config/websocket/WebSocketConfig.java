@@ -16,11 +16,17 @@ import org.springframework.web.socket.config.annotation.*;
 @Configuration
 @EnableWebSocketMessageBroker
 @AllArgsConstructor
-public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport implements WebSocketMessageBrokerConfigurer  {
+public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry registry) {
-    registry.enableSimpleBroker("/new-post-created", "/new-friend-request");
+    registry.enableSimpleBroker(
+        "/new-post-created",
+        "/new-friend-request",
+        "/like-post",
+        "/unlike-post",
+        "/comment-on-post"
+    );
     registry.setApplicationDestinationPrefixes("/ws");
   }
 

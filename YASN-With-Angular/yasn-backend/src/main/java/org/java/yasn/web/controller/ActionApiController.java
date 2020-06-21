@@ -19,6 +19,7 @@ import org.java.yasn.web.models.binding.NotificationModel;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,17 +33,18 @@ public class ActionApiController {
   private final UserProfileService profileService;
   private final PersonalGalleryService galleryService;
   private final CloudinaryService cloudinaryService;
+  private final SimpMessageSendingOperations sendAction;
 
   @PostMapping(value = "/likes/likeAPost", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public void likePostAction(@RequestBody LikeAPostModel likeAPostModel) {
-
     wallService.likePost(likeAPostModel);
+    sendAction.convertAndSend("/like-post", likeAPostModel);
   }
 
   @PostMapping(value = "/likes/unLikeAPost", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public void unLikePostAction(@RequestBody LikeAPostModel likeAPostModel) {
-
     wallService.unlikePost(likeAPostModel);
+    sendAction.convertAndSend("/unlike-post", likeAPostModel);
   }
 
   @PostMapping("/add-friend")

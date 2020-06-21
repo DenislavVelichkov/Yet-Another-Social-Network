@@ -22,7 +22,7 @@ import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 })
 export class NewsFeedComponent implements OnInit, OnDestroy {
 
-  public userProfileInfo: UserProfileState;
+  public activeUserInfo: UserProfileState;
 
   public showComments: boolean;
 
@@ -40,7 +40,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
     this.store$.select('userProfile')
       .subscribe(value => {
-        this.userProfileInfo = value;
+        this.activeUserInfo = value;
       })
 
     let currentUserProfileId =
@@ -52,11 +52,19 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.postSubscription = this.websocketService.getPostsData().subscribe( (post: string) => {
+    this.postSubscription = this.websocketService.getPostsData().subscribe((post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
 
       this.store$.dispatch(new CreatePost({post: [newPost]}));
     }, error => console.log(throwError(error)));
+
+    this.websocketService.doLike().subscribe((data: string) => {
+      this.store$.dispatch(new LikeAPostAction(JSON.parse(data)));
+    }, error => console.log(new Error(error)));
+
+    this.websocketService.doUnlike().subscribe((data: string) => {
+      this.store$.dispatch(new UnlikeAPostAction(JSON.parse(data)));
+    }, error => console.log(new Error(error)));
 
   }
 
@@ -67,20 +75,20 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   likeAPost(postId: string, isPostAlreadyLiked: boolean) {
     let likeModel: LikeAPost = {
       postId: postId,
-      userProfileId: this.userProfileInfo.userProfileId
+      userProfileId: this.activeUserInfo.userProfileId
     };
 
     if (isPostAlreadyLiked) {
+
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(() => this.store$.dispatch(
-          new UnlikeAPostAction(likeModel)), error => throwError(error));
-
+        .subscribe(() => {
+        }, error => console.log(new Error(error)));
     } else {
       this.http.create(EndpointUrls.likeAPost, likeModel)
         .pipe(take(1))
-        .subscribe(() => this.store$.dispatch(
-          new LikeAPostAction(likeModel)), error => throwError(error));
+        .subscribe(() => {
+        }, error => console.log(new Error(error)));
     }
 
   }

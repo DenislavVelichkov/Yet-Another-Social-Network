@@ -67,7 +67,13 @@ function likePost(state, payload) {
   return produce(state, draftState => {
     let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
     newPost.likesCount++;
-    newPost.postLikedByCurrentUser = true;
+    // newPost.postLikedByCurrentUser = true;
+
+    let activeUserId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
+
+    if (activeUserId === payload.userProfileId) {
+      newPost.postLikedByCurrentUser = true;
+    }
 
     draftState.allWallPosts
       .map(p => p.id === newPost.id || newPost);
@@ -78,7 +84,13 @@ function unLikePost(state, payload) {
   return produce(state, draftState => {
     let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
     newPost.likesCount--;
-    newPost.postLikedByCurrentUser = false;
+    // newPost.postLikedByCurrentUser = false;
+
+    let activeUserId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
+
+    if (activeUserId === payload.userProfileId) {
+      newPost.postLikedByCurrentUser = false;
+    }
 
     draftState.allWallPosts
       .map(p => p.id === newPost.id || newPost);

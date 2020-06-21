@@ -42,7 +42,8 @@ public class WallController {
       @RequestPart(name = "comment") CommentModel comment,
       @RequestPart(name = "commentPicture", required = false) MultipartFile[] pictures) {
 
-    CommentResponseModel response = wallService.createComment(comment, pictures);
+    CommentResponseModel response = this.wallService.createComment(comment, pictures);
+    sendAction.convertAndSend("/comment-on-post", response);
 
     return ResponseEntity.ok(response);
   }

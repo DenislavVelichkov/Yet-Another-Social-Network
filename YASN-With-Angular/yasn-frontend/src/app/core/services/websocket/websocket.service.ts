@@ -14,6 +14,12 @@ export class WebsocketService {
 
   private notificationsData$: Subscriber<any>;
 
+  private commentsData$: Subscriber<any>;
+
+  private likesData$: Subscriber<any>;
+
+  private unlikesData$: Subscriber<any>;
+
   private stompClient: Client = null;
 
   constructor() {
@@ -24,9 +30,9 @@ export class WebsocketService {
 
     _this.stompClient = new Client({
       brokerURL: EndpointUrls.websocketStompFactory,
-      /*debug: function (str) {
+      debug: function (str) {
         console.log(str);
-      },*/
+      },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
@@ -54,6 +60,18 @@ export class WebsocketService {
         _this.notificationsData$.next(data.body);
       });
 
+      _this.stompClient.subscribe(NotificationsEndpointTypes.like, function (data) {
+        _this.likesData$.next(data.body);
+      });
+
+      _this.stompClient.subscribe(NotificationsEndpointTypes.unlike, function (data) {
+        _this.unlikesData$.next(data.body);
+      });
+
+      _this.stompClient.subscribe(NotificationsEndpointTypes.commentOnPost, function (data) {
+        _this.commentsData$.next(data.body);
+      });
+
     };
 
     _this.stompClient.activate();
@@ -76,4 +94,21 @@ export class WebsocketService {
 
     return new Observable<T>(subscriber => this.notificationsData$ = subscriber);
   }
+
+  doLike<T>(): Observable<T> {
+
+    return new Observable<T>(subscriber => this.likesData$ = subscriber);
+  }
+
+  doUnlike<T>(): Observable<T> {
+
+    return new Observable<T>(subscriber => this.unlikesData$ = subscriber);
+  }
+
+  getCommentsData<T>(): Observable<T> {
+
+    return new Observable<T>(subscriber => this.commentsData$ = subscriber);
+  }
+
+
 }
