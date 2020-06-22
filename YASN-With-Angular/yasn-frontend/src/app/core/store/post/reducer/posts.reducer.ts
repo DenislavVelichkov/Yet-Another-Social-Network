@@ -67,7 +67,6 @@ function likePost(state, payload) {
   return produce(state, draftState => {
     let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
     newPost.likesCount++;
-    // newPost.postLikedByCurrentUser = true;
 
     let activeUserId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
@@ -84,7 +83,6 @@ function unLikePost(state, payload) {
   return produce(state, draftState => {
     let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
     newPost.likesCount--;
-    // newPost.postLikedByCurrentUser = false;
 
     let activeUserId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 

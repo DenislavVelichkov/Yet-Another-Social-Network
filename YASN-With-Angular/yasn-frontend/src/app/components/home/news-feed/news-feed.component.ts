@@ -11,9 +11,11 @@ import {take} from "rxjs/operators";
 import {LikeAPost} from "../../../core/store/post/LikeAPost";
 import {LikeAPostAction} from "../../../core/store/post/actions/like-a-post.action";
 import {UnlikeAPostAction} from "../../../core/store/post/actions/unlike-a-post.action";
-import {Subscription, throwError} from "rxjs";
+import {Subscription} from "rxjs";
 import {WebsocketService} from "../../../core/services/websocket/websocket.service";
 import {CreatePost} from "../../../core/store/post/actions/create-post.action";
+import {CommentOnPostAction} from "../../../core/store/post/actions/comment-on-post.action";
+import {PostComment} from "../../../core/store/post/PostComment";
 
 @Component({
   selector: 'app-news-feed',
@@ -28,7 +30,9 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   public newsFeedPosts: Post[];
 
-  private postSubscription: Subscription;
+  private postSubscription$: Subscription;
+
+  private commentsSubscription$: Subscription;
 
   constructor(private newsService: NewsFeedService,
               private store$: Store<AppState>,
@@ -52,11 +56,17 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.postSubscription = this.websocketService.getPostsData().subscribe((post: string) => {
+    this.postSubscription$ = this.websocketService.getPostsData().subscribe((post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
 
       this.store$.dispatch(new CreatePost({post: [newPost]}));
-    }, error => console.log(throwError(error)));
+    }, error => console.log(new Error(error)));
+
+    this.commentsSubscription$ = this.websocketService.getCommentsData().subscribe((data: string) => {
+      let newComment: PostComment = Object.assign({}, JSON.parse(data));
+
+      this.store$.dispatch(new CommentOnPostAction({comment: newComment}));
+    }, error => console.log(new Error(error)));
 
     this.websocketService.doLike().subscribe((data: string) => {
       this.store$.dispatch(new LikeAPostAction(JSON.parse(data)));
@@ -98,7 +108,8 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.postSubscription.unsubscribe();
+    this.postSubscription$.unsubscribe();
+    this.commentsSubscription$.unsubscribe();
   }
 
 }

@@ -9,7 +9,6 @@ import {Store} from "@ngrx/store";
 import {take} from "rxjs/operators";
 import {DisplayAllPostsAction} from "../../store/post/actions/display-all-posts.action";
 import {CommentBindingModel} from "../../../shared/models/comment/CommentBindingModel";
-import {CommentOnPostAction} from "../../store/post/actions/comment-on-post.action";
 import {PostComment} from "../../store/post/PostComment";
 import {StartLoadingAction} from "../../store/loading/actions/start-loading.action";
 import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
@@ -54,7 +53,7 @@ export class NewsFeedService {
       .subscribe(post => {
       }, error => {
         this.store$.dispatch(new StopLoadingAction({loading: false}));
-        console.log(throwError(error));
+        console.log(new Error(error));
       });
   }
 
@@ -75,7 +74,7 @@ export class NewsFeedService {
 
     this.httpRepo.create<PostComment>(EndpointUrls.postComment, commentForm)
       .pipe(take(1)).subscribe((data: PostComment) => {
-      this.store$.dispatch(new CommentOnPostAction({comment: data}));
+
     }, error => {
       this.store$.dispatch(new StopLoadingAction({loading: false}));
       throwError(error);
@@ -83,4 +82,5 @@ export class NewsFeedService {
 
     this.store$.dispatch(new StopLoadingAction({loading: false}));
   }
+
 }

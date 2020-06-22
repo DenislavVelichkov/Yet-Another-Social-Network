@@ -7,6 +7,7 @@ import {UserProfileState} from "../../../core/store/userProfile/state/user-profi
 import {UserAuthModel} from "../../../core/store/authentication/UserAuthModel";
 import {StartLoadingAction} from "../../../core/store/loading/actions/start-loading.action";
 import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loading.action";
+import {AuthService} from "../../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-create-comment',
@@ -19,7 +20,7 @@ export class CreateCommentComponent implements OnInit {
 
   public commentModel: CommentBindingModel;
 
-  private userProfile: UserAuthModel;
+  private activeProfile: UserAuthModel;
 
   public files: any;
 
@@ -28,19 +29,18 @@ export class CreateCommentComponent implements OnInit {
   @Input('postId') postId: string;
 
   constructor(private store$: Store<AppState>,
-              private newsFeedService: NewsFeedService) {
+              private newsFeedService: NewsFeedService,
+              private auth: AuthService) {
     this.commentModel = new CommentBindingModel();
   }
 
   ngOnInit(): void {
+    this.activeProfile = this.auth.getActiveUser();
 
     this.store$.select('userProfile').subscribe(value => {
       this.commentAvatar = value;
     })
 
-    this.store$.select('auth').subscribe(value => {
-      this.userProfile = value.activeUser;
-    })
   }
 
   postComment(): void {
@@ -54,8 +54,10 @@ export class CreateCommentComponent implements OnInit {
       files.push(file)
     }
 
+    let userId = JSON.parse(localStorage.getItem('activeUser'))._userProfileId;
+
     this.newsFeedService.createComment(
-      this.userProfile.userProfileId,
+      userId,
       this.commentModel,
       files)
 

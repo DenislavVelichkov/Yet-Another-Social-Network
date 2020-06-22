@@ -10,6 +10,8 @@ import {NotificationsEndpointTypes} from "../notification/NotificationTypes";
 })
 export class WebsocketService {
 
+  private stompClient: Client = null;
+
   private postData$: Subscriber<any>;
 
   private notificationsData$: Subscriber<any>;
@@ -19,8 +21,6 @@ export class WebsocketService {
   private likesData$: Subscriber<any>;
 
   private unlikesData$: Subscriber<any>;
-
-  private stompClient: Client = null;
 
   constructor() {
   }
