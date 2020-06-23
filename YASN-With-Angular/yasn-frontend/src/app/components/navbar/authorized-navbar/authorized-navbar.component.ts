@@ -24,6 +24,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   userFullName: string;
   notifications: Notification[] = [];
   notificationsSubscription$: Subscription;
+  searchBar: boolean = false;
 
   constructor(private auth: AuthService,
               private store$: Store<AppState>,
@@ -76,6 +77,12 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.websocketService.disconnect();
     this.notificationsSubscription$.unsubscribe();
+  }
+
+  openSearchBar(){
+    this.searchBar = !this.searchBar;
+
+    console.log(this.searchBar)
   }
 
 }

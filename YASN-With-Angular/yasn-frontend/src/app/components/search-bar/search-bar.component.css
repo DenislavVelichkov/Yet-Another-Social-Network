@@ -1,0 +1,20 @@
+.search-bar-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 24rem 0;
+}
+
+.search-bar-wrap {
+  display: inherit;
+}
+
+.search-bar-icon {
+  flex: 0 0 20%;
+}
+
+.search-bar-container form {
+  flex: 0 0 80%;
+}

@@ -31,6 +31,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CustomSnackbarComponent} from "../components/custom-snackbar/custom-snackbar.component";
+import {SearchBarComponent} from "../components/search-bar/search-bar.component";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {CustomSnackbarComponent} from "../components/custom-snackbar/custom-snac
     UserFriendsComponent,
     EditUserProfileComponent,
     AuthorizedNavbarComponent,
-    CustomSnackbarComponent
+    CustomSnackbarComponent,
+    SearchBarComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,8 @@ import {CustomSnackbarComponent} from "../components/custom-snackbar/custom-snac
     FooterComponent,
     AuthorizedNavbarComponent,
     UnAuthorizedNavbarComponent,
-    CustomSnackbarComponent],
+    CustomSnackbarComponent,
+    SearchBarComponent],
 })
 export class CoreModule {
   /*Ensure one instance of the services*/

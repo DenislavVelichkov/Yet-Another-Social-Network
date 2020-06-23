@@ -20,7 +20,7 @@
             </a>
           </li>
           <li>
-            <a class="yasn-search">
+            <a class="yasn-search" (click)="openSearchBar()">
                             <span>
                                 <i class="fab fa-searchengin"></i>
                             </span>
@@ -96,3 +96,4 @@
 
   </div>
 </div>
+<app-search-bar *ngIf="searchBar"></app-search-bar>
