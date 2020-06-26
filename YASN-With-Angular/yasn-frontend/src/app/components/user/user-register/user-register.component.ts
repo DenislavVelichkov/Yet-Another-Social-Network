@@ -65,8 +65,7 @@ export class UserRegisterComponent implements OnInit {
             verticalPosition: "top",
             duration: 4200,
             data: "Registration Successful! You can Log In now.",
-          })
-        this.router.navigate(['/user/login']).catch(reason => console.log(throwError(reason)));
+          });
       }
     }, error => {
       this.errors = error;
