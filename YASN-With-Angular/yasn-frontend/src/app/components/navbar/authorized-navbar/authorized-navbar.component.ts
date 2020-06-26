@@ -21,12 +21,18 @@ import {SearchBarComponent} from "../../search-bar/search-bar.component";
   styleUrls: ['./authorized-navbar.component.css', '../un-authorized-navbar/un-authorized-navbar.component.css']
 })
 export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
+
   profileId: string;
+
   profilePictureUrl: string;
+
   userFullName: string;
+
   notifications: Notification[] = [];
+
   notificationsSubscription$: Subscription;
-  searchBar: boolean = true;
+
+  notificationDropdown: boolean = false;
 
   constructor(private auth: AuthService,
               private store$: Store<AppState>,
@@ -85,6 +91,10 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   openSearchBar(){
     const searchDialogRef = this.searchDialog.open(SearchBarComponent);
     searchDialogRef.updatePosition({ top: '5rem'})
+  }
+
+  showNotificationDropdown(){
+    this.notificationDropdown = !this.notificationDropdown;
   }
 
 }

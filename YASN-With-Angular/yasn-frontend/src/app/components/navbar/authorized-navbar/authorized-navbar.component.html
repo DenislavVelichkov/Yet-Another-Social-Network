@@ -41,7 +41,7 @@
             </a>
           </li>
           <li>
-            <a class="yasn-notifications" data-target="#" data-toggle="dropdown" role="button">
+            <a class="yasn-notifications" (click)="showNotificationDropdown()" role="button">
               <div class="notification-icons-container">
                 <i class="fas fa-bell">
                   <span *ngIf="notifications.length !== 0"
@@ -52,16 +52,22 @@
                   </span>
                 </i>
               </div>
-              <div class="dropdown-menu multi-level" id="yasn-notifications-content" role="menu">
+              <div *ngIf="notificationDropdown" class="notifications-dropdown-container">
+                <div class="notifications-header">
+                  <h5>Notifications</h5>
+                </div>
                 <div *ngFor="let notification of notifications" class="notification-content-container">
+
                   <img alt="avatar-picture"
                        class="notification-content-avatar" src="{{notification.senderPicture}}"/>
-                  <a href="">
-                    {{notification.senderFullName}}
-                  </a>
-                  <span>, {{notification.content}}</span>
-                  <a href=""> post</a>
-                  <span> {{convertTime(notification.createdOn)}}</span>
+                  <p>
+                    <a [routerLink]="['/user/profile', profileId]">
+                      {{notification.senderFullName}}
+                    </a>
+                    <span>, {{notification.content}}</span>
+                    <a href="">{{notification.action}}</a>
+                    <span> {{convertTime(notification.createdOn)}}</span>
+                  </p>
                 </div>
               </div>
             </a>

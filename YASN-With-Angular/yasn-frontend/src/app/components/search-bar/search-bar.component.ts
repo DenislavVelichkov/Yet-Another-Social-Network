@@ -28,14 +28,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.searchSubscription =
       this.http.get(EndpointUrls.searchProfile + this.searchQuery)
         .subscribe((data: any) => {
-          console.log(data['searchResult'])
           this.searchResult = data.searchResult;
         });
   }
 
   closeDialog() {
     this.dialogRef.close()
-
   }
 
   ngOnDestroy(): void {
