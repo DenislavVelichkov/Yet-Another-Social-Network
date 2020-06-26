@@ -1,38 +1,28 @@
 .search-bar-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
+  display: block;
 }
 
 .search-bar-wrap {
-  display: inherit;
-  margin: 0 0 0;
-  border-radius: 0.5em;
-}
-
-.search-bar {
-  flex: 0 0 20%;
-}
-
-.search-bar-container form {
-  flex: 0 0 80%;
-}
-
-.search-bar {
   position: relative;
-  width: 373px; }
+  width: 373px;
+}
 
 .search-bar input {
   border: none;
   background-color: #fff;
   display: block;
   width: 100%;
+  padding: 1em;
 }
 
-.search-bar span {
+.search-bar-icon {
   position: absolute;
-  top: 0;
+  top: 2px;
   right: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.search-content {
+  margin: 1em 0 0;
 }

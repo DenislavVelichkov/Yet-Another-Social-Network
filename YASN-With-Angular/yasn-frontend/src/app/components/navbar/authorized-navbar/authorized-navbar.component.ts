@@ -84,6 +84,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
   openSearchBar(){
     const searchDialogRef = this.searchDialog.open(SearchBarComponent);
+    searchDialogRef.updatePosition({ top: '5rem'})
   }
 
 }

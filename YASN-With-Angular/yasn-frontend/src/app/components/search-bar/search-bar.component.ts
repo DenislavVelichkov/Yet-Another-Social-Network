@@ -7,10 +7,16 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+  searchQuery: string;
 
-  constructor(public dialogRef: MatDialogRef<SearchBarComponent>) { }
+  constructor(public dialogRef: MatDialogRef<SearchBarComponent>) {
+  }
 
   ngOnInit(): void {
+  }
+
+  onSearch() {
+    console.log(this.searchQuery)
   }
 
 }
