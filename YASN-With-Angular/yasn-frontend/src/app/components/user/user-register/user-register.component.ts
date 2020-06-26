@@ -64,8 +64,9 @@ export class UserRegisterComponent implements OnInit {
           {
             verticalPosition: "top",
             duration: 4200,
-            data: "Registration Successful! You can Log In now.",
-          });
+            data: "Registration Successful! You can  enter your credentials and Log In now.",
+          }
+        );
       }
     }, error => {
       this.errors = error;
