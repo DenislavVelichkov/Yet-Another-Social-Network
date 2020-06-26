@@ -32,6 +32,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CustomSnackbarComponent} from "../components/custom-snackbar/custom-snackbar.component";
 import {SearchBarComponent} from "../components/search-bar/search-bar.component";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -54,19 +55,20 @@ import {SearchBarComponent} from "../components/search-bar/search-bar.component"
     CustomSnackbarComponent,
     SearchBarComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    PickerModule,
-    MatBadgeModule,
-    EmojiModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        PickerModule,
+        MatBadgeModule,
+        EmojiModule,
+        MatCardModule,
+        MatProgressBarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatDialogModule
+    ],
   exports: [
     IndexComponent,
     HomeComponent,
@@ -88,6 +90,7 @@ export class CoreModule {
         HttpRepositoryService,
         NewsFeedService,
         NotificationService,
+        {provide: MatDialogRef, useValue: {}}
       ]
     };
   }

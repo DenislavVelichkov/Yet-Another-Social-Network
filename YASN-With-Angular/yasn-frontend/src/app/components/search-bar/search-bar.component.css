@@ -4,18 +4,35 @@
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  background-color: #e9ebee;
 }
 
 .search-bar-wrap {
   display: inherit;
-  margin: 0 24rem 0;
+  margin: 0 0 0;
+  border-radius: 0.5em;
 }
 
-.search-bar-icon {
+.search-bar {
   flex: 0 0 20%;
 }
 
 .search-bar-container form {
   flex: 0 0 80%;
+}
+
+.search-bar {
+  position: relative;
+  width: 373px; }
+
+.search-bar input {
+  border: none;
+  background-color: #fff;
+  display: block;
+  width: 100%;
+}
+
+.search-bar span {
+  position: absolute;
+  top: 0;
+  right: 5px;
 }

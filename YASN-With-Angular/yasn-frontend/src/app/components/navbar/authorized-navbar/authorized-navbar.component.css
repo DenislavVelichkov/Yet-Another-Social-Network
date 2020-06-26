@@ -5,6 +5,7 @@
   overflow: hidden;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
 }
 
 .notification-content-avatar {

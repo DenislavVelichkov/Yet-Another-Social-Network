@@ -12,6 +12,8 @@ import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
 import {WebsocketService} from "../../../core/services/websocket/websocket.service";
 import {SendFrRequestAction} from "../../../core/store/notification/actions/send-fr-request.action";
+import {MatDialog} from "@angular/material/dialog";
+import {SearchBarComponent} from "../../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -24,13 +26,14 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   userFullName: string;
   notifications: Notification[] = [];
   notificationsSubscription$: Subscription;
-  searchBar: boolean = false;
+  searchBar: boolean = true;
 
   constructor(private auth: AuthService,
               private store$: Store<AppState>,
               private httpRepo: HttpRepositoryService,
               private notificationService: NotificationService,
-              private websocketService: WebsocketService) {
+              private websocketService: WebsocketService,
+              private searchDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -80,9 +83,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   }
 
   openSearchBar(){
-    this.searchBar = !this.searchBar;
-
-    console.log(this.searchBar)
+    const searchDialogRef = this.searchDialog.open(SearchBarComponent);
   }
 
 }
