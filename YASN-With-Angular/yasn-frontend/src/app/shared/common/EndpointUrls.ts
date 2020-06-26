@@ -20,5 +20,6 @@ export const EndpointUrls = {
   topicNotificationFriendRequest: "/new-friend-request",
   topicLike: "/like-post",
   topicUnLike: "/unlike-post",
-  topicCommentOnPost: "/comment-on-post"
+  topicCommentOnPost: "/comment-on-post",
+  searchProfile: "/api/search/user-profile/"
 }

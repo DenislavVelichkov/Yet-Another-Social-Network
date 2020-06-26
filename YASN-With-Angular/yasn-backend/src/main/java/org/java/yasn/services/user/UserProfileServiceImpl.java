@@ -3,6 +3,9 @@ package org.java.yasn.services.user;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.ExceptionMessages;
@@ -15,6 +18,8 @@ import org.java.yasn.repository.user.UserRepository;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.web.models.binding.NotificationModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
+import org.java.yasn.web.models.response.SearchResultModel;
+import org.java.yasn.web.models.response.UserProfileResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -165,5 +170,19 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     return true;
+  }
+
+  @Override
+  public SearchResultModel searchForUserProfile(String searchParams) {
+
+    Collection<UserProfile> searchResult =
+        this.userProfileRepository.findUserProfilesByFullNameContaining(searchParams);
+    Collection<UserProfileResponseModel> profileResponseModels =
+        searchResult.stream()
+                    .map(userProfile -> this.modelMapper.map(userProfile, UserProfileResponseModel.class))
+                    .collect(Collectors.toCollection(LinkedList::new));
+    this.modelMapper.validate();
+
+    return new SearchResultModel<>(profileResponseModels);
   }
 }

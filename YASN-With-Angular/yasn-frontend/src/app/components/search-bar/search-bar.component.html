@@ -12,7 +12,10 @@
       <span class="search-bar-icon" (click)="onSearch()"><i class="fas fa-search"></i></span>
     </div>
     <div class="search-content">
-      <p>It works !</p>
+      <div *ngFor="let response of searchResult">
+        <img src="{{response.profilePicture}}" alt="avatar-picture"/>
+        <a [routerLink]="['/user/profile', response.id]" (click)="closeDialog()">{{response.fullName}}</a>
+      </div>
     </div>
   </div>
 </mat-dialog-content>

@@ -13,8 +13,11 @@ import org.java.yasn.common.enums.PostPrivacy;
 public class WallPostModel {
 
   private String postOwnerId;
+
   private String postContent;
+
   private PostPrivacy postPrivacy;
+
   private String location;
 
 }

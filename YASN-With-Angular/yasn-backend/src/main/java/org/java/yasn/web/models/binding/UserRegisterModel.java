@@ -10,11 +10,18 @@ import lombok.Setter;
 public class UserRegisterModel {
 
   private String firstName;
+
   private String lastName;
+
   private String password;
+
   private String email;
+
   private String gender;
+
   private String birthday;
+
   private String confirmEmail;
+
   private String confirmPassword;
 }

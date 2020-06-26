@@ -1,5 +1,6 @@
 package org.java.yasn.repository.user;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.java.yasn.data.entities.user.UserProfile;
@@ -14,4 +15,6 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, String
   Optional<UserProfile> findById(String id);
 
   Optional<UserProfile> findUserProfileByProfileOwner_Email(String email);
+
+  Collection<UserProfile> findUserProfilesByFullNameContaining(String queryParams);
 }

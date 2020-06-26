@@ -15,15 +15,26 @@ import org.java.yasn.data.models.service.user.RoleServiceModel;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCredentialsModel {
+
   private String username;
+
   private String firstName;
+
   private String lastName;
+
   private String password;
+
   private String email;
+
   private String gender;
+
   private Date birthday;
+
   private boolean isActive;
+
   private Timestamp createdOn;
+
   private Set<RoleServiceModel> authorities;
+
   private String userProfileId;
 }
