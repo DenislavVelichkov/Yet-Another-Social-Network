@@ -4,11 +4,12 @@
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  margin: 0 24rem 0;
+  background-color: #e9ebee;
 }
 
 .search-bar-wrap {
   display: inherit;
+  margin: 0 24rem 0;
 }
 
 .search-bar-icon {
