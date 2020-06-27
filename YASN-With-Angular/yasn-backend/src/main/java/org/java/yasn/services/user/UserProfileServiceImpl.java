@@ -16,7 +16,7 @@ import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.user.UserRepository;
 import org.java.yasn.services.CloudinaryService;
-import org.java.yasn.web.models.binding.NotificationModel;
+import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
 import org.java.yasn.web.models.response.SearchResultModel;
 import org.java.yasn.web.models.response.UserProfileResponseModel;
@@ -70,23 +70,22 @@ public class UserProfileServiceImpl implements UserProfileService {
   }
 
   @Override
-  public boolean addFriend(NotificationModel notificationModel) {
+  public boolean addFriend(ActionModel actionModel) {
 
     UserProfile recipient = this.userProfileRepository
-        .findById(notificationModel.getRecipientId())
+        .findById(actionModel.getRecipientId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
     UserProfile sender = this.userProfileRepository
-        .findById(notificationModel.getRecipientId())
+        .findById(actionModel.getSenderId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
     if (sender.getFriends().stream()
               .noneMatch(userProfile -> userProfile.getId().equals(recipient.getId()))
         || sender.getId().equals(recipient.getId())) {
 
-      recipient.getFriends().add(sender);
       sender.getFriends().add(recipient);
+      recipient.getFriends().add(sender);
 
-      this.userProfileRepository.saveAndFlush(recipient);
       this.userProfileRepository.saveAndFlush(sender);
 
       return true;
@@ -184,5 +183,16 @@ public class UserProfileServiceImpl implements UserProfileService {
     this.modelMapper.validate();
 
     return new SearchResultModel<>(profileResponseModels);
+  }
+
+  @Override
+  public boolean checkFriendship(String viewerId, String selectedProfileId) {
+    UserProfile profileToCheck =
+        this.userProfileRepository.findById(selectedProfileId)
+                                  .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
+
+    return profileToCheck.getFriends()
+                         .stream()
+                         .anyMatch(userProfile -> userProfile.getId().equalsIgnoreCase(viewerId));
   }
 }

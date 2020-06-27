@@ -5,7 +5,7 @@ import java.util.Collection;
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.services.action.NotificationService;
-import org.java.yasn.web.models.binding.NotificationModel;
+import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +26,10 @@ public class NotificationController {
 
   @PostMapping(value = "/created-post", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<NotificationResponseModel> createNotificationOnPost(
-      @RequestBody NotificationModel notificationModel) {
+      @RequestBody ActionModel actionModel) {
 
     NotificationResponseModel response =
-        this.notificationService.createNotificationForNewPost(notificationModel);
+        this.notificationService.createNotificationForNewPost(actionModel);
 
     this.mapper.validate();
 
@@ -38,7 +38,7 @@ public class NotificationController {
 
   @PostMapping(value = "/send-friend-request", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<NotificationResponseModel> sendFriendRequest(
-      @RequestBody NotificationModel notification) {
+      @RequestBody ActionModel notification) {
 
     NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
     this.mapper.validate();
@@ -49,10 +49,10 @@ public class NotificationController {
 
   @PostMapping("/get-all-notifications")
   public ResponseEntity<Collection<NotificationResponseModel>> getAllNotifications(
-      @RequestBody NotificationModel notificationModel) {
+      @RequestBody ActionModel actionModel) {
 
     Collection<NotificationResponseModel> response =
-        this.notificationService.getAllNotifications(notificationModel);
+        this.notificationService.getAllNotifications(actionModel);
     this.mapper.validate();
 
     return ResponseEntity.ok(response);

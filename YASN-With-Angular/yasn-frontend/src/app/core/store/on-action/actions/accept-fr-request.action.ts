@@ -4,8 +4,8 @@ import {OnActionTypes} from "./action-types";
 export class AcceptFrRequestAction implements Action {
   readonly type: string;
 
-  constructor(public payload: { pendingFrRequest: boolean }) {
-    this.type = OnActionTypes.PENDING_FRIEND_REQUEST;
+  constructor(public payload: {acceptFrRequest: boolean}) {
+    this.type = OnActionTypes.ACCEPT_FRIEND_REQUEST;
   }
 
 }

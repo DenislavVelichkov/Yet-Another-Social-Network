@@ -6,7 +6,7 @@
     <nav>
       <div class="navbar-avatar-container float-left">
         <img alt="profile-picture" id="avatar-picture" src="{{profilePictureUrl}}"/>
-        <a [routerLink]="['/user/profile', profileId]">
+        <a [routerLink]="['/user/profile', activeProfileId]">
           <span id="avatar-name">{{userFullName}}</span>
         </a>
       </div>

@@ -6,9 +6,10 @@ import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {Notification} from "../../../../core/store/notification/Notification";
 import {Store} from "@ngrx/store";
-import {Subscription, throwError} from "rxjs";
+import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.component";
+import {AcceptFrRequestAction} from "../../../../core/store/on-action/actions/accept-fr-request.action";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -17,9 +18,11 @@ import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.
 })
 export class UserProfileHeaderComponent implements OnInit, OnDestroy {
 
-  @Input("selectedProfileId") selectedProfileId: string;
+  @Input("selectedProfileId") public selectedProfileId: string;
 
-  @Input("userProfile") activeProfileInfo: ProfileState;
+  @Input("loggedInProfileId") public loggedInProfileId: string;
+
+  @Input("profileOwnerState") public profileOwnerState: ProfileState;
 
   @Input("isGuestProfile") public isGuestProfile: boolean = false;
 
@@ -57,11 +60,27 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
           horizontalPosition: "center",
           data: "You have send a friend request"
         })
-      }, error => console.log(throwError(error)));
+      }, error => console.log(new Error(error)));
   }
 
   acceptFriendRequest() {
 
+    this.http.update(EndpointUrls.addFriend,
+      {
+        senderId: this.loggedInProfileId,
+        recipientId: this.selectedProfileId
+      }).subscribe(data => {
+      if (data) {
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          duration: 4500,
+          verticalPosition: "top",
+          horizontalPosition: "center",
+          data: "Congrats! You now have a new friend!"
+        })
+      }
+
+      this.store$.dispatch(new AcceptFrRequestAction({acceptFrRequest: true}))
+    }, error => console.log(new Error(error)));
   }
 
   ngOnDestroy(): void {

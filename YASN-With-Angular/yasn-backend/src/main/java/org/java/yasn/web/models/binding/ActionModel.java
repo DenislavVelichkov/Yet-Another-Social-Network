@@ -9,7 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NotificationModel {
+public class ActionModel {
+
   private String senderId;
+
   private String recipientId;
+
 }

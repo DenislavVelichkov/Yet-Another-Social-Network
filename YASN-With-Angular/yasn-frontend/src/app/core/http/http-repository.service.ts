@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EnvironmentUrlService} from "./environment-url.service";
-import {take} from "rxjs/operators";
 import {Observable} from "rxjs";
 
 @Injectable({providedIn: "root"})
@@ -19,10 +18,6 @@ export class HttpRepositoryService {
               private envUrl: EnvironmentUrlService) {
   }
 
-  private static createCompleteRoute(route: string, envAddress: string) {
-    return `${envAddress}${route}`;
-  }
-
   public get<T>(route: string): Observable<T> {
 
     return this.http.get<T>(
@@ -34,7 +29,7 @@ export class HttpRepositoryService {
 
     return this.http.post<T>(
       HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
-      body);
+      body,{});
   }
 
   /* public postWithForm(route: string, body) {
@@ -57,22 +52,20 @@ export class HttpRepositoryService {
       {headers: this.headers, observe: "response"});
   }
 
-  public update(route: string, body) {
-    return this.http.put(
-      HttpRepositoryService.createCompleteRoute(
-        route,
-        this.envUrl.apiEndPointAddress),
-      body,
-      {})
-      .pipe(take(1));
+  public update<T>(route: string, body: any): Observable<T>{
+    return this.http.put<T>(
+      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
+      body,{});
   }
 
-  public delete(route: string) {
-    return this.http.delete(
-      HttpRepositoryService.createCompleteRoute(
-        route,
-        this.envUrl.apiEndPointAddress))
-      .pipe(take(1));
+  public delete<T>(route: string): Observable<T> {
+    return this.http.delete<T>(
+      HttpRepositoryService.createCompleteRoute(route, this.envUrl.apiEndPointAddress),
+      {});
+  }
+
+  private static createCompleteRoute(route: string, envAddress: string) {
+    return `${envAddress}${route}`;
   }
 
 }

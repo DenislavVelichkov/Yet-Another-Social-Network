@@ -14,7 +14,7 @@ import {WebsocketService} from "../../../core/services/websocket/websocket.servi
 import {SendFrRequestAction} from "../../../core/store/notification/actions/send-fr-request.action";
 import {MatDialog} from "@angular/material/dialog";
 import {SearchBarComponent} from "../../search-bar/search-bar.component";
-import {AcceptFrRequestAction} from "../../../core/store/on-action/actions/accept-fr-request.action";
+import {PendingFrRequestAction} from "../../../core/store/on-action/actions/pending-fr-request.action";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -23,7 +23,7 @@ import {AcceptFrRequestAction} from "../../../core/store/on-action/actions/accep
 })
 export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
-  profileId: string;
+  activeProfileId: string;
 
   profilePictureUrl: string;
 
@@ -44,11 +44,11 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.profileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
+    this.activeProfileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
     this.websocketService.connect();
 
-    this.httpRepo.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.profileId)
+    this.httpRepo.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.activeProfileId)
       .subscribe(value => {
         this.store$.dispatch(new UpdateActiveProfileAction(value))
       }, error => throwError(error))
@@ -58,18 +58,18 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
       this.profilePictureUrl = value.avatarPictureUrl;
     })
 
-    this.notificationService.getAllPersonalNotifications(this.profileId)
+    this.notificationService.getAllPersonalNotifications(this.activeProfileId)
 
     this.store$.select('notifications').subscribe(value => {
-      if (value.allPersonalNotifications.get(this.profileId)) {
-        this.notifications = value.allPersonalNotifications.get(this.profileId);
+      if (value.allPersonalNotifications.get(this.activeProfileId)) {
+        this.notifications = value.allPersonalNotifications.get(this.activeProfileId);
       }
     });
 
     this.notificationsSubscription$ = this.websocketService.getFriendRequestsData().subscribe( (notification: string) => {
       let newNotification: Notification =  Object.assign({}, JSON.parse(notification));
 
-      if (newNotification.recipientId === this.profileId) {
+      if (newNotification.recipientId === this.activeProfileId) {
         this.store$.dispatch(new SendFrRequestAction({notification: newNotification}));
       }
     }, error => console.log(new Error(error)));
@@ -99,7 +99,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   }
 
   acceptFriendRequest(){
-    this.store$.dispatch(new AcceptFrRequestAction({pendingFrRequest: true}))
+    this.store$.dispatch(new PendingFrRequestAction({pendingFrRequest: true}))
   }
 
   deleteNotification() {

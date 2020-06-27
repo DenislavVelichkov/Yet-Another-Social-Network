@@ -13,12 +13,14 @@
     <div class="user-profile-container">
       <app-user-profile-header
         [selectedProfileId]="selectedProfileId"
-        [userProfile]="userProfileState"
+        [loggedInProfileId]="loggedInProfileId"
+        [profileOwnerState]="selectedProfileState"
         [isGuestProfile]="isGuestProfile"
         [isActiveProfile]="isActiveProfile"></app-user-profile-header>
       <app-user-profile-body
         [selectedProfileId]="selectedProfileId"
-        [userProfile]="userProfileState"
+        [loggedInProfileId]="loggedInProfileId"
+        [profileOwnerState]="selectedProfileState"
         [isGuestProfile]="isGuestProfile"
         [isActiveProfile]="isActiveProfile"></app-user-profile-body>
     </div>

@@ -12,7 +12,7 @@ import org.java.yasn.data.entities.Notification;
 import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.repository.action.NotificationRepository;
 import org.java.yasn.repository.user.UserProfileRepository;
-import org.java.yasn.web.models.binding.NotificationModel;
+import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -26,10 +26,10 @@ public class NotificationServiceImpl implements NotificationService {
   private final ModelMapper modelMapper;
 
   @Override
-  public NotificationResponseModel createNotificationForNewPost(NotificationModel notificationModel) {
+  public NotificationResponseModel createNotificationForNewPost(ActionModel actionModel) {
 
     UserProfile recipient = this.userProfileRepository
-        .findById(notificationModel.getSenderId())
+        .findById(actionModel.getSenderId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
     ;
 
@@ -50,12 +50,12 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public NotificationResponseModel createFriendRequest(NotificationModel notificationModel) {
+  public NotificationResponseModel createFriendRequest(ActionModel actionModel) {
     UserProfile recipient = this.userProfileRepository
-        .findById(notificationModel.getRecipientId())
+        .findById(actionModel.getRecipientId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
     UserProfile sender = this.userProfileRepository
-        .findById(notificationModel.getSenderId())
+        .findById(actionModel.getSenderId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
     Notification notification = new Notification();
@@ -80,10 +80,10 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public Collection<NotificationResponseModel> getAllNotifications(NotificationModel notificationModel) {
+  public Collection<NotificationResponseModel> getAllNotifications(ActionModel actionModel) {
 
     Collection<Notification> notifications =
-        this.notificationRepository.findByRecipientId(notificationModel.getRecipientId());
+        this.notificationRepository.findByRecipientId(actionModel.getRecipientId());
 
     return notifications.stream()
                         .map(notification -> this.modelMapper.map(notification, NotificationResponseModel.class))

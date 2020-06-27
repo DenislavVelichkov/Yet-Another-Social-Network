@@ -14,8 +14,8 @@ import org.java.yasn.services.action.NotificationService;
 import org.java.yasn.services.gallery.PersonalGalleryService;
 import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.services.wall.WallService;
+import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.binding.LikeAPostModel;
-import org.java.yasn.web.models.binding.NotificationModel;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,11 +47,11 @@ public class ActionApiController {
     sendAction.convertAndSend("/unlike-post", likeAPostModel);
   }
 
-  @PostMapping("/add-friend")
-  public ResponseEntity<?> acceptFriendRequest(@RequestBody NotificationModel notificationModel) {
+  @PutMapping("/add-friend")
+  public ResponseEntity<Boolean> acceptFriendRequest(@RequestBody ActionModel actionModel) {
 
     boolean successfulFriendship =
-        this.profileService.addFriend(notificationModel);
+        this.profileService.addFriend(actionModel);
 
     return ResponseEntity.ok(successfulFriendship);
   }
@@ -91,6 +91,14 @@ public class ActionApiController {
         JSONObject.toJSONString(restResponse);
 
     return new ResponseEntity<>(response, HttpStatus.CREATED);
+  }
+
+  @GetMapping(value = "/check-friendship/{viewerProfileId}/{selectedProfileId}")
+  public ResponseEntity<Boolean> areTheFriends(@PathVariable(name = "viewerProfileId") String viewerId,
+                                               @PathVariable(name = "selectedProfileId") String selectedProfileId) {
+    boolean response = this.profileService.checkFriendship(viewerId, selectedProfileId);
+
+    return ResponseEntity.ok(response);
   }
 }
 

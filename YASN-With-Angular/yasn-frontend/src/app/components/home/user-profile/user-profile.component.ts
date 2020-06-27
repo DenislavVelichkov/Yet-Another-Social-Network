@@ -18,9 +18,11 @@ import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions
 })
 export class UserProfileComponent implements OnInit {
 
-  public userProfileState: ProfileState;
+  public selectedProfileState: ProfileState;
 
   public selectedProfileId: string;
+
+  public loggedInProfileId: string;
 
   public isGuestProfile: boolean = false;
 
@@ -33,6 +35,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loggedInProfileId =
+      JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
     this.route.paramMap.subscribe(value => {
       this.selectedProfileId = value.get("id");
@@ -42,9 +46,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateComponent() {
-    let activeProfileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
 
-    if (activeProfileId !== this.selectedProfileId) {
+    if (this.loggedInProfileId !== this.selectedProfileId) {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
         .pipe(take(1))
         .subscribe(value => {
@@ -52,7 +55,7 @@ export class UserProfileComponent implements OnInit {
         }, error => console.log(throwError(error)));
 
       this.store$.select('guestProfile').subscribe(data => {
-        this.userProfileState = data;
+        this.selectedProfileState = data;
         this.isGuestProfile = true;
         this.isActiveProfile = false;
 
@@ -66,7 +69,7 @@ export class UserProfileComponent implements OnInit {
         }, error => console.log(throwError(error)));
 
       this.store$.select('userProfile').subscribe(data => {
-        this.userProfileState = data;
+        this.selectedProfileState = data;
         this.isGuestProfile = false;
         this.isActiveProfile = true;
       });
