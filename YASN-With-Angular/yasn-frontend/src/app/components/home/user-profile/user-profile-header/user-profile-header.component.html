@@ -40,10 +40,10 @@
     <div *ngIf="isGuestProfile" class="guest-profile-cover-menu">
       <ul>
         <li>
-          <a *ngIf="!pendingFrRequest && isGuestProfile" (click)="addFriend()">
+          <a *ngIf="!pendingFrRequest && isGuestProfile && !areTheyFriends" (click)="addFriend()">
             Add Friend
           </a>
-          <a *ngIf="pendingFrRequest && isGuestProfile" (click)="acceptFriendRequest()">
+          <a *ngIf="pendingFrRequest && isGuestProfile && !areTheyFriends" (click)="acceptFriendRequest()">
             Accept Friend Request
           </a>
         </li>

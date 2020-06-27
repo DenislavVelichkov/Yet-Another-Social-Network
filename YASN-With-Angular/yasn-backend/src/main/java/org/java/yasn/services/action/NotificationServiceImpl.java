@@ -3,6 +3,7 @@ package org.java.yasn.services.action;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class NotificationServiceImpl implements NotificationService {
     UserProfile recipient = this.userProfileRepository
         .findById(actionModel.getSenderId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
-    ;
+
 
     Notification notification = new Notification();
 
@@ -42,6 +43,13 @@ public class NotificationServiceImpl implements NotificationService {
     notification.setSenderPicture(recipient.getProfilePicture());
     notification.setSenderFullName(recipient.getFullName());
     notification.setContent("created a new post");
+
+    Optional<Notification> isNotificationAlreadyExists =
+        this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(notification.getSender().getId(), notification.getRecipient().getId(), notification.getNotificationType());
+
+    if (isNotificationAlreadyExists.isPresent()) {
+      throw new IllegalArgumentException("You can't send the same request twice!");
+    }
 
     Notification newNotification =
         this.notificationRepository.saveAndFlush(notification);
@@ -67,6 +75,13 @@ public class NotificationServiceImpl implements NotificationService {
     notification.setContent("wants to be your friend");
     notification.setCreatedOn(LocalDateTime.now());
     notification.setNotificationType(NotificationType.FRIEND_REQ);
+
+    Optional<Notification> isNotificationAlreadyExists =
+        this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(notification.getSender().getId(), notification.getRecipient().getId(), notification.getNotificationType());
+
+    if (isNotificationAlreadyExists.isPresent()) {
+      throw new IllegalArgumentException("You can't send the same request twice!");
+    }
 
     return this.modelMapper.map(
         this.notificationRepository.saveAndFlush(notification), NotificationResponseModel.class);

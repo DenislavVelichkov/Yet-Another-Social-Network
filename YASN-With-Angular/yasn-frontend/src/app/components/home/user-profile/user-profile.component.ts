@@ -28,6 +28,8 @@ export class UserProfileComponent implements OnInit {
 
   public isActiveProfile: boolean = false;
 
+  public areTheyFriends: boolean = false;
+
   constructor(private store$: Store<AppState>,
               private route: ActivatedRoute,
               private auth: AuthService,
@@ -46,6 +48,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateComponent() {
+
+    this.http.get<boolean>(EndpointUrls.friendshipStatus + `${this.loggedInProfileId}` + "/" + `${this.selectedProfileId}`)
+      .pipe(take(1)).subscribe(data => {
+      this.areTheyFriends = data;
+      this.store$.select('onAction').subscribe(data => this.areTheyFriends = data.acceptFrRequest);
+    });
 
     if (this.loggedInProfileId !== this.selectedProfileId) {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)

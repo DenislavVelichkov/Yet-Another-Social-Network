@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AppState, ProfileState} from "../../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../../core/http/http-repository.service";
 import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
@@ -28,17 +28,22 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
 
   @Input("isActiveProfile") public isActiveProfile: boolean = false;
 
+  @Input("areTheyFriends") public areTheyFriends: boolean = false;
+
   private isProfileHasPendingFrRequest$: Subscription
 
   public pendingFrRequest: boolean;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private http: HttpRepositoryService,
               private store$: Store<AppState>,
               private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
+
+
     this.isProfileHasPendingFrRequest$ = this.store$.select('onAction').subscribe(data => {
       this.pendingFrRequest = data.pendingFrRequest;
     })
@@ -60,7 +65,17 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
           horizontalPosition: "center",
           data: "You have send a friend request"
         })
-      }, error => console.log(new Error(error)));
+      }, reason => {
+
+        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+          duration: 4500,
+          verticalPosition: "top",
+          horizontalPosition: "center",
+          data: reason.error.message
+        })
+
+        this.router.navigate([`${this.router.url}`]).catch(reason => console.log(new Error(reason)));
+      });
   }
 
   acceptFriendRequest() {
