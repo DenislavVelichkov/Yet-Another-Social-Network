@@ -67,7 +67,8 @@ public class ApplicationBeanConfiguration {
                .addMappings(mapper -> mapper.skip(UserCredentialsModel::setUserProfileId));
 
     modelMapper.createTypeMap(Notification.class, NotificationResponseModel.class)
-               .addMapping(src -> src.getRecipient().getId(), (des, val) -> des.setRecipientId((String) val));
+               .addMapping(src -> src.getRecipient().getId(), (des, val) -> des.setRecipientId((String) val))
+               .addMapping(src -> src.getSender().getId(), (des, val) -> des.setSenderId((String) val));
   }
 
   @Bean

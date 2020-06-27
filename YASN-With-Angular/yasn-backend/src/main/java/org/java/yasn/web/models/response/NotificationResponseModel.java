@@ -28,4 +28,6 @@ public class NotificationResponseModel {
 
   private String recipientId;
 
+  private String senderId;
+
 }

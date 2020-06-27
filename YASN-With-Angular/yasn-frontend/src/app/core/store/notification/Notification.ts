@@ -14,4 +14,6 @@ export interface Notification {
 
   recipientId: string;
 
+  senderId: string;
+
 }

@@ -56,18 +56,16 @@
                 <div class="notifications-header">
                   <h5>Notifications</h5>
                 </div>
-                <div *ngFor="let notification of notifications" class="notification-content-container">
-
+                <div *ngFor="let notification of notifications" class="notification-content-container" [routerLink]="['/user/profile', notification.senderId]">
                   <img alt="avatar-picture"
                        class="notification-content-avatar" src="{{notification.senderPicture}}"/>
                   <p>
-                    <a [routerLink]="['/user/profile', profileId]">
+                    <a [routerLink]="['/user/profile', notification.senderId]">
                       {{notification.senderFullName}}
                     </a>
                     <span>, {{notification.content}}</span>
-                    <a href="">{{notification.action}}</a>
-                    <span> {{convertTime(notification.createdOn)}}</span>
                   </p>
+                  <span class="notification-time"> {{convertTime(notification.createdOn)}}</span>
                 </div>
               </div>
             </a>
