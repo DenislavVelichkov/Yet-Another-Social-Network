@@ -137,8 +137,10 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public void markNotificationAsRead(String viewerId, String selectedProfileId, String notificationType) {
-    Notification notificationToEdit = this.getNotification(viewerId, selectedProfileId, notificationType);
+  public void markNotificationAsRead(String notificationId) {
+    Notification notificationToEdit =
+        this.notificationRepository.findById(notificationId)
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS));
     notificationToEdit.setViewed(true);
     this.notificationRepository.saveAndFlush(notificationToEdit);
   }

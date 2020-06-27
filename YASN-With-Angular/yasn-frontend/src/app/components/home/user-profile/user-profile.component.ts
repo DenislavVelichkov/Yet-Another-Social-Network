@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
 
   public isGuestProfile: boolean = false;
 
-  public isActiveProfile: boolean = false;
+  public isProfileOwnerLoggedIn: boolean = false;
 
   public areTheyFriends: boolean = false;
 
@@ -67,7 +67,7 @@ export class UserProfileComponent implements OnInit {
       this.store$.select('guestProfile').subscribe(data => {
         this.selectedProfileState = data;
         this.isGuestProfile = true;
-        this.isActiveProfile = false;
+        this.isProfileOwnerLoggedIn = false;
 
       }, error => console.log(new Error(error)));
 
@@ -81,7 +81,7 @@ export class UserProfileComponent implements OnInit {
       this.store$.select('userProfile').subscribe(data => {
         this.selectedProfileState = data;
         this.isGuestProfile = false;
-        this.isActiveProfile = true;
+        this.isProfileOwnerLoggedIn = true;
       });
     }
   }

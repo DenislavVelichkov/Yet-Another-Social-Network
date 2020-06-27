@@ -1,6 +1,7 @@
 package org.java.yasn.web.controller;
 
 import java.util.Collection;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.EndpointConstants;
@@ -54,11 +55,19 @@ public class NotificationController {
     return ResponseEntity.ok(response);
   }
 
-  @DeleteMapping(value = "/delete-notification/{notificationId}")
+  @DeleteMapping("/delete-notification/{notificationId}")
   public ResponseEntity<?> deleteNotification(
       @PathVariable(name = "notificationId") String notificationId) {
 
     this.notificationService.deleteNotification(notificationId);
+
+    return ResponseEntity.ok().build();
+  }
+
+  @PutMapping("/edit-notification")
+  public ResponseEntity<?> editNotification(@RequestBody Map<String, String> request) {
+    System.out.println(request);
+    this.notificationService.markNotificationAsRead(request.get("notificationId"));
 
     return ResponseEntity.ok().build();
   }

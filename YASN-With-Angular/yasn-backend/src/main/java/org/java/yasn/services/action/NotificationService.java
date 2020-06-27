@@ -20,5 +20,5 @@ public interface NotificationService {
 
   void deleteNotification(String notificationId);
 
-  void markNotificationAsRead(String viewerId, String selectedProfileId, String notificationType);
+  void markNotificationAsRead(String notificationId);
 }

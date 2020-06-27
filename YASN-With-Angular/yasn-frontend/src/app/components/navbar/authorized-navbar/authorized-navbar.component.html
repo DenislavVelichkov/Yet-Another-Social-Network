@@ -56,17 +56,19 @@
                 <div class="notifications-header">
                   <h5>Notifications</h5>
                 </div>
-                <div *ngFor="let notification of notifications" class="notification-content-container">
-                  <img alt="avatar-picture"
-                       class="notification-content-avatar" src="{{notification.senderPicture}}"/>
-                  <p [routerLink]="['/user/profile', notification.senderId]" (click)="acceptFriendRequest()">
-                    <a>
-                      {{notification.senderFullName}}
-                    </a>
-                    <span>, {{notification.content}}</span>
-                  </p>
-                  <span class="notification-time"> {{convertTime(notification.createdOn)}} </span>
-                  <span class="notification-close" (click)="deleteNotification(notification)">x</span>
+                <div *ngFor="let notification of notifications">
+                  <div class="notification-content-container">
+                    <img alt="avatar-picture"
+                          class="notification-content-avatar" src="{{notification.senderPicture}}"/>
+                    <p [routerLink]="['/user/profile', notification.senderId]"
+                       (click)="sendFriendRequest(notification)">
+                      <a>
+                        {{notification.senderFullName}}
+                      </a>
+                      <span>, {{notification.content}}</span>
+                    </p>
+                    <span class="notification-time"> {{convertTime(notification.createdOn)}} </span>
+                    <span class="notification-close" (click)="deleteNotification(notification)">x</span></div>
                 </div>
               </div>
             </a>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../../core/services/authentication/auth.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
@@ -17,13 +17,14 @@ import {SearchBarComponent} from "../../search-bar/search-bar.component";
 import {PendingFrRequestAction} from "../../../core/store/on-action/actions/pending-fr-request.action";
 import {take} from "rxjs/operators";
 import {DeleteNotificationAction} from "../../../core/store/notification/actions/delete-notification.action";
+import {MarkNotificationAction} from "../../../core/store/notification/actions/mark-notification.action";
 
 @Component({
   selector: 'app-authorized-navbar',
   templateUrl: './authorized-navbar.component.html',
   styleUrls: ['./authorized-navbar.component.css', '../un-authorized-navbar/un-authorized-navbar.component.css']
 })
-export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
+export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   activeProfileId: string;
 
@@ -83,7 +84,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
   }
 
   convertTime(date: Date): string {
-    return timeAgoConverter(date)
+    return timeAgoConverter(date);
   }
 
   ngOnDestroy(): void {
@@ -93,15 +94,20 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
   openSearchBar() {
     const searchDialogRef = this.searchDialog.open(SearchBarComponent);
-    searchDialogRef.updatePosition({top: '5rem'})
+    searchDialogRef.updatePosition({top: '5rem'});
   }
 
   showNotificationDropdown() {
     this.notificationDropdown = !this.notificationDropdown;
   }
 
-  acceptFriendRequest() {
+  sendFriendRequest(notification: Notification) {
     this.store$.dispatch(new PendingFrRequestAction({pendingFrRequest: true}))
+
+    this.http.update(EndpointUrls.editNotification, {notificationId: notification.notificationId})
+      .pipe(take(1)).subscribe(() => {
+      this.store$.dispatch(new MarkNotificationAction({notificationId: notification.notificationId, isRead: true}))
+    }, error => console.log(new Error(error)));
   }
 
   deleteNotification(notification: Notification) {
@@ -113,6 +119,10 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
           recipientId: notification.recipientId
         }));
     }, error => console.log(new Error(error)));
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
 }

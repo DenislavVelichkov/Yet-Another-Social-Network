@@ -24,4 +24,5 @@ export const EndpointUrls = {
   searchProfile: "/api/search/user-profile/",
   friendshipStatus: "/api/actions/check-friendship/",
   deleteNotification: "/api/notification/delete-notification/",
+  editNotification: "/api/notification/edit-notification/",
 }
