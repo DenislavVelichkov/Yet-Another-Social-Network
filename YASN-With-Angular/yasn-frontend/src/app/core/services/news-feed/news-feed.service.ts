@@ -77,7 +77,7 @@ export class NewsFeedService {
 
     }, error => {
       this.store$.dispatch(new StopLoadingAction({loading: false}));
-      throwError(error);
+      console.log(new Error(error));;
     });
 
     this.store$.dispatch(new StopLoadingAction({loading: false}));

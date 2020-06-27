@@ -14,6 +14,4 @@ export interface Notification {
 
   recipientId: string;
 
-  action: string;
-
 }
