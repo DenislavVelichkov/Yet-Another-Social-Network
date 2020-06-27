@@ -14,6 +14,7 @@ import {WebsocketService} from "../../../core/services/websocket/websocket.servi
 import {SendFrRequestAction} from "../../../core/store/notification/actions/send-fr-request.action";
 import {MatDialog} from "@angular/material/dialog";
 import {SearchBarComponent} from "../../search-bar/search-bar.component";
+import {AcceptFrRequestAction} from "../../../core/store/on-action/actions/accept-fr-request.action";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -95,6 +96,14 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
   showNotificationDropdown(){
     this.notificationDropdown = !this.notificationDropdown;
+  }
+
+  acceptFriendRequest(){
+    this.store$.dispatch(new AcceptFrRequestAction({pendingFrRequest: true}))
+  }
+
+  deleteNotification() {
+
   }
 
 }

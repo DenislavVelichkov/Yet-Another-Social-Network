@@ -22,13 +22,20 @@
 }
 
 .notification-content-container p {
-  flex: 0 0 77%;
+  flex: 0 0 75%;
 }
 
 .notification-time {
   font-style: italic;
   font-size: 10px;
   flex: 0 0 10%;
+  padding: 0 0 0 0.5em;
+}
+
+.notification-close {
+  flex: 0 0 2%;
+  color: red;
+  align-self: center;
 }
 
 .notifications-dropdown-container {

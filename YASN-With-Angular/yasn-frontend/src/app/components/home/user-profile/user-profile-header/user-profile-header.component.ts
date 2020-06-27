@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AppState, ProfileState} from "../../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../../core/http/http-repository.service";
@@ -6,7 +6,7 @@ import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {Notification} from "../../../../core/store/notification/Notification";
 import {Store} from "@ngrx/store";
-import {throwError} from "rxjs";
+import {Subscription, throwError} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.component";
 
@@ -15,11 +15,19 @@ import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.
   templateUrl: './user-profile-header.component.html',
   styleUrls: ['./user-profile-header.component.css']
 })
-export class UserProfileHeaderComponent implements OnInit {
+export class UserProfileHeaderComponent implements OnInit, OnDestroy {
+
   @Input("selectedProfileId") selectedProfileId: string;
+
   @Input("userProfile") activeProfileInfo: ProfileState;
+
   @Input("isGuestProfile") public isGuestProfile: boolean = false;
+
   @Input("isActiveProfile") public isActiveProfile: boolean = false;
+
+  private isProfileHasPendingFrRequest$: Subscription
+
+  public pendingFrRequest: boolean;
 
   constructor(private route: ActivatedRoute,
               private http: HttpRepositoryService,
@@ -28,7 +36,9 @@ export class UserProfileHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.isProfileHasPendingFrRequest$ = this.store$.select('onAction').subscribe(data => {
+      this.pendingFrRequest = data.pendingFrRequest;
+    })
   }
 
   addFriend() {
@@ -44,8 +54,17 @@ export class UserProfileHeaderComponent implements OnInit {
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
           duration: 4500,
           verticalPosition: "top",
-          data: "You have send a friend request!"
+          horizontalPosition: "center",
+          data: "You have send a friend request"
         })
       }, error => console.log(throwError(error)));
+  }
+
+  acceptFriendRequest() {
+
+  }
+
+  ngOnDestroy(): void {
+    this.isProfileHasPendingFrRequest$.unsubscribe();
   }
 }

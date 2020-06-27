@@ -17,9 +17,13 @@ import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+
   public userProfileState: ProfileState;
+
   public selectedProfileId: string;
+
   public isGuestProfile: boolean = false;
+
   public isActiveProfile: boolean = false;
 
   constructor(private store$: Store<AppState>,
