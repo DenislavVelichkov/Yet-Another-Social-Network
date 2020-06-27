@@ -35,8 +35,8 @@ export class AuthService {
         error => {
           this.store$.dispatch(new AuthenticatingFailedAction({error: error}))
           this.store$.dispatch(new StopLoadingAction({loading: false}))
-          this.router.navigate(['/user/login']).catch(reason => throwError(reason))
-          console.log(throwError(error));
+          this.router.navigate(['/user/login']).catch(reason => console.log(new Error(reason)))
+          console.log(new Error(error));
         });
   }
 

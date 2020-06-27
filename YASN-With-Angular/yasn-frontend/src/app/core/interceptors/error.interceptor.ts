@@ -23,6 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(catchError(err => {
       this.store$.dispatch(new AuthenticatingFailedAction({error: err}))
+      let errorMessage: string = err.status;
 
       if (err.status === 401) {
         // auto logout if 401 response returned from api
@@ -35,6 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       if (err.status === 403) {
+        errorMessage = "Register first, the try to login again";
         this.router.navigate(['index']).catch(reason => console.log(new Error(reason)));
       } else {
         this.router.navigate(['error']).catch(reason => console.log(new Error(reason)));
@@ -44,7 +46,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         {
           verticalPosition: "top",
           duration: 4200,
-          data: "Error! " + "Status Code: " + err.status,
+          data: "Error! " + "Reason: " + errorMessage,
         });
 
       return throwError(err)

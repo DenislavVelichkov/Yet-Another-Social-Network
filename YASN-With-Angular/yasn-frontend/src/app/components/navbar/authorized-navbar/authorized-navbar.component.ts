@@ -15,6 +15,8 @@ import {SendFrRequestAction} from "../../../core/store/notification/actions/send
 import {MatDialog} from "@angular/material/dialog";
 import {SearchBarComponent} from "../../search-bar/search-bar.component";
 import {PendingFrRequestAction} from "../../../core/store/on-action/actions/pending-fr-request.action";
+import {take} from "rxjs/operators";
+import {DeleteNotificationAction} from "../../../core/store/notification/actions/delete-notification.action";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -37,7 +39,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService,
               private store$: Store<AppState>,
-              private httpRepo: HttpRepositoryService,
+              private http: HttpRepositoryService,
               private notificationService: NotificationService,
               private websocketService: WebsocketService,
               private searchDialog: MatDialog) {
@@ -48,7 +50,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
 
     this.websocketService.connect();
 
-    this.httpRepo.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.activeProfileId)
+    this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.activeProfileId)
       .subscribe(value => {
         this.store$.dispatch(new UpdateActiveProfileAction(value))
       }, error => throwError(error))
@@ -66,8 +68,8 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.notificationsSubscription$ = this.websocketService.getFriendRequestsData().subscribe( (notification: string) => {
-      let newNotification: Notification =  Object.assign({}, JSON.parse(notification));
+    this.notificationsSubscription$ = this.websocketService.getFriendRequestsData().subscribe((notification: string) => {
+      let newNotification: Notification = Object.assign({}, JSON.parse(notification));
 
       if (newNotification.recipientId === this.activeProfileId) {
         this.store$.dispatch(new SendFrRequestAction({notification: newNotification}));
@@ -89,21 +91,28 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy {
     this.notificationsSubscription$.unsubscribe();
   }
 
-  openSearchBar(){
+  openSearchBar() {
     const searchDialogRef = this.searchDialog.open(SearchBarComponent);
-    searchDialogRef.updatePosition({ top: '5rem'})
+    searchDialogRef.updatePosition({top: '5rem'})
   }
 
-  showNotificationDropdown(){
+  showNotificationDropdown() {
     this.notificationDropdown = !this.notificationDropdown;
   }
 
-  acceptFriendRequest(){
+  acceptFriendRequest() {
     this.store$.dispatch(new PendingFrRequestAction({pendingFrRequest: true}))
   }
 
-  deleteNotification() {
-
+  deleteNotification(notification: Notification) {
+    this.http.delete(EndpointUrls.deleteNotification + notification.notificationId)
+      .pipe(take(1)).subscribe(() => {
+      this.store$.dispatch(new DeleteNotificationAction(
+        {
+          notificationId: notification.notificationId,
+          recipientId: notification.recipientId
+        }));
+    }, error => console.log(new Error(error)));
   }
 
 }
