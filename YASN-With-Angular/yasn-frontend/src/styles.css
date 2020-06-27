@@ -123,6 +123,16 @@ html {
   html {
     font-size: var(--sizing-font-size-desktop);
   }
+
+  .post-container {
+    max-width: 80%;
+
+  }
+
+  .yasn-post-container {
+    max-width: 80%;
+  }
+
 }
 
 h1, h2, h3, h4, h5, h6 {
