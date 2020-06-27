@@ -14,6 +14,8 @@ import org.java.yasn.common.enums.NotificationType;
 @NoArgsConstructor
 public class NotificationResponseModel {
 
+  private String notificationId;
+
   private boolean isViewed;
 
   private String senderPicture;

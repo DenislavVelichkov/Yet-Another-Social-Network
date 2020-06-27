@@ -20,8 +20,15 @@ export function notificationReducer(state: NotificationState = initialState,
 
       return sendFriendRequest(state, action.payload)
 
-    default:
+    case NotificationActionTypes.MARK_NOTIFICATION:
 
+      return markNotification(state, action.payload);
+
+    case NotificationActionTypes.DELETE_NOTIFICATION:
+
+      return deleteNotification(state, action.payload);
+
+    default:
       return state;
   }
 
@@ -49,12 +56,32 @@ export function notificationReducer(state: NotificationState = initialState,
         .get(payload.notification.recipientId)
         .push(payload.notification);
 
-     /* draftState.allPersonalNotifications.get(payload.recipientId).push(notificationToAdd)
+      /* draftState.allPersonalNotifications.get(payload.recipientId).push(notificationToAdd)
 
-      draftState.allPersonalNotifications.get(payload.recipientId).sort(
-        (dateA: Notification, dateB: Notification) =>
-          compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
+       draftState.allPersonalNotifications.get(payload.recipientId).sort(
+         (dateA: Notification, dateB: Notification) =>
+           compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
 
+    });
+  }
+
+  function markNotification(state: NotificationState, payload: any) {
+    return produce(state, draftState => {
+      draftState.allPersonalNotifications
+        .get(payload.recipientId)
+        .find(n => n.notificationId === payload.notificationId)
+        .isViewed = true;
+    });
+  }
+
+  function deleteNotification(state: NotificationState, payload: any) {
+
+    return produce(state, draftState => {
+      let newNotificationCollection = draftState
+          .allPersonalNotifications
+          .get(payload.recipientId)
+          .filter(n => n.notificationId !== payload.notificationId);
+      draftState.allPersonalNotifications.set(payload.recipientId, newNotificationCollection)
     });
   }
 

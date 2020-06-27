@@ -1,5 +1,7 @@
 export interface Notification {
 
+  notificationId: string;
+
   isViewed: boolean;
 
   senderPicture: string;

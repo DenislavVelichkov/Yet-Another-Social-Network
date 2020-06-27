@@ -11,7 +11,6 @@ import org.java.yasn.common.ExceptionMessages;
 import org.java.yasn.common.enums.NotificationType;
 import org.java.yasn.data.entities.Notification;
 import org.java.yasn.data.entities.user.UserProfile;
-import org.java.yasn.data.models.service.action.NotificationServiceModel;
 import org.java.yasn.repository.action.NotificationRepository;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.web.models.binding.ActionModel;
@@ -107,9 +106,9 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public NotificationServiceModel getNotification(String viewerId, String selectedProfileId, String notificationType) {
+  public Notification getNotification(String viewerId, String selectedProfileId, String notificationType) {
 
-    NotificationServiceModel notification;
+    Notification notification;
 
     Optional<Notification> normalSearchForNotification =
         this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(
@@ -121,10 +120,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     if (normalSearchForNotification.isEmpty() && reverseSearchForNotification.isEmpty()) {
       throw new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS);
-    } else if (normalSearchForNotification.isPresent()) {
-      notification = this.modelMapper.map(normalSearchForNotification.get(), NotificationServiceModel.class);
     } else {
-      notification = this.modelMapper.map(reverseSearchForNotification.get(), NotificationServiceModel.class);
+      notification = normalSearchForNotification.orElseGet(reverseSearchForNotification::get);
     }
 
     return notification;
@@ -133,10 +130,17 @@ public class NotificationServiceImpl implements NotificationService {
   @Override
   public void deleteNotification(String notificationId) {
     Notification notificationToBeRemoved = this.notificationRepository.findById(notificationId)
-        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS));
+                                                                      .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS));
 
     this.notificationRepository.delete(notificationToBeRemoved);
 
+  }
+
+  @Override
+  public void markNotificationAsRead(String viewerId, String selectedProfileId, String notificationType) {
+    Notification notificationToEdit = this.getNotification(viewerId, selectedProfileId, notificationType);
+    notificationToEdit.setViewed(true);
+    this.notificationRepository.saveAndFlush(notificationToEdit);
   }
 
 }

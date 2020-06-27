@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.component";
 import {AcceptFrRequestAction} from "../../../../core/store/on-action/actions/accept-fr-request.action";
+import {DeleteNotificationAction} from "../../../../core/store/notification/actions/delete-notification.action";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -99,6 +100,7 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
       this.http.delete(EndpointUrls.deleteNotification + notificationId)
         .pipe(take(1))
         .subscribe(() => {
+          this.store$.dispatch(new DeleteNotificationAction({recipientId: this.loggedInProfileId, notificationId: notificationId}))
         }, error => console.log(new Error(error)));
 
     }, error => console.log(new Error(error)));
