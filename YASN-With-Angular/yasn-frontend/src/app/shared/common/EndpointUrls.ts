@@ -22,5 +22,6 @@ export const EndpointUrls = {
   topicUnLike: "/unlike-post",
   topicCommentOnPost: "/comment-on-post",
   searchProfile: "/api/search/user-profile/",
-  friendshipStatus: "/api/actions/check-friendship/"
+  friendshipStatus: "/api/actions/check-friendship/",
+  deleteNotification: "/api/notification/delete-notification/",
 }

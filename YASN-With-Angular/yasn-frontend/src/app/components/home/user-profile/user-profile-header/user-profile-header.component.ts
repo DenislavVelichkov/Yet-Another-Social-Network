@@ -42,12 +42,11 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-
     this.isProfileHasPendingFrRequest$ = this.store$.select('onAction').subscribe(data => {
       this.pendingFrRequest = data.pendingFrRequest;
     })
   }
+
 
   addFriend() {
     let activeProfileId: string = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
@@ -63,7 +62,7 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
           duration: 4500,
           verticalPosition: "top",
           horizontalPosition: "center",
-          data: "You have send a friend request"
+          data: "You have send a friend request to " + data.recipientFullName
         })
       }, reason => {
 
@@ -79,22 +78,29 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
   }
 
   acceptFriendRequest() {
+  let notificationId: string;
 
     this.http.update(EndpointUrls.addFriend,
       {
         senderId: this.loggedInProfileId,
         recipientId: this.selectedProfileId
       }).subscribe(data => {
-      if (data) {
-        this.snackBar.openFromComponent(CustomSnackbarComponent, {
-          duration: 4500,
-          verticalPosition: "top",
-          horizontalPosition: "center",
-          data: "Congrats! You now have a new friend!"
-        })
-      }
+      notificationId = data['notificationId'];
+
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        duration: 4500,
+        verticalPosition: "top",
+        horizontalPosition: "center",
+        data: "Congrats! You now have a new friend!"
+      })
 
       this.store$.dispatch(new AcceptFrRequestAction({acceptFrRequest: true}))
+
+      this.http.delete(EndpointUrls.deleteNotification + notificationId)
+        .pipe(take(1))
+        .subscribe(() => {
+        }, error => console.log(new Error(error)));
+
     }, error => console.log(new Error(error)));
   }
 

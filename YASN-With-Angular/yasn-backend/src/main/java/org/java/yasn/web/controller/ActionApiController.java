@@ -48,12 +48,12 @@ public class ActionApiController {
   }
 
   @PutMapping("/add-friend")
-  public ResponseEntity<Boolean> acceptFriendRequest(@RequestBody ActionModel actionModel) {
+  public ResponseEntity<Map<String, String>> acceptFriendRequest(@RequestBody ActionModel actionModel) {
 
-    boolean successfulFriendship =
+    Map<String, String> response =
         this.profileService.addFriend(actionModel);
 
-    return ResponseEntity.ok(successfulFriendship);
+    return ResponseEntity.ok(response);
   }
 
   @PostMapping("/create-album")
@@ -97,6 +97,15 @@ public class ActionApiController {
   public ResponseEntity<Boolean> areTheFriends(@PathVariable(name = "viewerProfileId") String viewerId,
                                                @PathVariable(name = "selectedProfileId") String selectedProfileId) {
     boolean response = this.profileService.checkFriendship(viewerId, selectedProfileId);
+
+    return ResponseEntity.ok(response);
+  }
+
+  @GetMapping(value = "/check-for-pending-request/{viewerProfileId}/{selectedProfileId}/{notificationType}")
+  public ResponseEntity<Boolean> areTheFriends(@PathVariable(name = "viewerProfileId") String viewerId,
+                                               @PathVariable(name = "selectedProfileId") String selectedProfileId,
+                                               @PathVariable(name = "notificationType") String notificationType) {
+    boolean response = this.notificationService.checkForPendingRequest(viewerId, selectedProfileId, notificationType);
 
     return ResponseEntity.ok(response);
   }

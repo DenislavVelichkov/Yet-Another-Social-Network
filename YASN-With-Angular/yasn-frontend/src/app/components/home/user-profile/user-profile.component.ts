@@ -8,8 +8,8 @@ import {HttpRepositoryService} from "../../../core/http/http-repository.service"
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {take} from "rxjs/operators";
 import {ProfileInfoModel} from "../../../shared/models/user/ProfileInfoModel";
-import {throwError} from "rxjs";
 import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions/update-active-profile.action";
+import {AcceptFrRequestAction} from "../../../core/store/on-action/actions/accept-fr-request.action";
 
 @Component({
   selector: 'app-user-profile',
@@ -48,33 +48,35 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateComponent() {
+    this.store$.select('onAction').subscribe(data => this.areTheyFriends = data.acceptFrRequest);
 
     this.http.get<boolean>(EndpointUrls.friendshipStatus + `${this.loggedInProfileId}` + "/" + `${this.selectedProfileId}`)
       .pipe(take(1)).subscribe(data => {
-      this.areTheyFriends = data;
-      this.store$.select('onAction').subscribe(data => this.areTheyFriends = data.acceptFrRequest);
-    });
+
+      this.store$.dispatch(new AcceptFrRequestAction({acceptFrRequest: data}));
+    }, error => console.log(new Error(error)));
+
 
     if (this.loggedInProfileId !== this.selectedProfileId) {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
         .pipe(take(1))
         .subscribe(value => {
           this.store$.dispatch(new GetGuestProfileDetails(value));
-        }, error => console.log(throwError(error)));
+        }, error => console.log(new Error(error)));
 
       this.store$.select('guestProfile').subscribe(data => {
         this.selectedProfileState = data;
         this.isGuestProfile = true;
         this.isActiveProfile = false;
 
-      }, error => console.log(throwError(error)));
+      }, error => console.log(new Error(error)));
 
     } else {
       this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.selectedProfileId)
         .pipe(take(1))
         .subscribe(value => {
           this.store$.dispatch(new UpdateActiveProfileAction(value));
-        }, error => console.log(throwError(error)));
+        }, error => console.log(new Error(error)));
 
       this.store$.select('userProfile').subscribe(data => {
         this.selectedProfileState = data;

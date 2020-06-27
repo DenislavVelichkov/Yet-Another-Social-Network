@@ -1,6 +1,6 @@
 package org.java.yasn.data.models.service.action;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,6 @@ public class NotificationServiceModel extends BaseServiceModel {
   private String senderPicture;
   private String senderFullName;
   private NotificationType notificationType;
-  private LocalDate createdOn;
+  private LocalDateTime createdOn;
   private String content;
 }

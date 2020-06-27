@@ -11,6 +11,7 @@ import org.java.yasn.common.ExceptionMessages;
 import org.java.yasn.common.enums.NotificationType;
 import org.java.yasn.data.entities.Notification;
 import org.java.yasn.data.entities.user.UserProfile;
+import org.java.yasn.data.models.service.action.NotificationServiceModel;
 import org.java.yasn.repository.action.NotificationRepository;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.web.models.binding.ActionModel;
@@ -42,7 +43,7 @@ public class NotificationServiceImpl implements NotificationService {
     notification.setCreatedOn(LocalDateTime.now());
     notification.setSenderPicture(recipient.getProfilePicture());
     notification.setSenderFullName(recipient.getFullName());
-    notification.setContent("created a new post");
+    notification.setContent(NotificationType.CREATED_A_POST.getLabel());
 
     Optional<Notification> isNotificationAlreadyExists =
         this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(notification.getSender().getId(), notification.getRecipient().getId(), notification.getNotificationType());
@@ -72,7 +73,7 @@ public class NotificationServiceImpl implements NotificationService {
     notification.setRecipient(recipient);
     notification.setViewed(false);
     notification.setSenderPicture(sender.getProfilePicture());
-    notification.setContent("wants to be your friend");
+    notification.setContent(NotificationType.FRIEND_REQ.getLabel());
     notification.setCreatedOn(LocalDateTime.now());
     notification.setNotificationType(NotificationType.FRIEND_REQ);
 
@@ -87,13 +88,6 @@ public class NotificationServiceImpl implements NotificationService {
         this.notificationRepository.saveAndFlush(notification), NotificationResponseModel.class);
   }
 
-
-  @Override
-  public void removeNotification(String senderId, String recipientUsername,
-                                 NotificationType friendReq) {
-
-  }
-
   @Override
   public Collection<NotificationResponseModel> getAllNotifications(ActionModel actionModel) {
 
@@ -103,6 +97,46 @@ public class NotificationServiceImpl implements NotificationService {
     return notifications.stream()
                         .map(notification -> this.modelMapper.map(notification, NotificationResponseModel.class))
                         .collect(Collectors.toCollection(LinkedList::new));
+  }
+
+  @Override
+  public boolean checkForPendingRequest(String viewerId, String selectedProfileId, String notificationType) {
+    Optional<Notification> isRequestExists = this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(viewerId, selectedProfileId, NotificationType.getNotificationType(notificationType));
+
+    return isRequestExists.isPresent();
+  }
+
+  @Override
+  public NotificationServiceModel getNotification(String viewerId, String selectedProfileId, String notificationType) {
+
+    NotificationServiceModel notification;
+
+    Optional<Notification> normalSearchForNotification =
+        this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(
+            viewerId, selectedProfileId, NotificationType.getNotificationType(notificationType));
+
+    Optional<Notification> reverseSearchForNotification =
+        this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(
+            selectedProfileId, viewerId, NotificationType.getNotificationType(notificationType));
+
+    if (normalSearchForNotification.isEmpty() && reverseSearchForNotification.isEmpty()) {
+      throw new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS);
+    } else if (normalSearchForNotification.isPresent()) {
+      notification = this.modelMapper.map(normalSearchForNotification.get(), NotificationServiceModel.class);
+    } else {
+      notification = this.modelMapper.map(reverseSearchForNotification.get(), NotificationServiceModel.class);
+    }
+
+    return notification;
+  }
+
+  @Override
+  public void deleteNotification(String notificationId) {
+    Notification notificationToBeRemoved = this.notificationRepository.findById(notificationId)
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS));
+
+    this.notificationRepository.delete(notificationToBeRemoved);
+
   }
 
 }

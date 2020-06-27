@@ -6,6 +6,8 @@ export interface Notification {
 
   senderFullName: string;
 
+  recipientFullName: string;
+
   notificationType: string;
 
   createdOn: Date;

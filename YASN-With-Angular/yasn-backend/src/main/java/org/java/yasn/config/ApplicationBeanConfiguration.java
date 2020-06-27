@@ -5,6 +5,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.java.yasn.data.entities.Notification;
+import org.java.yasn.data.models.service.action.NotificationServiceModel;
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.data.models.service.wall.PostCommentServiceModel;
 import org.java.yasn.data.models.service.wall.WallPostServiceModel;
@@ -68,6 +69,10 @@ public class ApplicationBeanConfiguration {
 
     modelMapper.createTypeMap(Notification.class, NotificationResponseModel.class)
                .addMapping(src -> src.getRecipient().getId(), (des, val) -> des.setRecipientId((String) val))
+               .addMapping(src -> src.getSender().getId(), (des, val) -> des.setSenderId((String) val))
+               .addMapping(src -> src.getRecipient().getFullName(), (des, val) -> des.setRecipientFullName((String) val));
+
+    modelMapper.createTypeMap(Notification.class, NotificationServiceModel.class)
                .addMapping(src -> src.getSender().getId(), (des, val) -> des.setSenderId((String) val));
   }
 

@@ -6,7 +6,7 @@ public enum NotificationType {
   MESSAGE("message"),
   CREATED_A_POST("created a post"),
   COMMENT_ON_POST("commented on post"),
-  FRIEND_REQ("add friend request");
+  FRIEND_REQ("wants to be your friend");
 
   private final String label;
 

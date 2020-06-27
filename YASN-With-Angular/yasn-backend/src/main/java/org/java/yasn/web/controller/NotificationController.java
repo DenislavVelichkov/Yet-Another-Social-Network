@@ -10,10 +10,7 @@ import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/notification")
@@ -37,8 +34,7 @@ public class NotificationController {
   }
 
   @PostMapping(value = "/send-friend-request", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<NotificationResponseModel> sendFriendRequest(
-      @RequestBody ActionModel notification) {
+  public ResponseEntity<NotificationResponseModel> sendFriendRequest(@RequestBody ActionModel notification) {
 
     NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
     this.mapper.validate();
@@ -56,6 +52,15 @@ public class NotificationController {
     this.mapper.validate();
 
     return ResponseEntity.ok(response);
+  }
+
+  @DeleteMapping(value = "/delete-notification/{notificationId}")
+  public ResponseEntity<?> deleteNotification(
+      @PathVariable(name = "notificationId") String notificationId) {
+
+    this.notificationService.deleteNotification(notificationId);
+
+    return ResponseEntity.ok().build();
   }
 
 }

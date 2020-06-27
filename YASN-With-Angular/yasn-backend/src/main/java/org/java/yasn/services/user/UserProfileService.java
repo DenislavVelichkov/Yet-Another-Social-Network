@@ -1,6 +1,7 @@
 package org.java.yasn.services.user;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.web.models.binding.ActionModel;
@@ -13,7 +14,7 @@ public interface UserProfileService {
 
   UserProfileServiceModel findUserProfileById(String id);
 
-  boolean addFriend(ActionModel actionModel);
+  Map<String, String> addFriend(ActionModel actionModel);
 
   boolean editProfile(UserProfileServiceModel userProfile,
                       ProfileEditModel profileEditModel) throws IOException;

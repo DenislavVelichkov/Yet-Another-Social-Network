@@ -20,6 +20,8 @@ public class NotificationResponseModel {
 
   private String senderFullName;
 
+  private String recipientFullName;
+
   private NotificationType notificationType;
 
   private LocalDateTime createdOn;

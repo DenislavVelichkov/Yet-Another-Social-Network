@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.ExceptionMessages;
+import org.java.yasn.common.enums.NotificationType;
 import org.java.yasn.data.entities.user.User;
 import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
@@ -16,6 +19,7 @@ import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.user.UserRepository;
 import org.java.yasn.services.CloudinaryService;
+import org.java.yasn.services.action.NotificationService;
 import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
 import org.java.yasn.web.models.response.SearchResultModel;
@@ -27,11 +31,18 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserProfileServiceImpl implements UserProfileService {
+
   private final UserProfileRepository userProfileRepository;
+
   private final UserRepository userRepository;
+
   private final ModelMapper modelMapper;
+
   private final BCryptPasswordEncoder passwordEncoder;
+
   private final CloudinaryService cloudinaryService;
+
+  private final NotificationService notificationService;
 
   @Override
   public UserProfileServiceModel findUserProfileByUsername(String username) {
@@ -70,7 +81,8 @@ public class UserProfileServiceImpl implements UserProfileService {
   }
 
   @Override
-  public boolean addFriend(ActionModel actionModel) {
+  public Map<String, String> addFriend(ActionModel actionModel) {
+    boolean successfulAction;
 
     UserProfile recipient = this.userProfileRepository
         .findById(actionModel.getRecipientId())
@@ -87,11 +99,24 @@ public class UserProfileServiceImpl implements UserProfileService {
       recipient.getFriends().add(sender);
 
       this.userProfileRepository.saveAndFlush(sender);
+      successfulAction = true;
 
-      return true;
+    } else {
+      successfulAction = false;
     }
 
-    return false;
+    Map<String, String> response = new HashMap<>();
+    response.putIfAbsent("actionResult", String.valueOf(successfulAction));
+
+    String notificationId =
+        this.notificationService.getNotification(
+            actionModel.getSenderId(),
+            actionModel.getRecipientId(),
+            NotificationType.FRIEND_REQ.getLabel()).getId();
+
+    response.putIfAbsent("notificationId", notificationId);
+
+    return response;
   }
 
   @Override
