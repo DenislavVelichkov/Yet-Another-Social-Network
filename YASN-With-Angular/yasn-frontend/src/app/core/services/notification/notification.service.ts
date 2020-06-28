@@ -11,6 +11,7 @@ import {CustomSuccessSnackbarComponent} from "../../../components/custom-snackba
 import {ErrorSnackbarComponent} from "../../../components/custom-snackbar/error-snackbar/error-snackbar.component";
 import {Router} from "@angular/router";
 import {AuthService} from "../authentication/auth.service";
+import {NotificationsEndpointTypes} from "./NotificationTypes";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class NotificationService {
 
   createNotificationOnNewPost(senderId: string): void {
     this.http.create<Notification>(
-      EndpointUrls.notifications + '/created-post',
+      NotificationsEndpointTypes.createNewWallPost,
       {
         senderId: senderId,
       })
@@ -38,7 +39,7 @@ export class NotificationService {
 
   getAllPersonalNotifications(recipientId: string): void {
     this.http.create<Notification[]>(
-      EndpointUrls.notifications + '/get-all-notifications',
+      EndpointUrls.getAllNotificationsForLoggedInUser,
       {recipientId: recipientId})
       .pipe(take(1))
       .subscribe((value: Notification[]) => {

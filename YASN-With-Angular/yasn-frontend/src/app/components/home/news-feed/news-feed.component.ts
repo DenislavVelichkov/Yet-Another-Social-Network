@@ -90,7 +90,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     };
 
     if (isPostAlreadyLiked) {
-
       this.http.create(EndpointUrls.unLikeAPost, likeModel)
         .pipe(take(1))
         .subscribe(() => {
