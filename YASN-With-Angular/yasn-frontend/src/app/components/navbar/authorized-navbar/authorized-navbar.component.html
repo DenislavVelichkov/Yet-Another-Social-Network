@@ -57,7 +57,7 @@
                   <h5>Notifications</h5>
                 </div>
                 <div *ngFor="let notification of notifications">
-                  <div class="notification-content-container">
+                  <div class="notification-content-container" [ngStyle]="{'background-color': notification.isViewed ? 'rgba(11, 118, 156, 0.26)' : '#FFF'}">
                     <img alt="avatar-picture"
                           class="notification-content-avatar" src="{{notification.senderPicture}}"/>
                     <p [routerLink]="['/user/profile', notification.senderId]"

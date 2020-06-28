@@ -10,7 +10,7 @@
 }
 
 .notification-content-container:hover {
-  background-color: rgba(11, 118, 156, 0.26);
+  background-color: rgba(11, 118, 156, 0.26) !important;
 }
 
 .notification-content-avatar {

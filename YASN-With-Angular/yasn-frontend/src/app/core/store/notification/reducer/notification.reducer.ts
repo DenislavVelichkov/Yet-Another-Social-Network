@@ -70,7 +70,7 @@ export function notificationReducer(state: NotificationState = initialState,
       draftState.allPersonalNotifications
         .get(payload.recipientId)
         .find(n => n.notificationId === payload.notificationId)
-        .isViewed = true;
+        .isViewed = payload.isRead;
     });
   }
 
@@ -78,9 +78,9 @@ export function notificationReducer(state: NotificationState = initialState,
 
     return produce(state, draftState => {
       let newNotificationCollection = draftState
-          .allPersonalNotifications
-          .get(payload.recipientId)
-          .filter(n => n.notificationId !== payload.notificationId);
+        .allPersonalNotifications
+        .get(payload.recipientId)
+        .filter(n => n.notificationId !== payload.notificationId);
       draftState.allPersonalNotifications.set(payload.recipientId, newNotificationCollection)
     });
   }

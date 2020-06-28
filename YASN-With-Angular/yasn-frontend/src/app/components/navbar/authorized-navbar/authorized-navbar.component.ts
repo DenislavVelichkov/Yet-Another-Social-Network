@@ -106,7 +106,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
 
     this.http.update(EndpointUrls.editNotification, {notificationId: notification.notificationId})
       .pipe(take(1)).subscribe(() => {
-      this.store$.dispatch(new MarkNotificationAction({notificationId: notification.notificationId, isRead: true}))
+      this.store$.dispatch(new MarkNotificationAction({recipientId: notification.recipientId, notificationId: notification.notificationId, isRead: true}))
     }, error => console.log(new Error(error)));
   }
 
