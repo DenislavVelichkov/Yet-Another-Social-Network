@@ -42,7 +42,7 @@ export class AuthService {
             {
               verticalPosition: "top",
               duration: 4200,
-              data: "Wrong credentials!",
+              data: "Wrong email or password!",
             });
           this.router.navigate(['/user/login']).catch(reason => console.log(new Error(reason)))
         });
