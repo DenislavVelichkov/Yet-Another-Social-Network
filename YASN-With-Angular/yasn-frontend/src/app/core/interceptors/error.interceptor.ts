@@ -27,6 +27,12 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       if (err.status === 401) {
         // auto logout if 401 response returned from api
+        this.snackBar.openFromComponent(ErrorSnackbarComponent,
+          {
+            verticalPosition: "top",
+            duration: 4200,
+            data: "Error! " + "Reason: " + errorMessage,
+          });
         location.reload();
         this.auth.logout();
       }
@@ -42,12 +48,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.router.navigate(['error']).catch(reason => console.log(new Error(reason)));
       }
       */
-      this.snackBar.openFromComponent(ErrorSnackbarComponent,
-        {
-          verticalPosition: "top",
-          duration: 4200,
-          data: "Error! " + "Reason: " + errorMessage,
-        });
 
       return throwError(err)
     }));

@@ -14,6 +14,8 @@ import {take} from "rxjs/operators";
 import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
 import {Router} from "@angular/router";
 import {EndpointUrls} from "../../../shared/common/EndpointUrls";
+import {ErrorSnackbarComponent} from "../../../components/custom-snackbar/error-snackbar/error-snackbar.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -21,7 +23,8 @@ export class AuthService {
   constructor(private httpRepo: HttpRepositoryService,
               private cookieService: CookieService,
               private router: Router,
-              private store$: Store<AppState>) {
+              private store$: Store<AppState>,
+              private snackBar: MatSnackBar) {
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
@@ -30,13 +33,18 @@ export class AuthService {
       .pipe(take(1))
       .subscribe((data: any) => {
           this.handleAuthentication(data)
-          this.router.navigate(['/home']).catch(reason => console.log(throwError(reason)));
+          this.router.navigate(['/home']).catch(reason => console.log(new Error(reason)));
         },
         error => {
           this.store$.dispatch(new AuthenticatingFailedAction({error: error}))
           this.store$.dispatch(new StopLoadingAction({loading: false}))
+          this.snackBar.openFromComponent(ErrorSnackbarComponent,
+            {
+              verticalPosition: "top",
+              duration: 4200,
+              data: "Wrong credentials!",
+            });
           this.router.navigate(['/user/login']).catch(reason => console.log(new Error(reason)))
-          console.log(new Error(error));
         });
   }
 
