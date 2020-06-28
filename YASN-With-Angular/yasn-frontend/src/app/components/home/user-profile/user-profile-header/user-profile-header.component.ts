@@ -3,14 +3,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AppState, ProfileState} from "../../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../../core/http/http-repository.service";
 import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
-import {take} from "rxjs/operators";
-import {Notification} from "../../../../core/store/notification/Notification";
 import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CustomSuccessSnackbarComponent} from "../../../custom-snackbar/success-snackbar/custom-success-snackbar.component";
 import {AcceptFrRequestAction} from "../../../../core/store/on-action/actions/accept-fr-request.action";
-import {ErrorSnackbarComponent} from "../../../custom-snackbar/error-snackbar/error-snackbar.component";
+import {NotificationService} from "../../../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -39,7 +37,8 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private http: HttpRepositoryService,
               private store$: Store<AppState>,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -50,32 +49,7 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
 
 
   addFriend() {
-    let activeProfileId: string = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
-    let frRequest = {
-      senderId: activeProfileId,
-      recipientId: this.selectedProfileId,
-    };
-
-    this.http.create<Notification>(EndpointUrls.sendFriendRequest, frRequest)
-      .pipe(take(1))
-      .subscribe(data => {
-        this.snackBar.openFromComponent(CustomSuccessSnackbarComponent, {
-          duration: 4500,
-          verticalPosition: "top",
-          horizontalPosition: "center",
-          data: "You have send a friend request to " + data.recipientFullName
-        })
-      }, reason => {
-
-        this.snackBar.openFromComponent(ErrorSnackbarComponent, {
-          duration: 4500,
-          verticalPosition: "top",
-          horizontalPosition: "center",
-          data: reason.error.message
-        })
-
-        this.router.navigate([`${this.router.url}`]).catch(reason => console.log(new Error(reason)));
-      });
+    this.notificationService.createFriendRequest(this.selectedProfileId)
   }
 
   acceptFriendRequest() {

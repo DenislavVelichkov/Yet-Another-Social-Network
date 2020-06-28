@@ -16,6 +16,7 @@ import {WebsocketService} from "../../../core/services/websocket/websocket.servi
 import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 import {CommentOnPostAction} from "../../../core/store/post/actions/comment-on-post.action";
 import {PostComment} from "../../../core/store/post/PostComment";
+import {AuthService} from "../../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-news-feed',
@@ -37,7 +38,8 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   constructor(private newsService: NewsFeedService,
               private store$: Store<AppState>,
               private http: HttpRepositoryService,
-              private websocketService: WebsocketService) {
+              private websocketService: WebsocketService,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -47,8 +49,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
         this.activeUserInfo = value;
       })
 
-    let currentUserProfileId =
-      JSON.parse(localStorage.getItem('activeUser'))._userProfileId;
+    let currentUserProfileId = this.auth.getActiveUser().userProfileId;
 
     this.newsService.getAllNewsFeeds(currentUserProfileId);
 

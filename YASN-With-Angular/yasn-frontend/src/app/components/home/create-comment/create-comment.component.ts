@@ -54,7 +54,7 @@ export class CreateCommentComponent implements OnInit {
       files.push(file)
     }
 
-    let userId = JSON.parse(localStorage.getItem('activeUser'))._userProfileId;
+    let userId = this.auth.getActiveUser().userProfileId;
 
     this.newsFeedService.createComment(
       userId,

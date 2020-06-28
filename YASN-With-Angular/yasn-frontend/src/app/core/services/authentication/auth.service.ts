@@ -70,13 +70,13 @@ export class AuthService {
     const payload = JSON.parse(atob((token.replace("Bearer: ", "").split(".")[1])));
     const expirationDate = new Date(new Date().getTime() + payload.exp);
 
-    let authenticatedUser = new UserAuthModel(
-      payload.role,
-      payload.userId,
-      payload.sub,
-      true,
-      token,
-      expirationDate);
+    let authenticatedUser = new UserAuthModel()
+    authenticatedUser.userProfileId = payload.userId;
+    authenticatedUser.role = payload.role;
+    authenticatedUser.userName = payload.sub;
+    authenticatedUser.rememberMe = true;
+    authenticatedUser.token = token;
+    authenticatedUser.tokenExpirationDate = expirationDate;
 
     localStorage.setItem("activeUser", JSON.stringify(authenticatedUser))
     this.store$.dispatch(new AuthenticatedAction(
@@ -93,11 +93,11 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-      return !!localStorage.getItem("activeUser")
+    return !!localStorage.getItem("activeUser")
   }
 
   getActiveUser(): UserAuthModel {
-    return JSON.parse(localStorage.getItem("activeUser"));
+    return Object.assign(new UserAuthModel(), JSON.parse(localStorage.getItem("activeUser")));
   }
 
 }

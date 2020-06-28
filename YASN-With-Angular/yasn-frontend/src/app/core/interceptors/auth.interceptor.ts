@@ -5,7 +5,9 @@ import {AuthService} from "../services/authentication/auth.service";
 
 @Injectable({providedIn: "root"})
 export class AuthInterceptor implements HttpInterceptor {
+
   private token: string;
+
   private userAlreadyLoggedIn: boolean;
 
   constructor(private authService: AuthService) {}
