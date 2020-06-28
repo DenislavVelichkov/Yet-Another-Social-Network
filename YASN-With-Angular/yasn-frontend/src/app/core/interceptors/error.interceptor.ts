@@ -41,7 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       } else {
         this.router.navigate(['error']).catch(reason => console.log(new Error(reason)));
       }
-*/
+      */
       this.snackBar.openFromComponent(ErrorSnackbarComponent,
         {
           verticalPosition: "top",

@@ -33,6 +33,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CustomSuccessSnackbarComponent} from "../components/custom-snackbar/success-snackbar/custom-success-snackbar.component";
 import {SearchBarComponent} from "../components/search-bar/search-bar.component";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {ErrorSnackbarComponent} from "../components/custom-snackbar/error-snackbar/error-snackbar.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
     EditUserProfileComponent,
     AuthorizedNavbarComponent,
     CustomSuccessSnackbarComponent,
-    SearchBarComponent
+    ErrorSnackbarComponent,
+    SearchBarComponent,
   ],
     imports: [
         CommonModule,
@@ -67,7 +69,7 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
         MatIconModule,
         MatButtonModule,
         MatSnackBarModule,
-        MatDialogModule
+        MatDialogModule,
     ],
   exports: [
     IndexComponent,
@@ -76,7 +78,9 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
     AuthorizedNavbarComponent,
     UnAuthorizedNavbarComponent,
     CustomSuccessSnackbarComponent,
-    SearchBarComponent],
+    ErrorSnackbarComponent,
+    SearchBarComponent,
+    ],
 })
 export class CoreModule {
   /*Ensure one instance of the services*/
