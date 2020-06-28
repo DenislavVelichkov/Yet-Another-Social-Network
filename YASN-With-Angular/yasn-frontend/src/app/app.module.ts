@@ -20,6 +20,7 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {WebsocketService} from "./core/services/websocket/websocket.service";
+import {ErrorSnackbarComponent} from './components/custom-snackbar/error-snackbar/error-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {WebsocketService} from "./core/services/websocket/websocket.service";
     ErrorComponent,
     PageNotFoundComponent,
     LoadingComponent,
+    ErrorSnackbarComponent,
   ],
 
   imports: [

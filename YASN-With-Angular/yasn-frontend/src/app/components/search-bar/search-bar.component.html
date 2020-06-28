@@ -8,13 +8,12 @@
                id="search-bar"
                type="text"
                placeholder="Search for user profile..."/>
-
       <span class="search-bar-icon" (click)="onSearch()"><i class="fas fa-search"></i></span>
     </div>
     <div class="search-content">
       <div *ngFor="let response of searchResult">
-        <img src="{{response.profilePicture}}" alt="avatar-picture"/>
-        <a [routerLink]="['/user/profile', response.id]" (click)="closeDialog()">{{response.fullName}}</a>
+        <div class="search-result"><img src="{{response.profilePicture}}" alt="avatar-picture"/>
+          <a [routerLink]="['/user/profile', response.id]" (click)="closeDialog()">{{response.fullName}}</a></div>
       </div>
     </div>
   </div>

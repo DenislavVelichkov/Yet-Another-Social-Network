@@ -57,7 +57,7 @@
   z-index: 1;
   box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
   background-clip: padding-box;
-  transform: translate(84%, 53%);
+  transform: translate3d(0px, 59px, 0px);
 }
 
 /*Header- Authorized*/

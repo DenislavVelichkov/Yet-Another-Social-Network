@@ -8,8 +8,9 @@ import {Notification} from "../../../../core/store/notification/Notification";
 import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {CustomSnackbarComponent} from "../../../custom-snackbar/custom-snackbar.component";
+import {CustomSuccessSnackbarComponent} from "../../../custom-snackbar/success-snackbar/custom-success-snackbar.component";
 import {AcceptFrRequestAction} from "../../../../core/store/on-action/actions/accept-fr-request.action";
+import {ErrorSnackbarComponent} from "../../../custom-snackbar/error-snackbar/error-snackbar.component";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -58,7 +59,7 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
     this.http.create<Notification>(EndpointUrls.sendFriendRequest, frRequest)
       .pipe(take(1))
       .subscribe(data => {
-        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        this.snackBar.openFromComponent(CustomSuccessSnackbarComponent, {
           duration: 4500,
           verticalPosition: "top",
           horizontalPosition: "center",
@@ -66,7 +67,7 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
         })
       }, reason => {
 
-        this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        this.snackBar.openFromComponent(ErrorSnackbarComponent, {
           duration: 4500,
           verticalPosition: "top",
           horizontalPosition: "center",
@@ -87,7 +88,7 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
       }).subscribe(data => {
       notificationId = data['notificationId'];
 
-      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+      this.snackBar.openFromComponent(CustomSuccessSnackbarComponent, {
         duration: 4500,
         verticalPosition: "top",
         horizontalPosition: "center",

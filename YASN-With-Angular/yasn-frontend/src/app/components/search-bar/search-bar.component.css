@@ -1,10 +1,11 @@
 .search-bar-container {
   display: block;
+  width: 100%;
 }
 
 .search-bar-wrap {
   position: relative;
-  width: 373px;
+  width: 95%;
 }
 
 .search-bar input {
@@ -18,21 +19,28 @@
 .search-bar-icon {
   position: absolute;
   top: 2px;
-  right: 5px;
+  right: -25px;
   cursor: pointer;
   font-size: 20px;
 }
 
 .search-content {
+  display: block;
   margin: 1em 0 0;
+  width: 100%;
+  padding: 1em 0 1em;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
 }
 
 .search-content img {
-  display: block;
   height: auto;
-  width: 10%;
+  flex: 0 0 10%;
 }
 
 .search-content a {
-
+  flex: 0 0 90%;
 }

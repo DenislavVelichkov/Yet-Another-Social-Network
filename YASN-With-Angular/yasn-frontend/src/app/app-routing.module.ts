@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: "404", component: PageNotFoundComponent},
   {path: "error", component: ErrorComponent},
   {path: "home", canActivate: [AuthGuard], component: HomeComponent},
+  {path: "index", canActivate: [AuthGuard], component: IndexComponent},
   {path: "user/login", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "user/register", canActivate: [LoggedInGuard], component: IndexComponent},
   {path: "user/profile/:id", canActivate: [AuthGuard], component: UserProfileComponent},

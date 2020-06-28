@@ -8,7 +8,7 @@ import {AppState} from "../store/app.state";
 import {Store} from "@ngrx/store";
 import {AuthenticatingFailedAction} from "../store/authentication/actions/authenticating-failed.action";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {CustomSnackbarComponent} from "../../components/custom-snackbar/custom-snackbar.component";
+import {ErrorSnackbarComponent} from "../../components/custom-snackbar/error-snackbar/error-snackbar.component";
 
 
 @Injectable()
@@ -31,7 +31,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.auth.logout();
       }
 
-      if (err.status === 404) {
+      /*if (err.status === 404) {
         this.router.navigate(['404']).catch(reason => console.log(new Error(reason)));
       }
 
@@ -41,8 +41,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       } else {
         this.router.navigate(['error']).catch(reason => console.log(new Error(reason)));
       }
-
-      this.snackBar.openFromComponent(CustomSnackbarComponent,
+*/
+      this.snackBar.openFromComponent(ErrorSnackbarComponent,
         {
           verticalPosition: "top",
           duration: 4200,

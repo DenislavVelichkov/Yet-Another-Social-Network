@@ -30,7 +30,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {CustomSnackbarComponent} from "../components/custom-snackbar/custom-snackbar.component";
+import {CustomSuccessSnackbarComponent} from "../components/custom-snackbar/success-snackbar/custom-success-snackbar.component";
 import {SearchBarComponent} from "../components/search-bar/search-bar.component";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 
@@ -52,7 +52,7 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
     UserFriendsComponent,
     EditUserProfileComponent,
     AuthorizedNavbarComponent,
-    CustomSnackbarComponent,
+    CustomSuccessSnackbarComponent,
     SearchBarComponent
   ],
     imports: [
@@ -75,7 +75,7 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
     FooterComponent,
     AuthorizedNavbarComponent,
     UnAuthorizedNavbarComponent,
-    CustomSnackbarComponent,
+    CustomSuccessSnackbarComponent,
     SearchBarComponent],
 })
 export class CoreModule {

@@ -9,7 +9,8 @@ import {RegisterSuccessAction} from "../../../core/store/authentication/actions/
 import {throwError} from "rxjs";
 import {AuthService} from "../../../core/services/authentication/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {CustomSnackbarComponent} from "../../custom-snackbar/custom-snackbar.component";
+import {CustomSuccessSnackbarComponent} from "../../custom-snackbar/success-snackbar/custom-success-snackbar.component";
+import {ErrorSnackbarComponent} from "../../custom-snackbar/error-snackbar/error-snackbar.component";
 
 @Component({
   selector: 'app-user-register',
@@ -52,15 +53,22 @@ export class UserRegisterComponent implements OnInit {
       if (!data['isUserRegistered']) {
         this.userRegisterBindingModel = data['rejectedModel'];
         this.errors = [...data['errors']];
-        //todo Display errors in a modal of some kind
-        this.errors.forEach(error => alert(error['defaultMessage']));
+        this.errors.forEach(error => {
+          this.snackBar.openFromComponent(ErrorSnackbarComponent,
+            {
+              verticalPosition: "top",
+              duration: 4200,
+              data: error['defaultMessage'],
+            }
+          );
+        });
         this.router.navigate(['/']).catch(reason => console.log(throwError(reason)));
       } else {
         this.store$.dispatch(new RegisterSuccessAction({
           isRegistered: data['isUserRegistered'],
           loading: false
         }));
-        this.snackBar.openFromComponent(CustomSnackbarComponent,
+        this.snackBar.openFromComponent(CustomSuccessSnackbarComponent,
           {
             verticalPosition: "top",
             duration: 4200,

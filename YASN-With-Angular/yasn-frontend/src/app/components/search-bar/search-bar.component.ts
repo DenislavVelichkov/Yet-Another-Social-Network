@@ -17,6 +17,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   searchSubscription: Subscription;
 
+  validationPatter: RegExp = new RegExp('[A-Za-z\s]+','gm')
+
   constructor(public dialogRef: MatDialogRef<SearchBarComponent>,
               private http: HttpRepositoryService) {
   }
@@ -25,6 +27,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
+    if (!this.validationPatter.test(this.searchQuery)) {
+      return;
+    }
+
     this.searchSubscription =
       this.http.get(EndpointUrls.searchProfile + this.searchQuery)
         .subscribe((data: any) => {
