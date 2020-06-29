@@ -41,8 +41,7 @@ export class NotificationService {
       .subscribe((data: Array<Notification>) => {
         data.forEach(notification => {
           this.store$.dispatch(new CreatePostNotificationAction({
-            notification: notification,
-            recipientId: notification.recipientId
+            notification: notification
           }))
         })
       }, error => console.log(new Error(error)));

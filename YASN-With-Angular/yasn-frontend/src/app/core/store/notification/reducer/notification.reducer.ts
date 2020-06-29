@@ -42,9 +42,8 @@ export function notificationReducer(state: NotificationState = initialState,
   function createPost(state, payload) {
 
     return produce(state, draftState => {
-
       draftState.allPersonalNotifications
-        .get(payload.recipientId)
+        .get(payload.notification.recipientId)
         .push(payload.notification)
         .sort((dateA: Notification, dateB: Notification) =>
             compareDatesDesc(dateA.createdOn, dateB.createdOn));

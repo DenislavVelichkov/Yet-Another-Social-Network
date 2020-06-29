@@ -50,10 +50,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.store$.select('userProfile')
-      .subscribe(value => {
-        this.activeUserInfo = value;
-      })
+    this.store$.select('userProfile').subscribe(value => {this.activeUserInfo = value;})
 
     let currentUserProfileId = this.auth.getActiveUser().userProfileId;
 
@@ -63,11 +60,9 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.postSubscription$ = this.websocketService.getPostsData().subscribe(  (post: string) => {
+    this.postSubscription$ = this.websocketService.getPostsData().subscribe((post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
       this.store$.dispatch(new CreatePost({post: [newPost]}));
-
-      this.notificationService.createNotificationOnNewPost(newPost.ownerProfileId)
 
     }, error => console.log(new Error(error)));
 
@@ -118,6 +113,8 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.postSubscription$.unsubscribe();
     this.commentsSubscription$.unsubscribe();
+    this.doLikeSub$.unsubscribe();
+    this.doUnlikeSub$.unsubscribe();
   }
 
 }

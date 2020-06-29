@@ -12,14 +12,14 @@ import {CommentBindingModel} from "../../../shared/models/comment/CommentBinding
 import {PostComment} from "../../store/post/PostComment";
 import {StartLoadingAction} from "../../store/loading/actions/start-loading.action";
 import {StopLoadingAction} from "../../store/loading/actions/stop-loading.action";
-import {WebsocketService} from "../websocket/websocket.service";
+import {NotificationService} from "../notification/notification.service";
 
 @Injectable({providedIn: "root"})
 export class NewsFeedService {
 
   constructor(private httpRepo: HttpRepositoryService,
               private store$: Store<AppState>,
-              private websocketService: WebsocketService) {
+              private notificationService: NotificationService) {
   }
 
   getAllNewsFeeds(userProfileId: string): void {
@@ -51,6 +51,7 @@ export class NewsFeedService {
     this.httpRepo.create<Post>(EndpointUrls.postToPublicWall, formData)
       .pipe(take(1))
       .subscribe(post => {
+        this.notificationService.createNotificationOnNewPost(post.ownerProfileId);
       }, error => {
         this.store$.dispatch(new StopLoadingAction({loading: false}));
         console.log(new Error(error));

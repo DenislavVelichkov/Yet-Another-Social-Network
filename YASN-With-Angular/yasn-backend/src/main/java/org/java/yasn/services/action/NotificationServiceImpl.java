@@ -46,17 +46,18 @@ public class NotificationServiceImpl implements NotificationService {
 
     Collection<NotificationResponseModel> sendNotifications = new ArrayList<>();
 
-                              sender.getFriends()
-                              .forEach(f -> {
-                                notification.setRecipient(f);
+    Collection<UserProfile> friends = sender.getFriends();
 
-                                Notification newNotification =
-                                    this.notificationRepository.saveAndFlush(notification);
+    friends.forEach(f -> {
+      notification.setRecipient(f);
 
-                                sendNotifications.add(this.modelMapper.map(newNotification, NotificationResponseModel.class));
+      Notification newNotification =
+          this.notificationRepository.saveAndFlush(notification);
 
-                                this.modelMapper.validate();
-                              });
+      sendNotifications.add(this.modelMapper.map(newNotification, NotificationResponseModel.class));
+    });
+
+    this.modelMapper.validate();
 
     return sendNotifications;
   }

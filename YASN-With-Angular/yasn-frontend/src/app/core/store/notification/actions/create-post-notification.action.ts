@@ -5,7 +5,7 @@ import {Notification} from "../Notification";
 export class CreatePostNotificationAction implements Action {
   public readonly type: string;
 
-  constructor(public payload: {recipientId: string, notification: Notification}) {
+  constructor(public payload: {notification: Notification}) {
     this.type = NotificationActionTypes.CREATE_POST_NOTIFICATION;
   }
 

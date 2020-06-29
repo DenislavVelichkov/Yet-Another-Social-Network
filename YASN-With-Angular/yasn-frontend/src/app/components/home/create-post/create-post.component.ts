@@ -55,8 +55,6 @@ export class CreatePostComponent implements OnInit {
 
     this.newsFeedService.createPost(this.postModel, userId, this.files);
 
-    this.notificationService.createNotificationOnNewPost(userId);
-
     this.store$.dispatch(new StopLoadingAction({loading: false}));
   }
 
