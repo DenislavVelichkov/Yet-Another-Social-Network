@@ -3,15 +3,13 @@ package org.java.yasn.services.user;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.ExceptionMessages;
 import org.java.yasn.common.enums.NotificationType;
+import org.java.yasn.data.entities.BaseEntity;
 import org.java.yasn.data.entities.user.User;
 import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
@@ -75,6 +73,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     UserProfileServiceModel profileServiceModel =
         this.modelMapper.map(profile, UserProfileServiceModel.class);
+
     this.modelMapper.validate();
 
     return profileServiceModel;
@@ -219,5 +218,14 @@ public class UserProfileServiceImpl implements UserProfileService {
     return profileToCheck.getFriends()
                          .stream()
                          .anyMatch(userProfile -> userProfile.getId().equalsIgnoreCase(viewerId));
+  }
+
+  @Override
+  public Collection<String> getProfileFriendsIds(String userProfileId) {
+    UserProfile profile = this.userProfileRepository
+        .findById(userProfileId)
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
+
+    return profile.getFriends().stream().map(BaseEntity::getId).collect(Collectors.toCollection(HashSet::new));
   }
 }

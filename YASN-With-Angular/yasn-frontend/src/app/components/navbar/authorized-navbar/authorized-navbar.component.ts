@@ -3,7 +3,7 @@ import {AuthService} from "../../../core/services/authentication/auth.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../core/store/app.state";
 import {HttpRepositoryService} from "../../../core/http/http-repository.service";
-import {Subscription, throwError} from "rxjs";
+import {Subscription} from "rxjs";
 import {UpdateActiveProfileAction} from "../../../core/store/userProfile/actions/update-active-profile.action";
 import {Notification} from "../../../core/store/notification/Notification";
 import {timeAgoConverter} from "../../../core/util/util";
@@ -54,7 +54,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
     this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.activeProfileId)
       .subscribe(value => {
         this.store$.dispatch(new UpdateActiveProfileAction(value))
-      }, error => throwError(error))
+      }, error => new Error(error))
 
     this.store$.select('userProfile').subscribe(value => {
       this.userFullName = value.userFullName;

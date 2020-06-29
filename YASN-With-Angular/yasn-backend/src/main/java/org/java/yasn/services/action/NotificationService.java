@@ -8,7 +8,7 @@ import org.java.yasn.web.models.response.NotificationResponseModel;
 
 public interface NotificationService {
 
-  NotificationResponseModel createNotificationForNewPost(ActionModel actionModel);
+  Collection<NotificationResponseModel> createNotificationForNewPost(ActionModel actionModel);
 
   NotificationResponseModel createFriendRequest(ActionModel actionModel);
 

@@ -3,4 +3,5 @@ export interface ProfileInfoModel {
   userFullName: string;
   avatarPictureUrl: string;
   coverPictureUrl: string;
+  profileFriends: [];
 }

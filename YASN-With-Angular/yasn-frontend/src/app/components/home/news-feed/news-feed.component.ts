@@ -17,6 +17,7 @@ import {CreatePost} from "../../../core/store/post/actions/create-post.action";
 import {CommentOnPostAction} from "../../../core/store/post/actions/comment-on-post.action";
 import {PostComment} from "../../../core/store/post/PostComment";
 import {AuthService} from "../../../core/services/authentication/auth.service";
+import {NotificationService} from "../../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-news-feed',
@@ -35,11 +36,18 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   private commentsSubscription$: Subscription;
 
+  private doLikeSub$: Subscription;
+
+  private doUnlikeSub$: Subscription;
+
+  private notificationSenderFriends: Array<string>;
+
   constructor(private newsService: NewsFeedService,
               private store$: Store<AppState>,
               private http: HttpRepositoryService,
               private websocketService: WebsocketService,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -57,10 +65,25 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.newsFeedPosts = value.allWallPosts;
     });
 
-    this.postSubscription$ = this.websocketService.getPostsData().subscribe((post: string) => {
+    this.postSubscription$ = this.websocketService.getPostsData().subscribe(  (post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
-
       this.store$.dispatch(new CreatePost({post: [newPost]}));
+
+      this.http.get<Array<string>>(EndpointUrls.getNotificationSenderFriends + newPost.ownerProfileId)
+        .pipe(take(1)).subscribe( collection => {
+        this.notificationSenderFriends = collection;
+
+        if (this.notificationSenderFriends) {
+          let id = this.notificationSenderFriends.find((id) => id === newPost.ownerProfileId );
+          if (id !== undefined) {
+            console.log("Dispatch Notification!")
+          }
+        }
+
+      }, error => console.log(new Error(error)));
+
+      this.notificationService.createNotificationOnNewPost(newPost.ownerProfileId)
+
     }, error => console.log(new Error(error)));
 
     this.commentsSubscription$ = this.websocketService.getCommentsData().subscribe((data: string) => {

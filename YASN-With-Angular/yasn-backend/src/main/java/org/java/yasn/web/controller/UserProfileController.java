@@ -1,10 +1,13 @@
 package org.java.yasn.web.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.EndpointConstants;
+import org.java.yasn.data.models.service.BaseServiceModel;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.services.user.UserProfileService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -34,7 +37,18 @@ public class UserProfileController {
     response.put("userFullName", userProfile.getFullName());
     response.put("avatarPictureUrl", userProfile.getProfilePicture());
     response.put("coverPictureUrl", userProfile.getCoverPicture());
+    response.put("profileFriends", userProfile.getFriends()
+                                              .stream()
+                                              .map(BaseServiceModel::getId)
+                                              .collect(Collectors.joining()));
 
+    return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/friends/{userProfileId}")
+  public ResponseEntity<?> getAllFriendsIds(
+      @PathVariable(name = "userProfileId") String userProfileId) {
+    Collection<String> response = this.userProfileService.getProfileFriendsIds(userProfileId);
     return ResponseEntity.ok(response);
   }
 
@@ -77,12 +91,6 @@ public class UserProfileController {
 
   @PostMapping("/edit/{id}")
   public ResponseEntity<?> finalizeEditing() {
-
-    return null;
-  }
-
-  @GetMapping("/friends")
-  public ResponseEntity<?> friends() {
 
     return null;
   }

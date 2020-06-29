@@ -1,10 +1,11 @@
 import {Action} from "@ngrx/store";
 import {NotificationActionTypes} from "./action.type";
+import {Notification} from "../Notification";
 
 export class CreatePostNotificationAction implements Action {
   public readonly type: string;
 
-  constructor(public payload: any) {
+  constructor(public payload: {recipientId: string, notification: Notification}) {
     this.type = NotificationActionTypes.CREATE_POST_NOTIFICATION;
   }
 

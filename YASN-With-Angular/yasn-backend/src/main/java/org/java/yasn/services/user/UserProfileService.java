@@ -1,6 +1,7 @@
 package org.java.yasn.services.user;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
@@ -22,4 +23,6 @@ public interface UserProfileService {
   SearchResultModel searchForUserProfile(String searchParams);
 
   boolean checkFriendship(String viewerId, String selectedProfileId);
+
+  Collection<String> getProfileFriendsIds(String userProfileId);
 }

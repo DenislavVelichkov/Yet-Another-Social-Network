@@ -8,6 +8,7 @@ import {NewsFeedService} from "../../../core/services/news-feed/news-feed.servic
 import {NotificationService} from "../../../core/services/notification/notification.service";
 import {StopLoadingAction} from "../../../core/store/loading/actions/stop-loading.action";
 import {StartLoadingAction} from "../../../core/store/loading/actions/start-loading.action";
+import {AuthService} from "../../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-create-post',
@@ -37,7 +38,8 @@ export class CreatePostComponent implements OnInit {
   constructor(private httpRepo: HttpRepositoryService,
               private store$: Store<AppState>,
               private newsFeedService: NewsFeedService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -49,12 +51,11 @@ export class CreatePostComponent implements OnInit {
 
   createPost() {
     this.store$.dispatch(new StartLoadingAction({loading: true}));
-    let userId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
+    let userId = this.auth.getActiveUser().userProfileId;
 
     this.newsFeedService.createPost(this.postModel, userId, this.files);
 
-   /* this.notificationService.createNotificationOnNewPost(
-      JSON.parse(localStorage.getItem("activeUser"))._userProfileId);*/
+    this.notificationService.createNotificationOnNewPost(userId);
 
     this.store$.dispatch(new StopLoadingAction({loading: false}));
   }

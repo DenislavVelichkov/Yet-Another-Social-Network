@@ -22,14 +22,12 @@ public class NotificationController {
   private final ModelMapper mapper;
   private final SimpMessageSendingOperations sendNotification;
 
-  @PostMapping(value = "/created-post", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<NotificationResponseModel> createNotificationOnPost(
+  @PostMapping(value = "/new-post-created", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public ResponseEntity<Collection<NotificationResponseModel>> createNotificationOnPost(
       @RequestBody ActionModel actionModel) {
 
-    NotificationResponseModel response =
+    Collection<NotificationResponseModel> response =
         this.notificationService.createNotificationForNewPost(actionModel);
-
-    this.mapper.validate();
 
     return ResponseEntity.ok(response);
   }

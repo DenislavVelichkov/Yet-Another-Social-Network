@@ -32,7 +32,7 @@ public class Notification extends BaseEntity {
   @JoinColumn(
       name = "recipient_id",
       referencedColumnName = "id",
-      nullable = false, updatable = false)
+      nullable = true, updatable = false)
   private UserProfile recipient;
 
   @Column(nullable = false)

@@ -11,12 +11,17 @@ import {CustomSuccessSnackbarComponent} from "../../../components/custom-snackba
 import {ErrorSnackbarComponent} from "../../../components/custom-snackbar/error-snackbar/error-snackbar.component";
 import {Router} from "@angular/router";
 import {AuthService} from "../authentication/auth.service";
-import {NotificationsEndpointTypes} from "./NotificationTypes";
+import {UserProfileState} from "../../store/userProfile/state/user-profile.state";
+import {Subscription} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+
+  private loggedInProfile: UserProfileState;
+
+  private activeProfile: Subscription;
 
   constructor(private http: HttpRepositoryService,
               private snackBar: MatSnackBar,
@@ -26,15 +31,12 @@ export class NotificationService {
   }
 
   createNotificationOnNewPost(senderId: string): void {
-    this.http.create<Notification>(
-      NotificationsEndpointTypes.createNewWallPost,
-      {
-        senderId: senderId,
-      })
+
+    this.http.create<Notification>(EndpointUrls.createPostNotification, {senderId: senderId})
       .pipe(take(1))
-      .subscribe((data: Notification) => {
-        // this.store$.dispatch(new CreatePostNotificationAction({}))
-      })
+      .subscribe((data) => {
+
+      }, error => console.log(new Error(error)));
   }
 
   getAllPersonalNotifications(recipientId: string): void {

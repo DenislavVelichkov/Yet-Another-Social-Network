@@ -1,6 +1,7 @@
 package org.java.yasn.services.action;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -27,34 +28,37 @@ public class NotificationServiceImpl implements NotificationService {
   private final ModelMapper modelMapper;
 
   @Override
-  public NotificationResponseModel createNotificationForNewPost(ActionModel actionModel) {
+  public Collection<NotificationResponseModel> createNotificationForNewPost(ActionModel actionModel) {
 
-    UserProfile recipient = this.userProfileRepository
+    UserProfile sender = this.userProfileRepository
         .findById(actionModel.getSenderId())
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
-
     Notification notification = new Notification();
 
-    notification.setSender(recipient);
+    notification.setSender(sender);
     notification.setNotificationType(NotificationType.CREATED_A_POST);
     notification.setViewed(false);
     notification.setCreatedOn(LocalDateTime.now());
-    notification.setSenderPicture(recipient.getProfilePicture());
-    notification.setSenderFullName(recipient.getFullName());
+    notification.setSenderPicture(sender.getProfilePicture());
+    notification.setSenderFullName(sender.getFullName());
     notification.setContent(NotificationType.CREATED_A_POST.getLabel());
 
-    Optional<Notification> isNotificationAlreadyExists =
-        this.notificationRepository.findBySenderIdAndRecipientIdAndNotificationType(notification.getSender().getId(), notification.getRecipient().getId(), notification.getNotificationType());
+    Collection<NotificationResponseModel> sendNotifications = new ArrayList<>();
 
-    if (isNotificationAlreadyExists.isPresent()) {
-      throw new IllegalArgumentException("You can't send the same request twice!");
-    }
+                              sender.getFriends()
+                              .forEach(f -> {
+                                notification.setRecipient(f);
 
-    Notification newNotification =
-        this.notificationRepository.saveAndFlush(notification);
+                                Notification newNotification =
+                                    this.notificationRepository.saveAndFlush(notification);
 
-    return this.modelMapper.map(newNotification, NotificationResponseModel.class);
+                                sendNotifications.add(this.modelMapper.map(newNotification, NotificationResponseModel.class));
+
+                                this.modelMapper.validate();
+                              });
+
+    return sendNotifications;
   }
 
   @Override
@@ -140,7 +144,7 @@ public class NotificationServiceImpl implements NotificationService {
   public void markNotificationAsRead(String notificationId) {
     Notification notificationToEdit =
         this.notificationRepository.findById(notificationId)
-        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS));
+                                   .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.NOTIFICATION_DOES_NOT_EXISTS));
     notificationToEdit.setViewed(true);
     this.notificationRepository.saveAndFlush(notificationToEdit);
   }
