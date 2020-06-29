@@ -40,8 +40,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   private doUnlikeSub$: Subscription;
 
-  private notificationSenderFriends: Array<string>;
-
   constructor(private newsService: NewsFeedService,
               private store$: Store<AppState>,
               private http: HttpRepositoryService,
@@ -68,19 +66,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     this.postSubscription$ = this.websocketService.getPostsData().subscribe(  (post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
       this.store$.dispatch(new CreatePost({post: [newPost]}));
-
-      this.http.get<Array<string>>(EndpointUrls.getNotificationSenderFriends + newPost.ownerProfileId)
-        .pipe(take(1)).subscribe( collection => {
-        this.notificationSenderFriends = collection;
-
-        if (this.notificationSenderFriends) {
-          let id = this.notificationSenderFriends.find((id) => id === newPost.ownerProfileId );
-          if (id !== undefined) {
-            console.log("Dispatch Notification!")
-          }
-        }
-
-      }, error => console.log(new Error(error)));
 
       this.notificationService.createNotificationOnNewPost(newPost.ownerProfileId)
 

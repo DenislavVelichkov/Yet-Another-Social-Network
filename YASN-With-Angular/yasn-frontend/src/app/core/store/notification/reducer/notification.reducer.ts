@@ -42,10 +42,12 @@ export function notificationReducer(state: NotificationState = initialState,
   function createPost(state, payload) {
 
     return produce(state, draftState => {
-      draftState.allPersonalNotifications = payload.allPersonalNotifications;
-      draftState.allPersonalNotifications.get(payload.recipientId).sort(
-        (dateA: Notification, dateB: Notification) =>
-          compareDatesDesc(dateA.createdOn, dateB.createdOn));
+
+      draftState.allPersonalNotifications
+        .get(payload.recipientId)
+        .push(payload.notification)
+        .sort((dateA: Notification, dateB: Notification) =>
+            compareDatesDesc(dateA.createdOn, dateB.createdOn));
     });
   }
 

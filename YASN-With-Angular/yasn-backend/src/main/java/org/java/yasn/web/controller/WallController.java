@@ -31,7 +31,7 @@ public class WallController {
       @RequestPart(name = "postPicture", required = false) MultipartFile[] pictures) throws IOException {
 
     WallPostResponseModel response = this.wallService.createPost(post, pictures);
-    sendAction.convertAndSend("/new-post-created", response);
+    sendAction.convertAndSend("/new-post", response);
 
     return ResponseEntity.ok(response);
   }

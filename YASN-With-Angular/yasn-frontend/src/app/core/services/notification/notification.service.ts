@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../authentication/auth.service";
 import {UserProfileState} from "../../store/userProfile/state/user-profile.state";
 import {Subscription} from "rxjs";
+import {CreatePostNotificationAction} from "../../store/notification/actions/create-post-notification.action";
 
 @Injectable({
   providedIn: 'root'
@@ -23,19 +24,27 @@ export class NotificationService {
 
   private activeProfile: Subscription;
 
+  private notificationSenderFriends: Array<string>;
+
+
   constructor(private http: HttpRepositoryService,
               private snackBar: MatSnackBar,
               private store$: Store<AppState>,
               private router: Router,
-              private authService: AuthService) {
+              private auth: AuthService) {
   }
 
   createNotificationOnNewPost(senderId: string): void {
 
-    this.http.create<Notification>(EndpointUrls.createPostNotification, {senderId: senderId})
+    this.http.create<Array<Notification>>(EndpointUrls.createPostNotification, {senderId: senderId})
       .pipe(take(1))
-      .subscribe((data) => {
-
+      .subscribe((data: Array<Notification>) => {
+        data.forEach(notification => {
+          this.store$.dispatch(new CreatePostNotificationAction({
+            notification: notification,
+            recipientId: notification.recipientId
+          }))
+        })
       }, error => console.log(new Error(error)));
   }
 
@@ -51,7 +60,7 @@ export class NotificationService {
   }
 
   createFriendRequest(selectedProfileId: string) {
-    let activeProfileId: string = this.authService.getActiveUser().userProfileId;
+    let activeProfileId: string = this.auth.getActiveUser().userProfileId;
     let frRequest = {
       senderId: activeProfileId,
       recipientId: selectedProfileId,

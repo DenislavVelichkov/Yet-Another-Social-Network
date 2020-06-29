@@ -17,7 +17,7 @@ export const EndpointUrls = {
   acceptFriendRequest: "/api/notification/accept-friend/",
   addFriend: "/api/actions/add-friend",
   unfriendRequest: "/api/notification/unfriend/",
-  topicCreatedNewPost: "/new-post-created",
+  topicCreatedNewPost: "/new-post",
   topicNotificationFriendRequest: "/new-friend-request",
   topicLike: "/like-post",
   topicUnLike: "/unlike-post",
