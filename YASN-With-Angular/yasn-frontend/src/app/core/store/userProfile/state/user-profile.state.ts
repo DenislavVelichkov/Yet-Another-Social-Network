@@ -3,6 +3,7 @@ export const initialState: UserProfileState = {
   userFullName: null,
   avatarPictureUrl: null,
   coverPictureUrl: null,
+  profileUsername: null,
   profileFriends: [],
 }
 
@@ -11,5 +12,6 @@ export interface UserProfileState {
   userFullName: string;
   avatarPictureUrl: string;
   coverPictureUrl: string;
+  profileUsername: string,
   profileFriends: [];
 }

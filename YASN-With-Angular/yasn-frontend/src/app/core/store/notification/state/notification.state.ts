@@ -1,9 +1,10 @@
-import {Notification} from "../Notification.js";
+import {Notification} from "../Notification";
 
 export const initialState: NotificationState = {
-  allPersonalNotifications: new Map<string, Notification[]>([])
-};
+  profileNotifications: new Array<Notification>(),
+}
 
 export interface NotificationState {
-  allPersonalNotifications: Map<string, Notification[]>;
+  profileNotifications: Array<Notification>;
 }
+

@@ -6,6 +6,7 @@ import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.services.action.NotificationService;
+import org.java.yasn.services.user.UserProfileService;
 import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.response.NotificationResponseModel;
 import org.modelmapper.ModelMapper;
@@ -19,15 +20,26 @@ import org.springframework.web.bind.annotation.*;
 public class NotificationController {
 
   private final NotificationService notificationService;
+
   private final ModelMapper mapper;
+
   private final SimpMessageSendingOperations sendNotification;
 
-  @PostMapping(value = "/new-post-created", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
-  public ResponseEntity<Collection<NotificationResponseModel>> createNotificationOnPost(
-      @RequestBody ActionModel actionModel) {
+  private final UserProfileService userProfileService;
 
-    Collection<NotificationResponseModel> response =
-        this.notificationService.createNotificationForNewPost(actionModel);
+  @PostMapping(value = "/new-post-created", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
+  public ResponseEntity<NotificationResponseModel> createNotificationOnPost(
+      @RequestBody Map<String, String> sender) {
+
+    NotificationResponseModel response =
+        this.notificationService.createNotificationForNewPost(sender);
+
+    this.mapper.validate();
+
+    this.userProfileService.getProfileFriendsIds(response.getSenderId()).forEach(f -> {
+      sendNotification.convertAndSend(
+          "/userId/" + this.userProfileService.getProfileUsernameById(f), response);
+    });
 
     return ResponseEntity.ok(response);
   }
@@ -36,8 +48,10 @@ public class NotificationController {
   public ResponseEntity<NotificationResponseModel> sendFriendRequest(@RequestBody ActionModel notification) {
 
     NotificationResponseModel response = this.notificationService.createFriendRequest(notification);
+
     this.mapper.validate();
-    sendNotification.convertAndSend("/new-friend-request", response);
+
+    sendNotification.convertAndSend("/userId/" + this.userProfileService.getProfileUsernameById(notification.getRecipientId()), response);
 
     return ResponseEntity.ok(response);
   }

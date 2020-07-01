@@ -1,6 +1,5 @@
 import {initialState, NotificationState} from "../state/notification.state";
 import {NotificationActions, NotificationActionTypes} from "../actions/action.type";
-import {Notification} from "../Notification";
 import produce, {enableMapSet} from "immer";
 
 export function notificationReducer(state: NotificationState = initialState,
@@ -35,55 +34,45 @@ export function notificationReducer(state: NotificationState = initialState,
   function getAllNotification(state: NotificationState, payload) {
 
     return produce(state, draftState => {
-      draftState.allPersonalNotifications.set(payload[0], payload[1]);
+      draftState.profileNotifications.concat(payload[1]);
     });
   }
 
   function createPost(state, payload) {
 
     return produce(state, draftState => {
-      draftState.allPersonalNotifications
-        .get(payload.notification.recipientId)
+      draftState.profileNotifications
         .push(payload.notification)
-        .sort((dateA: Notification, dateB: Notification) =>
-            compareDatesDesc(dateA.createdOn, dateB.createdOn));
+     /* .sort((dateA: Notification, dateB: Notification) =>
+          compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
     });
   }
 
   function sendFriendRequest(state: NotificationState, payload) {
 
     return produce(state, draftState => {
-      draftState.allPersonalNotifications
-        .get(payload.notification.recipientId)
+      draftState.profileNotifications
         .push(payload.notification);
-
-      /* draftState.allPersonalNotifications.get(payload.recipientId).push(notificationToAdd)
-
-       draftState.allPersonalNotifications.get(payload.recipientId).sort(
-         (dateA: Notification, dateB: Notification) =>
-           compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
-
     });
   }
 
   function markNotification(state: NotificationState, payload: any) {
+
     return produce(state, draftState => {
-      draftState.allPersonalNotifications
-        .get(payload.recipientId)
+      draftState.profileNotifications
         .find(n => n.notificationId === payload.notificationId)
         .isViewed = payload.isRead;
     });
+
   }
 
   function deleteNotification(state: NotificationState, payload: any) {
 
     return produce(state, draftState => {
-      let newNotificationCollection = draftState
-        .allPersonalNotifications
-        .get(payload.recipientId)
+      draftState.profileNotifications = draftState.profileNotifications
         .filter(n => n.notificationId !== payload.notificationId);
-      draftState.allPersonalNotifications.set(payload.recipientId, newNotificationCollection)
     });
+
   }
 
   function compareDatesDesc(createdOnA: Date, createdOnB: Date) {

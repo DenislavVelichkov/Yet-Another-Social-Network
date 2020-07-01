@@ -25,4 +25,6 @@ public interface UserProfileService {
   boolean checkFriendship(String viewerId, String selectedProfileId);
 
   Collection<String> getProfileFriendsIds(String userProfileId);
+
+  String getProfileUsernameById(String profileId);
 }

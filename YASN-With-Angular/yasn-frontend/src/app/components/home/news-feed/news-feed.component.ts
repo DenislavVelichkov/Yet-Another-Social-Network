@@ -50,7 +50,9 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.store$.select('userProfile').subscribe(value => {this.activeUserInfo = value;})
+    this.store$.select('userProfile').subscribe(value => {
+      this.activeUserInfo = value;
+    })
 
     let currentUserProfileId = this.auth.getActiveUser().userProfileId;
 
@@ -63,7 +65,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
     this.postSubscription$ = this.websocketService.getPostsData().subscribe((post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
       this.store$.dispatch(new CreatePost({post: [newPost]}));
-
     }, error => console.log(new Error(error)));
 
     this.commentsSubscription$ = this.websocketService.getCommentsData().subscribe((data: string) => {
@@ -72,11 +73,11 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.store$.dispatch(new CommentOnPostAction({comment: newComment}));
     }, error => console.log(new Error(error)));
 
-    this.websocketService.doLike().subscribe((data: string) => {
+   this.doLikeSub$ = this.websocketService.doLike().subscribe((data: string) => {
       this.store$.dispatch(new LikeAPostAction(JSON.parse(data)));
     }, error => console.log(new Error(error)));
 
-    this.websocketService.doUnlike().subscribe((data: string) => {
+   this.doUnlikeSub$ = this.websocketService.doUnlike().subscribe((data: string) => {
       this.store$.dispatch(new UnlikeAPostAction(JSON.parse(data)));
     }, error => console.log(new Error(error)));
 

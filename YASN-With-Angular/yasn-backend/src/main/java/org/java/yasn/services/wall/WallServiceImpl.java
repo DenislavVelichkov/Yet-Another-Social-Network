@@ -103,19 +103,16 @@ public class WallServiceImpl implements WallService {
         .map(Picture::getPictureUrl)
         .collect(Collectors.toCollection(LinkedList::new));
 
-    WallPostResponseModel response =
-        new WallPostResponseModel(newPost.getId(),
-            wallPostServiceModel.getPostOwner().getId(),
-            wallPostServiceModel.getPostOwner().getFullName(),
-            wallPostServiceModel.getPostOwner().getProfilePicture(),
-            wallPostServiceModel.getPostContent(),
-            postPictureUrls,
-            wallPostServiceModel.getCreatedOn(),
-            likesCount,
-            new ArrayList<>(),
-            false);
-
-    return response;
+    return new WallPostResponseModel(newPost.getId(),
+        wallPostServiceModel.getPostOwner().getId(),
+        wallPostServiceModel.getPostOwner().getFullName(),
+        wallPostServiceModel.getPostOwner().getProfilePicture(),
+        wallPostServiceModel.getPostContent(),
+        postPictureUrls,
+        wallPostServiceModel.getCreatedOn(),
+        likesCount,
+        new ArrayList<>(),
+        false);
   }
 
   @Override

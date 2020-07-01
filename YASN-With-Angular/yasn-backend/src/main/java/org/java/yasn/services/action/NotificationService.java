@@ -1,6 +1,7 @@
 package org.java.yasn.services.action;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.java.yasn.data.entities.Notification;
 import org.java.yasn.web.models.binding.ActionModel;
@@ -8,7 +9,7 @@ import org.java.yasn.web.models.response.NotificationResponseModel;
 
 public interface NotificationService {
 
-  Collection<NotificationResponseModel> createNotificationForNewPost(ActionModel actionModel);
+  NotificationResponseModel createNotificationForNewPost(Map<String, String> sender);
 
   NotificationResponseModel createFriendRequest(ActionModel actionModel);
 

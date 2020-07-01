@@ -21,6 +21,7 @@ public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry registry) {
     registry.enableSimpleBroker(
+        "/userId/",
         "/new-post",
         "/new-friend-request",
         "/like-post",

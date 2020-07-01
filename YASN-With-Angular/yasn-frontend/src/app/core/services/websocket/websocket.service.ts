@@ -1,20 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subscriber} from "rxjs";
-import {EndpointUrls} from "../../../shared/common/EndpointUrls";
 import {Client} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client';
-import {NotificationsEndpointTypes} from "../notification/NotificationTypes";
+import {WebSocketEndpoints} from "../../../shared/common/WebSocketEndpoints";
+import {UserProfileState} from "../../store/userProfile/state/user-profile.state";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/app.state";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
+  private loggedInProfile: UserProfileState;
+
   private stompClient: Client = null;
 
   private postData$: Subscriber<any>;
 
-  private notificationsData$: Subscriber<any>;
+  private newFrRequestData$: Subscriber<any>;
 
   private commentsData$: Subscriber<any>;
 
@@ -22,14 +26,17 @@ export class WebsocketService {
 
   private unlikesData$: Subscriber<any>;
 
-  constructor() {
+  private userSpecificData$: Subscriber<any>
+
+  constructor(private store$: Store<AppState>) {
   }
 
   connect() {
     const _this = this;
+    this.store$.select('userProfile').subscribe(value => this.loggedInProfile = value);
 
     _this.stompClient = new Client({
-      brokerURL: EndpointUrls.websocketStompFactory,
+      brokerURL: WebSocketEndpoints.websocketStompFactory,
       debug: function (str) {
         console.log(str);
       },
@@ -39,7 +46,7 @@ export class WebsocketService {
     });
 
     _this.stompClient.webSocketFactory = function () {
-      return new SockJS(EndpointUrls.websocketSockJSFactory);
+      return new SockJS(WebSocketEndpoints.websocketSockJSFactory);
     };
 
     _this.stompClient.onWebSocketError = function (ev) {
@@ -52,24 +59,28 @@ export class WebsocketService {
 
     _this.stompClient.onConnect = function (frame) {
 
-      _this.stompClient.subscribe(NotificationsEndpointTypes.createNewWallPost, function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicCreatedNewPost,function (data) {
         _this.postData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(NotificationsEndpointTypes.sendNewFriendRequest, function (data) {
-        _this.notificationsData$.next(data.body);
+      _this.stompClient.subscribe(WebSocketEndpoints.topicNotificationFriendRequest,function (data) {
+        _this.newFrRequestData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(NotificationsEndpointTypes.like, function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicLike,function (data) {
         _this.likesData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(NotificationsEndpointTypes.unlike, function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicUnLike,function (data) {
         _this.unlikesData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(NotificationsEndpointTypes.commentOnPost, function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicCommentOnPost, function (data) {
         _this.commentsData$.next(data.body);
+      });
+
+      _this.stompClient.subscribe(WebSocketEndpoints.topicUserSpecific + _this.loggedInProfile.profileUsername, function (data) {
+        _this.userSpecificData$.next(data.body);
       });
 
     };
@@ -92,7 +103,7 @@ export class WebsocketService {
 
   getFriendRequestsData<T>(): Observable<T> {
 
-    return new Observable<T>(subscriber => this.notificationsData$ = subscriber);
+    return new Observable<T>(subscriber => this.newFrRequestData$ = subscriber);
   }
 
   doLike<T>(): Observable<T> {
@@ -108,6 +119,11 @@ export class WebsocketService {
   getCommentsData<T>(): Observable<T> {
 
     return new Observable<T>(subscriber => this.commentsData$ = subscriber);
+  }
+
+  getPostNotificationData<T>(): Observable<T> {
+
+    return new Observable<T>(subscriber => this.userSpecificData$ = subscriber);
   }
 
 

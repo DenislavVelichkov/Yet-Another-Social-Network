@@ -13,7 +13,6 @@ import {Router} from "@angular/router";
 import {AuthService} from "../authentication/auth.service";
 import {UserProfileState} from "../../store/userProfile/state/user-profile.state";
 import {Subscription} from "rxjs";
-import {CreatePostNotificationAction} from "../../store/notification/actions/create-post-notification.action";
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +23,6 @@ export class NotificationService {
 
   private activeProfile: Subscription;
 
-  private notificationSenderFriends: Array<string>;
-
-
   constructor(private http: HttpRepositoryService,
               private snackBar: MatSnackBar,
               private store$: Store<AppState>,
@@ -36,15 +32,9 @@ export class NotificationService {
 
   createNotificationOnNewPost(senderId: string): void {
 
-    this.http.create<Array<Notification>>(EndpointUrls.createPostNotification, {senderId: senderId})
+    this.http.create<Notification>(EndpointUrls.createPostNotification, {senderId: senderId})
       .pipe(take(1))
-      .subscribe((data: Array<Notification>) => {
-        data.forEach(notification => {
-          this.store$.dispatch(new CreatePostNotificationAction({
-            notification: notification
-          }))
-        })
-      }, error => console.log(new Error(error)));
+      .subscribe(() => {}, error => console.log(new Error(error)));
   }
 
   getAllPersonalNotifications(recipientId: string): void {

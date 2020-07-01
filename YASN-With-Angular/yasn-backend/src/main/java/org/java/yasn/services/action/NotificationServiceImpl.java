@@ -1,9 +1,9 @@
 package org.java.yasn.services.action;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,14 +24,16 @@ import org.springframework.stereotype.Service;
 public class NotificationServiceImpl implements NotificationService {
 
   private final NotificationRepository notificationRepository;
+
   private final UserProfileRepository userProfileRepository;
+
   private final ModelMapper modelMapper;
 
   @Override
-  public Collection<NotificationResponseModel> createNotificationForNewPost(ActionModel actionModel) {
+  public NotificationResponseModel createNotificationForNewPost(Map<String, String> model) {
 
     UserProfile sender = this.userProfileRepository
-        .findById(actionModel.getSenderId())
+        .findById(model.get("senderId"))
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
     Notification notification = new Notification();
@@ -44,22 +46,11 @@ public class NotificationServiceImpl implements NotificationService {
     notification.setSenderFullName(sender.getFullName());
     notification.setContent(NotificationType.CREATED_A_POST.getLabel());
 
-    Collection<NotificationResponseModel> sendNotifications = new ArrayList<>();
-
-    Collection<UserProfile> friends = sender.getFriends();
-
-    friends.forEach(f -> {
-      notification.setRecipient(f);
 
       Notification newNotification =
           this.notificationRepository.saveAndFlush(notification);
 
-      sendNotifications.add(this.modelMapper.map(newNotification, NotificationResponseModel.class));
-    });
-
-    this.modelMapper.validate();
-
-    return sendNotifications;
+    return this.modelMapper.map(newNotification, NotificationResponseModel.class);
   }
 
   @Override

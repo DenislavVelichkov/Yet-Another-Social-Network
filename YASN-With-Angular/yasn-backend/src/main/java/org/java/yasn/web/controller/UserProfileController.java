@@ -35,6 +35,7 @@ public class UserProfileController {
     Map<String, String> response = new HashMap<>();
     response.put("userProfileId", userProfile.getId());
     response.put("userFullName", userProfile.getFullName());
+    response.put("profileUsername", userProfile.getProfileOwner().getUsername());
     response.put("avatarPictureUrl", userProfile.getProfilePicture());
     response.put("coverPictureUrl", userProfile.getCoverPicture());
     response.put("profileFriends", userProfile.getFriends()

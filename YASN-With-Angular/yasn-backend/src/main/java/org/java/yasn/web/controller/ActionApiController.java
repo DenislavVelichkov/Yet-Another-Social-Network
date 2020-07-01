@@ -29,10 +29,15 @@ import org.springframework.web.multipart.MultipartFile;
 public class ActionApiController {
 
   private final WallService wallService;
+
   private final NotificationService notificationService;
+
   private final UserProfileService profileService;
+
   private final PersonalGalleryService galleryService;
+
   private final CloudinaryService cloudinaryService;
+
   private final SimpMessageSendingOperations sendAction;
 
   @PostMapping(value = "/likes/likeAPost", produces = EndpointConstants.END_POINT_PRODUCES_JSON)

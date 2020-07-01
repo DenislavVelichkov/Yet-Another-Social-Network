@@ -18,6 +18,8 @@ import {PendingFrRequestAction} from "../../../core/store/on-action/actions/pend
 import {take} from "rxjs/operators";
 import {DeleteNotificationAction} from "../../../core/store/notification/actions/delete-notification.action";
 import {MarkNotificationAction} from "../../../core/store/notification/actions/mark-notification.action";
+import {CreatePostNotificationAction} from "../../../core/store/notification/actions/create-post-notification.action";
+import {UserProfileState} from "../../../core/store/userProfile/state/user-profile.state";
 
 @Component({
   selector: 'app-authorized-navbar',
@@ -25,6 +27,8 @@ import {MarkNotificationAction} from "../../../core/store/notification/actions/m
   styleUrls: ['./authorized-navbar.component.css', '../un-authorized-navbar/un-authorized-navbar.component.css']
 })
 export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  loggedInProfile: UserProfileState;
 
   activeProfileId: string;
 
@@ -34,9 +38,13 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
 
   notifications: Notification[] = [];
 
-  notificationsSubscription$: Subscription;
+  friendReqNotificationsSub$: Subscription;
+
+  newPostNotificationsSub$: Subscription;
 
   notificationDropdown: boolean = false;
+
+  notificationSenderFriends: Array<string>;
 
   constructor(private auth: AuthService,
               private store$: Store<AppState>,
@@ -47,8 +55,8 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   ngOnInit() {
-    this.activeProfileId = JSON.parse(localStorage.getItem("activeUser"))._userProfileId;
-
+    this.activeProfileId = this.auth.getActiveUser().userProfileId;
+    this.store$.select('userProfile').subscribe(value => this.loggedInProfile == value);
     this.websocketService.connect();
 
     this.http.get<ProfileInfoModel>(EndpointUrls.selectUserProfile + this.activeProfileId)
@@ -64,12 +72,10 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
     this.notificationService.getAllPersonalNotifications(this.activeProfileId)
 
     this.store$.select('notifications').subscribe(value => {
-      if (value.allPersonalNotifications.get(this.activeProfileId)) {
-        this.notifications = value.allPersonalNotifications.get(this.activeProfileId);
-      }
+        this.notifications = value.profileNotifications;
     });
 
-    this.notificationsSubscription$ = this.websocketService.getFriendRequestsData().subscribe((notification: string) => {
+    this.friendReqNotificationsSub$ = this.websocketService.getFriendRequestsData().subscribe((notification: string) => {
       let newNotification: Notification = Object.assign({}, JSON.parse(notification));
 
       if (newNotification.recipientId === this.activeProfileId) {
@@ -77,6 +83,11 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
       }
     }, error => console.log(new Error(error)));
 
+    this.newPostNotificationsSub$ = this.websocketService.getPostNotificationData().subscribe(async (notification: string) => {
+      let newNotification: Notification = Object.assign({}, JSON.parse(notification));
+
+      this.store$.dispatch(new CreatePostNotificationAction({notification: newNotification}));
+    })
   }
 
   logout() {
@@ -89,7 +100,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngOnDestroy(): void {
     this.websocketService.disconnect();
-    this.notificationsSubscription$.unsubscribe();
+    this.friendReqNotificationsSub$.unsubscribe();
   }
 
   openSearchBar() {
@@ -116,7 +127,6 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
       this.store$.dispatch(new DeleteNotificationAction(
         {
           notificationId: notification.notificationId,
-          recipientId: notification.recipientId
         }));
     }, error => console.log(new Error(error)));
   }

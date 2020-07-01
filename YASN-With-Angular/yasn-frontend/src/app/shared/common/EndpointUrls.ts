@@ -1,6 +1,4 @@
 export const EndpointUrls = {
-  websocketStompFactory: "wss://localhost:8000/ws",
-  websocketSockJSFactory: "http://localhost:8000/stomp",
   loginUser: "/api/user/login",
   registerUser: "/api/user/register",
   postToPublicWall: "/api/home/news-feed/post",
@@ -17,11 +15,6 @@ export const EndpointUrls = {
   acceptFriendRequest: "/api/notification/accept-friend/",
   addFriend: "/api/actions/add-friend",
   unfriendRequest: "/api/notification/unfriend/",
-  topicCreatedNewPost: "/new-post",
-  topicNotificationFriendRequest: "/new-friend-request",
-  topicLike: "/like-post",
-  topicUnLike: "/unlike-post",
-  topicCommentOnPost: "/comment-on-post",
   searchProfile: "/api/search/user-profile/",
   friendshipStatus: "/api/actions/check-friendship/",
   deleteNotification: "/api/notification/delete-notification/",

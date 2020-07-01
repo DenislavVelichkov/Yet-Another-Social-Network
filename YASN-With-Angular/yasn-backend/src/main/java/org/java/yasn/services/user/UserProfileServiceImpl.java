@@ -228,4 +228,14 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     return profile.getFriends().stream().map(BaseEntity::getId).collect(Collectors.toCollection(HashSet::new));
   }
+
+  @Override
+  public String getProfileUsernameById(String profileId) {
+
+    return this.userProfileRepository
+        .findById(profileId)
+        .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND))
+        .getProfileOwner()
+        .getUsername();
+  }
 }
