@@ -17,4 +17,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, String
   Optional<UserProfile> findUserProfileByProfileOwner_Email(String email);
 
   Collection<UserProfile> findUserProfilesByFullNameContaining(String queryParams);
+
 }

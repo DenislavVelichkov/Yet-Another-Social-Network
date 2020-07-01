@@ -1,6 +1,7 @@
 import {initialState, NotificationState} from "../state/notification.state";
 import {NotificationActions, NotificationActionTypes} from "../actions/action.type";
 import produce, {enableMapSet} from "immer";
+import {Notification} from "../Notification";
 
 export function notificationReducer(state: NotificationState = initialState,
                                     action: NotificationActions) {
@@ -34,7 +35,7 @@ export function notificationReducer(state: NotificationState = initialState,
   function getAllNotification(state: NotificationState, payload) {
 
     return produce(state, draftState => {
-      draftState.profileNotifications.concat(payload[1]);
+      draftState.profileNotifications = payload;
     });
   }
 
@@ -42,9 +43,10 @@ export function notificationReducer(state: NotificationState = initialState,
 
     return produce(state, draftState => {
       draftState.profileNotifications
-        .push(payload.notification)
-     /* .sort((dateA: Notification, dateB: Notification) =>
-          compareDatesDesc(dateA.createdOn, dateB.createdOn));*/
+        .push(payload.notification);
+
+      draftState.profileNotifications.sort((dateA: Notification, dateB: Notification) =>
+        compareDatesDesc(dateA.createdOn, dateB.createdOn));
     });
   }
 

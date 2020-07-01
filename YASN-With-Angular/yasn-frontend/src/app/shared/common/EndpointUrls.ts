@@ -4,7 +4,7 @@ export const EndpointUrls = {
   postToPublicWall: "/api/home/news-feed/post",
   createPostNotification: "/api/notification/new-post-created",
   pullAllNews: "/api/home/all-news/",
-  getAllNotificationsForLoggedInUser: "/api/notification/get-all-notifications",
+  getAllNotificationsForLoggedInUser: "/api/notification/get-all-notifications/",
   postComment: "/api/home/news-feed/post/comment",
   likeAPost: "/api/actions/likes/likeAPost",
   unLikeAPost: "/api/actions/likes/unLikeAPost",

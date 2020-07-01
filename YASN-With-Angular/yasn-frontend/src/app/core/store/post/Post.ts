@@ -11,7 +11,7 @@ export interface Post {
   postPrivacy: string;
   likesCount: number;
   location: string;
-  comments: PostComment[];
+  comments: Array<PostComment>;
   postLikedByCurrentUser: boolean;
 }
 

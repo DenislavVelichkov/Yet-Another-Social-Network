@@ -36,6 +36,7 @@ public class NotificationServiceImpl implements NotificationService {
         .findById(model.get("senderId"))
         .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND));
 
+
     Notification notification = new Notification();
 
     notification.setSender(sender);
@@ -46,11 +47,17 @@ public class NotificationServiceImpl implements NotificationService {
     notification.setSenderFullName(sender.getFullName());
     notification.setContent(NotificationType.CREATED_A_POST.getLabel());
 
+    this.userProfileRepository.findById(model.get("senderId"))
+                              .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND))
+                              .getFriends()
+                              .forEach(f -> {
 
-      Notification newNotification =
-          this.notificationRepository.saveAndFlush(notification);
+                                notification.setRecipient(f);
 
-    return this.modelMapper.map(newNotification, NotificationResponseModel.class);
+                                this.notificationRepository.saveAndFlush(notification);
+                              });
+
+    return this.modelMapper.map(notification, NotificationResponseModel.class);
   }
 
   @Override
@@ -84,10 +91,10 @@ public class NotificationServiceImpl implements NotificationService {
   }
 
   @Override
-  public Collection<NotificationResponseModel> getAllNotifications(ActionModel actionModel) {
+  public Collection<NotificationResponseModel> getAllNotifications(String recipientId) {
 
     Collection<Notification> notifications =
-        this.notificationRepository.findByRecipientId(actionModel.getRecipientId());
+        this.notificationRepository.findByRecipientId(recipientId);
 
     return notifications.stream()
                         .map(notification -> this.modelMapper.map(notification, NotificationResponseModel.class))

@@ -36,7 +36,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
 
   userFullName: string;
 
-  notifications: Notification[] = [];
+  notifications: Array<Notification>;
 
   friendReqNotificationsSub$: Subscription;
 
@@ -52,6 +52,7 @@ export class AuthorizedNavbarComponent implements OnInit, OnDestroy, AfterViewIn
               private notificationService: NotificationService,
               private websocketService: WebsocketService,
               private searchDialog: MatDialog) {
+    this.notifications = new Array<Notification>();
   }
 
   ngOnInit() {

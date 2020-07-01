@@ -63,6 +63,8 @@ export class AuthService {
     localStorage.clear()
 
     this.router.navigate(['/user/login']).catch(reason => throwError(reason));
+
+    location.reload();
   }
 
   public handleAuthentication(response: HttpResponse<any>) {

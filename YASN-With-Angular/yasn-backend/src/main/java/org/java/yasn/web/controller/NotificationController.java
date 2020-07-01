@@ -56,12 +56,12 @@ public class NotificationController {
     return ResponseEntity.ok(response);
   }
 
-  @PostMapping("/get-all-notifications")
+  @GetMapping("/get-all-notifications/{recipientId}")
   public ResponseEntity<Collection<NotificationResponseModel>> getAllNotifications(
-      @RequestBody ActionModel actionModel) {
+      @PathVariable(name = "recipientId") String recipientId) {
 
     Collection<NotificationResponseModel> response =
-        this.notificationService.getAllNotifications(actionModel);
+        this.notificationService.getAllNotifications(recipientId);
     this.mapper.validate();
 
     return ResponseEntity.ok(response);

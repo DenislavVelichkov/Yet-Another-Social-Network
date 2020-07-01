@@ -37,17 +37,14 @@ function getAllPosts(state, payload) {
   return Object.assign({}, state, payload);
 }
 
-function createPost(state, payload) {
-  let newPost: PostState = {
-    allWallPosts: state.allWallPosts.concat(payload.post)
-      .sort((a: Post, b: Post) => {
-        let result = compareDatesDesc(a.createdOn, b.createdOn);
+function createPost(state: PostState, payload: any) {
 
-        return result !== 0 ? result : -1;
-      })
-  }
-
-  return newPost;
+  return produce(state, draftState => {
+    draftState.allWallPosts
+      .push(payload.post)
+    draftState.allWallPosts
+      .sort((postA: Post, postB: Post) => compareDatesDesc(postA.createdOn, postB.createdOn))
+  });
 }
 
 function createComment(state, payload) {

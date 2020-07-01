@@ -64,7 +64,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
     this.postSubscription$ = this.websocketService.getPostsData().subscribe((post: string) => {
       let newPost: Post = Object.assign({}, JSON.parse(post));
-      this.store$.dispatch(new CreatePost({post: [newPost]}));
+      this.store$.dispatch(new CreatePost({post: newPost}));
     }, error => console.log(new Error(error)));
 
     this.commentsSubscription$ = this.websocketService.getCommentsData().subscribe((data: string) => {

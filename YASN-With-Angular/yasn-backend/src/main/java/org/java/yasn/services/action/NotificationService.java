@@ -13,7 +13,7 @@ public interface NotificationService {
 
   NotificationResponseModel createFriendRequest(ActionModel actionModel);
 
-  Collection<NotificationResponseModel> getAllNotifications(ActionModel actionModel);
+  Collection<NotificationResponseModel> getAllNotifications(String recipientId);
 
   boolean checkForPendingRequest(String viewerId, String selectedProfileId, String notificationType);
 

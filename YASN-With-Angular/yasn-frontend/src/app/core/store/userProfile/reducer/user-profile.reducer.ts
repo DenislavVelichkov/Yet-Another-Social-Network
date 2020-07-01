@@ -15,4 +15,6 @@ export function userProfileReducer(state: UserProfileState = initialState,
 
     return Object.assign({}, state, payload);
   }
+
+
 }
