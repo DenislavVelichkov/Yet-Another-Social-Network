@@ -25,7 +25,6 @@ export class NotificationService {
   }
 
   createNotificationOnNewPost(senderId: string): void {
-
     this.http.create<Notification>(EndpointUrls.createPostNotification, {senderId: senderId})
       .pipe(take(1))
       .subscribe(() => {}, error => console.log(new Error(error)));
@@ -51,20 +50,18 @@ export class NotificationService {
       .pipe(take(1))
       .subscribe(data => {
         this.snackBar.openFromComponent(CustomSuccessSnackbarComponent, {
-          duration: 4500,
+          duration: 3000,
           verticalPosition: "top",
           horizontalPosition: "center",
           data: "You have send a friend request to " + data.recipientFullName
         })
       }, reason => {
-
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
-          duration: 4500,
+          duration: 3000,
           verticalPosition: "top",
           horizontalPosition: "center",
           data: reason.error.message
         })
-
         this.router.navigate([`${this.router.url}`]).catch(reason => console.log(new Error(reason)));
       });
   }

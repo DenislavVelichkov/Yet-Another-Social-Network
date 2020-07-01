@@ -30,7 +30,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.snackBar.openFromComponent(ErrorSnackbarComponent,
           {
             verticalPosition: "top",
-            duration: 4200,
+            duration: 3000,
             data: "Error! " + "Reason: " + errorMessage,
           });
         location.reload();

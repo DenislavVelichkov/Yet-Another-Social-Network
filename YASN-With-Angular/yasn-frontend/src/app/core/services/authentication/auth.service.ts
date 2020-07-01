@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   loginUser(userModel: UserLoginBindingModel): void {
-
     this.httpRepo.loginRequest(EndpointUrls.loginUser, userModel)
       .pipe(take(1))
       .subscribe((data: any) => {
@@ -41,7 +40,7 @@ export class AuthService {
           this.snackBar.openFromComponent(ErrorSnackbarComponent,
             {
               verticalPosition: "top",
-              duration: 4200,
+              duration: 3000,
               data: "Wrong email or password!",
             });
           this.router.navigate(['/user/login']).catch(reason => console.log(new Error(reason)))
@@ -49,7 +48,6 @@ export class AuthService {
   }
 
   logout() {
-
     let nullPayload = {
       activeUser: false,
       isRegistered: false,
@@ -81,6 +79,7 @@ export class AuthService {
     authenticatedUser.tokenExpirationDate = expirationDate;
 
     localStorage.setItem("activeUser", JSON.stringify(authenticatedUser))
+
     this.store$.dispatch(new AuthenticatedAction(
       {
         activeUser: authenticatedUser,

@@ -18,7 +18,9 @@ import {ErrorSnackbarComponent} from "../../custom-snackbar/error-snackbar/error
   styleUrls: ['./user-register.component.css', '../../index/index.component.css']
 })
 export class UserRegisterComponent implements OnInit {
+
   userRegisterBindingModel: UserRegisterModel;
+
   private errors: Array<Object>;
 
   constructor(private auth: AuthService,
@@ -57,7 +59,7 @@ export class UserRegisterComponent implements OnInit {
           this.snackBar.openFromComponent(ErrorSnackbarComponent,
             {
               verticalPosition: "top",
-              duration: 4200,
+              duration: 3000,
               data: error['defaultMessage'],
             }
           );
@@ -71,14 +73,14 @@ export class UserRegisterComponent implements OnInit {
         this.snackBar.openFromComponent(CustomSuccessSnackbarComponent,
           {
             verticalPosition: "top",
-            duration: 4200,
+            duration: 3000,
             data: "Registration Successful! You can  enter your credentials and Log In now.",
           }
         );
       }
     }, error => {
       this.errors = error;
-      return console.log(throwError(error));
+      return console.log(new Error(error));
     });
 
   }
