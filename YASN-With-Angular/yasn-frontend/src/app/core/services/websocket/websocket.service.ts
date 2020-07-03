@@ -3,18 +3,18 @@ import {Observable, Subscriber} from "rxjs";
 import {Client} from "@stomp/stompjs";
 import * as SockJS from 'sockjs-client';
 import {WebSocketEndpoints} from "../../../shared/common/WebSocketEndpoints";
-import {UserProfileState} from "../../store/userProfile/state/user-profile.state";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.state";
+import {AuthService} from "../authentication/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
-  private loggedInProfile: UserProfileState;
+  private loggedInProfileUsername: string;
 
-  private stompClient: Client = null;
+  stompClient: Client = null;
 
   private postData$: Subscriber<any>;
 
@@ -28,14 +28,15 @@ export class WebsocketService {
 
   private userSpecificData$: Subscriber<any>
 
-  constructor(private store$: Store<AppState>) {
+  constructor(private store$: Store<AppState>,
+              private auth: AuthService) {
+    this.loggedInProfileUsername = this.auth.getActiveUser().userName;
   }
 
-  connect() {
+  async connect() {
     const _this = this;
-    this.store$.select('userProfile').subscribe(value => this.loggedInProfile = value);
 
-    _this.stompClient = new Client({
+     _this.stompClient = await new Client({
       brokerURL: WebSocketEndpoints.websocketStompFactory,
       debug: function (str) {
         console.log(str);
@@ -45,19 +46,23 @@ export class WebsocketService {
       heartbeatOutgoing: 4000,
     });
 
-    _this.stompClient.webSocketFactory = function () {
+    _this.stompClient.webSocketFactory = await function () {
       return new SockJS(WebSocketEndpoints.websocketSockJSFactory);
     };
 
-    _this.stompClient.onWebSocketError = function (ev) {
+    _this.stompClient.onWebSocketError = await function (ev) {
       console.log(ev);
     };
 
-    _this.stompClient.onStompError = function (ev) {
+    _this.stompClient.onStompError = await function (ev) {
       console.log(ev);
     };
 
-    _this.stompClient.onConnect = function (frame) {
+    _this.stompClient.onConnect = await function (frame) {
+
+      _this.stompClient.subscribe(WebSocketEndpoints.topicUserSpecific + _this.loggedInProfileUsername, function (data) {
+        _this.userSpecificData$.next(data.body);
+      });
 
       _this.stompClient.subscribe(WebSocketEndpoints.topicCreatedNewPost,function (data) {
         _this.postData$.next(data.body);
@@ -72,20 +77,16 @@ export class WebsocketService {
       });
 
       _this.stompClient.subscribe(WebSocketEndpoints.topicUnLike,function (data) {
-        _this.unlikesData$.next(data.body);
+         _this.unlikesData$.next(data.body);
       });
 
       _this.stompClient.subscribe(WebSocketEndpoints.topicCommentOnPost, function (data) {
         _this.commentsData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(WebSocketEndpoints.topicUserSpecific + _this.loggedInProfile.profileUsername, function (data) {
-        _this.userSpecificData$.next(data.body);
-      });
-
     };
 
-    _this.stompClient.activate();
+    await _this.stompClient.activate();
   }
 
   disconnect() {
