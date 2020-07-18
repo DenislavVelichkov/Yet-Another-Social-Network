@@ -1,1 +1,6 @@
-<p>user-friends works!</p>
+<div class="yasn-friends">
+      <div *ngFor="let friend of friends" class="friends-info-container">
+        <img class="friend-picture" src="{{friend.profilePicture}}" alt="friend-picture">
+        <a class="friend-name">{{friend.fullName}}</a>
+      </div>
+</div>

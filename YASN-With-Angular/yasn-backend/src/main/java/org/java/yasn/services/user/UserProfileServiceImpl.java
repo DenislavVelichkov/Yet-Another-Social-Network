@@ -238,4 +238,15 @@ public class UserProfileServiceImpl implements UserProfileService {
         .getProfileOwner()
         .getUsername();
   }
+
+  @Override
+  public Collection<UserProfileResponseModel> getProfileFriendsWithDetails(String userProfileId) {
+
+    return this.userProfileRepository.findById(userProfileId)
+                                     .orElseThrow(() -> new IllegalArgumentException(ExceptionMessages.USER_NOT_FOUND))
+                                     .getFriends()
+                                     .stream()
+                                     .map(friend -> this.modelMapper.map(friend, UserProfileResponseModel.class))
+                                     .collect(Collectors.toCollection(LinkedList::new));
+  }
 }

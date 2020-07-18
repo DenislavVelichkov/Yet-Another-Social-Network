@@ -10,6 +10,8 @@ import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.data.models.service.BaseServiceModel;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.services.user.UserProfileService;
+import org.java.yasn.web.models.response.UserProfileResponseModel;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
@@ -22,6 +24,8 @@ public class UserProfileController {
 
   private final UserProfileService userProfileService;
 
+  private final ModelMapper mapper;
+
   @InitBinder
   public void allowEmptyDateBinding(WebDataBinder binder) {
     // tell spring to set empty values as null instead of empty string.
@@ -31,6 +35,7 @@ public class UserProfileController {
 
   @GetMapping(value = "/{profileId}", produces = EndpointConstants.END_POINT_PRODUCES_JSON)
   public ResponseEntity<?> getUserProfileInfo(@PathVariable String profileId) {
+
     UserProfileServiceModel userProfile = userProfileService.findUserProfileById(profileId);
     Map<String, String> response = new HashMap<>();
     response.put("userProfileId", userProfile.getId());
@@ -49,7 +54,19 @@ public class UserProfileController {
   @GetMapping("/friends/{userProfileId}")
   public ResponseEntity<?> getAllFriendsIds(
       @PathVariable(name = "userProfileId") String userProfileId) {
+
     Collection<String> response = this.userProfileService.getProfileFriendsIds(userProfileId);
+    return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/friends-details/{userProfileId}")
+  public ResponseEntity<Collection<UserProfileResponseModel>> getAllFriendsWithDetails(
+      @PathVariable(name = "userProfileId") String userProfileId) {
+
+    Collection<UserProfileResponseModel> response =
+        this.userProfileService.getProfileFriendsWithDetails(userProfileId);
+    this.mapper.validate();
+
     return ResponseEntity.ok(response);
   }
 

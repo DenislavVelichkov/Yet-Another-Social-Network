@@ -1,0 +1,29 @@
+.yasn-friends {
+  display: flex;
+  margin: 0 0 1em;
+  padding: 0 0.5em 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.friends-info-container {
+  flex: 0 0 33%;
+}
+
+.friend-picture {
+  display: block;
+  height: auto;
+  width: 100%
+}
+
+.friend-name {
+  display: inline-block;
+  position: relative;
+  bottom: 83px;
+  left: 0;
+  color: #495057;
+  font-weight: 500;
+}

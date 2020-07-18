@@ -19,5 +19,6 @@ export const EndpointUrls = {
   friendshipStatus: "/api/actions/check-friendship/",
   deleteNotification: "/api/notification/delete-notification/",
   editNotification: "/api/notification/edit-notification/",
-  getNotificationSenderFriends: "/api/user-profile/friends/"
+  getUserProfileFriendsBasicInfo: "/api/user-profile/friends/",
+  getUserProfileFriendsWithDetails: "/api/user-profile/friends-details/"
 }

@@ -8,6 +8,7 @@ import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
 import org.java.yasn.web.models.response.SearchResultModel;
+import org.java.yasn.web.models.response.UserProfileResponseModel;
 
 public interface UserProfileService {
 
@@ -27,4 +28,6 @@ public interface UserProfileService {
   Collection<String> getProfileFriendsIds(String userProfileId);
 
   String getProfileUsernameById(String profileId);
+
+  Collection<UserProfileResponseModel> getProfileFriendsWithDetails(String userProfileId);
 }
