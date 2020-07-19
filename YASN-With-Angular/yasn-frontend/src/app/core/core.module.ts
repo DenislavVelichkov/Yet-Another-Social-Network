@@ -34,6 +34,7 @@ import {CustomSuccessSnackbarComponent} from "../components/custom-snackbar/succ
 import {SearchBarComponent} from "../components/search-bar/search-bar.component";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {ErrorSnackbarComponent} from "../components/custom-snackbar/error-snackbar/error-snackbar.component";
+import {TooltipDirective} from "./directives/tooltip.directive";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {ErrorSnackbarComponent} from "../components/custom-snackbar/error-snackb
     CustomSuccessSnackbarComponent,
     ErrorSnackbarComponent,
     SearchBarComponent,
+    TooltipDirective,
   ],
     imports: [
         CommonModule,
