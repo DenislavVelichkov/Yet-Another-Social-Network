@@ -10,7 +10,8 @@ export class TooltipDirective {
   tooltip: HTMLElement;
   offset = 10;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
+  constructor(private el: ElementRef,
+              private renderer: Renderer2) { }
 
   @HostListener('mouseenter') onMouseEnter() {
     if (!this.tooltip) { this.show(); }
