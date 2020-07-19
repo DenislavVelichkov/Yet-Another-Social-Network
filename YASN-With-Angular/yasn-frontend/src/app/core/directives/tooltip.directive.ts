@@ -21,6 +21,10 @@ export class TooltipDirective {
     if (this.tooltip) { this.hide(); }
   }
 
+  @HostListener('mousedown') onClick() {
+    this.hide();
+  }
+
   show() {
     this.create();
     this.setPosition();
