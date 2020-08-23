@@ -1,1 +1,7 @@
-<p>user-gallery works!</p>
+<div class="yasn-gallery">
+  <div *ngFor="let album of albums" class="gallery-info-container">
+    <div tooltip="{{album.fullName}}" placement="top" delay="0">
+      <img class="gallery-picture" src="{{album}}" alt="friend-picture">
+    </div>
+  </div>
+</div>
