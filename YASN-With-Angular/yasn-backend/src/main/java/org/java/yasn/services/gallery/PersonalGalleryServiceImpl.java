@@ -1,6 +1,8 @@
 package org.java.yasn.services.gallery;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,6 +13,7 @@ import org.java.yasn.data.entities.gallery.PersonalGallery;
 import org.java.yasn.data.entities.gallery.PhotoAlbum;
 import org.java.yasn.data.entities.gallery.Picture;
 import org.java.yasn.data.models.service.gallery.PersonalGalleryServiceModel;
+import org.java.yasn.data.models.service.gallery.PhotoAlbumServiceModel;
 import org.java.yasn.repository.gallery.PersonalGalleryRepository;
 import org.java.yasn.repository.gallery.PhotoAlbumRepository;
 import org.modelmapper.ModelMapper;
@@ -21,7 +24,9 @@ import org.springframework.stereotype.Service;
 public class PersonalGalleryServiceImpl implements PersonalGalleryService {
 
   private final PhotoAlbumRepository albumRepository;
+
   private final PersonalGalleryRepository galleryRepository;
+
   private final ModelMapper modelMapper;
 
 
@@ -93,5 +98,14 @@ public class PersonalGalleryServiceImpl implements PersonalGalleryService {
     this.modelMapper.validate();
 
     return galleryService;
+  }
+
+  @Override
+  public Collection<PhotoAlbumServiceModel> getAlbumsByProfileId(String profileId) {
+
+    return this.albumRepository.findAllByPersonalGallery_GalleryOwner_Id(profileId)
+                               .stream()
+                               .map(photoAlbum -> this.modelMapper.map(photoAlbum, PhotoAlbumServiceModel.class))
+                               .collect(Collectors.toCollection(ArrayList::new));
   }
 }

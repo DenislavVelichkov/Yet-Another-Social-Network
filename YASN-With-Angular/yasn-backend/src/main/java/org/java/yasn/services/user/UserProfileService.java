@@ -7,6 +7,7 @@ import java.util.Map;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
+import org.java.yasn.web.models.response.AlbumResponseModel;
 import org.java.yasn.web.models.response.SearchResultModel;
 import org.java.yasn.web.models.response.UserProfileResponseModel;
 
@@ -30,4 +31,6 @@ public interface UserProfileService {
   String getProfileUsernameById(String profileId);
 
   Collection<UserProfileResponseModel> getProfileFriendsWithDetails(String userProfileId);
+
+  Collection<AlbumResponseModel> getProfileAlbums(String profileId);
 }

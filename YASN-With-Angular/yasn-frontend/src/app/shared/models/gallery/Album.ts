@@ -1,6 +1,12 @@
 import {Picture} from "./Picture";
 
 export interface Album {
-  albumName: string,
+
+  id: string,
+
   picture: Array<Picture>,
+
+  name: string,
+
+  cover: string,
 }

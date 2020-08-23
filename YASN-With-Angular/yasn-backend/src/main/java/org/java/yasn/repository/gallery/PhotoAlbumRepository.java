@@ -1,5 +1,6 @@
 package org.java.yasn.repository.gallery;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.java.yasn.data.entities.gallery.PhotoAlbum;
@@ -16,4 +17,6 @@ public interface PhotoAlbumRepository extends JpaRepository<PhotoAlbum, String> 
   Optional<PhotoAlbum> findByPersonalGalleryId(String galleryId);
 
   Optional<PhotoAlbum> findByName(String albumName);
+
+  Collection<PhotoAlbum> findAllByPersonalGallery_GalleryOwner_Id(String profileId);
 }

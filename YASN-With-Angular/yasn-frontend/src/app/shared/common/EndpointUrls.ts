@@ -21,5 +21,5 @@ export const EndpointUrls = {
   editNotification: "/api/notification/edit-notification/",
   getUserProfileFriendsBasicInfo: "/api/user-profile/friends/",
   getUserProfileFriendsWithDetails: "/api/user-profile/friends-details/",
-  getUserPicturesAlbums: "/api/user-profile/albums",
+  getUserPicturesAlbums: "/api/user-profile/albums/",
 }

@@ -3,6 +3,8 @@ import {HttpRepositoryService} from "../../../../core/http/http-repository.servi
 import {EndpointUrls} from "../../../../shared/common/EndpointUrls";
 import {Album} from "../../../../shared/models/gallery/Album";
 import {take} from "rxjs/operators";
+import {UserAuthModel} from "../../../../core/store/authentication/UserAuthModel";
+import {AuthService} from "../../../../core/services/authentication/auth.service";
 
 @Component({
   selector: 'app-user-gallery',
@@ -10,16 +12,21 @@ import {take} from "rxjs/operators";
   styleUrls: ['./user-gallery.component.css']
 })
 export class UserGalleryComponent implements OnInit {
-
+  currentUser: UserAuthModel;
   albums: Array<Album>;
 
-  constructor(private http: HttpRepositoryService) {
+  constructor(private http: HttpRepositoryService,
+              private auth: AuthService) {
   }
 
   ngOnInit(): void {
-    this.http.get<Array<Album>>(EndpointUrls.getUserPicturesAlbums)
+    this.currentUser = this.auth.getActiveUser();
+
+    this.http.get<Array<Album>>(EndpointUrls.getUserPicturesAlbums + this.currentUser.userProfileId)
       .pipe(take(1))
-      .subscribe(value => this.albums = value);
+      .subscribe(value => {
+        return this.albums = value;
+      }, error => console.log(new Error(error)));
   }
 
 }

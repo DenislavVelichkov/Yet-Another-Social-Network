@@ -12,7 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AlbumResponseModel {
+
   private String id;
+
   private Collection<PictureResponseModel> pictures;
+
   private String name;
+
+  private String coverUrl;
 }

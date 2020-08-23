@@ -12,6 +12,8 @@ import org.java.yasn.data.models.service.BaseServiceModel;
 @Setter
 @NoArgsConstructor
 public class PersonalGalleryServiceModel extends BaseServiceModel {
+
   Set<PhotoAlbumServiceModel> photoAlbums;
+
   UserProfile galleryOwner;
 }

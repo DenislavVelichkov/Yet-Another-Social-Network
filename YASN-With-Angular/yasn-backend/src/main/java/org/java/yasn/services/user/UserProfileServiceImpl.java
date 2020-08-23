@@ -18,8 +18,10 @@ import org.java.yasn.repository.user.UserProfileRepository;
 import org.java.yasn.repository.user.UserRepository;
 import org.java.yasn.services.CloudinaryService;
 import org.java.yasn.services.action.NotificationService;
+import org.java.yasn.services.gallery.PersonalGalleryService;
 import org.java.yasn.web.models.binding.ActionModel;
 import org.java.yasn.web.models.binding.ProfileEditModel;
+import org.java.yasn.web.models.response.AlbumResponseModel;
 import org.java.yasn.web.models.response.SearchResultModel;
 import org.java.yasn.web.models.response.UserProfileResponseModel;
 import org.modelmapper.ModelMapper;
@@ -41,6 +43,8 @@ public class UserProfileServiceImpl implements UserProfileService {
   private final CloudinaryService cloudinaryService;
 
   private final NotificationService notificationService;
+
+  private final PersonalGalleryService personalGalleryService;
 
   @Override
   public UserProfileServiceModel findUserProfileByUsername(String username) {
@@ -249,4 +253,14 @@ public class UserProfileServiceImpl implements UserProfileService {
                                      .map(friend -> this.modelMapper.map(friend, UserProfileResponseModel.class))
                                      .collect(Collectors.toCollection(LinkedList::new));
   }
+
+  @Override
+  public Collection<AlbumResponseModel> getProfileAlbums(String profileId) {
+
+    return personalGalleryService.getAlbumsByProfileId(profileId)
+                                 .stream()
+                                 .map(photoAlbumServiceModel -> this.modelMapper.map(photoAlbumServiceModel, AlbumResponseModel.class))
+                                 .collect(Collectors.toCollection(ArrayList::new));
+  }
+
 }

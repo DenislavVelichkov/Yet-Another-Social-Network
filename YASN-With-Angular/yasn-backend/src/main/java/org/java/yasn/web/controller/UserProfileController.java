@@ -10,6 +10,7 @@ import org.java.yasn.common.EndpointConstants;
 import org.java.yasn.data.models.service.BaseServiceModel;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.services.user.UserProfileService;
+import org.java.yasn.web.models.response.AlbumResponseModel;
 import org.java.yasn.web.models.response.UserProfileResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -56,6 +57,7 @@ public class UserProfileController {
       @PathVariable(name = "userProfileId") String userProfileId) {
 
     Collection<String> response = this.userProfileService.getProfileFriendsIds(userProfileId);
+
     return ResponseEntity.ok(response);
   }
 
@@ -66,6 +68,15 @@ public class UserProfileController {
     Collection<UserProfileResponseModel> response =
         this.userProfileService.getProfileFriendsWithDetails(userProfileId);
     this.mapper.validate();
+
+    return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/albums/{profileId}")
+  public ResponseEntity<Collection<AlbumResponseModel>> getProfileAlbums(
+      @PathVariable(name = "profileId") String profileId) {
+
+    Collection<AlbumResponseModel> response = this.userProfileService.getProfileAlbums(profileId);
 
     return ResponseEntity.ok(response);
   }
