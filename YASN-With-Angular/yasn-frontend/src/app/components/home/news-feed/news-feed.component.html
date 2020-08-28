@@ -18,7 +18,7 @@
 
     <div class="comments-likes">
       <ul>
-        <li (click)="postCommentPop()">
+        <li (click)="postCommentPop($event)">
           <span>Comment</span>
         </li>
         <span class="text-muted"> - </span>
@@ -35,7 +35,7 @@
       </ul>
     </div>
 
-    <app-create-comment *ngIf="showComments"
+    <app-create-comment *ngIf="showComment"
                         [postId]="post.id">
     </app-create-comment>
 

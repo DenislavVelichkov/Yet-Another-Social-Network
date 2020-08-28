@@ -27,9 +27,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    if (!this.validationPatter.test(this.searchQuery)) {
-      return;
-    }
+    if (!this.validationPatter.test(this.searchQuery)) { return; }
 
     this.searchSubscription =
       this.http.get(EndpointUrls.searchProfile + this.searchQuery)

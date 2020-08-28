@@ -9,6 +9,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {CustomSuccessSnackbarComponent} from "../../../custom-snackbar/success-snackbar/custom-success-snackbar.component";
 import {AcceptFrRequestAction} from "../../../../core/store/on-action/actions/accept-fr-request.action";
 import {NotificationService} from "../../../../core/services/notification/notification.service";
+import {EditUserProfileComponent} from "../edit-user-profile/edit-user-profile.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -38,7 +40,8 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
               private http: HttpRepositoryService,
               private store$: Store<AppState>,
               private snackBar: MatSnackBar,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private editProfileDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -72,6 +75,10 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
       this.store$.dispatch(new AcceptFrRequestAction({acceptFrRequest: true}))
 
     }, error => console.log(new Error(error)));
+  }
+
+  editProfile(){
+    this.editProfileDialog.open(EditUserProfileComponent);
   }
 
   ngOnDestroy(): void {

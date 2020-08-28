@@ -28,7 +28,7 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   public activeUserInfo: UserProfileState;
 
-  public showComments: boolean;
+  public showComment: boolean;
 
   public newsFeedPosts: Post[];
 
@@ -83,8 +83,9 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   }
 
-  postCommentPop() {
-    this.showComments = !this.showComments;
+  postCommentPop(ev) {
+
+    this.showComment = !this.showComment;
   }
 
   likeAPost(postId: string, isPostAlreadyLiked: boolean) {

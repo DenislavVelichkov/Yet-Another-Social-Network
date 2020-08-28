@@ -107,3 +107,7 @@
   left: 5%;
   box-shadow: 0 0 0.6em #fff;
 }
+
+.profile-action-buttons a {
+  cursor: pointer;
+}

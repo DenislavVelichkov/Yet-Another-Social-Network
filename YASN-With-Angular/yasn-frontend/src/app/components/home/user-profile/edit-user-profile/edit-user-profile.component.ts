@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-edit-user-profile',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class EditUserProfileComponent implements OnInit {
 
-  constructor() {
+  constructor(public dialogRef: MatDialogRef<EditUserProfileComponent>) {
   }
 
   ngOnInit(): void {
