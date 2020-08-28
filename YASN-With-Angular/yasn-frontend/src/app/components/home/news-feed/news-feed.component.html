@@ -18,26 +18,20 @@
 
     <div class="comments-likes">
       <ul>
-        <li (click)="postCommentPop($event)">
-          <span>Comment</span>
+        <li>
+          <span id="likes-count">{{post.likesCount}} </span>
+          <i aria-hidden="true" class="far fa-thumbs-up"></i>
         </li>
-        <span class="text-muted"> - </span>
         <li>
           <span (click)="likeAPost(post.id, post.postLikedByCurrentUser)" class="post-like">
             <span *ngIf="post.postLikedByCurrentUser">Unlike</span>
             <span *ngIf="!post.postLikedByCurrentUser">Like</span>
           </span>
         </li>
-        <li>
-          <span id="likes-count">{{post.likesCount}} </span>
-          <i aria-hidden="true" class="far fa-thumbs-up"></i>
-        </li>
       </ul>
     </div>
 
-    <app-create-comment *ngIf="showComment"
-                        [postId]="post.id">
-    </app-create-comment>
+    <app-create-comment [postId]="post.id"></app-create-comment>
 
     <div *ngFor="let comment of post.comments">
       <hr class="post-delimiter">

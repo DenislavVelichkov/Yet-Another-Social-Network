@@ -64,10 +64,8 @@
 .comments-likes li {
   display: inline-block;
   cursor: pointer;
-}
-
-.comments-likes > ul > li:nth-child(4) {
   float: right;
+
 }
 
 .post-meta-info > span {
@@ -105,6 +103,7 @@
 
 .post-like {
   font-weight: 400;
+  padding-right: 1.5em;
 }
 
 .post-content-container {

@@ -28,8 +28,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   public activeUserInfo: UserProfileState;
 
-  public showComment: boolean;
-
   public newsFeedPosts: Post[];
 
   private postSubscription$: Subscription;
@@ -81,11 +79,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       this.store$.dispatch(new UnlikeAPostAction(JSON.parse(data)));
     }, error => console.log(new Error(error)));
 
-  }
-
-  postCommentPop(ev) {
-
-    this.showComment = !this.showComment;
   }
 
   likeAPost(postId: string, isPostAlreadyLiked: boolean) {
