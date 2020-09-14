@@ -35,6 +35,7 @@ import {SearchBarComponent} from "../components/search-bar/search-bar.component"
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {ErrorSnackbarComponent} from "../components/custom-snackbar/error-snackbar/error-snackbar.component";
 import {TooltipDirective} from "./directives/tooltip.directive";
+import {EditUserGalleryComponent} from "../components/home/user-profile/edit-user-gallery/edit-user-gallery.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {TooltipDirective} from "./directives/tooltip.directive";
     ErrorSnackbarComponent,
     SearchBarComponent,
     TooltipDirective,
+    EditUserGalleryComponent,
   ],
     imports: [
         CommonModule,

@@ -11,6 +11,7 @@ import {AcceptFrRequestAction} from "../../../../core/store/on-action/actions/ac
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {EditUserProfileComponent} from "../edit-user-profile/edit-user-profile.component";
 import {MatDialog} from "@angular/material/dialog";
+import {EditUserGalleryComponent} from "../edit-user-gallery/edit-user-gallery.component";
 
 @Component({
   selector: 'app-user-profile-header',
@@ -41,7 +42,8 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
               private store$: Store<AppState>,
               private snackBar: MatSnackBar,
               private notificationService: NotificationService,
-              private editProfileDialog: MatDialog) {
+              private editProfileDialog: MatDialog,
+              private editGalleryDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -79,6 +81,10 @@ export class UserProfileHeaderComponent implements OnInit, OnDestroy {
 
   editProfile(){
     this.editProfileDialog.open(EditUserProfileComponent);
+  }
+
+  editGallery() {
+    this.editGalleryDialog.open(EditUserGalleryComponent)
   }
 
   ngOnDestroy(): void {

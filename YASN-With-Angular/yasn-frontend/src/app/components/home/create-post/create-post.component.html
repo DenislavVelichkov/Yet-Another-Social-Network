@@ -53,7 +53,7 @@
 
     <section *ngIf="showUploadPhotoMenu" class="yasn-post-extra-photo">
       <div>
-        <mat-card>
+        <mat-card [ngClass]="{'custom-card':true}">
           <mat-card-content>
             <ul>
               <li *ngFor="let file of files">
@@ -63,8 +63,8 @@
             </ul>
           </mat-card-content>
           <mat-card-actions>
-            <button (click)="onUploadPic()" color="primary" mat-button>
-              <mat-icon>file_upload</mat-icon>
+            <button (click)="onUploadPic()" style="color: #0b769c" mat-button>
+              <mat-icon style="color: #0b769c">file_upload</mat-icon>
               Upload picture...
             </button>
           </mat-card-actions>
