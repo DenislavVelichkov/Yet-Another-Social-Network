@@ -26,7 +26,7 @@
     "@stomp/stompjs": "^5.4.4",
     "@types/sockjs-client": "^1.1.1",
     "bootstrap": "^4.4.1",
-    "immer": "^6.0.5",
+    "immer": "^8.0.1",
     "jquery": "^3.5.0",
     "ngx-cookie-service": "^3.0.4",
     "prod": "^1.0.1",
