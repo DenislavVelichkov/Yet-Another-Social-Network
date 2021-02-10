@@ -61,6 +61,7 @@ function createComment(state, payload) {
 }
 
 function likePost(state, payload) {
+
   return produce(state, draftState => {
     let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
     newPost.likesCount++;
@@ -77,6 +78,7 @@ function likePost(state, payload) {
 }
 
 function unLikePost(state, payload) {
+
   return produce(state, draftState => {
     let newPost = draftState.allWallPosts.find(post => post.id === payload.postId);
     newPost.likesCount--;
