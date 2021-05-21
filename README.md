@@ -7,6 +7,8 @@ To run the project:
  - Install Docker and go to root folder of the project and type in cmd/bash following command: docker-compose up --build
  - Navigate to http://localhost:4200 and create your first account (:
 
+Or: Go to root dir and run in terminal docker-compose up
+
 # YasnFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
