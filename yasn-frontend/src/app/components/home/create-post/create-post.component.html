@@ -1,0 +1,88 @@
+<div class="yasn-post-container shadow p-2 mb-5 bg-white rounded">
+  <div class="yasn-post-attributes-container">
+
+    <form #post="ngForm" (ngSubmit)="createPost()">
+      <label for="comment-text"> What's on your mind...?</label>
+      <textarea #postContent="ngModel"
+                [(ngModel)]="postModel.postContent"
+                [ngClass]="{'is-valid': postContent.valid && postContent.touched,
+                                 'is-invalid': postContent.invalid && postContent.touched}"
+                id="comment-text"
+                name="post"
+                type="text">
+        </textarea>
+
+      <div class="yasn-post-buttons">
+        <ul>
+          <li><i class="fas fa-user-friends"></i></li>
+          <li (click)="onUploadPhotoClick()"><i class="fas fa-camera"></i></li>
+          <li (click)="onEmojiClick()"><i class="{{emojiIcon}}"></i></li>
+          <li (click)="onPrivacyClick()"><i class="fas fa-user-secret"></i></li>
+          <li class="yasn-post-btn-submit-container">
+            <button class="post-submit-btn" type="submit">POST</button>
+          </li>
+        </ul>
+      </div>
+    </form>
+
+    <div *ngIf="showEmojies" class="emoji-container">
+      <div class="arrow-element"></div>
+      <emoji-mart
+        (emojiSelect)="addEmoji($event)"
+        [darkMode]="false"
+        [enableSearch]="true"
+        [style]="{ position: 'inherit', top: '5rem', left: '32rem' }"
+        emoji="point_up"
+        set="facebook"
+        title="Pick your emoji…">
+      </emoji-mart>
+    </div>
+
+    <section *ngIf="showPrivacyMenu" class="yasn-post-extra-privacy">
+      <label for="yasn-privacy-public-checkbox"> Public
+        <input [ngModel]="postModel.postPrivacy" id="yasn-privacy-public-checkbox" name="postPrivacy" type="radio"
+               value="PUBLIC"/>
+        <span class="checkmark"></span>
+      </label>
+      <label for="yasn-privacy-private-checkbox"> Private
+        <input [ngModel]="postModel.postPrivacy" id="yasn-privacy-private-checkbox" name="postPrivacy" type="radio"
+               value="PRIVATE"/>
+        <span class="checkmark"></span>
+      </label>
+    </section>
+
+    <section *ngIf="showUploadPhotoMenu" class="yasn-post-extra-photo">
+      <div>
+        <mat-card [ngClass]="{'custom-card':true}">
+          <mat-card-content>
+            <ul>
+              <li *ngFor="let file of files">
+                <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+                <span id="file-label">{{file.name}}</span>
+              </li>
+            </ul>
+          </mat-card-content>
+          <mat-card-actions>
+            <button (click)="onUploadPic()" style="color: #0b769c" mat-button>
+              <mat-icon style="color: #0b769c">file_upload</mat-icon>
+              Upload picture...
+            </button>
+          </mat-card-actions>
+        </mat-card>
+        <input #fileUpload
+               accept="image/*"
+               id="fileUpload"
+               multiple="multiple"
+               name="fileUpload"
+               style="display:none;"
+               type="file"/>
+      </div>
+
+    </section>
+    <div *ngIf="tagFriendsMenu" class="">
+      <div class="yasn-post-extra-tag">
+
+      </div>
+    </div>
+  </div>
+</div>

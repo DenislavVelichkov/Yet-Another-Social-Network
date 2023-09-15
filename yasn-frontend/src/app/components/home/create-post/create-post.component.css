@@ -1,0 +1,138 @@
+.yasn-post-container {
+  display: block;
+  background-color: #fff;
+  padding: 1em;
+  width: 100%;
+  margin-bottom: 3em;
+}
+
+.yasn-post-buttons ul li {
+  padding: 0 0 0 1em;
+}
+
+.yasn-post-container > span {
+  display: block;
+  font-weight: bold;
+  color: rgb(105, 107, 110);
+}
+
+.yasn-post-container ul {
+  margin: 0;
+}
+
+.yasn-post-attributes-container textarea {
+  display: block;
+  width: 100%;
+  resize: none;
+  padding: 0.5em;
+  outline: 0;
+}
+
+.yasn-post-buttons li, .yasn-post-buttons span {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+.yasn-post-buttons {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.yasn-post-buttons li {
+  padding: 0.43em;
+  margin-top: 0.4em;
+  cursor: pointer;
+}
+
+.yasn-post-buttons li:hover {
+  color: rgba(11, 14, 17, 0.21);
+}
+
+.yasn-wall-post-form-button {
+  padding: 0;
+  margin: auto;
+  position: relative;
+  bottom: 2em;
+  float: right;
+}
+
+.yasn-post-btn-submit-container {
+  float: right;
+}
+
+.post-submit-btn {
+  border: none;
+  text-align: center;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 16px;
+  color: #929292;
+  cursor: pointer;
+  width: 100%;
+  padding: 0 1em 0;
+  display: inline-block;
+}
+
+.post-submit-btn:hover {
+  border: none;
+  text-align: center;
+  border-radius: 1em;
+  background-color: #f0f2f4;
+  font-weight: bold;
+  font-size: 16px;
+  color: #929292;
+  width: 100%;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#comment-text {
+  color: #222427;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 16px;
+}
+
+.arrow-element {
+  background-image: url("src/assets/static/images/menuIcons.png");
+  background-size: auto;
+  background-position: 0px -305px;
+  height: 11px;
+  position: relative;
+  top: 0.01em;
+  left: 5.5em;
+  width: 20px;
+}
+
+.emoji-container {
+  z-index: 1000;
+  position: absolute;
+  left: 0.9em;
+}
+
+.yasn-post-extra-privacy {
+  position: relative;
+  text-align: center;
+}
+
+.yasn-post-extra-privacy label .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.yasn-post-extra-privacy > label:nth-child(1) {
+  padding-right: 1rem;
+}
+
+.yasn-post-extra-photo {
+
+}
+
+

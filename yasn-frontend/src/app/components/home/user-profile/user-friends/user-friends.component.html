@@ -1,0 +1,7 @@
+<div class="yasn-friends">
+      <div *ngFor="let friend of friends" class="friends-info-container">
+        <div tooltip="{{friend.fullName}}" placement="top" delay="0">
+          <img class="friend-picture" src="{{friend.profilePicture}}" alt="friend-picture" [routerLink]="['/user/profile', friend.id]">
+        </div>
+      </div>
+</div>
