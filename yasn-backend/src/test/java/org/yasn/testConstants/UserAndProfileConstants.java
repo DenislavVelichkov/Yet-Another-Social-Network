@@ -1,4 +1,4 @@
-package org.java.yasn.testConstants;
+package org.yasn.testConstants;
 
 import java.sql.Timestamp;
 import java.util.Date;

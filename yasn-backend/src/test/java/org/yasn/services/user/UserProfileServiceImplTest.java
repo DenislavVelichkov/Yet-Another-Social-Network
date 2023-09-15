@@ -1,14 +1,15 @@
-package org.java.yasn.services.user;
+package org.yasn.services.user;
 
 import java.util.HashSet;
 
-import org.java.yasn.base.TestBase;
+import org.java.yasn.services.user.UserProfileService;
+import org.yasn.base.TestBase;
 import org.java.yasn.data.entities.user.User;
 import org.java.yasn.data.entities.user.UserProfile;
 import org.java.yasn.data.models.service.user.UserProfileServiceModel;
 import org.java.yasn.data.models.service.user.UserServiceModel;
 import org.java.yasn.repository.user.UserProfileRepository;
-import static org.java.yasn.testConstants.UserAndProfileConstants.*;
+import static org.yasn.testConstants.UserAndProfileConstants.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

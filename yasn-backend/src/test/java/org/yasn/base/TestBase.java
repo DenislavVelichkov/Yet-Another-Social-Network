@@ -1,4 +1,4 @@
-package org.java.yasn.base;
+package org.yasn.base;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
