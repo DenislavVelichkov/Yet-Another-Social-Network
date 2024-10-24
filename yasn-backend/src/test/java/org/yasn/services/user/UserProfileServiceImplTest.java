@@ -2,7 +2,12 @@ package org.yasn.services.user;
 
 import java.util.HashSet;
 
+import org.java.yasn.YasnApplication;
 import org.java.yasn.services.user.UserProfileService;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.yasn.base.TestBase;
 import org.java.yasn.data.entities.user.User;
 import org.java.yasn.data.entities.user.UserProfile;
@@ -17,6 +22,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+@ContextConfiguration(classes = YasnApplication.class)
 public class UserProfileServiceImplTest extends TestBase {
 
   User userExpected;
