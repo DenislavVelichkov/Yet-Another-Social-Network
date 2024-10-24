@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FooterComponent} from "../components/footer/footer.component";
-import {EnvironmentUrlService} from "./http/environment-url.service";
+import {FooterComponent} from '../components/footer/footer.component';
+import {EnvironmentUrlService} from './http/environment-url.service';
 import {HttpRepositoryService} from "./http/http-repository.service";
 import {NewsFeedService} from "./services/news-feed/news-feed.service";
 import {RouterModule} from "@angular/router";
@@ -89,8 +89,8 @@ import {EditUserGalleryComponent} from "../components/home/user-profile/edit-use
 export class CoreModule {
   /*Ensure one instance of the services*/
 
-  //Add additional services here !
-  static forRoot(): ModuleWithProviders {
+  // Add additional services here !
+  static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
       providers: [
