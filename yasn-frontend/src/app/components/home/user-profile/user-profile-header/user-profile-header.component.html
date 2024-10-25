@@ -1,0 +1,74 @@
+<div class="shadow mb-5 bg-white rounded">
+
+  <div class="cover-img-container">
+    <img alt="cover-profile-image" class="static-cover-img" src="{{profileOwnerState.coverPictureUrl}}"/>
+    <div class="cover-img-caption">
+      <img alt="profile-picture" class="z-depth-2 rounded profile-picture" src="{{profileOwnerState.avatarPictureUrl}}"/>
+      <p>{{profileOwnerState.userFullName}}</p>
+    </div>
+  </div>
+  <div class="profile-nav-container">
+    <div *ngIf="isActiveProfile" class="active-profile-cover-menu">
+      <ul>
+        <li>
+          <a routerLink="">
+            Timeline
+          </a>
+        </li>
+        <li>
+            <a href="">
+                Friends
+            </a>
+        </li>
+        <li>
+            <a (click)="editGallery()">
+                Photos
+            </a>
+        </li>
+        <li>
+
+        </li>
+        <li>
+          <div class="profile-action-buttons">
+            <a (click)="editProfile()">
+              Edit Profile
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="isGuestProfile" class="guest-profile-cover-menu">
+      <ul>
+        <li>
+          <a *ngIf="!pendingFrRequest && isGuestProfile && !areTheyFriends" (click)="addFriend()">
+            Add Friend
+          </a>
+          <a *ngIf="pendingFrRequest && isGuestProfile && !areTheyFriends" (click)="acceptFriendRequest()">
+            Accept Friend Request
+          </a>
+        </li>
+        <!-- <li>
+           <a href="">
+             Friends
+           </a>
+         </li>
+         <li>
+           <a href="">
+             Photos
+           </a>
+         </li>
+         <li>
+
+         </li>
+         <li>
+           <div class="profile-action-buttons">
+             <a routerLink="">
+               Edit Profile
+             </a>
+           </div>
+         </li>-->
+      </ul>
+    </div>
+  </div>
+</div>
+

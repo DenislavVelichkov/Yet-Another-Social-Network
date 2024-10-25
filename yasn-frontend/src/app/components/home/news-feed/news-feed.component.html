@@ -1,0 +1,57 @@
+<app-create-post></app-create-post>
+
+<div *ngFor="let post of newsFeedPosts">
+  <div class="post-container shadow p-2 mb-5 bg-white rounded">
+
+    <div class="post-meta-avatar">
+      <img alt="profile-avatar" class="user-img" src="{{post.ownerAvatarPictureUrl}}"/>
+      <a [routerLink]="['/user/profile', post.ownerProfileId]">{{post.ownerFullName}}</a>
+      <span>{{convertTime(post.createdOn)}}</span>
+    </div>
+
+    <div class="post-content">
+      <p>{{post.content}}</p>
+      <div *ngFor="let pic of post.postPicture" class="post-content-container">
+        <img alt="post-picture" class="post-img" src="{{pic}}"/>
+      </div>
+    </div>
+
+    <div class="comments-likes">
+      <ul>
+        <li>
+          <span id="likes-count">{{post.likesCount}} </span>
+          <i aria-hidden="true" class="far fa-thumbs-up"></i>
+        </li>
+        <li>
+          <span (click)="likeAPost(post.id, post.postLikedByCurrentUser)" class="post-like">
+            <span *ngIf="post.postLikedByCurrentUser">Unlike</span>
+            <span *ngIf="!post.postLikedByCurrentUser">Like</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <app-create-comment [postId]="post.id"></app-create-comment>
+
+    <div *ngFor="let comment of post.comments">
+      <hr class="post-delimiter">
+      <div class="post-comment-container">
+
+      <div class="post-comment-meta-avatar">
+        <img alt="profile-avatar" class="user-img" src="{{comment.avatarPictureUrl}}"/>
+        <a [routerLink]="['/user/profile', comment.commentOwnerProfileId]">{{comment.senderFullName}}</a>
+        <span>{{convertTime(comment.createdOn)}}</span>
+      </div>
+
+      <div class="post-comment-content">
+        <p>{{comment.content}}</p>
+        <div *ngFor="let commentPic of comment.pictures" class="post-content-container">
+          <img alt="post-picture" class="post-img" src="{{commentPic}}"/>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

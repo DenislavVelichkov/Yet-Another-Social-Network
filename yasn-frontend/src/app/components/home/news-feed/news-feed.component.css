@@ -1,0 +1,146 @@
+.post-meta-avatar {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  flex-direction: row;
+}
+
+.post-meta-avatar span {
+  flex: 1 1 100%;
+}
+
+.post-meta-avatar a {
+  flex: 1 1 66%;
+}
+
+.post-meta-avatar > span:nth-child(3) {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 0.7em;
+  flex: 0 0 auto;
+}
+
+.post-menu {
+  float: right;
+  color: #1b1e21;
+  cursor: pointer;
+}
+
+.post-menu ul.show {
+  display: inline-block;
+}
+
+.post-menu ul.show li {
+  display: inline-block;
+}
+
+.post-control-delete {
+  margin-left: 3em;
+  color: red !important;
+}
+
+.post-content {
+  flex: 1 1 100%;
+  margin: 1em 0 0 0;
+}
+
+.user-img {
+  width: 4em;
+  height: auto;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #fff;
+}
+
+.post-contents {
+  margin-top: 2em;
+}
+
+.comments-likes {
+  display: block;
+  margin-top: 2em;
+}
+
+.comments-likes li {
+  display: inline-block;
+  float: right;
+
+}
+
+.post-meta-info > span {
+  color: rgba(93, 93, 93, 0.48);
+  font-style: italic;
+}
+
+.post-container {
+  margin-top: 1em;
+  border-radius: 1em;
+  background-color: rgba(233, 235, 238, 0.65);
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.post-delimiter {
+  margin: 1em 2em 0;
+}
+
+.img-container {
+  display: block;
+}
+
+.post-content-pic {
+  padding: 1em;
+}
+
+.post-img {
+  border-radius: 5px;
+  height: auto;
+  width: 100%;
+}
+
+.post-like {
+  font-weight: 400;
+  padding-right: 1.5em;
+  cursor: pointer;
+}
+
+.post-content-container {
+  margin: 0 0 1em 0;
+}
+
+.post-comment-meta-avatar {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  flex-direction: row;
+  margin: 1em 0 0 0;
+}
+
+.post-comment-meta-avatar span {
+  flex: 1 1 100%;
+}
+
+.post-comment-meta-avatar a {
+  flex: 1 1 66%;
+}
+
+.post-comment-meta-avatar > span:nth-child(3) {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 0.7em;
+  flex: 0 0 auto;
+}
+
+.post-comment-content {
+  flex: 1 1 100%;
+  margin: 1em 0 0 0;
+}
+
+.post-comment-container {
+  background-color: rgba(233, 235, 238, 0.7);
+  border-radius: 1em;
+}
+
+

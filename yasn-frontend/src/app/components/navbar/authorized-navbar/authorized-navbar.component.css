@@ -1,0 +1,154 @@
+.notification-content-container {
+  display: flex;
+  padding: 0.5em;
+  flex-direction: row;
+  overflow: hidden;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: inherit;
+  background-color: #FFFFFF;
+}
+
+.notification-content-container:hover {
+  background-color: rgba(11, 118, 156, 0.26) !important;
+}
+
+.notification-content-avatar {
+  display: block;
+  max-width: 13%;
+  width: auto;
+  height: auto;
+  margin: auto;
+}
+
+.notification-content-container p {
+  flex: 0 0 75%;
+}
+
+.notification-time {
+  font-style: italic;
+  font-size: 10px;
+  flex: 0 0 10%;
+  padding: 0 0 0 0.5em;
+}
+
+.notification-close {
+  flex: 0 0 2%;
+  color: red;
+  font-weight: bold;
+  align-self: center;
+}
+
+.notification-close:hover {
+  text-decoration: underline;
+}
+
+.notifications-dropdown-container {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  background-color: #FFFFFF;
+  border-radius: 0 0 2px 2px;
+  border: 1px solid gray;
+  color: #1d2129;
+  overflow: visible;
+  z-index: 1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  background-clip: padding-box;
+  transform: translate3d(0px, 59px, 0px);
+}
+
+/*Header- Authorized*/
+
+#yasn-home-header-container {
+  background-color: #0b769c;
+}
+
+.navbar-menu-right {
+  display: block;
+  justify-content: right;
+  padding: 1rem;
+}
+
+.navbar-menu-right ul {
+  margin: 0;
+}
+
+.navbar-menu-right ul > li i:hover {
+  color: #fff;
+}
+
+.navbar-menu-right ul > li i {
+  color: #212529;
+}
+
+.navbar-menu-right ul li {
+  display: inline-block;
+  margin: 0 0.33em 0;
+}
+
+.navbar-menu-right ul li:hover {
+  cursor: pointer;
+  background-color: rgba(165, 188, 194, 0.15);
+}
+
+.dropdown-menu.show li {
+  display: block;
+}
+
+.navbar-menu-right i {
+  font-size: 1.5rem;
+}
+
+.navbar-dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dropdown-menu li a {
+  color: #1b1e21;
+  font-family: Helvetica, cursive;
+}
+
+.dropdown-menu li a:hover {
+  color: #1b1e21;
+  text-decoration: none;
+}
+
+.dropdown-menu.show {
+  margin-top: 1rem;
+}
+
+.fa.fa-sign-out-alt {
+  font-size: 1em !important;
+}
+
+.nav-tabs {
+  border-bottom: 0 solid #dee2e6 !important;
+}
+
+#avatar-picture {
+  width: 2.8em;
+  height: auto;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #fff;
+}
+
+#avatar-name {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  vertical-align: bottom;
+}
+
+.navbar-avatar-container {
+  display: block;
+  margin: 0.4em 0 0;
+}

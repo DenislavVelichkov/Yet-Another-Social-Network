@@ -1,0 +1,63 @@
+.yasn-friends {
+  display: flex;
+  margin: 0.5em 0 1em;
+  padding: 0 0.5em 0;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: center;
+}
+
+.friends-info-container {
+  flex: 0 0 29%;
+}
+
+.friend-picture {
+  display: block;
+  height: auto;
+  width: 100%;
+  cursor: pointer;
+}
+
+/*.friend-name {
+  display: inline-block;
+  position: relative;
+  bottom: 94px;
+  left: 0;
+  color: #495057;
+  font-weight: 500;
+}*/
+
+/*Tooltip*/
+
+.ng-tooltip {
+  position: absolute;
+  max-width: 150px;
+  font-size: 14px;
+  text-align: center;
+  color: #f8f8f2;
+  padding: 3px 8px;
+  background: #282a36;
+  border-radius: 4px;
+  z-index: 1000;
+  opacity: 0;
+}
+
+.ng-tooltip:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+}
+
+.ng-tooltip-top:after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: black transparent transparent transparent;
+}
+
+.ng-tooltip-show {
+  opacity: 1;
+}

@@ -1,0 +1,11 @@
+::ng-deep .mat-snack-bar-container{
+  color: black !important;
+  background-color: rgba(252, 89, 89, 0.91) !important;
+  border-color: #c3e6cb !important;
+  text-align: center!important;
+  font-weight: bold;
+}
+
+::ng-deep .mat-simple-snackbar-action {
+  color: red;
+}

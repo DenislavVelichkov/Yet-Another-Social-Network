@@ -1,0 +1,40 @@
+<header>
+  <app-authorized-navbar></app-authorized-navbar>
+</header>
+
+<div class="row" id="user-profile-body-container">
+
+  <div class="col-3" id="user-profile-sidebar-left">
+
+  </div>
+
+  <div class="col-6" id="user-profile-main">
+
+    <div class="user-profile-container">
+      <app-user-profile-header
+        [selectedProfileId]="selectedProfileId"
+        [loggedInProfileId]="loggedInProfileId"
+        [profileOwnerState]="selectedProfileState"
+        [isGuestProfile]="isGuestProfile"
+        [isActiveProfile]="isProfileOwnerLoggedIn"
+        [areTheyFriends]="areTheyFriends"></app-user-profile-header>
+      <app-user-profile-body
+        [selectedProfileId]="selectedProfileId"
+        [loggedInProfileId]="loggedInProfileId"
+        [profileOwnerState]="selectedProfileState"
+        [isGuestProfile]="isGuestProfile"
+        [isActiveProfile]="isProfileOwnerLoggedIn"
+        [areTheyFriends]="areTheyFriends"></app-user-profile-body>
+    </div>
+
+  </div>
+
+  <div class="col-3" id="user-profile-right">
+
+  </div>
+
+</div>
+
+<footer>
+  <app-footer></app-footer>
+</footer>

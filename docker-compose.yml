@@ -1,0 +1,42 @@
+services:
+
+  java-api:
+    build: yasn-backend/
+    container_name: yasn-backend
+    depends_on:
+      - mysql-db
+    links:
+      - mysql-db
+    restart: on-failure
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/yasn_db?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=true&character_set_server=utf8mb4
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+
+    ports:
+      - "8000:8000"
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: yasn_db
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3306"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+    ports:
+      - "3306:3306"
+
+  angular-client:
+    build: yasn-frontend/
+    container_name: yasn-frontend
+
+    ports:
+      - "4200:4200"

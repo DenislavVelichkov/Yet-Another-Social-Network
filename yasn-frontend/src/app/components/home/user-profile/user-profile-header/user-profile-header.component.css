@@ -1,0 +1,117 @@
+.user-cover-container {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.cover-img-container::before {
+  display: block;
+  content: '';
+  padding-top: 294px;
+}
+
+.cover-img-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.static-cover-img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  display: block;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.cover-img-caption {
+  display: flex;
+  position: absolute;
+  top: 45%;
+  left: 0;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.cover-img-caption p {
+  position: relative;
+  top: 0;
+  left: 6%;
+  margin-top: auto;
+  margin-bottom: 0;
+  flex-grow: 1;
+  font-size: 2em;
+  font-weight: bolder;
+  color: #fff;
+}
+
+.profile-nav-container {
+  display: block;
+  width: 100%;
+}
+
+.profile-nav-container li{
+  cursor: pointer;
+}
+
+.active-profile-cover-menu > ul {
+  margin-top: 1rem;
+  padding-bottom: 1em;
+}
+
+.active-profile-cover-menu li {
+  display: inline;
+  text-align: center;
+  padding: 0 1em 0;
+
+}
+
+.active-profile-cover-menu > ul a {
+  font-weight: bold;
+  color: #4e555b;
+}
+
+.guest-profile-cover-menu > ul {
+  margin-top: 1rem;
+  padding-bottom: 1em;
+}
+
+.guest-profile-cover-menu li {
+  display: inline;
+  text-align: center;
+  padding: 0 1em 0;
+  cursor: pointer;
+}
+
+.guest-profile-cover-menu > ul a {
+  font-weight: bold;
+  color: #4e555b;
+}
+
+.profile-action-buttons {
+  display: inline-block;
+  float: right;
+}
+
+.profile-action-buttons a {
+  padding: 0 1em 0;
+}
+
+.profile-picture {
+  flex: 0 1 14%;
+  position: relative;
+  height: auto;
+  width: 0; /*For Chrome...*/
+  top: 44%;
+  left: 5%;
+  box-shadow: 0 0 0.6em #fff;
+}
+
+.profile-action-buttons a {
+  cursor: pointer;
+}
