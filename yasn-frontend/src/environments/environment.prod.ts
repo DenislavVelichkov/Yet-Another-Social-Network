@@ -2,6 +2,6 @@ export const environment = {
   production: true,
   uiUrlAddress: 'https://yasn.hommunity.net',
   apiEndPointAddress: 'https://yasn.hommunity.net',
-  websocketSockJSFactory: 'http://yasn.hommunity.net/stomp',
+  websocketSockJSFactory: 'https://yasn.hommunity.net/stomp',
   websocketStompFactory: 'wss://yasn.hommunity.net/ws'
 };

@@ -7,7 +7,7 @@ export const environment = {
   uiUrlAddress: 'http://localhost:4200',
   apiEndPointAddress: 'http://localhost:8000',
   websocketSockJSFactory: 'http://localhost:8000/stomp',
-  websocketStompFactory: 'wss://localhost:8000/ws'
+  websocketStompFactory: 'ws://localhost:8000/ws'
 };
 
 /*
