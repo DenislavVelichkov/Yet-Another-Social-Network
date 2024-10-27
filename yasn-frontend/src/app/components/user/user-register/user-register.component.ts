@@ -43,7 +43,7 @@ export class UserRegisterComponent implements OnInit {
       {type: 'application/json'}
     );
 
-    formData.append("registerModel", userBlobModel);
+    formData.append('registerModel', userBlobModel);
 
     this.auth.registerUser(formData).subscribe({
       next: (data) => {

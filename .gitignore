@@ -80,7 +80,5 @@ dist/
 /.nb-gradle/
 build/
 out/
-build.sh
-deploy.sh
-kubernetes/
+yasn-app-secrets.yaml
 .angular/

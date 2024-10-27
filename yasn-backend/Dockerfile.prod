@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:11-jre-slim
 
 RUN mkdir -p /app
 
@@ -8,4 +8,4 @@ COPY ./target/yasn-backend-1.0.0-SNAPSHOT.jar /app/
 
 EXPOSE 8000
 
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=container", "yasn-backend-1.0.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "yasn-backend-1.0.0-SNAPSHOT.jar"]

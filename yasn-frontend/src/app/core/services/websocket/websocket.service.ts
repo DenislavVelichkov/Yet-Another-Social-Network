@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subscriber} from "rxjs";
-import {Client} from "@stomp/stompjs";
+import {Observable, Subscriber} from 'rxjs';
+import {Client} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
-import {WebSocketEndpoints} from "../../../shared/common/WebSocketEndpoints";
-import {Store} from "@ngrx/store";
-import {AppState} from "../../store/app.state";
-import {AuthService} from "../authentication/auth.service";
+import {WebSocketEndpoints} from '../../../shared/common/WebSocketEndpoints';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.state';
+import {AuthService} from '../authentication/auth.service';
+import {EnvironmentUrlService} from '../../http/environment-url.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,18 +27,19 @@ export class WebsocketService {
 
   private unlikesData$: Subscriber<any>;
 
-  private userSpecificData$: Subscriber<any>
+  private userSpecificData$: Subscriber<any>;
 
   constructor(private store$: Store<AppState>,
-              private auth: AuthService) {
+              private auth: AuthService,
+              private envUrl: EnvironmentUrlService) {
     this.loggedInProfileUsername = this.auth.getActiveUser().userName;
   }
 
   async connect() {
     const _this = this;
 
-     _this.stompClient = await new Client({
-      brokerURL: WebSocketEndpoints.websocketStompFactory,
+    _this.stompClient = await new Client({
+      brokerURL: this.envUrl.websocketStompFactory,
       debug: function (str) {
         console.log(str);
       },
@@ -47,7 +49,7 @@ export class WebsocketService {
     });
 
     _this.stompClient.webSocketFactory = function () {
-      return new SockJS.default(WebSocketEndpoints.websocketSockJSFactory);
+      return new SockJS.default(_this.envUrl.websocketSockJSFactory);
     };
 
     _this.stompClient.onWebSocketError = await function (ev) {
@@ -64,20 +66,20 @@ export class WebsocketService {
         _this.userSpecificData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(WebSocketEndpoints.topicCreatedNewPost,function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicCreatedNewPost, function (data) {
         _this.postData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(WebSocketEndpoints.topicNotificationFriendRequest,function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicNotificationFriendRequest, function (data) {
         _this.newFrRequestData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(WebSocketEndpoints.topicLike,function (data) {
+      _this.stompClient.subscribe(WebSocketEndpoints.topicLike, function (data) {
         _this.likesData$.next(data.body);
       });
 
-      _this.stompClient.subscribe(WebSocketEndpoints.topicUnLike,function (data) {
-         _this.unlikesData$.next(data.body);
+      _this.stompClient.subscribe(WebSocketEndpoints.topicUnLike, function (data) {
+        _this.unlikesData$.next(data.body);
       });
 
       _this.stompClient.subscribe(WebSocketEndpoints.topicCommentOnPost, function (data) {

@@ -1,0 +1,153 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yasn-backend
+  namespace: yasn-app
+  labels:
+    app: yasn-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yasn-backend
+  template:
+    metadata:
+      labels:
+        app: yasn-backend
+    spec:
+      containers:
+        - name: yasn-backend-container
+          image: dvelichkov88/private-repo:yasn-backend-1.0.0
+          ports:
+            - containerPort: 8000
+              name: container-port
+              protocol: TCP
+          imagePullPolicy: Always
+          env:
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: yasn-secrets
+                  key: CLOUDINARY_API_KEY
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: yasn-secrets
+                  key: CLOUDINARY_API_SECRET
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: yasn-secrets
+                  key: DB_PASSWORD
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yasn-backend-service
+  namespace: yasn-app
+  labels:
+    app: yasn-backend
+spec:
+  ports:
+    - port: 9800
+      targetPort: 8000
+      protocol: TCP
+      name: container-port
+  selector:
+    app: yasn-backend
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yasn-mysql
+  namespace: yasn-app
+  labels:
+    app: yasn-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yasn-mysql
+  template:
+    metadata:
+      labels:
+        app: yasn-mysql
+    spec:
+      containers:
+        - name: yasn-mysql-container
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+              name: mysql
+              protocol: TCP
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: yasn-secrets
+                  key: DB_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yasn-mysql-service
+  namespace: yasn-app
+  labels:
+    app: yasn-mysql
+spec:
+  ports:
+    - port: 9306
+      targetPort: 3306
+      protocol: TCP
+      name: mysql
+  selector:
+    app: yasn-mysql
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yasn-frontend
+  namespace: yasn-app
+  labels:
+    app: yasn-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yasn-frontend
+  template:
+    metadata:
+      labels:
+        app: yasn-frontend
+    spec:
+      containers:
+        - name: yasn-frontend-container
+          image: dvelichkov88/private-repo:yasn-frontend-1.0.0
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yasn-frontend-service
+  namespace: yasn-app
+  labels:
+    app: yasn-frontend
+spec:
+  ports:
+    - port: 11080
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: yasn-frontend
+  type: LoadBalancer

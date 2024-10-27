@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myregistry
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: myregistry
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myregistry
+    spec:
+      containers:
+      - name: registry
+        image: registry:2
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: registry-data
+          mountPath: /var/lib/registry
+      volumes:
+      - name: registry-data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myregistry
+  namespace: kube-system
+spec:
+  selector:
+    app: myregistry
+  ports:
+  - name: http
+    port: 80
+    targetPort: 5000
+  - name: https
+    port: 443
+    targetPort: 5000
+  type: NodePort

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/home")
-@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class HomeController {
 

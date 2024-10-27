@@ -47,8 +47,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and().requiresChannel()
-        .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-        .requiresSecure();
+        .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null);
   }
 
   @Override

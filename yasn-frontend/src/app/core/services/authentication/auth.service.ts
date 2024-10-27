@@ -55,7 +55,7 @@ export class AuthService {
 
     this.store$.dispatch(new LogoutAction(nullPayload));
 
-    localStorage.clear()
+    localStorage.clear();
 
     this.router.navigate(['/user/login']).catch(reason => throwError(reason));
 
@@ -87,7 +87,7 @@ export class AuthService {
   }
 
   registerUser(formData: FormData): Observable<Object> {
-    return this.httpRepo.create(EndpointUrls.registerUser, formData);
+    return this.httpRepo.create(EndpointUrls.registerUser, formData, 'formData');
   }
 
   isUserLoggedIn(): boolean {

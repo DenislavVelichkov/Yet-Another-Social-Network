@@ -6,6 +6,7 @@ import org.java.yasn.YasnApplication;
 import org.java.yasn.services.user.UserProfileService;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.yasn.base.TestBase;
@@ -22,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+@ActiveProfiles("test")
 @ContextConfiguration(classes = YasnApplication.class)
 public class UserProfileServiceImplTest extends TestBase {
 

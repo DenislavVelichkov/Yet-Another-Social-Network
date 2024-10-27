@@ -100,9 +100,12 @@ public class ApplicationBeanConfiguration {
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
+
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
     CorsConfiguration corsConfiguration =
         new CorsConfiguration().applyPermitDefaultValues();
+
     corsConfiguration.addAllowedMethod(HttpMethod.PUT);
     corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
     corsConfiguration.addAllowedMethod(HttpMethod.GET);
